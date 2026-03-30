@@ -1,0 +1,101 @@
+<div class="custom-full-width-banner">
+  {% if section.settings.banner_link != blank %}
+    <a href="{{ section.settings.banner_link }}" class="custom-banner-link">
+  {% endif %}
+
+  <div class="custom-banner-image-wrapper">
+    {% if section.settings.desktop_image != blank %}
+      {{
+        section.settings.desktop_image
+        | image_url: width: 3840
+        | image_tag: loading: 'lazy', sizes: '100vw', class: 'custom-banner-desktop-img'
+      }}
+    {% else %}
+      {{ 'lifestyle-2' | placeholder_svg_tag: 'placeholder-svg custom-banner-desktop-img' }}
+    {% endif %}
+
+    {% if section.settings.mobile_image != blank %}
+      {{
+        section.settings.mobile_image
+        | image_url: width: 1500
+        | image_tag: loading: 'lazy', sizes: '100vw', class: 'custom-banner-mobile-img'
+      }}
+    {% endif %}
+  </div>
+
+  {% if section.settings.banner_link != blank %}
+    </a>
+  {% endif %}
+</div>
+
+<style>
+  .custom-full-width-banner {
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    margin-right: calc(-50vw + 50%);
+    overflow: hidden;
+  }
+  .custom-banner-link {
+    display: block;
+    width: 100%;
+  }
+  .custom-banner-image-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .custom-banner-desktop-img,
+  .custom-banner-mobile-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+  }
+  .custom-banner-mobile-img {
+    display: none;
+  }
+
+  {% if section.settings.mobile_image != blank %}
+    @media screen and (max-width: 768px) {
+      .custom-banner-desktop-img {
+        display: none;
+      }
+      .custom-banner-mobile-img {
+        display: block;
+      }
+    }
+  {% endif %}
+</style>
+
+{% schema %}
+{
+  "name": "Custom Full Width Banner",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "desktop_image",
+      "label": "Desktop Image",
+      "info": "This image will be shown on desktop screens."
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_image",
+      "label": "Mobile Image",
+      "info": "This image will be shown on mobile screens. Uses proper aspect ratio automatically."
+    },
+    {
+      "type": "url",
+      "id": "banner_link",
+      "label": "Banner Link",
+      "info": "Optional link for the entire banner."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Full Width Banner",
+      "category": "Image"
+    }
+  ]
+}
+{% endschema %}
