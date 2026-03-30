@@ -48,7 +48,7 @@
 
   .shop-by-type-{{ section.id }} .image-wrapper {
     width: 100%;
-    aspect-ratio: 1 / 1.4;
+    aspect-ratio: 1 / 1.8; /* Increased height as requested */
     overflow: hidden;
     position: relative;
     background: #fdfdfd;
@@ -98,10 +98,20 @@
 
   @media screen and (max-width: 749px) {
     .shop-by-type-{{ section.id }} .swiper-slide {
-      width: 200px;
+      width: 220px;
     }
     .shop-by-type-{{ section.id }} .section-title {
       font-size: 24px;
+    }
+    .shop-by-type-{{ section.id }} .swiper-button-next,
+    .shop-by-type-{{ section.id }} .swiper-button-prev {
+      width: 35px;
+      height: 35px;
+      top: 40% !important;
+    }
+    .shop-by-type-{{ section.id }} .swiper-button-next:after,
+    .shop-by-type-{{ section.id }} .swiper-button-prev:after {
+      font-size: 14px;
     }
   }
 {%- endstyle -%}
@@ -156,7 +166,7 @@
       centeredSlides: true,
       slidesPerView: 'auto',
       initialSlide: 3,
-      loop: false,
+      loop: true,
       coverflowEffect: {
         rotate: 0,
         stretch: -60,
@@ -195,7 +205,7 @@
             centeredSlides: true,
             slidesPerView: 'auto',
             initialSlide: 3,
-            loop: false,
+            loop: true,
             coverflowEffect: {
               rotate: 0,
               stretch: -60,
