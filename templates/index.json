@@ -13,10 +13,14 @@
       "type": "review-section",
       "settings": {}
     },
+    "shop_by_type": {
+      "type": "shop-by-type",
+      "settings": {}
+    },
     "custom_banner": {
       "type": "custom-banner",
       "settings": {}
     }
   },
-  "order": ["review_section", "custom_banner"]
+  "order": ["review_section", "shop_by_type", "custom_banner"]
 }
