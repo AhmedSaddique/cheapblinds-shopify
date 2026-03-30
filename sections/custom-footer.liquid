@@ -2,92 +2,98 @@
 
 <footer class="custom-footer" style="--footer-bg-color: {{ section.settings.bg_color }}; --footer-text-color: {{ section.settings.text_color }};">
   <div class="page-width">
-    
-    <div class="custom-footer__top">
-      <div class="custom-footer__contact">
+    <div class="custom-footer__grid">
+      
+      <!-- Left Column (Image & Contact) -->
+      <div class="custom-footer__col-left">
         {%- if section.settings.image != blank -%}
-          <div class="custom-footer__contact-img-wrap">
-             {{ section.settings.image | image_url: width: 400 | image_tag: loading: 'lazy' }}
-          </div>
+          <img src="{{ section.settings.image | image_url: width: 800 }}" class="custom-footer__main-img" alt="" loading="lazy">
         {%- endif -%}
         
-        <div class="custom-footer__contact-content">
+        <div class="custom-footer__col-left-content">
           {%- if section.settings.contact_heading != blank -%}
             <h3>{{ section.settings.contact_heading }}</h3>
           {%- endif -%}
           
-          {%- if section.settings.timing_1 != blank or section.settings.timing_2 != blank -%}
-            <div class="custom-footer__contact-item">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-              <div>
-                {%- if section.settings.timing_1 != blank -%}<div>{{ section.settings.timing_1 }}</div>{%- endif -%}
-                {%- if section.settings.timing_2 != blank -%}<div>{{ section.settings.timing_2 }}</div>{%- endif -%}
+          <div class="custom-footer__contact-info">
+            {%- if section.settings.timing_1 != blank or section.settings.timing_2 != blank -%}
+              <div class="custom-footer__contact-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                <div>
+                  {%- if section.settings.timing_1 != blank -%}<div>{{ section.settings.timing_1 }}</div>{%- endif -%}
+                  {%- if section.settings.timing_2 != blank -%}<div>{{ section.settings.timing_2 }}</div>{%- endif -%}
+                </div>
               </div>
-            </div>
-          {%- endif -%}
-          
-          {%- if section.settings.phone != blank -%}
-            <div class="custom-footer__contact-item">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-              <div>{{ section.settings.phone }}</div>
-            </div>
-          {%- endif -%}
-          
-          {%- if section.settings.address != blank -%}
-            <div class="custom-footer__contact-item">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
-              <div>{{ section.settings.address }}</div>
-            </div>
-          {%- endif -%}
+            {%- endif -%}
+            
+            {%- if section.settings.phone != blank -%}
+              <div class="custom-footer__contact-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                <div>{{ section.settings.phone }}</div>
+              </div>
+            {%- endif -%}
+            
+            {%- if section.settings.address != blank -%}
+              <div class="custom-footer__contact-item">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                <div>{{ section.settings.address }}</div>
+              </div>
+            {%- endif -%}
+          </div>
         </div>
       </div>
       
-      <div class="custom-footer__menus">
-        {%- for i in (1..3) -%}
-          {%- capture menu_setting -%}menu_{{ i }}{%- endcapture -%}
-          {%- capture menu_heading_setting -%}menu_heading_{{ i }}{%- endcapture -%}
-          
-          {%- assign menu = section.settings[menu_setting] -%}
-          {%- assign heading = section.settings[menu_heading_setting] -%}
-          
-          {%- if menu != blank or heading != blank -%}
-            <div class="custom-footer__menu-col">
-              {%- if heading != blank -%}
-                <h3>{{ heading }}</h3>
-              {%- endif -%}
-              {%- if menu != blank -%}
-                <ul>
-                  {%- for link in menu.links -%}
-                    <li><a href="{{ link.url }}">{{ link.title }}</a></li>
-                  {%- endfor -%}
-                </ul>
-              {%- endif -%}
-            </div>
-          {%- endif -%}
-        {%- endfor -%}
-      </div>
-    </div>
-    
-    <div class="custom-footer__mid">
-      <div class="custom-footer__payment">
-        <div class="custom-footer__payment-title">Choose Your Payment Method</div>
-        <div class="custom-footer__payment-icons">
-          {%- for type in shop.enabled_payment_types -%}
-            {{ type | payment_type_svg_tag: class: 'icon icon--full-color' }}
+      <!-- Right Column (Menus, Payment, Newsletter) -->
+      <div class="custom-footer__col-right">
+        
+        <div class="custom-footer__menus">
+          {%- for i in (1..3) -%}
+            {%- capture menu_setting -%}menu_{{ i }}{%- endcapture -%}
+            {%- capture menu_heading_setting -%}menu_heading_{{ i }}{%- endcapture -%}
+            
+            {%- assign menu = section.settings[menu_setting] -%}
+            {%- assign heading = section.settings[menu_heading_setting] -%}
+            
+            {%- if menu != blank or heading != blank -%}
+              <div class="custom-footer__menu-col">
+                {%- if heading != blank -%}
+                  <h3>{{ heading }}</h3>
+                {%- endif -%}
+                {%- if menu != blank -%}
+                  <ul>
+                    {%- for link in menu.links -%}
+                      <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                    {%- endfor -%}
+                  </ul>
+                {%- endif -%}
+              </div>
+            {%- endif -%}
           {%- endfor -%}
         </div>
+        
+        <div class="custom-footer__mid-components">
+          <div class="custom-footer__payment">
+            <div class="custom-footer__payment-title">Choose Your Payment Method</div>
+            <div class="custom-footer__payment-icons">
+              {%- for type in shop.enabled_payment_types -%}
+                {{ type | payment_type_svg_tag: class: 'icon icon--full-color' }}
+              {%- endfor -%}
+            </div>
+          </div>
+          
+          <div class="custom-footer__newsletter">
+            <div class="custom-footer__newsletter-title">{{ section.settings.newsletter_heading }}</div>
+            {%- form 'customer', class: 'custom-footer__newsletter-form' -%}
+              <input type="hidden" name="contact[tags]" value="newsletter">
+              <input type="email" name="contact[email]" class="custom-footer__newsletter-input" placeholder="Enter your email address" required>
+              <button type="submit" class="custom-footer__newsletter-btn">Sign up</button>
+            {%- endform -%}
+          </div>
+        </div>
+        
       </div>
       
-      <div class="custom-footer__newsletter">
-        <div class="custom-footer__newsletter-title">{{ section.settings.newsletter_heading }}</div>
-        {%- form 'customer', class: 'custom-footer__newsletter-form' -%}
-          <input type="hidden" name="contact[tags]" value="newsletter">
-          <input type="email" name="contact[email]" class="custom-footer__newsletter-input" placeholder="Enter your email address" required>
-          <button type="submit" class="custom-footer__newsletter-btn">Sign up</button>
-        {%- endform -%}
-      </div>
     </div>
-    
   </div>
   
   <div class="custom-footer__bottom" style="--footer-bottom-bg: {{ section.settings.bottom_bg_color }}; --footer-bottom-text: {{ section.settings.bottom_text_color }};">
