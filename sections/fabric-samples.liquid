@@ -1,0 +1,226 @@
+<!-- sections/fabric-samples.liquid -->
+
+<style>
+  .fabric-samples {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    background-color: {{ section.settings.bg_color_left }};
+  }
+
+  .fabric-samples__container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    overflow: hidden;
+    border-radius: {{ section.settings.border_radius }}px;
+    background-color: {{ section.settings.bg_color_left }};
+  }
+
+  .fabric-samples__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    background-color: {{ section.settings.bg_color_left }};
+  }
+
+  .fabric-samples__media {
+    position: relative;
+    background-color: {{ section.settings.bg_color_right }};
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    aspect-ratio: {{ section.settings.aspect_ratio | default: '16 / 10' }};
+  }
+
+  .fabric-samples__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Keep the fabric fan visible and high quality */
+    display: block;
+  }
+
+  .fabric-samples__title {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 25px;
+  }
+
+  .fabric-samples__text {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 35px;
+    max-width: 500px;
+  }
+
+  .fabric-samples__button {
+    background-color: {{ section.settings.btn_color }};
+    padding: 12px 30px;
+    border-radius: 50px; /* Rounded pill button as seen in image */
+    font-weight: 700;
+    text-decoration: none;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    display: inline-block;
+    font-size: 14px;
+    text-transform: capitalize;
+  }
+
+  .fabric-samples__button:hover {
+    transform: translateY(-2px);
+    opacity: 0.9;
+  }
+
+  /* Responsive: Image on Top or Bottom for Mobile */
+  @media screen and (max-width: 749px) {
+    .fabric-samples__container {
+      grid-template-columns: 1fr;
+    }
+    .fabric-samples__content {
+      padding: 40px 20px;
+      text-align: center;
+      align-items: center;
+    }
+    .fabric-samples__title {
+      font-size: 24px;
+    }
+    .fabric-samples__media {
+      grid-row: 1; /* Match the "Image/Video First" pattern */
+    }
+  }
+</style>
+
+<div class="fabric-samples">
+  <div class="page-width">
+    <div class="fabric-samples__container">
+      <!-- Text Side -->
+      <div class="fabric-samples__content">
+        {%- if section.settings.title != blank -%}
+          <h2 class="fabric-samples__title">{{ section.settings.title | escape }}</h2>
+        {%- endif -%}
+
+        {%- if section.settings.text != blank -%}
+          <div class="fabric-samples__text">
+            {{ section.settings.text }}
+          </div>
+        {%- endif -%}
+
+        {%- if section.settings.btn_text != blank -%}
+          <a href="{{ section.settings.btn_link | default: '#' }}" class="fabric-samples__button">
+            {{ section.settings.btn_text | escape }}
+          </a>
+        {%- endif -%}
+      </div>
+
+      <!-- Media Side -->
+      <div class="fabric-samples__media">
+        {%- if section.settings.image != blank -%}
+          {{ section.settings.image | image_url: width: 1200 | image_tag: loading: 'lazy', class: 'fabric-img' }}
+        {%- else -%}
+          {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Fabric Samples Banner",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Free Fabric Samples"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Description",
+      "default": "<p>Picking the perfect blinds isn't just about looks. It's about how they feel in your space under the Gulf sun. We'll send a handpicked selection straight to your door.</p>"
+    },
+    {
+      "type": "text",
+      "id": "btn_text",
+      "label": "Button Label",
+      "default": "Order Up To 5 Free Samples"
+    },
+    {
+      "type": "url",
+      "id": "btn_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "color",
+      "id": "btn_color",
+      "label": "Button Color",
+      "default": "#FEB907"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Fabric Samples Image"
+    },
+    {
+      "type": "text",
+      "id": "aspect_ratio",
+      "label": "Image Aspect Ratio",
+      "default": "1 / 1",
+      "info": "Example: 1 / 1, 4 / 3, 16 / 9"
+    },
+    {
+      "type": "color",
+      "id": "bg_color_left",
+      "label": "Left Side Background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "bg_color_right",
+      "label": "Right Side Background",
+      "default": "#FEF9E7"
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "label": "Border Radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "default": 0,
+      "unit": "px"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 36
+    }
+  ],
+  "presets": [
+    {
+      "name": "Fabric Samples Banner"
+    }
+  ]
+}
+{% endschema %}

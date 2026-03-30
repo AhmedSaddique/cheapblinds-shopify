@@ -9,18 +9,137 @@
  */
 {
   "sections": {
-    "review_section": {
-      "type": "review-section",
+    "custom_banner": {
+      "type": "custom-banner",
       "settings": {}
     },
     "shop_by_type": {
       "type": "shop-by-type",
+      "blocks": {
+        "category_1": {
+          "type": "category",
+          "settings": { "title": "Inari Ebony" }
+        },
+        "category_2": {
+          "type": "category",
+          "settings": { "title": "Aurora Spa" }
+        },
+        "category_3": {
+          "type": "category",
+          "settings": { "title": "Basalt Dove" }
+        },
+        "category_4": {
+          "type": "category",
+          "settings": { "title": "Lunda White" }
+        },
+        "category_5": {
+          "type": "category",
+          "settings": { "title": "Dorian Beige" }
+        },
+        "category_6": {
+          "type": "category",
+          "settings": { "title": "Dorian Cyan" }
+        },
+        "category_7": {
+          "type": "category",
+          "settings": { "title": "Dorian Navy" }
+        }
+      },
+      "block_order": [
+        "category_1",
+        "category_2",
+        "category_3",
+        "category_4",
+        "category_5",
+        "category_6",
+        "category_7"
+      ],
       "settings": {}
     },
-    "custom_banner": {
-      "type": "custom-banner",
+    "shop_by_colour": {
+      "type": "shop-by-colour",
+      "blocks": {
+        "color_1": { "type": "color_block", "settings": { "name": "White" } },
+        "color_2": { "type": "color_block", "settings": { "name": "Cream" } },
+        "color_3": { "type": "color_block", "settings": { "name": "Grey" } },
+        "color_4": {
+          "type": "color_block",
+          "settings": { "name": "Charcoal" }
+        },
+        "color_5": { "type": "color_block", "settings": { "name": "Black" } },
+        "color_6": { "type": "color_block", "settings": { "name": "Navy" } },
+        "color_7": { "type": "color_block", "settings": { "name": "Teal" } },
+        "color_8": { "type": "color_block", "settings": { "name": "Green" } },
+        "color_9": { "type": "color_block", "settings": { "name": "Red" } },
+        "color_10": {
+          "type": "color_block",
+          "settings": { "name": "Burgundy" }
+        },
+        "color_11": {
+          "type": "color_block",
+          "settings": { "name": "Mustard" }
+        },
+        "color_12": { "type": "color_block", "settings": { "name": "Orange" } }
+      },
+      "block_order": [
+        "color_1",
+        "color_2",
+        "color_3",
+        "color_4",
+        "color_5",
+        "color_6",
+        "color_7",
+        "color_8",
+        "color_9",
+        "color_10",
+        "color_11",
+        "color_12"
+      ],
+      "settings": {}
+    },
+    "installment_banner": {
+      "type": "installment-banner",
+      "settings": {}
+    },
+    "video_text_banner": {
+      "type": "video-text-banner",
+      "settings": {}
+    },
+    "fabric_samples": {
+      "type": "fabric-samples",
+      "settings": {}
+    },
+    "features_grid": {
+      "type": "features-grid",
+      "blocks": {
+        "feature_1": {
+          "type": "feature",
+          "settings": { "title": "2 Years Warranty" }
+        },
+        "feature_2": {
+          "type": "feature",
+          "settings": { "title": "Affordable" }
+        },
+        "feature_3": {
+          "type": "feature",
+          "settings": { "title": "Free Samples" }
+        },
+        "feature_4": {
+          "type": "feature",
+          "settings": { "title": "Free Next Day Delivery" }
+        }
+      },
+      "block_order": ["feature_1", "feature_2", "feature_3", "feature_4"],
       "settings": {}
     }
   },
-  "order": ["review_section", "shop_by_type", "custom_banner"]
+  "order": [
+    "custom_banner",
+    "shop_by_type",
+    "shop_by_colour",
+    "installment_banner",
+    "video_text_banner",
+    "fabric_samples",
+    "features_grid"
+  ]
 }

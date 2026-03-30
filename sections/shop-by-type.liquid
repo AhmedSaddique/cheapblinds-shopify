@@ -1,142 +1,117 @@
-{%- style -%}
-  .shop-by-type-{{ section.id }} {
-    padding-top: {{ section.settings.padding_top }}px;
-    padding-bottom: {{ section.settings.padding_bottom }}px;
-    background-color: {{ section.settings.background_color }};
+<!-- sections/shop-by-type.liquid -->
+
+<!-- 1. Swiper CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+
+<style>
+  .shop-by-type-wrapper {
+    padding: 60px 0;
+    background-color: #ffffff;
     overflow: hidden;
+    width: 100%;
   }
 
-  .shop-by-type-{{ section.id }} .section-title {
+  .shop-by-type-wrapper h2 {
     text-align: center;
-    margin-bottom: 40px;
     font-size: 32px;
     font-weight: 700;
+    margin-bottom: 40px;
+    color: #000;
   }
 
-  .shop-by-type-{{ section.id }} .swiper-container {
+  .shop-by-type-container {
     width: 100%;
-    padding-top: 20px;
-    padding-bottom: 80px; /* More space for pagination and labels */
+    padding: 50px 0 100px 0 !important;
+    overflow: visible !important;
   }
 
-  .shop-by-type-{{ section.id }} .swiper-slide {
-    width: 280px; /* Base width */
-    height: auto;
+  .shop-by-type-container .swiper-slide {
     display: flex;
     flex-direction: column;
     align-items: center;
-    transition: transform 0.4s ease, z-index 0.4s ease;
+    transition: 0.4s ease;
+    cursor: pointer;
+    width: auto;
   }
 
-  /* Center slide handling */
-  .shop-by-type-{{ section.id }} .swiper-slide-active {
-    z-index: 10 !important;
-  }
-  .shop-by-type-{{ section.id }} .swiper-slide-prev,
-  .shop-by-type-{{ section.id }} .swiper-slide-next {
-    z-index: 5 !important;
-  }
-
-  .shop-by-type-{{ section.id }} .swiper-slide-content {
+  .shop-by-type-container img {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: contain;
+    border: 1px solid #eee;
     background: #fff;
-    padding: 10px;
-    border: 1px solid #ddd;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-    width: 100%;
-    display: block; /* Link container */
   }
 
-  .shop-by-type-{{ section.id }} .image-wrapper {
-    width: 100%;
-    aspect-ratio: 1 / 1.4;
-    overflow: hidden;
-    position: relative;
-    background: #fdfdfd;
+  /* Active center slide should be on top */
+  .shop-by-type-container .swiper-slide-active {
+    z-index: 10;
   }
 
-  .shop-by-type-{{ section.id }} .image-wrapper img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+  .shop-by-type-container .swiper-slide-active img {
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
   }
 
-  .shop-by-type-{{ section.id }} .slide-title {
-    margin-top: 25px;
+  /* Slide Label Styling */
+  .shop-by-type-container .slide-label {
+    margin-top: 20px;
+    font-size: 13px;
+    color: #888;
     text-align: center;
-    font-size: 18px;
-    font-weight: 600;
+    transition: 0.3s;
+    width: 100%;
+    white-space: nowrap;
+  }
+
+  .shop-by-type-container .swiper-slide-active .slide-label {
     color: #000;
-    opacity: 0.7;
-    transition: opacity 0.3s ease, font-size 0.3s ease;
+    font-weight: 700;
+    font-size: 16px;
   }
 
-  .shop-by-type-{{ section.id }} .swiper-slide-active .slide-title {
-    opacity: 1;
-    font-size: 20px;
-  }
-
-  .shop-by-type-{{ section.id }} .swiper-pagination {
-    bottom: 10px !important;
-  }
-
-  /* Swiper Navigation Customization */
-  .shop-by-type-{{ section.id }} .swiper-button-next,
-  .shop-by-type-{{ section.id }} .swiper-button-prev {
+  /* Navigation Arrows */
+  .shop-by-type-wrapper .swiper-button-next,
+  .shop-by-type-wrapper .swiper-button-prev {
     color: #000;
-    background: rgba(255,255,255,0.8);
     width: 40px;
     height: 40px;
+    background: #fff;
     border-radius: 50%;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   }
 
-  .shop-by-type-{{ section.id }} .swiper-button-next:after,
-  .shop-by-type-{{ section.id }} .swiper-button-prev:after {
+  .shop-by-type-wrapper .swiper-button-next:after,
+  .shop-by-type-wrapper .swiper-button-prev:after {
     font-size: 18px;
     font-weight: bold;
   }
 
-  @media screen and (max-width: 749px) {
-    .shop-by-type-{{ section.id }} .swiper-slide {
-      width: 200px;
-    }
-    .shop-by-type-{{ section.id }} .section-title {
+  @media screen and (max-width: 768px) {
+    .shop-by-type-wrapper h2 {
       font-size: 24px;
     }
   }
-{%- endstyle -%}
+</style>
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
-
-<div class="shop-by-type-{{ section.id }}">
+<div class="shop-by-type-wrapper" id="section-{{ section.id }}">
   <div class="page-width">
-    {%- if section.settings.title != blank -%}
-      <h2 class="section-title">{{ section.settings.title | escape }}</h2>
-    {%- endif -%}
+    {% if section.settings.title != blank %}
+      <h2>{{ section.settings.title | escape }}</h2>
+    {% endif %}
 
-    <div class="swiper swiper-container-{{ section.id }}">
+    <div class="swiper shop-by-type-container">
       <div class="swiper-wrapper">
-        {%- for block in section.blocks -%}
+        {% for block in section.blocks %}
           <div class="swiper-slide" {{ block.shopify_attributes }}>
             <a
               href="{{ block.settings.link | default: '#' }}"
-              style="text-decoration: none;"
+              style="text-decoration: none; color: inherit; width: 100%;"
             >
-              <div class="swiper-slide-content" style="text-decoration: none;">
-                <div class="image-wrapper">
-                  {%- if block.settings.image != blank -%}
-                    {{ block.settings.image | image_url: width: 600 | image_tag: loading: 'lazy' }}
-                  {%- else -%}
-                    {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
-                  {%- endif -%}
-                </div>
-              </div>
-              <div class="slide-title">
-                {{ block.settings.title | escape }}
-              </div>
+              <img src="{{ block.settings.image | img_url: '600x' }}" alt="{{ block.settings.name }}" loading="lazy">
+              <div class="slide-label">{{ block.settings.name }}</div>
             </a>
           </div>
-        {%- endfor -%}
+        {% endfor %}
       </div>
 
       <!-- Navigation -->
@@ -146,75 +121,42 @@
   </div>
 </div>
 
+<!-- 2. Swiper JS -->
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
-    const swiper = new Swiper('.swiper-container-{{ section.id }}', {
+    new Swiper('#section-{{ section.id }} .shop-by-type-container', {
       effect: 'coverflow',
       grabCursor: true,
       centeredSlides: true,
-      slidesPerView: 'auto',
+      loop: true,
       initialSlide: 3,
-      loop: false,
+      speed: 800,
+      slidesPerView: 2, // Mobile default
+      spaceBetween: -20, // Tighten on mobile
       coverflowEffect: {
         rotate: 0,
-        stretch: -60,
-        depth: 250,
-        modifier: 1,
+        stretch: 0,
+        depth: 100,
+        modifier: 2,
         slideShadows: false,
       },
-      navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
-      },
-      pagination: {
-        el: '.swiper-pagination',
-        clickable: true,
-      },
       breakpoints: {
-        320: {
-          slidesPerView: 1.5,
-          stretch: -20,
+        768: {
+          slidesPerView: 3,
+          spaceBetween: -30,
         },
-        750: {
-          slidesPerView: 'auto',
-          stretch: -60,
+        1024: {
+          slidesPerView: 7,
+          spaceBetween: -50, // Higher overlap as requested
         },
+      },
+      navigation: {
+        nextEl: '#section-{{ section.id }} .swiper-button-next',
+        prevEl: '#section-{{ section.id }} .swiper-button-prev',
       },
     });
-
-    // Re-initialize Swiper in Shopify Editor
-    if (Shopify && Shopify.designMode) {
-      document.addEventListener('shopify:section:load', function (event) {
-        if (event.detail.sectionId === '{{ section.id }}') {
-          // Re-init logic
-          new Swiper('.swiper-container-{{ section.id }}', {
-            effect: 'coverflow',
-            grabCursor: true,
-            centeredSlides: true,
-            slidesPerView: 'auto',
-            initialSlide: 3,
-            loop: false,
-            coverflowEffect: {
-              rotate: 0,
-              stretch: -60,
-              depth: 250,
-              modifier: 1,
-              slideShadows: false,
-            },
-            navigation: {
-              nextEl: '.swiper-button-next',
-              prevEl: '.swiper-button-prev',
-            },
-            pagination: {
-              el: '.swiper-pagination',
-              clickable: true,
-            },
-          });
-        }
-      });
-    }
   });
 </script>
 
@@ -225,40 +167,14 @@
     {
       "type": "text",
       "id": "title",
-      "label": "Title",
+      "label": "Heading",
       "default": "Shop By Type"
-    },
-    {
-      "type": "color",
-      "id": "background_color",
-      "label": "Background Color",
-      "default": "#ffffff"
-    },
-    {
-      "type": "range",
-      "id": "padding_top",
-      "min": 0,
-      "max": 100,
-      "step": 4,
-      "unit": "px",
-      "label": "Padding Top",
-      "default": 36
-    },
-    {
-      "type": "range",
-      "id": "padding_bottom",
-      "min": 0,
-      "max": 100,
-      "step": 4,
-      "unit": "px",
-      "label": "Padding Bottom",
-      "default": 36
     }
   ],
   "blocks": [
     {
-      "type": "type_item",
-      "name": "Type Item",
+      "type": "slide",
+      "name": "Blind Type",
       "settings": [
         {
           "type": "image_picker",
@@ -267,9 +183,9 @@
         },
         {
           "type": "text",
-          "id": "title",
-          "label": "Title",
-          "default": "Type Name"
+          "id": "name",
+          "label": "Label",
+          "default": "Blind Name"
         },
         {
           "type": "url",
@@ -283,11 +199,13 @@
     {
       "name": "Shop By Type",
       "blocks": [
-        { "type": "type_item" },
-        { "type": "type_item" },
-        { "type": "type_item" },
-        { "type": "type_item" },
-        { "type": "type_item" }
+        { "type": "slide" },
+        { "type": "slide" },
+        { "type": "slide" },
+        { "type": "slide" },
+        { "type": "slide" },
+        { "type": "slide" },
+        { "type": "slide" }
       ]
     }
   ]
