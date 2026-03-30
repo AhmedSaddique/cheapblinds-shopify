@@ -1,0 +1,305 @@
+{%- style -%}
+  .shop-by-type-{{ section.id }} {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    background-color: {{ section.settings.background_color }};
+    overflow: hidden;
+  }
+
+  .shop-by-type-{{ section.id }} .section-title {
+    text-align: center;
+    margin-bottom: 40px;
+    font-size: 32px;
+    font-weight: 700;
+  }
+
+  .shop-by-type-{{ section.id }} .swiper-container {
+    width: 100%;
+    padding-top: 20px;
+    padding-bottom: 80px; /* More space for pagination and labels */
+  }
+
+  .shop-by-type-{{ section.id }} .swiper-slide {
+    width: 280px; /* Base width */
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.4s ease, z-index 0.4s ease;
+  }
+
+  /* Center slide handling */
+  .shop-by-type-{{ section.id }} .swiper-slide-active {
+    z-index: 10 !important;
+  }
+  .shop-by-type-{{ section.id }} .swiper-slide-prev,
+  .shop-by-type-{{ section.id }} .swiper-slide-next {
+    z-index: 5 !important;
+  }
+
+  .shop-by-type-{{ section.id }} .swiper-slide-content {
+    background: #fff;
+    padding: 10px;
+    border: 1px solid #ddd;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+    width: 100%;
+    display: block; /* Link container */
+  }
+
+  .shop-by-type-{{ section.id }} .image-wrapper {
+    width: 100%;
+    aspect-ratio: 1 / 1.8; /* Increased height as requested */
+    overflow: hidden;
+    position: relative;
+    background: #fdfdfd;
+  }
+
+  .shop-by-type-{{ section.id }} .image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .shop-by-type-{{ section.id }} .slide-title {
+    margin-top: 25px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 600;
+    color: #000;
+    opacity: 0.7;
+    transition: opacity 0.3s ease, font-size 0.3s ease;
+  }
+
+  .shop-by-type-{{ section.id }} .swiper-slide-active .slide-title {
+    opacity: 1;
+    font-size: 20px;
+  }
+
+  .shop-by-type-{{ section.id }} .swiper-pagination {
+    bottom: 10px !important;
+  }
+
+  /* Swiper Navigation Customization */
+  .shop-by-type-{{ section.id }} .swiper-button-next,
+  .shop-by-type-{{ section.id }} .swiper-button-prev {
+    color: #000;
+    background: rgba(255,255,255,0.8);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  }
+
+  .shop-by-type-{{ section.id }} .swiper-button-next:after,
+  .shop-by-type-{{ section.id }} .swiper-button-prev:after {
+    font-size: 18px;
+    font-weight: bold;
+  }
+
+  @media screen and (max-width: 749px) {
+    .shop-by-type-{{ section.id }} .swiper-slide {
+      width: 220px;
+    }
+    .shop-by-type-{{ section.id }} .section-title {
+      font-size: 24px;
+    }
+    .shop-by-type-{{ section.id }} .swiper-button-next,
+    .shop-by-type-{{ section.id }} .swiper-button-prev {
+      width: 35px;
+      height: 35px;
+      top: 40% !important;
+    }
+    .shop-by-type-{{ section.id }} .swiper-button-next:after,
+    .shop-by-type-{{ section.id }} .swiper-button-prev:after {
+      font-size: 14px;
+    }
+  }
+{%- endstyle -%}
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+
+<div class="shop-by-type-{{ section.id }}">
+  <div class="page-width">
+    {%- if section.settings.title != blank -%}
+      <h2 class="section-title">{{ section.settings.title | escape }}</h2>
+    {%- endif -%}
+
+    <div class="swiper swiper-container-{{ section.id }}">
+      <div class="swiper-wrapper">
+        {%- for block in section.blocks -%}
+          <div class="swiper-slide" {{ block.shopify_attributes }}>
+            <a
+              href="{{ block.settings.link | default: '#' }}"
+              style="text-decoration: none;"
+            >
+              <div class="swiper-slide-content" style="text-decoration: none;">
+                <div class="image-wrapper">
+                  {%- if block.settings.image != blank -%}
+                    {{ block.settings.image | image_url: width: 600 | image_tag: loading: 'lazy' }}
+                  {%- else -%}
+                    {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+                  {%- endif -%}
+                </div>
+              </div>
+              <div class="slide-title">
+                {{ block.settings.title | escape }}
+              </div>
+            </a>
+          </div>
+        {%- endfor -%}
+      </div>
+
+      <!-- Navigation -->
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const swiper = new Swiper('.swiper-container-{{ section.id }}', {
+      effect: 'coverflow',
+      grabCursor: true,
+      centeredSlides: true,
+      slidesPerView: 'auto',
+      initialSlide: 3,
+      loop: true,
+      coverflowEffect: {
+        rotate: 0,
+        stretch: -60,
+        depth: 250,
+        modifier: 1,
+        slideShadows: false,
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+      breakpoints: {
+        320: {
+          slidesPerView: 1.5,
+          stretch: -20,
+        },
+        750: {
+          slidesPerView: 'auto',
+          stretch: -60,
+        },
+      },
+    });
+
+    // Re-initialize Swiper in Shopify Editor
+    if (Shopify && Shopify.designMode) {
+      document.addEventListener('shopify:section:load', function (event) {
+        if (event.detail.sectionId === '{{ section.id }}') {
+          // Re-init logic
+          new Swiper('.swiper-container-{{ section.id }}', {
+            effect: 'coverflow',
+            grabCursor: true,
+            centeredSlides: true,
+            slidesPerView: 'auto',
+            initialSlide: 3,
+            loop: true,
+            coverflowEffect: {
+              rotate: 0,
+              stretch: -60,
+              depth: 250,
+              modifier: 1,
+              slideShadows: false,
+            },
+            navigation: {
+              nextEl: '.swiper-button-next',
+              prevEl: '.swiper-button-prev',
+            },
+            pagination: {
+              el: '.swiper-pagination',
+              clickable: true,
+            },
+          });
+        }
+      });
+    }
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Shop By Type",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Shop By Type"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 36
+    }
+  ],
+  "blocks": [
+    {
+      "type": "type_item",
+      "name": "Type Item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Type Name"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Shop By Type",
+      "blocks": [
+        { "type": "type_item" },
+        { "type": "type_item" },
+        { "type": "type_item" },
+        { "type": "type_item" },
+        { "type": "type_item" }
+      ]
+    }
+  ]
+}
+{% endschema %}
