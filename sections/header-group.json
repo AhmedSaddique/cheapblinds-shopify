@@ -38,6 +38,7 @@
     },
     "header": {
       "type": "header",
+      "disabled": true,
       "settings": {
         "logo_position": "middle-left",
         "mobile_logo_position": "center",
@@ -54,10 +55,22 @@
         "padding_top": 20,
         "padding_bottom": 20
       }
+    },
+    "cb_header_main_HrAggg": {
+      "type": "cb-header-main",
+      "name": "CB Main Header",
+      "settings": {
+        "logo": "shopify://shop_images/b41ffe9575a259eec9e0fc9ee6049c43dbab3e0d.png",
+        "logo_width": 170,
+        "search_placeholder": "Search",
+        "samples_icon": "shopify://shop_images/Frame_1321317220.png",
+        "cart_icon": "shopify://shop_images/Vector_4.png"
+      }
     }
   },
   "order": [
     "announcement-bar",
-    "header"
+    "header",
+    "cb_header_main_HrAggg"
   ]
 }
