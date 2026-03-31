@@ -76,12 +76,47 @@
         "pinterest_icon": "shopify://shop_images/Frame_1321315979.png",
         "instagram_icon": "shopify://shop_images/Frame_1321315980.png"
       }
+    },
+    "cb_header_reviews_HtyzdK": {
+      "type": "cb-header-reviews",
+      "name": "CB Reviews Bar",
+      "settings": {
+        "bg_color": "#FFB800",
+        "text_color": "#000000",
+        "brand_color": "#874141",
+        "brand_text": "Google Reviews",
+        "rating_text": "4.7 rating of 84,290 reviews",
+        "button_text": "Write a reviews",
+        "button_link": ""
+      }
+    },
+    "cb_header_mobile_jKfpcr": {
+      "type": "cb-header-mobile",
+      "name": "CB Mobile Header",
+      "settings": {
+        "bg_color": "#FFB800",
+        "logo": "shopify://shop_images/cropped-cheapblinds_logo_colour_1_1x_2_traced.png",
+        "logo_width": 150,
+        "menu": "main-menu",
+        "contact_msg": "Order online ANYTIME, or give us a call",
+        "time_1": "Mon-Sat: 8:30am-9:00pm",
+        "time_2": "Sunday: 10:00am-6:00pm",
+        "menu_icon": "shopify://shop_images/ion_search_1.png",
+        "search_icon": "shopify://shop_images/ion_search_2.png",
+        "cart_icon": "shopify://shop_images/Vector_4.png",
+        "samples_icon": "shopify://shop_images/Frame_1707486841.png",
+        "facebook_icon": "shopify://shop_images/Group_1707485719.png",
+        "pinterest_icon": "shopify://shop_images/Group_1707485721.png",
+        "instagram_icon": "shopify://shop_images/Group_1707485720.png"
+      }
     }
   },
   "order": [
     "announcement-bar",
     "header",
     "cb_header_main_HrAggg",
-    "cb_header_nav_BQidzC"
+    "cb_header_nav_BQidzC",
+    "cb_header_reviews_HtyzdK",
+    "cb_header_mobile_jKfpcr"
   ]
 }
