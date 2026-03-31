@@ -24,12 +24,24 @@
     max-width: 650px;
     margin: 0 auto;
     width: 100%;
+    position: relative;
+  }
+  .cb-predictive-search {
+    display: block;
+    width: 100%;
+    position: relative;
   }
   .cb-search-form {
+    display: block;
+    position: relative;
+    margin: 0;
+  }
+  .cb-search-input-wrapper {
     display: flex;
     position: relative;
     border: 1px solid #999;
     border-radius: 30px;
+    background: #fff;
     overflow: hidden;
   }
   .cb-search-input {
@@ -38,6 +50,7 @@
     border: none;
     outline: none;
     font-size: 16px;
+    background: transparent;
   }
   .cb-search-icon {
     position: absolute;
@@ -47,6 +60,7 @@
     width: 20px;
     height: 20px;
     opacity: 0.6;
+    z-index: 2;
   }
   .cb-icons-container {
     display: flex;
@@ -90,6 +104,11 @@
     font-weight: bold;
   }
 
+  #shopify-section-{{ section.id }} {
+    position: relative;
+    z-index: 1000;
+  }
+
   /* Hide complete section on mobile to prevent white space */
   @media (max-width: 1024px) {
     #shopify-section-{{ section.id }} {
@@ -110,11 +129,52 @@
   </div>
 
   <div class="cb-search-container">
-    <form action="{{ routes.search_url }}" method="get" class="cb-search-form">
-      <svg class="cb-search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
-      <input type="text" name="q" placeholder="{{ section.settings.search_placeholder }}" class="cb-search-input">
-      <input type="hidden" name="type" value="product">
-    </form>
+    {%- if settings.predictive_search_enabled -%}
+      <predictive-search class="cb-predictive-search" data-loading-text="{{ 'accessibility.loading' | t }}">
+    {%- else -%}
+      <search-form class="cb-predictive-search">
+    {%- endif -%}
+      <form action="{{ routes.search_url }}" method="get" role="search" class="cb-search-form">
+        <div class="cb-search-input-wrapper">
+          <svg class="cb-search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+          <input 
+            type="search" 
+            name="q" 
+            id="Search-In-Main"
+            placeholder="{{ section.settings.search_placeholder }}" 
+            class="cb-search-input"
+            value="{{ search.terms | escape }}"
+            {%- if settings.predictive_search_enabled -%}
+              role="combobox"
+              aria-expanded="false"
+              aria-owns="predictive-search-results"
+              aria-controls="predictive-search-results"
+              aria-haspopup="listbox"
+              aria-autocomplete="list"
+              autocorrect="off"
+              autocomplete="off"
+              autocapitalize="off"
+              spellcheck="false"
+            {%- endif -%}
+          >
+          <input type="hidden" name="type" value="product">
+          <input type="hidden" name="options[prefix]" value="last">
+          <button type="reset" class="visually-hidden">Reset</button>
+          <button type="submit" class="visually-hidden">Search</button>
+        </div>
+
+        {%- if settings.predictive_search_enabled -%}
+          <div class="predictive-search predictive-search--header" tabindex="-1" data-predictive-search style="position: absolute; top: calc(100% + 5px); left: 0; width: 100%; z-index: 100; background: #fff; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); border: 1px solid #e0e0e0;">
+            {%- render 'loading-spinner', class: 'predictive-search__loading-state' -%}
+          </div>
+          <span class="predictive-search-status visually-hidden" role="status" aria-hidden="true"></span>
+        {%- endif -%}
+      </form>
+    {%- if settings.predictive_search_enabled -%}
+      </predictive-search>
+    {%- else -%}
+      </search-form>
+    {%- endif -%}
   </div>
 
   <div class="cb-icons-container">
