@@ -13,49 +13,6 @@
       "type": "custom-banner",
       "settings": {}
     },
-    "shop_by_type": {
-      "type": "shop-by-type",
-      "blocks": {
-        "category_1": {
-          "type": "category",
-          "settings": { "title": "Inari Ebony" }
-        },
-        "category_2": {
-          "type": "category",
-          "settings": { "title": "Aurora Spa" }
-        },
-        "category_3": {
-          "type": "category",
-          "settings": { "title": "Basalt Dove" }
-        },
-        "category_4": {
-          "type": "category",
-          "settings": { "title": "Lunda White" }
-        },
-        "category_5": {
-          "type": "category",
-          "settings": { "title": "Dorian Beige" }
-        },
-        "category_6": {
-          "type": "category",
-          "settings": { "title": "Dorian Cyan" }
-        },
-        "category_7": {
-          "type": "category",
-          "settings": { "title": "Dorian Navy" }
-        }
-      },
-      "block_order": [
-        "category_1",
-        "category_2",
-        "category_3",
-        "category_4",
-        "category_5",
-        "category_6",
-        "category_7"
-      ],
-      "settings": {}
-    },
     "shop_by_colour": {
       "type": "shop-by-colour",
       "blocks": {
