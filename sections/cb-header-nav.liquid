@@ -18,7 +18,7 @@
   }
   .cb-nav-item {
     position: relative;
-    padding: 15px 25px 15px 0;
+    padding: 15px 0;
   }
   .cb-nav-link {
     color: #fff;
@@ -28,9 +28,11 @@
     align-items: center;
     gap: 5px;
     transition: opacity 0.3s ease;
+    border-radius: 20px;
+    padding: 6px 16px;
   }
   .cb-nav-link:hover {
-    opacity: 0.8;
+    background-color: #FFB800;
   }
   .cb-nav-link svg {
     width: 10px;
@@ -49,9 +51,6 @@
     color: #fff;
     display: inline-flex;
     transition: opacity 0.3s ease;
-  }
-  .cb-social-link:hover {
-    opacity: 0.8;
   }
   .cb-social-link svg {
     width: 20px;
@@ -119,6 +118,74 @@
     z-index: 999;
   }
 
+  .cb-nav-item-mega {
+    position: static;
+  }
+  .cb-mega-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 5%;
+    right: 5%;
+    background: #fff;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    padding: 40px;
+    z-index: 100;
+  }
+  .cb-nav-item-mega:hover .cb-mega-menu {
+    display: block;
+  }
+  .cb-mega-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(130px, 1fr));
+    gap: 30px 20px;
+  }
+  .cb-color-collection-link {
+    display: flex;
+    flex-direction: rows;
+    align-items: center;
+    gap: 12px;
+    color: #000;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: 400;
+    text-align: center;
+    transition: transform 0.2s;
+  }
+  .cb-color-collection-link:hover {
+    color: #FFB800;
+    transform: translateY(-2px);
+  }
+  .cb-color-collection-image {
+    width: 36px;
+    height: 36px;
+    overflow: hidden;
+    background: #f8f8f8;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  }
+  .cb-color-collection-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .cb-mega-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    cursor: pointer;
+    background: #f0f0f0;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+  }
+  .cb-mega-close:hover {
+    background: #e0e0e0;
+  }
+
   /* Hide complete section on mobile to prevent white space */
   @media (max-width: 1024px) {
     #shopify-section-{{ section.id }} {
@@ -127,19 +194,71 @@
   }
 </style>
 
+{% capture mega_menu %}
+  <div class="cb-mega-menu">
+    <div class="cb-mega-close" onclick="this.parentElement.style.display='none'; setTimeout(()=>this.parentElement.style.display='', 500);">
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+    </div>
+    <div class="cb-mega-grid">
+      {% if section.settings.colours_collection_list != blank %}
+        {% for col in section.settings.colours_collection_list %}
+          <a href="{{ col.url }}" class="cb-color-collection-link">
+            <div class="cb-color-collection-image">
+              {% if col.image %}
+                <img src="{{ col.image | img_url: '400x' }}" alt="{{ col.title | escape }}">
+              {% elsif col.featured_image %}
+                <img src="{{ col.featured_image | img_url: '400x' }}" alt="{{ col.title | escape }}">
+              {% else %}
+                <div style="width:100%; height:100%; background:#eee; display:flex; align-items:center; justify-content:center; color:#999; font-size:12px;">No Image</div>
+              {% endif %}
+            </div>
+            <span>{{ col.title }}</span>
+          </a>
+        {% endfor %}
+      {% else %}
+        <!-- Fallback design -->
+        <a href="#" class="cb-color-collection-link">
+          <div class="cb-color-collection-image"><div style="width:100%; height:100%; background:#e0e0e0;"></div></div>
+          <span>Red Floral</span>
+        </a>
+        <a href="#" class="cb-color-collection-link">
+          <div class="cb-color-collection-image"><div style="width:100%; height:100%; background:#e0e0e0;"></div></div>
+          <span>Blue Floral</span>
+        </a>
+        <a href="#" class="cb-color-collection-link">
+          <div class="cb-color-collection-image"><div style="width:100%; height:100%; background:#e0e0e0;"></div></div>
+          <span>Solid Colors</span>
+        </a>
+        <a href="#" class="cb-color-collection-link">
+          <div class="cb-color-collection-image"><div style="width:100%; height:100%; background:#e0e0e0;"></div></div>
+          <span>Textured</span>
+        </a>
+      {% endif %}
+    </div>
+  </div>
+{% endcapture %}
+
 <div class="cb-header-nav">
   <div class="cb-nav-left"></div>
     <ul class="cb-nav-menu">
     {% for link in linklists[section.settings.menu].links %}
-      <li class="cb-nav-item">
-        <a href="{{ link.url }}" class="cb-nav-link">
+      {% assign is_shop_colours = false %}
+      {% assign d_title = link.title | downcase %}
+      {% if d_title == 'shop colours' %}
+        {% assign is_shop_colours = true %}
+      {% endif %}
+
+      <li class="cb-nav-item {% if is_shop_colours %}cb-nav-item-mega{% endif %}">
+        <a href="{{ link.url }}" class="cb-nav-link {% if is_shop_colours %}yellow-pill{% endif %}">
           {{ link.title }}
-          {% if link.links != blank %}
+          {% if link.links != blank and is_shop_colours == false %}
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
           {% endif %}
         </a>
         
-        {% if link.links != blank %}
+        {% if is_shop_colours %}
+          {{ mega_menu }}
+        {% elsif link.links != blank %}
           <ul class="cb-dropdown">
             {% for childlink in link.links %}
               {% assign child_icon = false %}
@@ -177,7 +296,9 @@
         <li class="cb-nav-item"><a href="#" class="cb-nav-link">Zebra Blinds <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
         <li class="cb-nav-item"><a href="#" class="cb-nav-link">Vertical Blinds <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
         <li class="cb-nav-item"><a href="#" class="cb-nav-link">Motorisation</a></li>
-        <li class="cb-nav-item"><a href="#" class="cb-nav-link">Shop Colours</a></li>
+        <li class="cb-nav-item cb-nav-item-mega"><a href="#" class="cb-nav-link yellow-pill">Shop Colours</a>
+          {{ mega_menu }}
+        </li>
         <li class="cb-nav-item"><a href="#" class="cb-nav-link">Help & Advice</a></li>
     {% endfor %}
   </ul>
@@ -217,6 +338,12 @@
       "id": "menu",
       "label": "Menu",
       "default": "main-menu"
+    },
+    {
+      "type": "collection_list",
+      "id": "colours_collection_list",
+      "label": "Colours Collections",
+      "info": "Select the collections to display in the 'Shop Colours' mega menu."
     },
     {
       "type": "header",
