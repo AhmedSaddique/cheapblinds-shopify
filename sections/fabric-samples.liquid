@@ -56,21 +56,22 @@
   .fabric-samples__button {
     background-color: {{ section.settings.btn_color }};
     padding: 12px 30px;
-    border-radius: 50px; /* Rounded pill button as seen in image */
+    border-radius: 50px;
     font-weight: 700;
     text-decoration: none;
     transition: transform 0.3s ease, opacity 0.3s ease;
     display: inline-block;
     font-size: 14px;
     text-transform: capitalize;
+    color: #000;
   }
 
   .fabric-samples__button:hover {
     transform: translateY(-2px);
     opacity: 0.9;
+    color: #000;
   }
 
-  /* Responsive: Image on Top or Bottom for Mobile */
   @media screen and (max-width: 749px) {
     .fabric-samples__container {
       grid-template-columns: 1fr;
