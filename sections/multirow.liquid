@@ -12,6 +12,38 @@
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
   }
+
+  .section-{{ section.id }}-padding .image-with-text__heading {
+    font-size: 34px !important;
+    font-weight: 700 !important;
+    margin-bottom: 20px;
+    color: #151515;
+  }
+
+  .section-{{ section.id }}-padding .image-with-text__text {
+    font-size: 16px !important;
+    line-height: 1.6;
+    color: #151515;
+  }
+
+  .btn-primary {
+    background-color: #FEBD0B !important;
+    color: #000 !important;
+    border-radius: 50px !important;
+    padding: 12px 40px !important;
+    font-weight: 700 !important;
+    border: none !important;
+    box-shadow: none !important;
+    text-transform: none !important;
+    font-size: 14px !important;
+    min-width: 150px;
+    transition: background-color 0.3s ease;
+  }
+
+  .section-{{ section.id }}-padding .image-with-text__media {
+    border-radius: 12px !important;
+    overflow: hidden !important;
+  }
 {%- endstyle -%}
 
 {%- liquid
@@ -94,7 +126,7 @@
                   {% else %}
                     href="{{ block.settings.button_link }}"
                   {% endif %}
-                  class="button button--{{ section.settings.button_style }}"
+                  class="btn-primary button--{{ section.settings.button_style }}"
                 >
                   {{ block.settings.button_label | escape }}
                 </a>
@@ -384,7 +416,7 @@
           "type": "text",
           "id": "button_label",
           "default": "t:sections.multirow.blocks.row.settings.button_label.default",
-          "label": "t:sections.multirow.blocks.row.settings.button_label.label", 
+          "label": "t:sections.multirow.blocks.row.settings.button_label.label",
           "info": "t:sections.multirow.blocks.row.settings.button_label.info"
         },
         {

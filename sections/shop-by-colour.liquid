@@ -3,8 +3,10 @@
 <style>
   .shop-by-colour {
     background-color: {{ section.settings.bg_color }};
-    padding: 60px 0;
+    padding: 6px 28px;
     width: 100%;
+    margin-top: 36px;
+    margin-bottom: 36px;
   }
 
   .shop-by-colour__title {
@@ -69,7 +71,7 @@
   .shop-by-colour__image-wrapper img {
     width: 100%;
     height: 100%;
-    object-fit: contain; /* For zig-zag fabric edges */
+    object-fit: contain;
     display: block;
   }
 
@@ -83,11 +85,14 @@
     .shop-by-colour__name {
       font-size: 11px;
     }
+    .shop-by-colour {
+      padding: 1px 7px;
+    }
   }
 </style>
 
-<div class="shop-by-colour" id="section-{{ section.id }}">
-  <div class="page-width">
+<div class="page-width">
+  <div class="shop-by-colour" id="section-{{ section.id }}">
     {% if section.settings.title != blank %}
       <h2 class="shop-by-colour__title">{{ section.settings.title | escape }}</h2>
     {% endif %}

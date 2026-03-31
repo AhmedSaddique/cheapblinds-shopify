@@ -1,0 +1,183 @@
+<!-- sections/blinds-guidelines.liquid -->
+
+<style>
+  .blinds-guidelines {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    background-color: {{ section.settings.bg_color }};
+    text-align: center;
+  }
+
+  .blinds-guidelines__title {
+    font-size: 36px;
+    font-weight: 700;
+    color: #151515;
+    margin: 0 0 20px;
+  }
+
+  .blinds-guidelines__text {
+    font-size: 18px;
+    line-height: 1.6;
+    color: #151515;
+    max-width: 1000px;
+    margin: 0 auto 30px;
+  }
+
+  .blinds-guidelines__buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+  }
+
+  .blinds-guidelines__button {
+    display: inline-block;
+    padding: 15px 40px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #151515;
+    text-decoration: none;
+    background-color: transparent;
+    border: 1px solid #151515;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+  }
+
+  .blinds-guidelines__button:hover {
+    background-color: #151515;
+    color: #fff;
+  }
+
+  @media screen and (max-width: 749px) {
+    .blinds-guidelines__title {
+      font-size: 28px;
+    }
+
+    .blinds-guidelines__text {
+      font-size: 16px;
+    }
+
+    .blinds-guidelines__buttons {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .blinds-guidelines__button {
+      width: 100%;
+      max-width: 250px;
+    }
+  }
+</style>
+
+<div class="page-width">
+  <div class="blinds-guidelines">
+    {%- if section.settings.title != blank -%}
+      <h2 class="blinds-guidelines__title">{{ section.settings.title | escape }}</h2>
+    {%- endif -%}
+
+    {%- if section.settings.text != blank -%}
+      <div class="blinds-guidelines__text">
+        {{ section.settings.text }}
+      </div>
+    {%- endif -%}
+
+    <div class="blinds-guidelines__buttons">
+      {%- if section.settings.btn1_text != blank -%}
+        <a href="{{ section.settings.btn1_link | default: '#' }}" class="blinds-guidelines__button">
+          {{ section.settings.btn1_text | escape }}
+        </a>
+      {%- endif -%}
+
+      {%- if section.settings.btn2_text != blank -%}
+        <a href="{{ section.settings.btn2_link | default: '#' }}" class="blinds-guidelines__button">
+          {{ section.settings.btn2_text | escape }}
+        </a>
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Blinds Guidelines",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Blinds Guidelines"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Description",
+      "default": "<p>Our measuring and fitting guides help towards a flawless fit, so you can enjoy the high life without spending a fortune.</p>"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#FFB8041F"
+    },
+    {
+      "type": "header",
+      "content": "Button 1"
+    },
+    {
+      "type": "text",
+      "id": "btn1_text",
+      "label": "Button 1 Text",
+      "default": "Measuring Guidelines"
+    },
+    {
+      "type": "url",
+      "id": "btn1_link",
+      "label": "Button 1 Link"
+    },
+    {
+      "type": "header",
+      "content": "Button 2"
+    },
+    {
+      "type": "text",
+      "id": "btn2_text",
+      "label": "Button 2 Text",
+      "default": "Fitting Guidelines"
+    },
+    {
+      "type": "url",
+      "id": "btn2_link",
+      "label": "Button 2 Link"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 60
+    }
+  ],
+  "presets": [
+    {
+      "name": "Blinds Guidelines"
+    }
+  ]
+}
+{% endschema %}

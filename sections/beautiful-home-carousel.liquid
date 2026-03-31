@@ -1,0 +1,372 @@
+<!-- sections/beautiful-home-carousel.liquid -->
+
+<!-- Swiper CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+
+<style>
+   .beautiful-home {
+     padding-top: {{ section.settings.padding_top }}px;
+     padding-bottom: {{ section.settings.padding_bottom }}px;
+     background-color: {{ section.settings.bg_color }};
+   }
+
+   .beautiful-home__header {
+     text-align: center;
+     margin-bottom: 40px;
+     max-width: 800px;
+     margin-left: auto;
+     margin-right: auto;
+   }
+
+   .beautiful-home__title {
+     font-size: 36px;
+     font-weight: 500;
+     color: #000;
+     margin-bottom: 25px;
+     line-height: 1.2;
+   }
+
+   .beautiful-home__intro {
+     font-size: 16px;
+     line-height: 1.6;
+     color: #000;
+   }
+
+   .beautiful-home__intro p {
+     margin-bottom: 15px;
+   }
+
+   .beautiful-home__intro span.highlight {
+     color: #FEB907;
+     font-weight: 700;
+   }
+
+   /* Carousel Controls */
+   .beautiful-home__controls {
+     display: flex;
+     justify-content: flex-end;
+     gap: 5px;
+     margin-bottom: 20px;
+   }
+
+   .beautiful-home__arrow {
+     width: 30px;
+     height: 30px;
+     border-radius: 50%;
+     border: 1px solid #ccc;
+     background: #fff;
+     cursor: pointer;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     transition: all 0.3s ease;
+     margin-right: 10px;
+     z-index: 10;
+   }
+
+   .beautiful-home__arrow:hover {
+     background-color: #FEB907;
+     border-color: #FEB907;
+   }
+
+   .beautiful-home__arrow svg {
+     width: 20px;
+     height: 20px;
+   }
+
+   /* Swiper Specific Styling */
+   .beautiful-home__carousel-outer {
+     position: relative;
+     padding-bottom: 30px;
+   }
+
+   .swiper-{{ section.id }} {
+     width: 100%;
+     height: 100%;
+     padding-bottom: 50px !important;
+   }
+
+   .swiper-slide {
+     height: auto;
+     border-radius: 4px;
+     overflow: hidden;
+   }
+
+   .beautiful-home__image-wrapper {
+     aspect-ratio: 1 / 1;
+     position: relative;
+     background-color: #f5f5f5;
+   }
+
+   .beautiful-home__image-wrapper img {
+     width: 100%;
+     height: 100%;
+     object-fit: cover;
+     display: block;
+   }
+
+   /* Card Text Overlay */
+   .beautiful-home__item-content {
+     position: absolute;
+     bottom: 0;
+     left: 0;
+     width: 100%;
+     padding: 20px;
+     background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 100%);
+     color: #fff;
+     display: flex;
+     flex-direction: column;
+     justify-content: flex-end;
+   }
+
+   .beautiful-home__item-title {
+     font-size: 24px;
+     font-weight: 600;
+     margin: 0;
+     line-height: 1.2;
+   }
+
+   .beautiful-home__item-subtitle {
+     font-size: 24px;
+     font-weight: 400;
+     margin-top: 5px;
+     opacity: 0.9;
+   }
+
+   /* Swiper Pagination Styling (Custom 30px Dots) */
+   .beautiful-home__pagination {
+     position: absolute !important;
+     bottom: 0px !important; /* Positions it within the padding-bottom of the swiper */
+     left: 0 !important;
+     width: 100% !important;
+     display: flex !important;
+     justify-content: center !important;
+     align-items: center;
+     gap: 8px;
+     z-index: 10;
+     pointer-events: none; /* Allows clicks to pass through the container to the bullets */
+   }
+
+  .swiper-pagination-bullet {
+     width: 24px !important;
+     height: 12px !important;
+     background-color: transparent !important;
+     border: 1px solid #ccc !important;
+     border-radius: 20px !important;
+     opacity: 1 !important;
+     margin: 0 !important;
+     transition: all 0.3s ease;
+     cursor: pointer;
+     pointer-events: auto; /* Makes bullets clickable again */
+   }
+
+   .swiper-pagination-bullet-active {
+     background-color: #FEB907 !important;
+     width: 45px !important; /* Active dot is longer */
+   }
+
+   /* Responsive Mobile */
+   @media screen and (max-width: 989px) {
+     .beautiful-home__title {
+       font-size: 28px;
+     }
+
+     .beautiful-home__item-title,
+     .beautiful-home__item-subtitle {
+       font-size: 20px;
+     }
+
+     .swiper-{{ section.id }} {
+        padding-bottom: 40px !important;
+     }
+     .beautiful-home__intro {
+      padding: 0px 5px 0px 5px;
+   }
+   }
+</style>
+
+<div class="page-width">
+  <div class="beautiful-home">
+    <!-- Header -->
+    <div class="beautiful-home__header">
+      {%- if section.settings.title != blank -%}
+        <h2 class="beautiful-home__title">{{ section.settings.title | escape }}</h2>
+      {%- endif -%}
+      {%- if section.settings.intro != blank -%}
+        <div class="beautiful-home__intro">
+          {{ section.settings.intro }}
+        </div>
+      {%- endif -%}
+    </div>
+
+    <!-- Controls -->
+    <div class="beautiful-home__controls">
+      <div class="beautiful-home__arrow swiper-button-prev-{{ section.id }}" aria-label="Previous">
+        <svg width="20" height="14" viewBox="0 0 20 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M7.60251 0.0554848C7.84961 0.137402 8.11801 0.436396 8.1734 0.690336C8.22452 0.919702 8.19896 1.09582 8.08819 1.30471C8.04559 1.38253 6.92939 2.4884 5.60443 3.7622L3.1931 6.07633L11.2749 6.09681L19.361 6.11729L19.5527 6.21969C19.6549 6.27703 19.7998 6.404 19.8722 6.4982C19.9872 6.66203 20 6.70709 20 6.99789C20 7.28869 19.9872 7.33375 19.8722 7.49758C19.7998 7.59178 19.6549 7.71875 19.5527 7.7761L19.361 7.87849L11.2749 7.89897L3.1931 7.91945L5.62573 10.2541C7.26595 11.831 8.08393 12.6419 8.13931 12.7525C8.34807 13.1785 8.15209 13.6986 7.7005 13.9239C7.50453 14.0181 7.12962 14.0263 6.90808 13.9403C6.69081 13.8502 0.202366 7.62045 0.0830765 7.3829C-0.0276909 7.16582 -0.0276909 6.82996 0.0830765 6.61288C0.13846 6.4982 1.2504 5.40462 3.47854 3.2666C6.34999 0.514216 6.81862 0.084156 6.96773 0.0431976C7.19779 -0.01824 7.3895 -0.0141439 7.60251 0.0554848Z" fill="#151515"/>
+        </svg>
+      </div>
+      <div class="beautiful-home__arrow swiper-button-next-{{ section.id }}" aria-label="Next">
+        <svg width="20" height="14" viewBox="0 0 20 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12.3975 0.0554848C12.1504 0.137402 11.882 0.436396 11.8266 0.690336C11.7755 0.919702 11.801 1.09582 11.9118 1.30471C11.9544 1.38253 13.0706 2.4884 14.3956 3.7622L16.8069 6.07633L8.7251 6.09681L0.639046 6.11729L0.447332 6.21969C0.345085 6.27703 0.200234 6.404 0.127809 6.4982C0.0127809 6.66203 0 6.70709 0 6.99789C0 7.28869 0.0127809 7.33375 0.127809 7.49758C0.200234 7.59178 0.345085 7.71875 0.447332 7.7761L0.639046 7.87849L8.7251 7.89897L16.8069 7.91945L14.3743 10.2541C12.734 11.831 11.9161 12.6419 11.8607 12.7525C11.6519 13.1785 11.8479 13.6986 12.2995 13.9239C12.4955 14.0181 12.8704 14.0263 13.0919 13.9403C13.3092 13.8502 19.7976 7.62045 19.9169 7.3829C20.0277 7.16582 20.0277 6.82996 19.9169 6.61288C19.8615 6.4982 18.7496 5.40462 16.5215 3.2666C13.65 0.514216 13.1814 0.084156 13.0323 0.0431976C12.8022 -0.01824 12.6105 -0.0141439 12.3975 0.0554848Z" fill="#151515"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Swiper Carousel -->
+    <div class="beautiful-home__carousel-outer">
+      <div class="swiper swiper-{{ section.id }}">
+        <div class="swiper-wrapper">
+          {% for block in section.blocks %}
+            <div class="swiper-slide" {{ block.shopify_attributes }}>
+              <div class="beautiful-home__image-wrapper">
+                {%- if block.settings.image != blank -%}
+                  {{ block.settings.image | image_url: width: 800 | image_tag: loading: 'lazy' }}
+                {%- else -%}
+                  {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                {%- endif -%}
+
+                <div class="beautiful-home__item-content">
+                  <p class="beautiful-home__item-title">{{ block.settings.title | escape }}</p>
+                  {%- if block.settings.subtitle != blank -%}
+                    <p class="beautiful-home__item-subtitle">{{ block.settings.subtitle | escape }}</p>
+                  {%- endif -%}
+                </div>
+              </div>
+              {%- if block.settings.link != blank -%}
+                <a
+                  href="{{ block.settings.link }}"
+                  class="full-unstyled-link"
+                  style="position: absolute; top:0; left:0; width:100%; height:100%; z-index:2;"
+                ></a>
+              {%- endif -%}
+            </div>
+          {% endfor %}
+        </div>
+        <!-- Swiper Pagination -->
+        <div class="swiper-pagination beautiful-home__pagination swiper-pagination-{{ section.id }}"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Swiper JS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const swiper = new Swiper('.swiper-{{ section.id }}', {
+      loop: true,
+      grabCursor: true,
+      spaceBetween: 20,
+      slidesPerView: 1.3,
+      centeredSlides: false,
+      navigation: {
+        nextEl: '.swiper-button-next-{{ section.id }}',
+        prevEl: '.swiper-button-prev-{{ section.id }}',
+      },
+      pagination: {
+        el: '.swiper-pagination-{{ section.id }}',
+        clickable: true,
+      },
+      breakpoints: {
+        990: {
+          slidesPerView: 4,
+          spaceBetween: 20,
+        },
+      },
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Beautiful Home Carousel",
+  "max_blocks": 12,
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Building a Beautiful Home - Starts at Your Windows"
+    },
+    {
+      "type": "richtext",
+      "id": "intro",
+      "label": "Description text",
+      "default": "<p>Spice up your home with our window blinds that magically bring in brightness and dimension...</p>"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#FEF9E7"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 36
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product_card",
+      "name": "Product Card",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Card Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Roller Blinds"
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": "Subtitle",
+          "default": "Blackout Roller Blinds"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Beautiful Home Carousel",
+      "blocks": [
+        { "type": "product_card" },
+        { "type": "product_card" },
+        { "type": "product_card" },
+        { "type": "product_card" }
+      ]
+    }
+  ]
+}
+{% endschema %}
