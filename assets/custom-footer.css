@@ -1,115 +1,94 @@
+:root {
+  --yellow-bg: #FBC117;
+}
+
 .custom-footer {
-  background-color: var(--footer-bg-color, #FBC117);
+  background-color: var(--footer-bg-color, var(--yellow-bg));
   color: var(--footer-text-color, #000);
-  font-family: inherit;
-  padding-top: 50px;
-  position: relative;
-  z-index: 2; /* Ensure it stays above preceding sections if needed */
-  overflow: visible;
+  font-family: Arial, sans-serif;
+  /* Matches your screenshot style */
+  padding-top: 20px;
 }
 
 .custom-footer a {
-  color: inherit;
   text-decoration: none;
-  transition: opacity 0.3s;
+  color: inherit;
 }
 
-.custom-footer a:hover {
-  opacity: 0.7;
+/* Typography Defaults */
+.custom-footer h3 {
+  font-size: var(--heading-size-mobile, 16px);
+  font-weight: 700;
+  margin: 0 0 15px 0;
+  text-transform: none;
 }
 
 .custom-footer__grid {
-  display: flex;
-  flex-direction: column;
-  gap: 40px;
-  padding-bottom: 40px;
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
-@media screen and (min-width: 900px) {
+@media screen and (min-width: 1024px) {
   .custom-footer__grid {
-    flex-direction: row;
-    justify-content: space-between;
-    gap: 30px;
+    display: grid;
+    grid-template-columns: 35% 65%;
+    align-items: start;
+    gap: 40px;
   }
 }
 
-/* Left Column (Image & Contact) */
+/* --- MOBILE STYLES --- */
 .custom-footer__col-left {
-  flex: 0 0 35%;
   position: relative;
-  min-height: 350px;
 }
 
 .custom-footer__main-img {
-  position: absolute;
-  top: -100px;
-  left: -80px; /* Adjust according to your image width */
-  height: auto;
-  max-width: 150%;
-  width: 500px;
+  position: absolute !important;
+  top: 3px !important;
+  right: auto !important;
+  left: auto !important;
+  transform: none !important;
+  width: 100% !important;
+  max-width: 380px !important;
+  opacity: 0.8;
   z-index: 0;
   pointer-events: none;
 }
 
 .custom-footer__col-left-content {
   position: relative;
-  z-index: 1;
-  padding-top: 150px; /* Pushes text below the girl's face */
-  padding-left: 10px;
+  z-index: 5;
+  /* This ensures the text stays ON TOP of the woman image */
+  padding: 110px 0 20px 0;
+  /* More padding for mobile to clear the woman's head */
 }
 
+/* Heading Styling */
 .custom-footer__col-left-content h3 {
-  font-size: 18px;
-  font-weight: 700;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: 'Open Sans', sans-serif;
+  margin-top: 0;
   margin-bottom: 15px;
-  color: #000;
-}
-
-.custom-footer__contact-info {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
+  line-height: 1.2;
+  color: #000000;
 }
 
 .custom-footer__contact-item {
   display: flex;
-  align-items: flex-start;
   gap: 10px;
-  font-size: 14px;
+  margin-bottom: 12px;
+  font-size: var(--text-size-mobile, 16px);
+  line-height: 1.4;
 }
 
 .custom-footer__contact-item svg {
   width: 18px;
-  height: 18px;
-  margin-top: 1px;
   flex-shrink: 0;
 }
 
-/* Right Column (Menus, Payment, Newsletter) */
-.custom-footer__col-right {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 60px;
-}
-
-.custom-footer__menus {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 40px;
-}
-
-@media screen and (min-width: 900px) {
-  .custom-footer__menus {
-    gap: 120px; /* Space between the menu columns */
-  }
-}
-
-.custom-footer__menu-col h3 {
-  font-size: 16px;
-  font-weight: 700;
-  margin-bottom: 20px;
-  color: #000;
+.custom-footer__menu-col {
+  margin-bottom: 15px;
 }
 
 .custom-footer__menu-col ul {
@@ -119,170 +98,278 @@
 }
 
 .custom-footer__menu-col li {
-  margin-bottom: 12px;
-  font-size: 14px;
+  margin-bottom: 8px;
+  font-size: var(--text-size-mobile, 14px);
 }
 
-.custom-footer__mid-components {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 30px;
-}
-
-@media screen and (min-width: 900px) {
-  .custom-footer__mid-components {
-    flex-direction: row;
-    align-items: flex-end;
-  }
-}
-
-/* Payment Icons */
-.custom-footer__payment {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.custom-footer__payment-title {
-  font-size: 15px;
-  font-weight: 500;
+.custom-footer__payment-title,
+.custom-footer__newsletter-title {
+  font-weight: 600;
+  margin-bottom: 10px;
+  font-size: var(--heading-size-mobile, 16px);
+  width: 100%;
 }
 
 .custom-footer__payment-icons {
   display: flex;
   gap: 8px;
-  flex-wrap: wrap;
+  margin-bottom: 30px;
 }
 
-.custom-footer__payment-icons img,
-.custom-footer__payment-icons svg {
-  height: 28px;
-  width: auto;
+.custom-footer__payment-icons {
+  display: flex;
+  gap: 10px;
+}
+
+/* Box styling */
+.payment-icon-box {
+  width: 50px;
+  /* control box size */
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  /* optional */
+}
+
+/* Image inside box */
+.payment-icon-img {
+  max-width: 80%;
+  max-height: 80%;
+  object-fit: contain;
+}
+
+.payment-icon,
+.custom-payment-badge,
+.payment-icon-img,
+.payment-icon-placeholder {
+  height: 30px;
   background: #fff;
   border-radius: 4px;
-  padding: 3px 6px;
 }
 
-/* Newsletter */
-.custom-footer__newsletter {
-  width: 100%;
-  max-width: 380px;
+.payment-icon,
+.custom-payment-badge {
+
+  display: flex;
+  align-items: center;
+  font-weight: bold;
 }
 
-.custom-footer__newsletter-title {
-  font-size: 14px;
-  font-weight: 500;
-  margin-bottom: 12px;
+.payment-icon-img {
+  width: auto;
+  object-fit: contain;
+  padding: 2px 6px;
+}
+
+.payment-icon-placeholder {
+  width: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f4f4f4;
+}
+
+.payment-icon-placeholder svg {
+  width: 20px;
+  height: auto;
+  fill: #999;
+}
+
+.custom-payment-badge.tabby {
+  color: #00FFB9;
+}
+
+.custom-payment-badge.tamara {
+  color: #FF6A00;
 }
 
 .custom-footer__newsletter-form {
   display: flex;
+  margin-bottom: 20px;
 }
 
 .custom-footer__newsletter-input {
-  flex: 1;
-  padding: 14px 15px;
-  border: none;
-  outline: none;
-  font-size: 14px;
-  background: #fff;
-  color: #000;
-  border-radius: 4px 0 0 4px;
+  border: 1px solid #fff;
+  padding: 15px;
+  border-radius: 10px 0 0 10px;
 }
+
+/* @media (min-width: 768px) {
+  .custom-footer__newsletter-input {
+    flex-grow: 1;
+  }
+} */
 
 .custom-footer__newsletter-btn {
   background: #000;
-  color: #fff;
+  color: #FEB907;
   border: none;
-  padding: 0 25px;
-  font-size: 14px;
+  padding: 0 20px;
+  border-radius: 0 10px 10px 0;
   cursor: pointer;
-  border-radius: 0 4px 4px 0;
-  font-weight: 500;
-  transition: background 0.3s;
+  font-weight: bold;
 }
 
-.custom-footer__newsletter-btn:hover {
-  background: #333;
-}
-
-/* Bottom Bar */
-.custom-footer__bottom {
-  background: var(--footer-bottom-bg, #000000);
-  color: var(--footer-bottom-text, #FFFFFF);
-  padding: 20px 0;
-  font-size: 12px;
+.custom-footer__col-left {
   position: relative;
-  z-index: 2;
+  min-height: 300px;
 }
 
-.custom-footer__bottom-inner {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-  align-items: center;
-  text-align: center;
+.custom-footer__main-img {
+  position: absolute;
+  left: -40px;
+  bottom: 0;
+  width: 350px;
+  max-width: none;
+  opacity: 1;
+  z-index: 1;
+}
+
+.custom-footer__col-left-content {
+  position: relative;
+  z-index: 5;
+  padding-top: 200px;
+}
+
+@media screen and (min-width: 1024px) {
+  .custom-footer__col-left-content {
+    padding-top: 120px;
+  }
+}
+
+/* Push the text content down so it doesn't get covered by the woman's face */
+.custom-footer__col-left-content {
+  position: relative;
+  z-index: 5;
+  padding-top: 280px;
+  /* Adjust this value to move the "Get in Touch" text up or down */
 }
 
 @media screen and (min-width: 900px) {
-  .custom-footer__bottom-inner {
+  .custom-footer__col-left-content {
+    padding-top: 200px;
+  }
+}
+
+.custom-footer__col-right {
+  flex: 1;
+}
+
+.custom-footer h3 {
+  font-size: var(--heading-size-desktop, 18px);
+}
+
+.custom-footer__menus {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+@media screen and (min-width: 1024px) {
+  .custom-footer__menus {
+    grid-template-columns: repeat(3, 1fr);
+    margin-bottom: 40px;
+  }
+}
+
+.custom-footer__bottom-row {
+  display: flex;
+  flex-direction: column;
+}
+
+@media screen and (min-width: 1024px) {
+  .custom-footer__bottom-row {
     flex-direction: row;
     justify-content: space-between;
-    text-align: left;
+    align-items: center;
   }
+}
+
+.custom-footer__contact-item {
+  font-size: var(--text-size-desktop, 16px);
+}
+
+.custom-footer__menu-col li {
+  font-size: var(--text-size-desktop, 14px);
+}
+
+
+/* --- BLACK BOTTOM BAR --- */
+.custom-footer__bottom {
+  background: #000;
+  color: #fff;
+  padding: 10px;
+}
+
+.custom-footer__bottom-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  font-size: 13px;
 }
 
 .custom-footer__bottom-links {
   display: flex;
-  gap: 20px;
+  gap: 10px;
   flex-wrap: wrap;
   justify-content: center;
-}
-
-.custom-footer__copyright {
-  opacity: 0.8;
+  font-size: 16px
 }
 
 .custom-footer__social {
   display: flex;
   align-items: center;
-  gap: 15px;
-}
-
-.custom-footer__social span {
-  font-weight: bold;
-  font-size: 14px;
+  gap: 10px;
+  font-size: 16px;
+  ;
 }
 
 .custom-footer__social-links {
   display: flex;
-  gap: 10px;
+  gap: 8px;
   list-style: none;
   padding: 0;
-  margin: 0;
-}
-
-.custom-footer__social-links a {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  border: 1px solid #fff;
-  color: #fff;
-  transition: all 0.3s;
-}
-
-.custom-footer__social-links a:hover {
-  background: #fff;
-  color: #000;
 }
 
 .custom-footer__social-links svg {
-  width: 14px;
-  height: 14px;
-  fill: currentColor;
+  width: 24px;
+  height: 24px;
+  border: 1px solid #fff;
+  border-radius: 50%;
+  padding: 4px;
+}
+
+@media screen and (min-width: 990px) {
+  .custom-footer__bottom-inner {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+.custom-footer__copyright {
+  text-align: center;
+  font-size: 16px;
+  color: #fff;
+  margin-top: 10px;
+}
+
+.custom-footer__payment-icons {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.payment-icon-box {
+  width: 55px;
+  height: 32px;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
 }
