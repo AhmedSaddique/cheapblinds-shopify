@@ -9,9 +9,14 @@
  */
 {
   "sections": {
-    "custom_banner": {
+    "custom_banner_MfY4RV": {
       "type": "custom-banner",
-      "settings": {}
+      "name": "Custom Full Width Banner",
+      "settings": {
+        "desktop_image": "shopify://shop_images/7437603701490e7c722faa041d59a303b264e819.png",
+        "mobile_image": "shopify://shop_images/Frame_1707486780.png",
+        "banner_link": ""
+      }
     },
     "beautiful_home_carousel": {
       "type": "beautiful-home-carousel",
@@ -94,62 +99,62 @@
     "shop_by_colour": {
       "type": "shop-by-colour",
       "blocks": {
-        "color_1": { "type": "color_block", "settings": { "name": "White" } },
-        "color_2": { "type": "color_block", "settings": { "name": "Cream" } },
-        "color_3": { "type": "color_block", "settings": { "name": "Grey" } },
-        "color_4": {
-          "type": "color_block",
-          "settings": { "name": "Charcoal" }
+        "heading": {
+          "type": "heading",
+          "settings": {
+            "heading": "dasdasdasdas",
+            "heading_size": "h0"
+          }
         },
-        "color_5": { "type": "color_block", "settings": { "name": "Black" } },
-        "color_6": { "type": "color_block", "settings": { "name": "Navy" } },
-        "color_7": { "type": "color_block", "settings": { "name": "Teal" } },
-        "color_8": { "type": "color_block", "settings": { "name": "Green" } },
-        "color_9": { "type": "color_block", "settings": { "name": "Red" } },
-        "color_10": {
-          "type": "color_block",
-          "settings": { "name": "Burgundy" }
+        "text_N7Fxxw": {
+          "type": "text",
+          "settings": {
+            "text": "Give customers details about the banner image(s) or content on the template.",
+            "text_style": "body"
+          }
         },
-        "color_11": {
-          "type": "color_block",
-          "settings": { "name": "Mustard" }
-        },
-        "color_12": { "type": "color_block", "settings": { "name": "Orange" } }
+        "button": {
+          "type": "buttons",
+          "settings": {
+            "button_label_1": "Shop all",
+            "button_link_1": "shopify://collections/all",
+            "button_style_secondary_1": true,
+            "button_label_2": "",
+            "button_link_2": "",
+            "button_style_secondary_2": false
+          }
+        }
       },
-      "block_order": [
-        "color_1",
-        "color_2",
-        "color_3",
-        "color_4",
-        "color_5",
-        "color_6",
-        "color_7",
-        "color_8",
-        "color_9",
-        "color_10",
-        "color_11",
-        "color_12"
-      ],
-      "settings": {}
+      "block_order": ["heading", "text_N7Fxxw", "button"],
+      "settings": {
+        "image_overlay_opacity": 40,
+        "image_height": "large",
+        "image_behavior": "none",
+        "desktop_content_position": "bottom-center",
+        "desktop_content_alignment": "center",
+        "show_text_box": false,
+        "color_scheme": "scheme-3",
+        "stack_images_on_mobile": false,
+        "mobile_content_alignment": "center",
+        "show_text_below": false
+      }
     },
-    "installment_banner": {
-      "type": "installment-banner",
-      "settings": {}
-    },
-    "video_text_banner": {
-      "type": "video-text-banner",
-      "settings": {}
-    },
-    "fabric_samples": {
-      "type": "fabric-samples",
-      "settings": {}
-    },
-    "features_grid": {
-      "type": "features-grid",
+    "image_with_text_DVMNAy": {
+      "type": "image-with-text",
       "blocks": {
-        "feature_1": {
-          "type": "feature",
-          "settings": { "title": "2 Years Warranty" }
+        "heading_wBNti3": {
+          "type": "heading",
+          "settings": {
+            "heading": "Image with text",
+            "heading_size": "h1"
+          }
+        },
+        "text_rHGTt7": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>",
+            "text_style": "body"
+          }
         },
         "feature_2": {
           "type": "feature",
@@ -237,7 +242,14 @@
         "logo_5": { "type": "logo", "settings": {} },
         "logo_6": { "type": "logo", "settings": {} }
       },
-      "block_order": ["logo_1", "logo_2", "logo_3", "logo_4", "logo_5", "logo_6"],
+      "block_order": [
+        "logo_1",
+        "logo_2",
+        "logo_3",
+        "logo_4",
+        "logo_5",
+        "logo_6"
+      ],
       "settings": {}
     }
   },
