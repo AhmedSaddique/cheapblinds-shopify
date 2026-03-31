@@ -66,11 +66,22 @@
         "samples_icon": "shopify://shop_images/Frame_1321317220.png",
         "cart_icon": "shopify://shop_images/Vector_4.png"
       }
+    },
+    "cb_header_nav_BQidzC": {
+      "type": "cb-header-nav",
+      "name": "CB Navigation Menu",
+      "settings": {
+        "menu": "main-menu",
+        "facebook_icon": "shopify://shop_images/Frame_1321315981.png",
+        "pinterest_icon": "shopify://shop_images/Frame_1321315979.png",
+        "instagram_icon": "shopify://shop_images/Frame_1321315980.png"
+      }
     }
   },
   "order": [
     "announcement-bar",
     "header",
-    "cb_header_main_HrAggg"
+    "cb_header_main_HrAggg",
+    "cb_header_nav_BQidzC"
   ]
 }
