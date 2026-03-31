@@ -1,0 +1,129 @@
+<style>
+  .cb-header-reviews {
+    background-color: {{ section.settings.bg_color }};
+    padding: 16px 5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    color: {{ section.settings.text_color }};
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .cb-reviews-content {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+  }
+  .cb-reviews-stars {
+    display: flex;
+    color: #fff;
+    gap: 2px;
+  }
+  .cb-reviews-stars svg {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+  }
+  .cb-reviews-btn {
+    position: absolute;
+    right: 5%;
+    background-color: #fff;
+    color: #000;
+    text-decoration: none;
+    padding: 4px 14px;
+    border-radius: 4px;
+    font-weight: 600;
+    font-size: 16px;
+    border: 1px solid transparent;
+    transition: all 0.3s ease;
+  }
+  .cb-reviews-btn:hover {
+    background-color: #f7f7f7;
+    border-color: #ddd;
+  }
+  /* Hide complete section on mobile to prevent white space */
+  @media (max-width: 1024px) {
+    #shopify-section-{{ section.id }} {
+      display: none !important;
+    }
+  }
+
+</style>
+
+<div class="cb-header-reviews">
+  <div class="cb-reviews-content">
+    <span style="color: {{ section.settings.brand_color }}; font-weight: 600;">{{ section.settings.brand_text }}</span>
+    <div class="cb-reviews-stars">
+      {% for i in (1..5) %}
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+      {% endfor %}
+    </div>
+    <span>{{ section.settings.rating_text }}</span>
+  </div>
+
+  {% if section.settings.button_text != blank %}
+    <a href="{{ section.settings.button_link | default: '#' }}" class="cb-reviews-btn">
+      {{ section.settings.button_text }}
+    </a>
+  {% endif %}
+</div>
+
+{% schema %}
+{
+  "name": "CB Reviews Bar",
+  "settings": [
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#FFB800"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "brand_color",
+      "label": "Brand Color",
+      "default": "#874141"
+    },
+    {
+      "type": "text",
+      "id": "brand_text",
+      "label": "Brand Text",
+      "default": "Google Reviews"
+    },
+    {
+      "type": "text",
+      "id": "rating_text",
+      "label": "Rating Text",
+      "default": "4.7 rating of 84,290 reviews"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Write a reviews"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "CB Reviews Bar",
+      "category": "Header"
+    }
+  ],
+  "enabled_on": {
+    "groups": ["header"]
+  }
+}
+{% endschema %}

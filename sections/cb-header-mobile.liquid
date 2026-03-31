@@ -1,0 +1,383 @@
+<style>
+  /* Header Bar */
+  .cb-header-mobile-wrapper {
+    position: relative;
+    background-color: {{ section.settings.bg_color }};
+  }
+  .cb-header-mobile {
+    padding: 10px 15px;
+    display: none; 
+    align-items: center;
+    justify-content: space-between;
+  }
+  .cb-mob-icon-col { display: flex; gap: 15px; align-items: center; }
+  .cb-mob-icon-item {
+    display: flex; flex-direction: column; align-items: center;
+    color: #000; text-decoration: none; font-size: 13px; gap: 3px; position: relative; font-family: inherit;
+  }
+  .cb-mob-icon-item img { width: 24px; height: 24px; object-fit: contain; }
+  .cb-mob-icon-item svg { width: 24px; height: 24px; fill: none; stroke: currentColor; stroke-width: 2.5; }
+  .cb-mob-logo { text-align: center; }
+  .cb-mob-logo img { max-width: {{ section.settings.logo_width }}px; height: auto; }
+  .cb-mob-cart-badge {
+    position: absolute; top: -6px; right: -2px; background-color: #000; color: #fff;
+    font-size: 11px; width: 18px; height: 18px; border-radius: 50%; display: flex;
+    align-items: center; justify-content: center; font-weight: bold; border: 1px solid #FFB800;
+  }
+  .cb-icon-basket-fill { fill: #000; stroke: none !important; }
+  
+  /* Mobile Menu Drawer */
+  .cb-mob-drawer {
+    display: none;
+    position: absolute;
+    top: 100%; left: 0; width: 100%;
+    background-color: #f7f7f7;
+    z-index: 100;
+    max-height: calc(100vh - 70px);
+    overflow-y: auto;
+    border-top: 1px solid #e0e0e0;
+  }
+  body.menu-open { overflow: hidden; }
+  body.menu-open .cb-mob-drawer { display: block; }
+  
+  .cb-mob-nav-list { list-style: none; padding: 0; margin: 0; background: #fff; }
+  .cb-mob-nav-item { border-bottom: 1px solid #eaeaea; }
+  .cb-mob-nav-header {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 15px 20px; font-weight: 600; font-size: 14px; color: #333; cursor: pointer;
+  }
+  .cb-mob-nav-header a { color: inherit; text-decoration: none; flex-grow: 1; }
+  
+  .cb-toggle-wrapper { padding: 10px; margin: -10px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+  .cb-toggle-icon { width: 20px; height: 20px; position: relative; display: flex; align-items: center; justify-content: center; background: #FFB800; border-radius: 50%; color: #fff; }
+  .cb-toggle-icon::before, .cb-toggle-icon::after {
+    content: ''; position: absolute; background: #fff; border-radius: 2px;
+  }
+  .cb-toggle-icon::before { width: 10px; height: 2px; }
+  .cb-toggle-icon::after { width: 2px; height: 10px; transition: transform 0.3s; }
+  .expanded .cb-toggle-icon::after { transform: rotate(90deg); display: none; } /* '-' sign */
+
+  .cb-mob-subnav-list { display: none; list-style: none; padding: 0; margin: 0; background: #fff; }
+  .expanded > .cb-mob-subnav-list { display: block; }
+  
+  .cb-mob-subnav-item { border-top: 1px solid #f0f0f0; }
+  .cb-mob-subnav-link { 
+    display: flex; align-items: center; gap: 10px; padding: 12px 20px 12px 30px; 
+    color: #444; text-decoration: none; font-size: 13px; font-weight: 500;
+  }
+  .cb-mob-subnav-link svg { width: 20px; height: 20px; fill: none; stroke: #666; stroke-width: 1.5; }
+
+  /* Bottom Links */
+  .cb-mob-bottom-links { list-style: none; padding: 0; margin: 5px 0 0; background: #fff;}
+  .cb-mob-bottom-links li { border-bottom: 1px solid #eaeaea; }
+  .cb-mob-bottom-links a { 
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 15px 20px; font-weight: 600; font-size: 14px; color: #333; text-decoration: none;
+  }
+  .cb-mob-bottom-links .cb-b-left { display: flex; align-items: center; gap: 10px; }
+  .cb-mob-bottom-links .cb-b-right { width: 20px; height: 20px; display: flex; align-items: center; justify-content: center; background: #FFB800; border-radius: 50%; color: #fff; }
+  .cb-mob-bottom-links .cb-b-right svg { width: 12px; height: 12px; fill: none; stroke: #fff; stroke-width: 2.5; }
+  
+  .cb-acc-icon { color: #FFB800; }
+  .cb-acc-icon svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 2; }
+  
+  /* Contact Info */
+  .cb-mob-contact { padding: 30px 20px; text-align: center; color: #555; font-size: 13px; background: #f7f7f7; }
+  .cb-mob-contact p { margin: 5px 0; }
+  .cb-mob-socials { display: flex; justify-content: center; gap: 10px; margin-top: 15px; }
+  .cb-mob-socials a { display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; border: 1px solid #FFB800; border-radius: 50%; color: #FFB800; text-decoration: none; }
+  .cb-mob-socials a svg { width: 16px; height: 16px; fill: currentColor; }
+
+  /* Hide wrapper on desktop */
+  #shopify-section-{{ section.id }} { display: none !important; }
+  
+  @media (max-width: 1024px) {
+    #shopify-section-{{ section.id }} { display: block !important; }
+    .cb-header-mobile { display: flex; }
+  }
+</style>
+
+<div class="cb-header-mobile-wrapper">
+  <div class="cb-header-mobile">
+    <div class="cb-mob-icon-col">
+      <a href="#" class="cb-mob-icon-item" onclick="document.body.classList.toggle('menu-open'); return false;">
+        {% if section.settings.menu_icon != blank %}
+          <img src="{{ section.settings.menu_icon | img_url: '40x' }}" alt="Menu">
+        {% else %}
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 8h18M3 16h18" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        {% endif %}
+        <span>Menu</span>
+      </a>
+      
+      <a href="{{ routes.search_url }}" class="cb-mob-icon-item">
+        {% if section.settings.search_icon != blank %}
+          <img src="{{ section.settings.search_icon | img_url: '40x' }}" alt="Search">
+        {% else %}
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        {% endif %}
+        <span>search</span>
+      </a>
+    </div>
+
+    <div class="cb-mob-logo">
+      <a href="{{ routes.root_url }}">
+        {% if section.settings.logo != blank %}
+          <img src="{{ section.settings.logo | img_url: 'master' }}" alt="{{ shop.name }}" width="{{ section.settings.logo.width }}" height="{{ section.settings.logo.height }}">
+        {% else %}
+          <span style="font-size: 20px; font-weight: bold; color: #000;">{{ shop.name }}</span>
+        {% endif %}
+      </a>
+    </div>
+
+    <div class="cb-mob-icon-col">
+      <a href="{{ routes.cart_url }}" class="cb-mob-icon-item">
+        {% if section.settings.cart_icon != blank %}
+          <img src="{{ section.settings.cart_icon | img_url: '40x' }}" alt="Basket">
+        {% else %}
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="cb-icon-basket-fill"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1.003 1.003 0 0 0 20 4H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+        {% endif %}
+        <span>Basket</span>
+        <span class="cb-mob-cart-badge">{{ cart.item_count }}</span>
+      </a>
+
+      <a href="/pages/samples" class="cb-mob-icon-item">
+        {% if section.settings.samples_icon != blank %}
+          <img src="{{ section.settings.samples_icon | img_url: '40x' }}" alt="Samples">
+        {% else %}
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><path d="M12 2v20"/><path d="M16 2v20"/></svg>
+        {% endif %}
+        <span>Samples</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Mobile Menu Drawer -->
+  <nav class="cb-mob-drawer" id="cb-mob-drawer">
+    <ul class="cb-mob-nav-list">
+      {% for link in linklists[section.settings.menu].links %}
+        <li class="cb-mob-nav-item">
+          <div class="cb-mob-nav-header">
+            <a href="{{ link.url }}">{{ link.title }}</a>
+            {% if link.links != blank %}
+              <div class="cb-toggle-wrapper" onclick="event.preventDefault(); event.stopPropagation(); var p=this.closest('.cb-mob-nav-item'); var b=p.classList.contains('expanded'); p.parentElement.querySelectorAll('.cb-mob-nav-item').forEach(function(i){i.classList.remove('expanded')}); if(!b)p.classList.add('expanded');">
+                <div class="cb-toggle-icon"></div>
+              </div>
+            {% endif %}
+          </div>
+          {% if link.links != blank %}
+            <ul class="cb-mob-subnav-list">
+              {% for childlink in link.links %}
+                {% assign child_icon = false %}
+                {% for block in section.blocks %}
+                  {% if block.type == 'submenu_icon' %}
+                    {% assign b_title = block.settings.link_title | downcase | strip %}
+                    {% assign c_title = childlink.title | downcase | strip %}
+                    {% if b_title == c_title %}
+                      {% assign child_icon = block.settings.icon %}
+                      {% break %}
+                    {% endif %}
+                  {% endif %}
+                {% endfor %}
+
+                <li class="cb-mob-subnav-item">
+                  <a href="{{ childlink.url }}" class="cb-mob-subnav-link">
+                    {% if child_icon %}
+                      <img src="{{ child_icon | img_url: '40x' }}" alt="{{ childlink.title }}" width="20" height="20" style="object-fit: contain;">
+                    {% else %}
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 6h16M4 10h16M4 14h16M4 18h11" stroke-linecap="round" stroke-linejoin="round"/><circle cx="17.5" cy="18.5" r="1.5" fill="#666"/></svg>
+                    {% endif %}
+                    {{ childlink.title }}
+                  </a>
+                </li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        </li>
+      {% else %}
+        <!-- Fallbacks if no menu selected -->
+        <li class="cb-mob-nav-item expanded">
+          <div class="cb-mob-nav-header">
+            <a href="#">Roller Blinds</a>
+            <div class="cb-toggle-wrapper" onclick="event.preventDefault(); event.stopPropagation(); var p=this.closest('.cb-mob-nav-item'); var b=p.classList.contains('expanded'); p.parentElement.querySelectorAll('.cb-mob-nav-item').forEach(function(i){i.classList.remove('expanded')}); if(!b)p.classList.add('expanded');">
+              <div class="cb-toggle-icon"></div>
+            </div>
+          </div>
+          <ul class="cb-mob-subnav-list">
+            <li class="cb-mob-subnav-item"><a href="#" class="cb-mob-subnav-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 6h16M4 10h16M4 14h16M4 18h11" stroke-linecap="round" stroke-linejoin="round"/><circle cx="17.5" cy="18.5" r="1.5" fill="#666"/></svg> Blackout Roller Blinds</a></li>
+            <li class="cb-mob-subnav-item"><a href="#" class="cb-mob-subnav-link"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 6h16M4 10h16M4 14h16M4 18h11" stroke-linecap="round" stroke-linejoin="round"/><circle cx="17.5" cy="18.5" r="1.5" fill="#666"/></svg> Dimout Roller Blinds</a></li>
+          </ul>
+        </li>
+      {% endfor %}
+    </ul>
+
+    <ul class="cb-mob-bottom-links">
+      <li>
+        <a href="{{ routes.account_url }}">
+          <div class="cb-b-left cb-acc-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            <span style="color: #333;">My Account</span>
+          </div>
+          <div class="cb-b-right"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </a>
+      </li>
+      <li>
+        <a href="/pages/wishlist">
+           <div class="cb-b-left cb-acc-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            <span style="color: #333;">Wishlist</span>
+          </div>
+          <div class="cb-b-right"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        </a>
+      </li>
+    </ul>
+
+    <div class="cb-mob-contact">
+      <p style="font-size: 14px; margin-bottom: 10px;">{{ section.settings.contact_msg }}</p>
+      <p>{{ section.settings.time_1 }}</p>
+      <p>{{ section.settings.time_2 }}</p>
+      <div class="cb-mob-socials">
+        <a href="{{ settings.social_facebook_link | default: '#' }}" class="cb-social-link">
+        {% if section.settings.facebook_icon != blank %}
+          <img src="{{ section.settings.facebook_icon | img_url: '40x' }}" alt="Facebook" width="26" height="26" style="object-fit: contain;">
+        {% else %}
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+        {% endif %}
+      </a>
+      <a href="{{ settings.social_pinterest_link | default: '#' }}" class="cb-social-link">
+        {% if section.settings.pinterest_icon != blank %}
+          <img src="{{ section.settings.pinterest_icon | img_url: '40x' }}" alt="Pinterest" width="26" height="26" style="object-fit: contain;">
+        {% else %}
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 1 0 22 12 10 10 0 0 0 12 2zm0 15a4.7 4.7 0 0 1-2.9-1 4.4 4.4 0 0 1-1-2.7c0-2 1.4-3.5 3-3.6h.2c1.3.1 2.3 1.1 2.5 2.4A4 4 0 0 1 12 17z"/><path d="M10 11.5v4.2a2.3 2.3 0 0 0 .5 1.5M10.5 8h.1"/></svg>
+        {% endif %}
+      </a>
+      <a href="{{ settings.social_instagram_link | default: '#' }}" class="cb-social-link">
+        {% if section.settings.instagram_icon != blank %}
+          <img src="{{ section.settings.instagram_icon | img_url: '40x' }}" alt="Instagram" width="26" height="26" style="object-fit: contain;">
+        {% else %}
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        {% endif %}
+      </a>
+    </div>
+    </div>
+  </nav>
+</div>
+
+{% schema %}
+{
+  "name": "CB Mobile Header",
+  "settings": [
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#FFB800"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo Image"
+    },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "min": 50,
+      "max": 200,
+      "step": 5,
+      "default": 140,
+      "unit": "px",
+      "label": "Logo width"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Mobile Menu",
+      "default": "main-menu"
+    },
+    {
+      "type": "text",
+      "id": "contact_msg",
+      "label": "Contact Message",
+      "default": "Order online ANYTIME, or give us a call"
+    },
+    {
+      "type": "text",
+      "id": "time_1",
+      "label": "Time Row 1",
+      "default": "Mon-Sat: 8:30am-9:00pm"
+    },
+    {
+      "type": "text",
+      "id": "time_2",
+      "label": "Time Row 2",
+      "default": "Sunday: 10:00am-6:00pm"
+    },
+    {
+      "type": "header",
+      "content": "Custom Icons"
+    },
+    {
+      "type": "image_picker",
+      "id": "menu_icon",
+      "label": "Menu Icon"
+    },
+    {
+      "type": "image_picker",
+      "id": "search_icon",
+      "label": "Search Icon"
+    },
+    {
+      "type": "image_picker",
+      "id": "cart_icon",
+      "label": "Basket Icon"
+    },
+    {
+      "type": "image_picker",
+      "id": "samples_icon",
+      "label": "Samples Icon"
+    },
+    {
+      "type": "image_picker",
+      "id": "facebook_icon",
+      "label": "Facebook Icon (optional)"
+    },
+    {
+      "type": "image_picker",
+      "id": "pinterest_icon",
+      "label": "Pinterest Icon (optional)"
+    },
+    {
+      "type": "image_picker",
+      "id": "instagram_icon",
+      "label": "Instagram Icon (optional)"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "submenu_icon",
+      "name": "Submenu Icon",
+      "settings": [
+        {
+          "type": "text",
+          "id": "link_title",
+          "label": "Link Title",
+          "info": "Exact title of the submenu link (e.g. 'Blackout Roller Blinds')"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon Image"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "CB Mobile Header",
+      "category": "Header"
+    }
+  ],
+  "enabled_on": {
+    "groups": ["header"]
+  }
+}
+{% endschema %}

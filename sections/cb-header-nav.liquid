@@ -1,0 +1,270 @@
+<style>
+  .cb-header-nav {
+    background-color: #000;
+    color: #fff;
+    padding: 0 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .cb-nav-menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+  }
+  .cb-nav-left{
+    display: block !important;
+  }
+  .cb-nav-item {
+    position: relative;
+    padding: 15px 25px 15px 0;
+  }
+  .cb-nav-link {
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: opacity 0.3s ease;
+  }
+  .cb-nav-link:hover {
+    opacity: 0.8;
+  }
+  .cb-nav-link svg {
+    width: 10px;
+    height: 10px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    margin-bottom: -2px;
+  }
+  .cb-social-icons {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+  }
+  .cb-social-link {
+    color: #fff;
+    display: inline-flex;
+    transition: opacity 0.3s ease;
+  }
+  .cb-social-link:hover {
+    opacity: 0.8;
+  }
+  .cb-social-link svg {
+    width: 20px;
+    height: 20px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+  }
+
+  /* Dropdown Styles */
+  .cb-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    background: #fff;
+    border: 1px solid #ddd;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    min-width: 240px;
+    z-index: 100;
+  }
+  .cb-nav-item:hover .cb-dropdown {
+    display: block;
+    z-index: 99999;
+  }
+  .cb-dropdown-item {
+    border-bottom: 1px solid #eee;
+  }
+  .cb-dropdown-item:last-child {
+    border-bottom: none;
+  }
+  .cb-dropdown-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 20px;
+    color: #333;
+    text-decoration: none;
+    font-size: 13px;
+    transition: background 0.2s, color 0.2s;
+  }
+  .cb-dropdown-link:hover {
+    background: #fdfdfd;
+    color: #FFB800;
+  }
+  .cb-dropdown-link img {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+  }
+  .cb-dropdown-link svg {
+    width: 20px;
+    height: 20px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.5;
+  }
+
+  /* Ensure dropdown overlaps the reviews banner below it */
+  #shopify-section-{{ section.id }} {
+    position: relative;
+    z-index: 999;
+  }
+
+  /* Hide complete section on mobile to prevent white space */
+  @media (max-width: 1024px) {
+    #shopify-section-{{ section.id }} {
+      display: none !important;
+    }
+  }
+</style>
+
+<div class="cb-header-nav">
+  <div class="cb-nav-left"></div>
+    <ul class="cb-nav-menu">
+    {% for link in linklists[section.settings.menu].links %}
+      <li class="cb-nav-item">
+        <a href="{{ link.url }}" class="cb-nav-link">
+          {{ link.title }}
+          {% if link.links != blank %}
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          {% endif %}
+        </a>
+        
+        {% if link.links != blank %}
+          <ul class="cb-dropdown">
+            {% for childlink in link.links %}
+              {% assign child_icon = false %}
+              {% for block in section.blocks %}
+                {% if block.type == 'submenu_icon' %}
+                  {% assign b_title = block.settings.link_title | downcase | strip %}
+                  {% assign c_title = childlink.title | downcase | strip %}
+                  {% if b_title == c_title %}
+                    {% assign child_icon = block.settings.icon %}
+                    {% break %}
+                  {% endif %}
+                {% endif %}
+              {% endfor %}
+
+              <li class="cb-dropdown-item">
+                <a href="{{ childlink.url }}" class="cb-dropdown-link">
+                  {% if child_icon %}
+                    <img src="{{ child_icon | img_url: '40x' }}" alt="{{ childlink.title }}">
+                  {% else %}
+                    <!-- Generic blind icon -->
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 6h16M4 10h16M4 14h16M4 18h11" stroke-linecap="round" stroke-linejoin="round"/><circle cx="17.5" cy="18.5" r="1.5" fill="#666"/></svg>
+                  {% endif %}
+                  {{ childlink.title }}
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+
+      </li>
+    {% else %}
+        <!-- Fallback if no menu selected -->
+        <li class="cb-nav-item"><a href="#" class="cb-nav-link">Roller Blinds <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
+        <li class="cb-nav-item"><a href="#" class="cb-nav-link">Roman Blinds</a></li>
+        <li class="cb-nav-item"><a href="#" class="cb-nav-link">Zebra Blinds <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
+        <li class="cb-nav-item"><a href="#" class="cb-nav-link">Vertical Blinds <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
+        <li class="cb-nav-item"><a href="#" class="cb-nav-link">Motorisation</a></li>
+        <li class="cb-nav-item"><a href="#" class="cb-nav-link">Shop Colours</a></li>
+        <li class="cb-nav-item"><a href="#" class="cb-nav-link">Help & Advice</a></li>
+    {% endfor %}
+  </ul>
+
+  <div class="cb-social-icons">
+      <!-- Fallbacks mimicking the design exactly if standard settings aren't set, or utilizing them if they are. -->
+      <a href="{{ settings.social_facebook_link | default: '#' }}" class="cb-social-link">
+        {% if section.settings.facebook_icon != blank %}
+          <img src="{{ section.settings.facebook_icon | img_url: '40x' }}" alt="Facebook" width="26" height="26" style="object-fit: contain;">
+        {% else %}
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+        {% endif %}
+      </a>
+      <a href="{{ settings.social_pinterest_link | default: '#' }}" class="cb-social-link">
+        {% if section.settings.pinterest_icon != blank %}
+          <img src="{{ section.settings.pinterest_icon | img_url: '40x' }}" alt="Pinterest" width="26" height="26" style="object-fit: contain;">
+        {% else %}
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 1 0 22 12 10 10 0 0 0 12 2zm0 15a4.7 4.7 0 0 1-2.9-1 4.4 4.4 0 0 1-1-2.7c0-2 1.4-3.5 3-3.6h.2c1.3.1 2.3 1.1 2.5 2.4A4 4 0 0 1 12 17z"/><path d="M10 11.5v4.2a2.3 2.3 0 0 0 .5 1.5M10.5 8h.1"/></svg>
+        {% endif %}
+      </a>
+      <a href="{{ settings.social_instagram_link | default: '#' }}" class="cb-social-link">
+        {% if section.settings.instagram_icon != blank %}
+          <img src="{{ section.settings.instagram_icon | img_url: '40x' }}" alt="Instagram" width="26" height="26" style="object-fit: contain;">
+        {% else %}
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+        {% endif %}
+      </a>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "CB Navigation Menu",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menu",
+      "default": "main-menu"
+    },
+    {
+      "type": "header",
+      "content": "Social Icons"
+    },
+    {
+      "type": "image_picker",
+      "id": "facebook_icon",
+      "label": "Facebook Icon (optional)"
+    },
+    {
+      "type": "image_picker",
+      "id": "pinterest_icon",
+      "label": "Pinterest Icon (optional)"
+    },
+    {
+      "type": "image_picker",
+      "id": "instagram_icon",
+      "label": "Instagram Icon (optional)"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "submenu_icon",
+      "name": "Submenu Icon",
+      "settings": [
+        {
+          "type": "text",
+          "id": "link_title",
+          "label": "Link Title",
+          "info": "Exact title of the submenu link (e.g. 'Blackout Roller Blinds')"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon Image"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "CB Navigation Menu",
+      "category": "Header"
+    }
+  ],
+  "enabled_on": {
+    "groups": ["header"]
+  }
+}
+{% endschema %}
