@@ -1,0 +1,379 @@
+<!-- sections/brand-trust-slider.liquid -->
+
+<!-- Swiper CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+
+<style>
+   .brand-trust {
+     margin-top: {{ section.settings.margin_top }}px;
+     margin-bottom: {{ section.settings.margin_bottom }}px;
+     background-color: {{ section.settings.bg_color | default: '#FFF6E0' }};
+     overflow: visible;
+     position: relative;
+     padding-top: 36px;
+     padding-bottom: 36px;
+   }
+
+   .brand-trust__container {
+     max-width: 1400px;
+     margin: 0 auto;
+     padding: 0 40px;
+     position: relative;
+   }
+
+   .brand-trust__header {
+     text-align: center;
+     margin-bottom: 25px;
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     position: relative;
+     z-index: 5;
+   }
+
+   /* Badge Styling - Left Aligned on Desktop */
+   .brand-trust__badge-wrapper {
+     position: absolute;
+     top: -120px;
+     left: 0px;
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+     z-index: 10;
+     gap:10px;
+   }
+
+   .brand-trust__heart-circle {
+     width: 100px;
+     height: 100px;
+     background: #fff;
+     border-radius: 50%;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     margin: 0 auto -10px;
+     position: relative;
+     z-index: 2;
+     border: 1px solid #eee;
+   }
+
+   .brand-trust__heart-circle svg {
+     width: 80px;
+     height: 80px;
+   }
+
+   .brand-trust__love-label {
+     background: #fff;
+     border: 1.5px solid #EAEAEA;
+     padding: 8px 18px;
+     border-radius: 50px;
+     font-weight: 500;
+     font-size: 20px;
+     color: #000;
+     display: inline-block;
+     position: relative;
+     box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+     white-space: nowrap;
+   }
+
+   .brand-trust__title {
+     font-size: 26px;
+     font-weight: 900;
+     color: #000;
+     text-transform: uppercase;
+     margin: 0 auto;
+     letter-spacing: 1px;
+     line-height: 1.2;
+     max-width: 800px;
+   }
+
+   /* Swiper Styling */
+   .brand-trust__slider-area {
+     position: relative;
+     padding: 0 50px; /* Space for arrows */
+   }
+
+   .brand-trust__swiper {
+     width: 100%;
+     padding: 10px 0 !important;
+   }
+
+   .brand-trust__slide {
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     transition: opacity 0.3s ease;
+   }
+
+   .brand-trust__slide img {
+     max-width: 140px;
+     height: auto;
+     object-fit: contain;
+   }
+
+   /* Pagination Styling (Pills) at Top-Center */
+   .brand-trust__pagination {
+     position: absolute !important;
+     top: -90px !important;
+     left: 50% !important;
+     transform: translateX(-50%);
+     display: flex !important;
+     justify-content: center;
+     gap: 10px;
+     z-index: 5;
+   }
+
+   .brand-trust__pagination .swiper-pagination-bullet {
+     width: 25px !important;
+     height: 10px !important;
+     background: #fff !important;
+     border: 1.5px solid #999 !important;
+     border-radius: 20px !important;
+     opacity: 1 !important;
+     margin: 0 !important;
+     transition: all 0.3s ease;
+   }
+
+   .brand-trust__pagination .swiper-pagination-bullet-active {
+     background: #FEB907 !important;
+     border-color: #FEB907 !important;
+     width: 35px !important;
+   }
+
+   /* Navigation Arrows - Vertically Centered to Slider */
+   .brand-trust__arrow {
+     position: absolute;
+     top: 50%;
+     transform: translateY(-50%);
+     width: 30px;
+     height: 30px;
+     background: #FEB907;
+     border-radius: 50%;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     border: none;
+     cursor: pointer;
+     z-index: 10;
+     transition: all 0.2s ease;
+     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+     color: #000;
+   }
+
+   .brand-trust__arrow:hover {
+     background: #ffffff;
+     border: 1px solid #000;
+   }
+
+   .brand-trust__arrow.prev { left: 0; }
+   .brand-trust__arrow.next { right: 0; }
+
+   /* Mobile Responsive */
+   @media screen and (max-width: 989px) {
+     .brand-trust__badge-wrapper {
+       position: absolute;
+       top: -18px;
+       left: -8px;
+       margin-bottom: 20px;
+       margin-top: -65px;
+     }
+     .brand-trust__heart-circle {
+     width: 65px;
+     height: 65px;
+     background: #fff;
+     border-radius: 50%;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     margin: 0 auto -10px;
+     position: relative;
+     z-index: 2;
+     border: 1px solid #eee;
+   }
+   .brand-trust__love-label{
+     padding: 2px 10px;
+   }
+
+   .brand-trust__heart-circle svg {
+     width: 40px;
+     height: 40px;
+   }
+  .brand-trust__slide img {
+     max-width: 90px;
+     height: auto;
+   }
+   .brand-trust__love-label {
+     font-size: 16px;
+   }
+     .brand-trust__title {
+       max-width: 30rem;
+       font-size: 16px;
+       padding: 0 20px;
+     }
+     .brand-trust__slider-area {
+       padding: 0 40px;
+     }
+     .brand-trust__pagination {
+       top: -100px !important;
+     }
+      .brand-trust {
+         margin-top: 0px;
+    margin-bottom: 0px;
+   }
+   }
+</style>
+
+<div class="brand-trust">
+  <div class="page-width">
+    <!-- Centered Header -->
+    <div class="brand-trust__header">
+      <!-- Heart Badge -->
+      <div class="brand-trust__badge-wrapper">
+        <div class="brand-trust__heart-circle">
+          <svg viewBox="0 0 87 76" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M20.3182 0.0954361C17.7768 0.381523 14.7137 1.27344 12.6941 2.28316C10.9437 3.17507 8.65481 4.80745 7.2074 6.18739C3.94232 9.33434 1.75438 13.0871 0.525767 17.7655C0.0208579 19.6334 0.00402757 19.8354 0.00402757 23.4031C-0.0128027 26.9034 0.00402759 27.2063 0.441616 28.9228C1.31679 32.3222 2.7642 35.2504 4.95214 37.9598C5.40656 38.5488 8.01525 41.275 10.7249 44.0181C13.4178 46.7612 20.9409 54.3677 27.4206 60.9309C41.8947 75.6054 41.2046 74.9154 41.7937 75.2352C42.4837 75.5886 43.544 75.5549 44.3014 75.1679C44.638 74.9827 45.4122 74.3264 46.0013 73.6869C46.5903 73.0643 49.9227 69.6649 53.4066 66.1477C79.0223 40.2317 80.6549 38.5488 81.5637 37.2867C84.7446 32.7934 86.0742 28.7546 86.0742 23.4704C86.0742 15.2748 82.0854 7.85342 75.3028 3.42751C73.199 2.06438 70.5735 1.02101 67.6787 0.415184C66.3154 0.112267 65.3729 0.0449524 63.1008 0.0449524C58.8933 0.0281219 56.3014 0.65078 52.6661 2.50193C50.3266 3.71359 48.3575 5.245 45.4795 8.12268L42.9886 10.6133L40.5146 8.13951C37.6703 5.31231 37.3168 5.00939 35.5665 3.81456C33.0083 2.09805 30.1976 0.936867 27.1513 0.34787C25.4515 0.0281219 22.0012 -0.106506 20.3182 0.0954361Z" fill="#EC4040"/>
+          </svg>
+        </div>
+        <div class="brand-trust__love-label">Love By</div>
+      </div>
+
+      <h2 class="brand-trust__title">{{ section.settings.title }}</h2>
+    </div>
+
+    <!-- Swiper Area -->
+    <div class="brand-trust__slider-area">
+      <!-- Custom Pagination (Pills) -->
+      <div class="swiper-pagination brand-trust__pagination swiper-pagination-{{ section.id }}"></div>
+
+      <!-- Navigation Arrows -->
+      <button class="brand-trust__arrow prev swiper-button-prev-{{ section.id }}" aria-label="Previous">
+        <svg width="20" height="14" viewBox="0 0 20 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M7.60251 0.0554848C7.84961 0.137402 8.11801 0.436396 8.1734 0.690336C8.22452 0.919702 8.19896 1.09582 8.08819 1.30471C8.04559 1.38253 6.92939 2.4884 5.60443 3.7622L3.1931 6.07633L11.2749 6.09681L19.361 6.11729L19.5527 6.21969C19.6549 6.27703 19.7998 6.404 19.8722 6.4982C19.9872 6.66203 20 6.70709 20 6.99789C20 7.28869 19.9872 7.33375 19.8722 7.49758C19.7998 7.59178 19.6549 7.71875 19.5527 7.7761L19.361 7.87849L11.2749 7.89897L3.1931 7.91945L5.62573 10.2541C7.26595 11.831 8.08393 12.6419 8.13931 12.7525C8.34807 13.1785 8.15209 13.6986 7.7005 13.9239C7.50453 14.0181 7.12962 14.0263 6.90808 13.9403C6.69081 13.8502 0.202366 7.62045 0.0830765 7.3829C-0.0276909 7.16582 -0.0276909 6.82996 0.0830765 6.61288C0.13846 6.4982 1.2504 5.40462 3.47854 3.2666C6.34999 0.514216 6.81862 0.084156 6.96773 0.0431976C7.19779 -0.01824 7.3895 -0.0141439 7.60251 0.0554848Z" fill="#151515"/>
+        </svg>
+      </button>
+      <button class="brand-trust__arrow next swiper-button-next-{{ section.id }}" aria-label="Next">
+        <svg width="20" height="14" viewBox="0 0 20 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12.3975 0.0554848C12.1504 0.137402 11.882 0.436396 11.8266 0.690336C11.7755 0.919702 11.801 1.09582 11.9118 1.30471C11.9544 1.38253 13.0706 2.4884 14.3956 3.7622L16.8069 6.07633L8.7251 6.09681L0.639046 6.11729L0.447332 6.21969C0.345085 6.27703 0.200234 6.404 0.127809 6.4982C0.0127809 6.66203 0 6.70709 0 6.99789C0 7.28869 0.0127809 7.33375 0.127809 7.49758C0.200234 7.59178 0.345085 7.71875 0.447332 7.7761L0.639046 7.87849L8.7251 7.89897L16.8069 7.91945L14.3743 10.2541C12.734 11.831 11.9161 12.6419 11.8607 12.7525C11.6519 13.1785 11.8479 13.6986 12.2995 13.9239C12.4955 14.0181 12.8704 14.0263 13.0919 13.9403C13.3092 13.8502 19.7976 7.62045 19.9169 7.3829C20.0277 7.16582 20.0277 6.82996 19.9169 6.61288C19.8615 6.4982 18.7496 5.40462 16.5215 3.2666C13.65 0.514216 13.1814 0.084156 13.0323 0.0431976C12.8022 -0.01824 12.6105 -0.0141439 12.3975 0.0554848Z" fill="#151515"/>
+        </svg>
+      </button>
+
+      <div class="swiper brand-trust__swiper swiper-{{ section.id }}">
+        <div class="swiper-wrapper">
+          {% for block in section.blocks %}
+            <div class="swiper-slide brand-trust__slide" {{ block.shopify_attributes }}>
+              {% if block.settings.logo_image != blank %}
+                {{
+                  block.settings.logo_image
+                  | image_url: width: 250
+                  | image_tag: loading: 'lazy', alt: block.settings.logo_image.alt
+                  | default: 'Brand Logo'
+                }}
+              {% else %}
+                <div style="background: #eee; width: 100px; height: 50px; display: flex; align-items: center; justify-content: center; color: #999; font-size: 10px;">
+                  Logo
+                </div>
+              {% endif %}
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Swiper JS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    new Swiper('.swiper-{{ section.id }}', {
+      loop: true,
+      spaceBetween: 30,
+      slidesPerView: 3,
+      autoplay: {
+        delay: 3000,
+        disableOnInteraction: false,
+      },
+      navigation: {
+        nextEl: '.swiper-button-next-{{ section.id }}',
+        prevEl: '.swiper-button-prev-{{ section.id }}',
+      },
+      breakpoints: {
+        750: {
+          slidesPerView: 4,
+          spaceBetween: 40,
+        },
+        1100: {
+          slidesPerView: 6,
+          spaceBetween: 50,
+        },
+      },
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Brand Trust Slider",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "TRUSTED BY MANY INTERNATIONAL BRANDS"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#FFF6E0"
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "min": 0,
+      "max": 120,
+      "step": 4,
+      "unit": "px",
+      "label": "Margin Bottom",
+      "default": 60
+    }
+  ],
+  "blocks": [
+    {
+      "type": "logo",
+      "name": "Brand Logo",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "logo_image",
+          "label": "Logo Image"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Brand Trust Slider",
+      "blocks": [
+        { "type": "logo" },
+        { "type": "logo" },
+        { "type": "logo" },
+        { "type": "logo" },
+        { "type": "logo" },
+        { "type": "logo" }
+      ]
+    }
+  ]
+}
+{% endschema %}

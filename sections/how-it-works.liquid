@@ -1,0 +1,225 @@
+<!-- sections/how-it-works.liquid -->
+
+<style>
+  .how-it-works {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    background-color: #fff;
+  }
+
+  .how-it-works__header {
+    text-align: center;
+    margin-bottom: 50px;
+  }
+
+  .how-it-works__title {
+    font-size: 36px;
+    font-weight: 700;
+    color: #151515;
+    margin: 0;
+  }
+
+  .how-it-works__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+  }
+
+  .how-it-works__item {
+    border: 1px solid #EAEAEA;
+    border-radius: 10px;
+    padding: 40px 20px;
+    text-align: center;
+    background-color: #fff;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .how-it-works__item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+  }
+
+  .how-it-works__icon-wrapper {
+    width: 60px;
+    height: 60px;
+    background-color: #FEB907;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 25px;
+  }
+
+  .how-it-works__icon-wrapper svg,
+  .how-it-works__icon-wrapper img {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+  }
+
+  .how-it-works__step-label {
+    font-size: 12px;
+    font-weight: 700;
+    color: #FEB907;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    display: block;
+    letter-spacing: 1px;
+  }
+
+  .how-it-works__item-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #151515;
+    margin: 0 0 15px;
+  }
+
+  .how-it-works__item-text {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #666;
+    margin: 0;
+    max-width: 250px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  @media screen and (max-width: 989px) {
+    .how-it-works__grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .how-it-works__title {
+      font-size: 28px;
+    }
+  }
+</style>
+
+<div class="how-it-works">
+  <div class="page-width">
+    {%- if section.settings.title != blank -%}
+      <div class="how-it-works__header">
+        <h2 class="how-it-works__title">{{ section.settings.title | escape }}</h2>
+      </div>
+    {%- endif -%}
+
+    <div class="how-it-works__grid">
+      {%- for block in section.blocks -%}
+        <div class="how-it-works__item" {{ block.shopify_attributes }}>
+          <div class="how-it-works__icon-wrapper">
+            {%- if block.settings.icon != blank -%}
+              {{ block.settings.icon | image_url: width: 100 | image_tag: loading: 'lazy' }}
+            {%- else -%}
+              {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+            {%- endif -%}
+          </div>
+
+          <span class="how-it-works__step-label">{{ block.settings.step_label | escape }}</span>
+          <h3 class="how-it-works__item-title">{{ block.settings.title | escape }}</h3>
+          <p class="how-it-works__item-text">{{ block.settings.text | escape }}</p>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "How It Works",
+  "max_blocks": 6,
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "How It Works"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 60
+    }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Step",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon (Image)"
+        },
+        {
+          "type": "text",
+          "id": "step_label",
+          "label": "Step Label",
+          "default": "STEP 1"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Measure"
+        },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Description",
+          "default": "Use our simple guide to measure your windows accurately."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "How It Works",
+      "blocks": [
+        {
+          "type": "step",
+          "settings": {
+            "step_label": "STEP 1",
+            "title": "Measure",
+            "text": "Use our simple guide to measure your windows accurately."
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "step_label": "STEP 2",
+            "title": "Order",
+            "text": "Choose your style, colour and size — we'll make it to fit."
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "step_label": "STEP 3",
+            "title": "Install",
+            "text": "Fit your blinds easily with our step-by-step instructions."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -13,6 +13,84 @@
       "type": "custom-banner",
       "settings": {}
     },
+    "beautiful_home_carousel": {
+      "type": "beautiful-home-carousel",
+      "blocks": {
+        "card_1": {
+          "type": "product_card",
+          "settings": {
+            "title": "Roller Blinds",
+            "subtitle": "Blackout Roller Blinds"
+          }
+        },
+        "card_2": {
+          "type": "product_card",
+          "settings": {
+            "title": "Roller Blinds",
+            "subtitle": "Blackout Roller Blinds"
+          }
+        },
+        "card_3": {
+          "type": "product_card",
+          "settings": {
+            "title": "Roller Blinds",
+            "subtitle": "Blackout Roller Blinds"
+          }
+        },
+        "card_4": {
+          "type": "product_card",
+          "settings": {
+            "title": "Roller Blinds",
+            "subtitle": "Blackout Roller Blinds"
+          }
+        }
+      },
+      "block_order": ["card_1", "card_2", "card_3", "card_4"],
+      "settings": {}
+    },
+    "shop_by_type": {
+      "type": "shop-by-type",
+      "blocks": {
+        "category_1": {
+          "type": "category",
+          "settings": { "title": "Inari Ebony" }
+        },
+        "category_2": {
+          "type": "category",
+          "settings": { "title": "Aurora Spa" }
+        },
+        "category_3": {
+          "type": "category",
+          "settings": { "title": "Basalt Dove" }
+        },
+        "category_4": {
+          "type": "category",
+          "settings": { "title": "Lunda White" }
+        },
+        "category_5": {
+          "type": "category",
+          "settings": { "title": "Dorian Beige" }
+        },
+        "category_6": {
+          "type": "category",
+          "settings": { "title": "Dorian Cyan" }
+        },
+        "category_7": {
+          "type": "category",
+          "settings": { "title": "Dorian Navy" }
+        }
+      },
+      "block_order": [
+        "category_1",
+        "category_2",
+        "category_3",
+        "category_4",
+        "category_5",
+        "category_6",
+        "category_7"
+      ],
+      "settings": {}
+    },
     "shop_by_colour": {
       "type": "shop-by-colour",
       "blocks": {
@@ -88,15 +166,94 @@
       },
       "block_order": ["feature_1", "feature_2", "feature_3", "feature_4"],
       "settings": {}
+    },
+    "how_it_works": {
+      "type": "how-it-works",
+      "blocks": {
+        "step_1": {
+          "type": "step",
+          "settings": {
+            "step_label": "STEP 1",
+            "title": "Measure",
+            "text": "Use our simple guide to measure your windows accurately."
+          }
+        },
+        "step_2": {
+          "type": "step",
+          "settings": {
+            "step_label": "STEP 2",
+            "title": "Order",
+            "text": "Choose your style, colour and size — we'll make it to fit."
+          }
+        },
+        "step_3": {
+          "type": "step",
+          "settings": {
+            "step_label": "STEP 3",
+            "title": "Install",
+            "text": "Fit your blinds easily with our step-by-step instructions."
+          }
+        }
+      },
+      "block_order": ["step_1", "step_2", "step_3"],
+      "settings": {}
+    },
+    "blinds_guidelines": {
+      "type": "blinds-guidelines",
+      "settings": {}
+    },
+    "info_text_blocks": {
+      "type": "info-text-blocks",
+      "blocks": {
+        "block_1": {
+          "type": "info_block",
+          "settings": { "heading": "Premium Blinds for Windows Across the UAE" }
+        },
+        "block_2": {
+          "type": "info_block",
+          "settings": { "heading": "Blinds Made Easy — From Dubai to Fujairah" }
+        },
+        "block_3": {
+          "type": "info_block",
+          "settings": {
+            "heading": "Fast UAE Delivery & Round-the-Clock Support"
+          }
+        }
+      },
+      "block_order": ["block_1", "block_2", "block_3"],
+      "settings": {}
+    },
+    "google_reviews": {
+      "type": "google-reviews",
+      "settings": {}
+    },
+    "brand_trust_slider": {
+      "type": "brand-trust-slider",
+      "blocks": {
+        "logo_1": { "type": "logo", "settings": {} },
+        "logo_2": { "type": "logo", "settings": {} },
+        "logo_3": { "type": "logo", "settings": {} },
+        "logo_4": { "type": "logo", "settings": {} },
+        "logo_5": { "type": "logo", "settings": {} },
+        "logo_6": { "type": "logo", "settings": {} }
+      },
+      "block_order": ["logo_1", "logo_2", "logo_3", "logo_4", "logo_5", "logo_6"],
+      "settings": {}
     }
   },
   "order": [
     "custom_banner",
+    "beautiful_home_carousel",
     "shop_by_type",
     "shop_by_colour",
     "installment_banner",
     "video_text_banner",
     "fabric_samples",
-    "features_grid"
+    "features_grid",
+    "how_it_works",
+    "blinds_guidelines",
+    "info_text_blocks",
+    "google_reviews",
+    "brand_trust_slider"
   ]
 }
