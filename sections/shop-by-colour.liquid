@@ -1,0 +1,194 @@
+<!-- sections/shop-by-colour.liquid -->
+
+<style>
+  .shop-by-colour {
+    background-color: {{ section.settings.bg_color }};
+    padding: 6px 28px;
+    width: 100%;
+    margin-top: 36px;
+    margin-bottom: 36px;
+  }
+
+  .shop-by-colour__title {
+    text-align: center;
+    font-size: {{ section.settings.title_size }}px;
+    font-weight: 700;
+    margin-bottom: 50px;
+  }
+
+  .shop-by-colour__grid {
+    display: grid;
+    gap: 20px 100px; /* Larger vertical gap, smaller horizontal */
+    width: 100%;
+  }
+
+  /* Desktop: 6 Columns */
+  @media screen and (min-width: 1025px) {
+    .shop-by-colour__grid {
+      grid-template-columns: repeat(6, 1fr);
+    }
+  }
+
+  /* Tablet: 4 Columns */
+  @media screen and (max-width: 1024px) and (min-width: 769px) {
+    .shop-by-colour__grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  /* Mobile: 4 Columns (as seen in mobile screenshot) */
+  @media screen and (max-width: 768px) {
+    .shop-by-colour__grid {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px 10px;
+    }
+    .shop-by-colour__title {
+      font-size: 24px;
+      margin-bottom: 30px;
+    }
+  }
+
+  .shop-by-colour__card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.3s ease;
+  }
+
+  .shop-by-colour__card:hover {
+    transform: translateY(-5px);
+  }
+
+  .shop-by-colour__image-wrapper {
+    width: 100%;
+    aspect-ratio: 1; /* Standard square swatches */
+    overflow: hidden;
+    margin-bottom: 12px;
+  }
+
+  .shop-by-colour__image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+  }
+
+  .shop-by-colour__name {
+    font-size: 13px;
+    text-align: center;
+    word-break: break-word;
+  }
+
+  @media screen and (max-width: 768px) {
+    .shop-by-colour__name {
+      font-size: 11px;
+    }
+    .shop-by-colour {
+      padding: 1px 7px;
+    }
+  }
+</style>
+
+<div class="page-width">
+  <div class="shop-by-colour" id="section-{{ section.id }}">
+    {% if section.settings.title != blank %}
+      <h2 class="shop-by-colour__title">{{ section.settings.title | escape }}</h2>
+    {% endif %}
+
+    <div class="shop-by-colour__grid">
+      {% for block in section.blocks %}
+        <a href="{{ block.settings.link | default: '#' }}" class="shop-by-colour__card" {{ block.shopify_attributes }}>
+          <div class="shop-by-colour__image-wrapper">
+            {% if block.settings.image != blank %}
+              {{
+                block.settings.image
+                | image_url: width: 150
+                | image_tag: loading: 'lazy', class: 'shop-by-colour__image'
+              }}
+            {% else %}
+              {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+            {% endif %}
+          </div>
+          <div class="shop-by-colour__name">
+            {{ block.settings.name | escape }}
+          </div>
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Shop By Colour",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Shop by Colour"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "label": "Heading Size (Desktop)",
+      "min": 24,
+      "max": 60,
+      "step": 2,
+      "default": 34,
+      "unit": "px"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#F5F5F5"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "color_block",
+      "name": "Colour Block",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Colour Swatch Image"
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Colour Name",
+          "default": "White"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Shop By Colour",
+      "blocks": [
+        { "type": "color_block", "settings": { "name": "White" } },
+        { "type": "color_block", "settings": { "name": "Cream" } },
+        { "type": "color_block", "settings": { "name": "Grey" } },
+        { "type": "color_block", "settings": { "name": "Charcoal" } },
+        { "type": "color_block", "settings": { "name": "Black" } },
+        { "type": "color_block", "settings": { "name": "Navy" } },
+        { "type": "color_block", "settings": { "name": "Teal" } },
+        { "type": "color_block", "settings": { "name": "Green" } },
+        { "type": "color_block", "settings": { "name": "Red" } },
+        { "type": "color_block", "settings": { "name": "Burgundy" } },
+        { "type": "color_block", "settings": { "name": "Mustard" } },
+        { "type": "color_block", "settings": { "name": "Orange" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

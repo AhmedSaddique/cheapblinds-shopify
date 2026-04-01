@@ -1,0 +1,206 @@
+<!-- sections/features-grid.liquid -->
+
+<style>
+  .features-grid {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+
+  .features-grid__wrapper {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  /* Fixed colors according to reference photo */
+  .features-grid__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 25px 15px;
+    text-align: center;
+    transition: transform 0.3s ease;
+  }
+
+  /* Alternating Colors Logic: 1st, 3rd (Odd) get Yellow */
+  .features-grid__item:nth-child(odd) {
+    background-color: {{ section.settings.bg_color_odd }};
+    color: {{ section.settings.text_color_odd }};
+  }
+
+  /* Alternating Colors Logic: 2nd, 4th (Even) get Cream */
+  .features-grid__item:nth-child(even) {
+    background-color: {{ section.settings.bg_color_even }};
+    color: {{ section.settings.text_color_even }};
+  }
+
+  .features-grid__icon {
+    width: 100%;
+    max-width: 150px;
+    height: 100px;
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .features-grid__icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .features-grid__item:nth-child(odd) .features-grid__icon img {
+    filter: brightness(0) invert(1);
+    opacity: 1;
+  }
+
+  .features-grid__title {
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0 0 20px 0;
+    color: inherit;
+  }
+
+  .features-grid__description {
+    font-size: 16px;
+    line-height: 1.6;
+    margin: 0;
+    opacity: 0.9;
+    color: inherit;
+  }
+
+  @media screen and (max-width: 989px) {
+    .features-grid__wrapper {
+      grid-template-columns: 1fr;
+    }
+    .features-grid__item {
+      padding: 30px 13px;
+    }
+  }
+
+  /* Responsive behavior for 2 columns for tablets */
+  @media screen and (min-width: 750px) and (max-width: 989px) {
+    .features-grid__wrapper {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>
+
+<div class="features-grid">
+  <div class="page-width">
+    <div class="features-grid__wrapper">
+      {% for block in section.blocks %}
+        <div class="features-grid__item" {{ block.shopify_attributes }}>
+          <div class="features-grid__icon">
+            {% if block.settings.icon != blank %}
+              {{ block.settings.icon | image_url: width: 200 | image_tag: loading: 'lazy' }}
+            {% else %}
+              {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+            {% endif %}
+          </div>
+          <h3 class="features-grid__title">{{ block.settings.title | escape }}</h3>
+          <div class="features-grid__description">
+            {{ block.settings.description }}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Features Grid",
+  "max_blocks": 12,
+  "settings": [
+    {
+      "type": "color",
+      "id": "bg_color_odd",
+      "label": "Background (Odd)",
+      "default": "#FEB907"
+    },
+    {
+      "type": "color",
+      "id": "text_color_odd",
+      "label": "Text Color (Odd)",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "bg_color_even",
+      "label": "Background (Even)",
+      "default": "#FEF9E7"
+    },
+    {
+      "type": "color",
+      "id": "text_color_even",
+      "label": "Text Color (Even)",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "t:sections.all.padding.padding_bottom",
+      "default": 36
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature Item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon (SVG/Image)"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "Feature Title"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "All our products are backed by a comprehensive warranty to ensure long-term performance."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Features Grid",
+      "blocks": [
+        { "type": "feature", "settings": { "title": "2 Years Warranty" } },
+        { "type": "feature", "settings": { "title": "Affordable" } },
+        { "type": "feature", "settings": { "title": "Free Samples" } },
+        { "type": "feature", "settings": { "title": "Free Next Day Delivery" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

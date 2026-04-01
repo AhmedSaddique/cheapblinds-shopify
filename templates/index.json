@@ -1,131 +1,659 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
-    "image_banner": {
-      "type": "image-banner",
+    "custom_banner_MfY4RV": {
+      "type": "custom-banner",
+      "name": "Custom Full Width Banner",
+      "settings": {
+        "desktop_image": "shopify://shop_images/7437603701490e7c722faa041d59a303b264e819.png",
+        "mobile_image": "shopify://shop_images/Frame_1707486780.png",
+        "banner_link": ""
+      }
+    },
+    "cb_shop_by_type_THagrV": {
+      "type": "cb-shop-by-type",
       "blocks": {
-        "heading": {
-          "type": "heading",
+        "product_gd9xyc": {
+          "type": "product",
           "settings": {
-            "heading": "dasdasdasdas",
-            "heading_size": "h0"
+            "product": ""
           }
         },
-        "text_N7Fxxw": {
-          "type": "text",
+        "product_C8biyi": {
+          "type": "product",
           "settings": {
-            "text": "Give customers details about the banner image(s) or content on the template.",
-            "text_style": "body"
+            "product": ""
           }
         },
-        "button": {
-          "type": "buttons",
+        "product_q9tEKa": {
+          "type": "product",
           "settings": {
-            "button_label_1": "Shop all",
-            "button_link_1": "shopify://collections/all",
-            "button_style_secondary_1": true,
-            "button_label_2": "",
-            "button_link_2": "",
-            "button_style_secondary_2": false
+            "product": ""
+          }
+        },
+        "product_DnD6yR": {
+          "type": "product",
+          "settings": {
+            "product": ""
+          }
+        },
+        "product_hNqjkF": {
+          "type": "product",
+          "settings": {
+            "product": ""
+          }
+        },
+        "product_U37Gjw": {
+          "type": "product",
+          "settings": {
+            "product": ""
+          }
+        },
+        "product_eCNgFm": {
+          "type": "product",
+          "settings": {
+            "product": ""
           }
         }
       },
       "block_order": [
-        "heading",
-        "text_N7Fxxw",
-        "button"
+        "product_gd9xyc",
+        "product_C8biyi",
+        "product_q9tEKa",
+        "product_DnD6yR",
+        "product_hNqjkF",
+        "product_U37Gjw",
+        "product_eCNgFm"
       ],
+      "name": "CB Shop by Type Slider",
       "settings": {
-        "image_overlay_opacity": 40,
-        "image_height": "large",
-        "image_behavior": "none",
-        "desktop_content_position": "bottom-center",
-        "desktop_content_alignment": "center",
-        "show_text_box": false,
-        "color_scheme": "scheme-3",
-        "stack_images_on_mobile": false,
-        "mobile_content_alignment": "center",
-        "show_text_below": false
+        "title": "Shop by Type",
+        "bg_color": "#ffffff",
+        "auto_play": false,
+        "auto_play_delay": 3
       }
     },
-    "featured_collection": {
-      "type": "featured-collection",
+    "shop_by_colour_YgFWmK": {
+      "type": "shop-by-colour",
+      "blocks": {
+        "color_block_jbXrrN": {
+          "type": "color_block",
+          "settings": {
+            "name": "White",
+            "link": ""
+          }
+        },
+        "color_block_aKREMk": {
+          "type": "color_block",
+          "settings": {
+            "name": "Cream",
+            "link": ""
+          }
+        },
+        "color_block_DQK4cg": {
+          "type": "color_block",
+          "settings": {
+            "name": "Grey",
+            "link": ""
+          }
+        },
+        "color_block_zLiKmV": {
+          "type": "color_block",
+          "settings": {
+            "name": "Charcoal",
+            "link": ""
+          }
+        },
+        "color_block_EVkkNE": {
+          "type": "color_block",
+          "settings": {
+            "name": "Black",
+            "link": ""
+          }
+        },
+        "color_block_6NXcxp": {
+          "type": "color_block",
+          "settings": {
+            "name": "Navy",
+            "link": ""
+          }
+        },
+        "color_block_mBerWd": {
+          "type": "color_block",
+          "settings": {
+            "name": "Teal",
+            "link": ""
+          }
+        },
+        "color_block_r8BRJn": {
+          "type": "color_block",
+          "settings": {
+            "name": "Green",
+            "link": ""
+          }
+        },
+        "color_block_hggDta": {
+          "type": "color_block",
+          "settings": {
+            "name": "Red",
+            "link": ""
+          }
+        },
+        "color_block_jhJX3D": {
+          "type": "color_block",
+          "settings": {
+            "name": "Burgundy",
+            "link": ""
+          }
+        },
+        "color_block_AFTRyk": {
+          "type": "color_block",
+          "settings": {
+            "name": "Mustard",
+            "link": ""
+          }
+        },
+        "color_block_rRGpYP": {
+          "type": "color_block",
+          "settings": {
+            "name": "Orange",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "color_block_jbXrrN",
+        "color_block_aKREMk",
+        "color_block_DQK4cg",
+        "color_block_zLiKmV",
+        "color_block_EVkkNE",
+        "color_block_6NXcxp",
+        "color_block_mBerWd",
+        "color_block_r8BRJn",
+        "color_block_hggDta",
+        "color_block_jhJX3D",
+        "color_block_AFTRyk",
+        "color_block_rRGpYP"
+      ],
+      "name": "Shop By Colour",
       "settings": {
-        "collection": "all",
-        "products_to_show": 8,
-        "title": "Featured products",
-        "heading_size": "h2",
-        "description": "",
-        "show_description": false,
-        "description_style": "body",
-        "columns_desktop": 4,
-        "enable_desktop_slider": false,
-        "full_width": false,
-        "show_view_all": true,
-        "view_all_style": "solid",
-        "color_scheme": "scheme-1",
-        "image_ratio": "adapt",
-        "image_shape": "default",
-        "show_secondary_image": true,
-        "show_vendor": false,
-        "show_rating": false,
-        "quick_add": "none",
-        "columns_mobile": "2",
-        "swipe_on_mobile": false,
-        "padding_top": 44,
+        "title": "Shop by Colour",
+        "title_size": 34,
+        "bg_color": "#f5f5f5"
+      }
+    },
+    "installment_banner_HJyNNm": {
+      "type": "installment-banner",
+      "name": "Installment Banner",
+      "settings": {
+        "link": "",
+        "aspect_ratio": "2.5 / 1",
+        "mobile_aspect_ratio": "2 / 1",
+        "border_radius": 0,
+        "padding_top": 36,
         "padding_bottom": 36
       }
     },
-    "image_with_text_DVMNAy": {
-      "type": "image-with-text",
+    "video_text_banner_rNg9iw": {
+      "type": "video-text-banner",
+      "name": "Video + Text Banner",
+      "settings": {
+        "bg_color": "#fef9e7",
+        "sticker_image": "shopify://shop_images/Group_1707485745.png",
+        "btn_text": "Explore More",
+        "btn_link": "",
+        "btn_color": "#ffc107",
+        "video": "shopify://files/videos/Automated_Blinds.mp4",
+        "video_url": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+        "border_radius": 0,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "features_grid_eNTMch": {
+      "type": "features-grid",
       "blocks": {
-        "heading_wBNti3": {
-          "type": "heading",
+        "feature_Ja8m4U": {
+          "type": "feature",
           "settings": {
-            "heading": "Image with text",
-            "heading_size": "h1"
+            "title": "2 Years Warranty",
+            "description": "All our products are backed by a comprehensive warranty to ensure long-term performance."
           }
         },
-        "text_rHGTt7": {
-          "type": "text",
+        "feature_7TdEDk": {
+          "type": "feature",
           "settings": {
-            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>",
-            "text_style": "body"
+            "title": "Affordable",
+            "description": "All our products are backed by a comprehensive warranty to ensure long-term performance."
           }
         },
-        "button_KFYcqh": {
-          "type": "button",
+        "feature_QHWqmR": {
+          "type": "feature",
           "settings": {
-            "button_label": "Button label",
-            "button_link": "",
-            "button_style_secondary": false
+            "title": "Free Samples",
+            "description": "All our products are backed by a comprehensive warranty to ensure long-term performance."
+          }
+        },
+        "feature_N6iqWn": {
+          "type": "feature",
+          "settings": {
+            "title": "Free Next Day Delivery",
+            "description": "All our products are backed by a comprehensive warranty to ensure long-term performance."
           }
         }
       },
       "block_order": [
-        "heading_wBNti3",
-        "text_rHGTt7",
-        "button_KFYcqh"
+        "feature_Ja8m4U",
+        "feature_7TdEDk",
+        "feature_QHWqmR",
+        "feature_N6iqWn"
       ],
-      "name": "t:sections.image-with-text.presets.name",
+      "name": "Features Grid",
       "settings": {
-        "height": "adapt",
+        "bg_color_odd": "#feb907",
+        "text_color_odd": "#ffffff",
+        "bg_color_even": "#fef9e7",
+        "text_color_even": "#000000",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "fabric_samples_4fpFjX": {
+      "type": "fabric-samples",
+      "name": "Fabric Samples Banner",
+      "settings": {
+        "title": "Free Fabric Samples",
+        "text": "<p>Picking the perfect blinds isn't just about looks. It's about how they feel in your space under the Gulf sun. We'll send a handpicked selection straight to your door.</p>",
+        "btn_text": "Order Up To 5 Free Samples",
+        "btn_link": "",
+        "btn_color": "#feb907",
+        "aspect_ratio": "1 / 1",
+        "bg_color_left": "#ffffff",
+        "bg_color_right": "#fef9e7",
+        "border_radius": 0,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "beautiful_home_carousel_7Gq7XP": {
+      "type": "beautiful-home-carousel",
+      "blocks": {
+        "product_card_tcQKaP": {
+          "type": "product_card",
+          "settings": {
+            "title": "Roller Blinds",
+            "subtitle": "Blackout Roller Blinds",
+            "link": ""
+          }
+        },
+        "product_card_gtRTwk": {
+          "type": "product_card",
+          "settings": {
+            "title": "Roller Blinds",
+            "subtitle": "Blackout Roller Blinds",
+            "link": ""
+          }
+        },
+        "product_card_pNGLiP": {
+          "type": "product_card",
+          "settings": {
+            "title": "Roller Blinds",
+            "subtitle": "Blackout Roller Blinds",
+            "link": ""
+          }
+        },
+        "product_card_eUidVp": {
+          "type": "product_card",
+          "settings": {
+            "title": "Roller Blinds",
+            "subtitle": "Blackout Roller Blinds",
+            "link": ""
+          }
+        },
+        "product_card_crDdbP": {
+          "type": "product_card",
+          "settings": {
+            "title": "Roller Blinds",
+            "subtitle": "Blackout Roller Blinds",
+            "link": ""
+          }
+        },
+        "product_card_4WxfRc": {
+          "type": "product_card",
+          "settings": {
+            "title": "Roller Blinds",
+            "subtitle": "Blackout Roller Blinds",
+            "link": ""
+          }
+        }
+      },
+      "block_order": [
+        "product_card_tcQKaP",
+        "product_card_gtRTwk",
+        "product_card_pNGLiP",
+        "product_card_eUidVp",
+        "product_card_crDdbP",
+        "product_card_4WxfRc"
+      ],
+      "name": "Beautiful Home Carousel",
+      "settings": {
+        "title": "Building a Beautiful Home - Starts at Your Windows",
+        "intro": "<p>Spice up your home with our window blinds that magically bring in brightness and dimension...</p>",
+        "bg_color": "#fef9e7",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "how_it_works_tVBVaf": {
+      "type": "how-it-works",
+      "blocks": {
+        "step_BCBpkA": {
+          "type": "step",
+          "settings": {
+            "step_label": "STEP 1",
+            "title": "Measure",
+            "text": "Use our simple guide to measure your windows accurately."
+          }
+        },
+        "step_8GJnG6": {
+          "type": "step",
+          "settings": {
+            "step_label": "STEP 2",
+            "title": "Order",
+            "text": "Choose your style, colour and size — we'll make it to fit."
+          }
+        },
+        "step_bdUzdN": {
+          "type": "step",
+          "settings": {
+            "step_label": "STEP 3",
+            "title": "Install",
+            "text": "Fit your blinds easily with our step-by-step instructions."
+          }
+        }
+      },
+      "block_order": [
+        "step_BCBpkA",
+        "step_8GJnG6",
+        "step_bdUzdN"
+      ],
+      "name": "How It Works",
+      "settings": {
+        "title": "How It Works",
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    },
+    "blinds_guidelines_gzC4zJ": {
+      "type": "blinds-guidelines",
+      "name": "Blinds Guidelines",
+      "settings": {
+        "title": "Blinds Guidelines",
+        "text": "<p>Our measuring and fitting guides help towards a flawless fit, so you can enjoy the high life without spending a fortune.</p>",
+        "bg_color": "#ffb8041f",
+        "btn1_text": "Measuring Guidelines",
+        "btn1_link": "",
+        "btn2_text": "Fitting Guidelines",
+        "btn2_link": "",
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    },
+    "multirow_a4R9He": {
+      "type": "multirow",
+      "blocks": {
+        "row_yRKMaR": {
+          "type": "row",
+          "settings": {
+            "caption": "",
+            "heading": "Row",
+            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>",
+            "button_label": "Button label",
+            "button_link": ""
+          }
+        },
+        "row_cWjFtP": {
+          "type": "row",
+          "settings": {
+            "caption": "",
+            "heading": "Row",
+            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>",
+            "button_label": "Button label",
+            "button_link": ""
+          }
+        },
+        "row_xfn4DD": {
+          "type": "row",
+          "settings": {
+            "caption": "",
+            "heading": "Row",
+            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>",
+            "button_label": "Button label",
+            "button_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "row_yRKMaR",
+        "row_cWjFtP",
+        "row_xfn4DD"
+      ],
+      "name": "t:sections.multirow.presets.name",
+      "settings": {
+        "image_height": "medium",
         "desktop_image_width": "medium",
-        "layout": "image_first",
-        "image_behavior": "none",
-        "content_layout": "no-overlap",
-        "desktop_content_position": "top",
+        "image_layout": "align-right",
+        "heading_size": "h1",
+        "text_style": "body",
+        "button_style": "secondary",
+        "desktop_content_position": "middle",
         "desktop_content_alignment": "left",
         "mobile_content_alignment": "left",
         "section_color_scheme": "",
-        "color_scheme": "",
+        "row_color_scheme": "",
         "padding_top": 36,
         "padding_bottom": 36
+      }
+    },
+    "info_text_blocks_ifAAe8": {
+      "type": "info-text-blocks",
+      "blocks": {
+        "info_block_NxP7Hh": {
+          "type": "info_block",
+          "settings": {
+            "heading": "Premium Blinds for Windows Across the UAE",
+            "content": "<p>At Cheap Blinds, we specialise in providing high-quality, made-to-measure window blinds at prices that genuinely surprise in the best possible way. Every blind is custom-crafted to your exact measurements, delivering a flawless fit that off-the-shelf products simply cannot match, no gaps, no guesswork, no compromise.</p>"
+          }
+        },
+        "info_block_yjFGp8": {
+          "type": "info_block",
+          "settings": {
+            "heading": "Premium Blinds for Windows Across the UAE",
+            "content": "<p>At Cheap Blinds, we specialise in providing high-quality, made-to-measure window blinds at prices that genuinely surprise in the best possible way. Every blind is custom-crafted to your exact measurements, delivering a flawless fit that off-the-shelf products simply cannot match, no gaps, no guesswork, no compromise.</p>"
+          }
+        },
+        "info_block_BFDVeN": {
+          "type": "info_block",
+          "settings": {
+            "heading": "Blinds Made Easy — From Dubai to Fujairah",
+            "content": "<p>Shopping for window blinds online has never been easier, and we've designed the entire <a href='https://cheapblinds.ae'>cheapblinds.ae</a> experience with that in mind.</p>"
+          }
+        },
+        "info_block_CqPRbk": {
+          "type": "info_block",
+          "settings": {
+            "heading": "Blinds Made Easy — From Dubai to Fujairah",
+            "content": "<p>Shopping for window blinds online has never been easier, and we've designed the entire <a href=\"https://cheapblinds.ae\">cheapblinds.ae</a> experience with that in mind.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "info_block_NxP7Hh",
+        "info_block_yjFGp8",
+        "info_block_BFDVeN",
+        "info_block_CqPRbk"
+      ],
+      "name": "SEO & Info Text",
+      "settings": {
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    },
+    "google_reviews_yemBTH": {
+      "type": "google-reviews",
+      "blocks": {
+        "review_NBrNnw": {
+          "type": "review",
+          "settings": {
+            "avatar": "shopify://shop_images/Group_1707485719.png",
+            "user_name": "Customer Name",
+            "date": "Jan 24, 2026",
+            "review_text": "I love this product because the support is great."
+          }
+        },
+        "review_3QMgnn": {
+          "type": "review",
+          "settings": {
+            "user_name": "Customer Name",
+            "date": "Jan 24, 2026",
+            "review_text": "I love this product because the support is great."
+          }
+        },
+        "review_PhhnxQ": {
+          "type": "review",
+          "settings": {
+            "user_name": "Customer Name",
+            "date": "Jan 24, 2026",
+            "review_text": "I love this product because the support is great."
+          }
+        },
+        "review_x3WEae": {
+          "type": "review",
+          "settings": {
+            "user_name": "Customer Name",
+            "date": "Jan 24, 2026",
+            "review_text": "I love this product because the support is great."
+          }
+        },
+        "review_BdKPVz": {
+          "type": "review",
+          "settings": {
+            "user_name": "Customer Name",
+            "date": "Jan 24, 2026",
+            "review_text": "I love this product because the support is great."
+          }
+        }
+      },
+      "block_order": [
+        "review_NBrNnw",
+        "review_3QMgnn",
+        "review_PhhnxQ",
+        "review_x3WEae",
+        "review_BdKPVz"
+      ],
+      "name": "Google Reviews Slider",
+      "settings": {
+        "logo": "shopify://shop_images/cropped-cheapblinds_logo_colour_1_1x_1.png",
+        "title": "Google Reviews from Our Customers",
+        "review_count": "84,290",
+        "write_link": "",
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    },
+    "brand_trust_slider_cVbCWd": {
+      "type": "brand-trust-slider",
+      "blocks": {
+        "logo_iEUTTn": {
+          "type": "logo",
+          "settings": {
+            "logo_image": "shopify://shop_images/download_2_1.png"
+          }
+        },
+        "logo_jCpEFF": {
+          "type": "logo",
+          "settings": {
+            "logo_image": "shopify://shop_images/download_2_1.png"
+          }
+        },
+        "logo_7mw8BC": {
+          "type": "logo",
+          "settings": {
+            "logo_image": "shopify://shop_images/download_2_1.png"
+          }
+        },
+        "logo_9AbBeY": {
+          "type": "logo",
+          "settings": {
+            "logo_image": "shopify://shop_images/download_2_1.png"
+          }
+        },
+        "logo_JNb9WU": {
+          "type": "logo",
+          "settings": {
+            "logo_image": "shopify://shop_images/download_2_1.png"
+          }
+        },
+        "logo_EcDRCU": {
+          "type": "logo",
+          "settings": {
+            "logo_image": "shopify://shop_images/download_2_1.png"
+          }
+        },
+        "logo_x8YtjV": {
+          "type": "logo",
+          "settings": {
+            "logo_image": "shopify://shop_images/download_2_2.png"
+          }
+        },
+        "logo_hKfNWr": {
+          "type": "logo",
+          "settings": {
+            "logo_image": "shopify://shop_images/download_2_2.png"
+          }
+        }
+      },
+      "block_order": [
+        "logo_iEUTTn",
+        "logo_jCpEFF",
+        "logo_7mw8BC",
+        "logo_9AbBeY",
+        "logo_JNb9WU",
+        "logo_EcDRCU",
+        "logo_x8YtjV",
+        "logo_hKfNWr"
+      ],
+      "name": "Brand Trust Slider",
+      "settings": {
+        "title": "TRUSTED BY MANY INTERNATIONAL BRANDS",
+        "bg_color": "#fff6e0",
+        "margin_top": 80,
+        "margin_bottom": 60
       }
     }
   },
   "order": [
-    "image_banner",
-    "image_with_text_DVMNAy",
-    "featured_collection"
+    "custom_banner_MfY4RV",
+    "cb_shop_by_type_THagrV",
+    "shop_by_colour_YgFWmK",
+    "installment_banner_HJyNNm",
+    "video_text_banner_rNg9iw",
+    "features_grid_eNTMch",
+    "fabric_samples_4fpFjX",
+    "beautiful_home_carousel_7Gq7XP",
+    "how_it_works_tVBVaf",
+    "blinds_guidelines_gzC4zJ",
+    "multirow_a4R9He",
+    "info_text_blocks_ifAAe8",
+    "google_reviews_yemBTH",
+    "brand_trust_slider_cVbCWd"
   ]
 }
