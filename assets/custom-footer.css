@@ -37,10 +37,6 @@
   }
 }
 
-/* --- MOBILE STYLES --- */
-.custom-footer__col-left {
-  position: relative;
-}
 
 .custom-footer__main-img {
   position: absolute !important;
@@ -48,19 +44,36 @@
   right: auto !important;
   left: auto !important;
   transform: none !important;
+  max-width: 380px;
   width: 100% !important;
-  max-width: 380px !important;
-  opacity: 0.8;
+  height: 230px !important;
+  object-fit: cover;
+  opacity: 0.8 !important;
   z-index: 0;
   pointer-events: none;
 }
 
-.custom-footer__col-left-content {
-  position: relative;
-  z-index: 5;
-  /* This ensures the text stays ON TOP of the woman image */
-  padding: 110px 0 20px 0;
-  /* More padding for mobile to clear the woman's head */
+@media screen and (min-width: 640px) {
+  .custom-footer__main-img {
+    top: 5px !important;
+    height: 300px !important;
+    justify-content: center;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .custom-footer__main-img {
+    height: 260px !important;
+    width: 100% !important;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .custom-footer__main-img {
+    width: 490px !important;
+    max-width: 490px !important;
+    height: 360px !important;
+  }
 }
 
 /* Heading Styling */
@@ -74,6 +87,37 @@
   color: #000000;
 }
 
+.custom-footer__col-left-content {
+  position: relative;
+  z-index: 5;
+  position: absolute;
+}
+
+/* Push the text content down so it doesn't get covered by the woman's face */
+.custom-footer__col-left-content {
+  position: relative;
+  z-index: 5;
+  padding-top: 100px;
+  /* Adjust this value to move the "Get in Touch" text up or down */
+}
+
+@media screen and (min-width: 900px) {
+  .custom-footer__col-left-content {
+    padding-top: 200px;
+  }
+}
+
+/* --- MOBILE STYLES --- */
+.custom-footer__col-left {
+  position: relative;
+}
+
+.custom-footer__col-left {
+  position: relative;
+  min-height: 280px;
+}
+
+
 .custom-footer__contact-item {
   display: flex;
   gap: 10px;
@@ -86,6 +130,11 @@
   width: 18px;
   flex-shrink: 0;
 }
+
+.custom-footer__contact-item {
+  font-size: var(--text-size-desktop, 16px);
+}
+
 
 .custom-footer__menu-col {
   margin-bottom: 15px;
@@ -188,69 +237,50 @@
 .custom-footer__newsletter-form {
   display: flex;
   margin-bottom: 20px;
+  width: 100%;
 }
+
+@media (min-width: 480px) {
+  .custom-footer__newsletter-form {
+    max-width: 60%;
+  }
+
+  @media (min-width: 1024px) {
+    .custom-footer__newsletter-form {
+      max-width: 100%;
+    }
+  }
+}
+
 
 .custom-footer__newsletter-input {
   border: 1px solid #fff;
   padding: 15px;
   border-radius: 10px 0 0 10px;
+  outline: none;
+  width: 70%;
 }
-
-/* @media (min-width: 768px) {
-  .custom-footer__newsletter-input {
-    flex-grow: 1;
-  }
-} */
 
 .custom-footer__newsletter-btn {
   background: #000;
   color: #FEB907;
   border: none;
-  padding: 0 20px;
+  padding: px;
   border-radius: 0 10px 10px 0;
   cursor: pointer;
   font-weight: bold;
+  width: 30%;
 }
 
-.custom-footer__col-left {
-  position: relative;
-  min-height: 300px;
-}
-
-.custom-footer__main-img {
-  position: absolute;
-  left: -40px;
-  bottom: 0;
-  width: 350px;
-  max-width: none;
-  opacity: 1;
-  z-index: 1;
-}
-
-.custom-footer__col-left-content {
-  position: relative;
-  z-index: 5;
-  padding-top: 200px;
-}
-
-@media screen and (min-width: 1024px) {
-  .custom-footer__col-left-content {
-    padding-top: 120px;
-  }
-}
-
-/* Push the text content down so it doesn't get covered by the woman's face */
-.custom-footer__col-left-content {
-  position: relative;
-  z-index: 5;
-  padding-top: 280px;
-  /* Adjust this value to move the "Get in Touch" text up or down */
-}
-
-@media screen and (min-width: 900px) {
-  .custom-footer__col-left-content {
-    padding-top: 200px;
-  }
+.custom-footer__newsletter-input:focus {
+  outline: none;
+  /* Removes the default blue/black glow */
+  box-shadow: none;
+  /* Ensures no shadow adds extra size */
+  border: 2px solid #000;
+  /* If you want a thicker border, box-sizing keeps it inside */
+  padding: 0 14px;
+  /* Subtract 1px from padding if border increases by 1px */
 }
 
 .custom-footer__col-right {
@@ -264,7 +294,7 @@
 .custom-footer__menus {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 20px;
+  /* gap: 20px; */
 }
 
 @media screen and (min-width: 1024px) {
@@ -287,9 +317,6 @@
   }
 }
 
-.custom-footer__contact-item {
-  font-size: var(--text-size-desktop, 16px);
-}
 
 .custom-footer__menu-col li {
   font-size: var(--text-size-desktop, 14px);
@@ -309,8 +336,16 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 5px;
   font-size: 13px;
+}
+
+@media screen and (min-width: 1280px) {
+  .custom-footer__bottom-inner {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 5px;
+  }
 }
 
 .custom-footer__bottom-links {
@@ -324,6 +359,7 @@
 .custom-footer__social {
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: 10px;
   font-size: 16px;
   ;
@@ -344,12 +380,6 @@
   padding: 4px;
 }
 
-@media screen and (min-width: 990px) {
-  .custom-footer__bottom-inner {
-    flex-direction: row;
-    justify-content: space-between;
-  }
-}
 
 .custom-footer__copyright {
   text-align: center;
@@ -361,7 +391,12 @@
 .custom-footer__payment-icons {
   display: flex;
   gap: 10px;
-  flex-wrap: wrap;
+}
+
+@media screen and (min-width: 1024px) {
+  .custom-footer__payment-icons {
+    flex-wrap: wrap;
+  }
 }
 
 .payment-icon-box {
