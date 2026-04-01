@@ -18,6 +18,69 @@
         "banner_link": ""
       }
     },
+    "cb_shop_by_type_THagrV": {
+      "type": "cb-shop-by-type",
+      "blocks": {
+        "product_gd9xyc": {
+          "type": "product",
+          "settings": {
+            "product": ""
+          }
+        },
+        "product_C8biyi": {
+          "type": "product",
+          "settings": {
+            "product": ""
+          }
+        },
+        "product_q9tEKa": {
+          "type": "product",
+          "settings": {
+            "product": ""
+          }
+        },
+        "product_DnD6yR": {
+          "type": "product",
+          "settings": {
+            "product": ""
+          }
+        },
+        "product_hNqjkF": {
+          "type": "product",
+          "settings": {
+            "product": ""
+          }
+        },
+        "product_U37Gjw": {
+          "type": "product",
+          "settings": {
+            "product": ""
+          }
+        },
+        "product_eCNgFm": {
+          "type": "product",
+          "settings": {
+            "product": ""
+          }
+        }
+      },
+      "block_order": [
+        "product_gd9xyc",
+        "product_C8biyi",
+        "product_q9tEKa",
+        "product_DnD6yR",
+        "product_hNqjkF",
+        "product_U37Gjw",
+        "product_eCNgFm"
+      ],
+      "name": "CB Shop by Type Slider",
+      "settings": {
+        "title": "Shop by Type",
+        "bg_color": "#ffffff",
+        "auto_play": false,
+        "auto_play_delay": 3
+      }
+    },
     "shop_by_colour_YgFWmK": {
       "type": "shop-by-colour",
       "blocks": {
@@ -124,7 +187,7 @@
       "settings": {
         "title": "Shop by Colour",
         "title_size": 34,
-        "bg_color": "#F5F5F5"
+        "bg_color": "#f5f5f5"
       }
     },
     "installment_banner_HJyNNm": {
@@ -143,11 +206,11 @@
       "type": "video-text-banner",
       "name": "Video + Text Banner",
       "settings": {
-        "bg_color": "#FEF9E7",
+        "bg_color": "#fef9e7",
         "sticker_image": "shopify://shop_images/Group_1707485745.png",
         "btn_text": "Explore More",
         "btn_link": "",
-        "btn_color": "#FFC107",
+        "btn_color": "#ffc107",
         "video": "shopify://files/videos/Automated_Blinds.mp4",
         "video_url": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
         "border_radius": 0,
@@ -195,9 +258,9 @@
       ],
       "name": "Features Grid",
       "settings": {
-        "bg_color_odd": "#FEB907",
-        "text_color_odd": "#FFFFFF",
-        "bg_color_even": "#FEF9E7",
+        "bg_color_odd": "#feb907",
+        "text_color_odd": "#ffffff",
+        "bg_color_even": "#fef9e7",
         "text_color_even": "#000000",
         "padding_top": 36,
         "padding_bottom": 36
@@ -211,10 +274,10 @@
         "text": "<p>Picking the perfect blinds isn't just about looks. It's about how they feel in your space under the Gulf sun. We'll send a handpicked selection straight to your door.</p>",
         "btn_text": "Order Up To 5 Free Samples",
         "btn_link": "",
-        "btn_color": "#FEB907",
+        "btn_color": "#feb907",
         "aspect_ratio": "1 / 1",
-        "bg_color_left": "#FFFFFF",
-        "bg_color_right": "#FEF9E7",
+        "bg_color_left": "#ffffff",
+        "bg_color_right": "#fef9e7",
         "border_radius": 0,
         "padding_top": 36,
         "padding_bottom": 36
@@ -284,7 +347,7 @@
       "settings": {
         "title": "Building a Beautiful Home - Starts at Your Windows",
         "intro": "<p>Spice up your home with our window blinds that magically bring in brightness and dimension...</p>",
-        "bg_color": "#FEF9E7",
+        "bg_color": "#fef9e7",
         "padding_top": 36,
         "padding_bottom": 36
       }
@@ -335,7 +398,7 @@
       "settings": {
         "title": "Blinds Guidelines",
         "text": "<p>Our measuring and fitting guides help towards a flawless fit, so you can enjoy the high life without spending a fortune.</p>",
-        "bg_color": "#FFB8041F",
+        "bg_color": "#ffb8041f",
         "btn1_text": "Measuring Guidelines",
         "btn1_link": "",
         "btn2_text": "Fitting Guidelines",
@@ -571,7 +634,7 @@
       "name": "Brand Trust Slider",
       "settings": {
         "title": "TRUSTED BY MANY INTERNATIONAL BRANDS",
-        "bg_color": "#FFF6E0",
+        "bg_color": "#fff6e0",
         "margin_top": 80,
         "margin_bottom": 60
       }
@@ -579,6 +642,7 @@
   },
   "order": [
     "custom_banner_MfY4RV",
+    "cb_shop_by_type_THagrV",
     "shop_by_colour_YgFWmK",
     "installment_banner_HJyNNm",
     "video_text_banner_rNg9iw",
