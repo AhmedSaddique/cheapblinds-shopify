@@ -3,7 +3,8 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 15px 5%;
+    padding-top: 15px;
+    padding-bottom: 15px;
     background-color: #ffffff;
     border-bottom: 2px solid #f0f0f0;
     gap: 10px;
@@ -117,11 +118,16 @@
   }
 </style>
 
-<div class="cb-header-main">
+<div class="cb-header-main page-width">
   <div class="cb-logo-container">
     <a href="/" class="cb-logo-link">
       {% if section.settings.logo != blank %}
-        <img src="{{ section.settings.logo | img_url: 'master' }}" alt="{{ shop.name }}" width="{{ section.settings.logo.width }}" height="{{ section.settings.logo.height }}">
+        <img
+          src="{{ section.settings.logo | img_url: 'master' }}"
+          alt="{{ shop.name }}"
+          width="{{ section.settings.logo.width }}"
+          height="{{ section.settings.logo.height }}"
+        >
       {% else %}
         <span class="cb-logo-text">{{ shop.name }}</span>
       {% endif %}
@@ -134,42 +140,49 @@
     {%- else -%}
       <search-form class="cb-predictive-search">
     {%- endif -%}
-      <form action="{{ routes.search_url }}" method="get" role="search" class="cb-search-form">
-        <div class="cb-search-input-wrapper">
-          <svg class="cb-search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
-          <input 
-            type="search" 
-            name="q" 
-            id="Search-In-Main"
-            placeholder="{{ section.settings.search_placeholder }}" 
-            class="cb-search-input"
-            value="{{ search.terms | escape }}"
-            {%- if settings.predictive_search_enabled -%}
-              role="combobox"
-              aria-expanded="false"
-              aria-owns="predictive-search-results"
-              aria-controls="predictive-search-results"
-              aria-haspopup="listbox"
-              aria-autocomplete="list"
-              autocorrect="off"
-              autocomplete="off"
-              autocapitalize="off"
-              spellcheck="false"
-            {%- endif -%}
-          >
-          <input type="hidden" name="type" value="product">
-          <input type="hidden" name="options[prefix]" value="last">
-          <button type="reset" class="visually-hidden">Reset</button>
-          <button type="submit" class="visually-hidden">Search</button>
-        </div>
+    <form action="{{ routes.search_url }}" method="get" role="search" class="cb-search-form">
+      <div class="cb-search-input-wrapper">
+        <svg class="cb-search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        </svg>
+        <input
+          type="search"
+          name="q"
+          id="Search-In-Main"
+          placeholder="{{ section.settings.search_placeholder }}"
+          class="cb-search-input"
+          value="{{ search.terms | escape }}"
+          {%- if settings.predictive_search_enabled -%}
+            role="combobox"
+            aria-expanded="false"
+            aria-owns="predictive-search-results"
+            aria-controls="predictive-search-results"
+            aria-haspopup="listbox"
+            aria-autocomplete="list"
+            autocorrect="off"
+            autocomplete="off"
+            autocapitalize="off"
+            spellcheck="false"
+          {%- endif -%}
+        >
+        <input type="hidden" name="type" value="product">
+        <input type="hidden" name="options[prefix]" value="last">
+        <button type="reset" class="visually-hidden">Reset</button>
+        <button type="submit" class="visually-hidden">Search</button>
+      </div>
 
-        {%- if settings.predictive_search_enabled -%}
-          <div class="predictive-search predictive-search--header" tabindex="-1" data-predictive-search style="position: absolute; top: calc(100% + 5px); left: 0; width: 100%; z-index: 100; background: #fff; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); border: 1px solid #e0e0e0;">
-            {%- render 'loading-spinner', class: 'predictive-search__loading-state' -%}
-          </div>
-          <span class="predictive-search-status visually-hidden" role="status" aria-hidden="true"></span>
-        {%- endif -%}
-      </form>
+      {%- if settings.predictive_search_enabled -%}
+        <div
+          class="predictive-search predictive-search--header"
+          tabindex="-1"
+          data-predictive-search
+          style="position: absolute; top: calc(100% + 5px); left: 0; width: 100%; z-index: 100; background: #fff; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); border: 1px solid #e0e0e0;"
+        >
+          {%- render 'loading-spinner', class: 'predictive-search__loading-state' -%}
+        </div>
+        <span class="predictive-search-status visually-hidden" role="status" aria-hidden="true"></span>
+      {%- endif -%}
+    </form>
     {%- if settings.predictive_search_enabled -%}
       </predictive-search>
     {%- else -%}
@@ -181,34 +194,74 @@
     {% if shop.customer_accounts_enabled %}
       <a href="{{ routes.account_url }}" class="cb-icon-link">
         {% if section.settings.account_icon != blank %}
-          <img src="{{ section.settings.account_icon | img_url: '40x' }}" alt="Account" width="22" height="22" style="object-fit: contain;">
+          <img
+            src="{{ section.settings.account_icon | img_url: '40x' }}"
+            alt="Account"
+            width="22"
+            height="22"
+            style="object-fit: contain;"
+          >
         {% else %}
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+          </svg>
         {% endif %}
       </a>
     {% endif %}
-    
+
     <a href="/pages/wishlist" class="cb-icon-link">
       {% if section.settings.wishlist_icon != blank %}
-        <img src="{{ section.settings.wishlist_icon | img_url: '40x' }}" alt="Wishlist" width="22" height="22" style="object-fit: contain;">
+        <img
+          src="{{ section.settings.wishlist_icon | img_url: '40x' }}"
+          alt="Wishlist"
+          width="22"
+          height="22"
+          style="object-fit: contain;"
+        >
       {% else %}
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path style="fill:#000;stroke:none;" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path style="fill:#000;stroke:none;" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+        </svg>
       {% endif %}
     </a>
-    
+
     <a href="/pages/samples" class="cb-icon-link">
       {% if section.settings.samples_icon != blank %}
-        <img src="{{ section.settings.samples_icon | img_url: '40x' }}" alt="Samples" width="22" height="22" style="object-fit: contain;">
+        <img
+          src="{{ section.settings.samples_icon | img_url: '40x' }}"
+          alt="Samples"
+          width="22"
+          height="22"
+          style="object-fit: contain;"
+        >
       {% else %}
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><path d="M12 2v20"/><path d="M16 2v20"/></svg>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><path d="M12 2v20"/><path d="M16 2v20"/>
+        </svg>
       {% endif %}
     </a>
 
     <a href="{{ routes.cart_url }}" class="cb-icon-link cb-cart-icon" id="cart-icon-bubble">
       {% if section.settings.cart_icon != blank %}
-        <img src="{{ section.settings.cart_icon | img_url: '40x' }}" alt="Cart" width="20" height="20" style="object-fit: contain;">
+        <img
+          src="{{ section.settings.cart_icon | img_url: '40x' }}"
+          alt="Cart"
+          width="20"
+          height="20"
+          style="object-fit: contain;"
+        >
       {% else %}
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" stroke="none"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1.003 1.003 0 0 0 20 4H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" stroke="none">
+          <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1.003 1.003 0 0 0 20 4H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/>
+        </svg>
       {% endif %}
       <span class="cb-cart-count">{{ cart.item_count }}</span>
     </a>

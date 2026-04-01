@@ -19,6 +19,52 @@
     },
     "product-grid": {
       "type": "main-collection-product-grid",
+      "blocks": {
+        "chip-blackout": {
+          "type": "category_chip",
+          "settings": {
+            "label": "Blackout"
+          }
+        },
+        "chip-dimout": {
+          "type": "category_chip",
+          "settings": {
+            "label": "Dimout"
+          }
+        },
+        "chip-visible": {
+          "type": "category_chip",
+          "settings": {
+            "label": "Visible"
+          }
+        },
+        "chip-waterproof": {
+          "type": "category_chip",
+          "settings": {
+            "label": "Waterproof"
+          }
+        },
+        "chip-motorised": {
+          "type": "category_chip",
+          "settings": {
+            "label": "Motorised"
+          }
+        },
+        "chip-express": {
+          "type": "category_chip",
+          "settings": {
+            "label": "Express Delivery"
+          }
+        }
+      },
+      "block_order": [
+        "chip-blackout",
+        "chip-dimout",
+        "chip-visible",
+        "chip-waterproof",
+        "chip-motorised",
+        "chip-express"
+      ],
       "settings": {
         "products_per_page": 16,
         "columns_desktop": 4,
@@ -30,11 +76,24 @@
         "show_rating": false,
         "quick_add": "none",
         "enable_filtering": true,
-        "filter_type": "horizontal",
+        "filter_type": "vertical",
         "enable_sorting": true,
         "columns_mobile": "2",
         "padding_top": 36,
-        "padding_bottom": 36
+        "padding_bottom": 36,
+        "show_collection_info": true,
+        "coll_title_font_size": 28,
+        "coll_title_font_weight": "800",
+        "coll_desc_font_size": 15,
+        "coll_desc_font_weight": "400",
+        "show_category_chips": true,
+        "chip_alignment": "flex-start",
+        "chip_gap": 12,
+        "chip_bg_color": "#ffb800",
+        "chip_text_color": "#000000",
+        "chip_font_size": 13,
+        "chip_font_weight": "700",
+        "show_promo_banner": true
       }
     }
   },

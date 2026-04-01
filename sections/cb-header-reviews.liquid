@@ -1,14 +1,20 @@
 <style>
   .cb-header-reviews {
     background-color: {{ section.settings.bg_color }};
-    padding: 16px 5%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
+    padding-top: 16px;
+    padding-bottom: 16px;
     color: {{ section.settings.text_color }};
     font-size: 14px;
     font-weight: 500;
+  }
+  .cb-header-reviews .page-width {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+  }
+  .cb-reviews-left{
+    display: flex !important;
   }
   .cb-reviews-content {
     display: flex;
@@ -18,7 +24,7 @@
   }
   .cb-reviews-stars {
     display: flex;
-    color: #fff;
+    color: {{ section.settings.star_color }};
     gap: 2px;
   }
   .cb-reviews-stars svg {
@@ -27,10 +33,8 @@
     fill: currentColor;
   }
   .cb-reviews-btn {
-    position: absolute;
-    right: 5%;
-    background-color: #fff;
-    color: #000;
+    background-color: {{ section.settings.button_bg_color }};
+    color: {{ section.settings.button_text_color }};
     text-decoration: none;
     padding: 4px 14px;
     border-radius: 4px;
@@ -40,8 +44,9 @@
     transition: all 0.3s ease;
   }
   .cb-reviews-btn:hover {
-    background-color: #f7f7f7;
-    border-color: #ddd;
+    background-color: {{ section.settings.button_hover_bg_color }};
+    border-color: {{ section.settings.button_hover_border_color }};
+    color: {{ section.settings.button_hover_text_color }};
   }
   /* Hide complete section on mobile to prevent white space */
   @media (max-width: 1024px) {
@@ -49,25 +54,31 @@
       display: none !important;
     }
   }
-
 </style>
 
 <div class="cb-header-reviews">
-  <div class="cb-reviews-content">
-    <span style="color: {{ section.settings.brand_color }}; font-weight: 600;">{{ section.settings.brand_text }}</span>
-    <div class="cb-reviews-stars">
-      {% for i in (1..5) %}
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-      {% endfor %}
+  <div class="page-width">
+    <div class="cb-reviews-left"></div>
+    <div class="cb-reviews-content">
+      <span style="color: {{ section.settings.brand_color }}; font-weight: 600;">
+        {{- section.settings.brand_text -}}
+      </span>
+      <div class="cb-reviews-stars">
+        {% for i in (1..5) %}
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+          </svg>
+        {% endfor %}
+      </div>
+      <span>{{ section.settings.rating_text }}</span>
     </div>
-    <span>{{ section.settings.rating_text }}</span>
-  </div>
 
-  {% if section.settings.button_text != blank %}
-    <a href="{{ section.settings.button_link | default: '#' }}" class="cb-reviews-btn">
-      {{ section.settings.button_text }}
-    </a>
-  {% endif %}
+    {% if section.settings.button_text != blank %}
+      <a href="{{ section.settings.button_link | default: '#' }}" class="cb-reviews-btn">
+        {{ section.settings.button_text }}
+      </a>
+    {% endif %}
+  </div>
 </div>
 
 {% schema %}
@@ -105,10 +116,41 @@
       "default": "4.7 rating of 84,290 reviews"
     },
     {
+      "type": "color",
+      "id": "star_color",
+      "label": "Star Color",
+      "default": "#fff"
+    },
+
+    {
       "type": "text",
       "id": "button_text",
       "label": "Button Text",
       "default": "Write a reviews"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Button Background Color",
+      "default": "#fff"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button Text Color",
+      "default": "#000"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_bg_color",
+      "label": "Button Hover Background Color",
+      "default": "#f7f7f7"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_text_color",
+      "label": "Button Hover Text Color",
+      "default": "#000"
     },
     {
       "type": "url",

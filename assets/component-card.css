@@ -62,6 +62,13 @@
     rgba(var(--color-shadow), var(--shadow-opacity));
 }
 
+.cb-product-card-body-wrapper {
+  flex-grow: 1;
+  display: flex;
+  justify-content: space-between;
+  flex-flow: column;
+}
+
 /* Needed for gradient continuity with or without animation, the transform scopes the gradient to its container which happens already when animation are turned on */
 .card--card.gradient,
 .card__inner.gradient {
@@ -102,6 +109,7 @@
 
 .card .media {
   width: 100%;
+  overflow: hidden;
 }
 
 .card__media {

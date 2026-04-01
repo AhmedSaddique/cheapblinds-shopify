@@ -1,45 +1,129 @@
-<span class="field-currency">{{ cart.currency.symbol }}</span>
+{% comment %}
+  Renders a price range facet
 
-<div class="field">
-  <input
-    class="field__input"
-    name="{{ filter.min_value.param_name }}"
-    id="{{ id_prefix }}{{ filter.label | escape }}-GTE"
-    {%- if filter.min_value.value -%}
-      value="{{ filter.min_value.value | money_without_currency }}"
-    {%- endif -%}
-    type="text"
-    inputmode="decimal"
-    placeholder="0"
-    data-pattern="\d| |,|\."
-    data-min="0"
-    data-max="{{ filter.range_max | money_without_currency }}"
-  >
-  <label class="field__label" for="{{ id_prefix }}{{ filter.label | escape }}-GTE">
-    {{- 'products.facets.from' | t -}}
-  </label>
+  Accepts:
+  - filter: {Object} Filter Liquid object
+  - id_prefix: {String} Prefix for IDs
+  - filter_type: {String} Type of filter (optional)
+{% endcomment %}
+
+<div class="cb-price-slider-container">
+  <div class="price-range">
+    <div class="price-range__slider">
+      <div class="price-range__callout" id="PriceCallout-{{ id_prefix }}">
+        <span class="price-range__value">{{ filter.min_value.value | default: 0 | money }}</span>
+      </div>
+      <div class="price-range__track"></div>
+      <div class="price-range__progress"></div>
+    </div>
+    <div class="price-range__inputs">
+      <input
+        type="range"
+        class="price-range__input range-min"
+        id="{{ id_prefix }}RangeMin-{{ filter.label | escape }}"
+        value="{{ filter.min_value.value | money_without_currency | replace: ',', '' | default: 0 }}"
+        min="0"
+        max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+        step="1"
+        aria-label="Minimum price"
+      >
+      <input
+        type="range"
+        class="price-range__input range-max"
+        id="{{ id_prefix }}RangeMax-{{ filter.label | escape }}"
+        value="{{ filter.max_value.value | money_without_currency | replace: ',', '' | default: filter.range_max | money_without_currency | replace: ',', '' }}"
+        min="0"
+        max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+        step="1"
+        aria-label="Maximum price"
+      >
+    </div>
+  </div>
 </div>
 
-{%- if filter_type != 'vertical' -%}
-  <span class="field-currency">{{ cart.currency.symbol }}</span>
-{%- endif -%}
-
-<div class="field">
-  <input
-    class="field__input"
-    name="{{ filter.max_value.param_name }}"
-    id="{{ id_prefix }}{{ filter.label | escape }}-LTE"
-    {%- if filter.max_value.value -%}
-      value="{{ filter.max_value.value | money_without_currency }}"
-    {%- endif -%}
-    type="text"
-    inputmode="decimal"
-    placeholder="{{ filter.range_max | money_without_currency }}"
-    data-pattern="\d| |,|\."
-    data-min="0"
-    data-max="{{ filter.range_max | money_without_currency }}"
-  >
-  <label class="field__label" for="{{ id_prefix }}{{ filter.label | escape }}-LTE">
-    {{- 'products.facets.to' | t -}}
-  </label>
+<div class="facets__price hidden">
+  <div class="field">
+    <span class="field-currency">{{ cart.currency.symbol }}</span>
+    <input
+      class="field__input filter-min-input"
+      name="{{ filter.min_value.param_name }}"
+      id="{{ id_prefix }}{{ filter.label | escape }}-GTE"
+      {%- if filter.min_value.value -%}
+        value="{{ filter.min_value.value | money_without_currency | replace: ',', '' }}"
+      {%- endif -%}
+      type="number"
+      placeholder="0"
+      min="0"
+    >
+  </div>
+  <div class="field">
+    <span class="field-currency">{{ cart.currency.symbol }}</span>
+    <input
+      class="field__input filter-max-input"
+      name="{{ filter.max_value.param_name }}"
+      id="{{ id_prefix }}{{ filter.label | escape }}-LTE"
+      {%- if filter.max_value.value -%}
+        value="{{ filter.max_value.value | money_without_currency | replace: ',', '' }}"
+      {%- endif -%}
+      type="number"
+      min="0"
+      {%- if filter.range_max -%}
+        placeholder="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+        max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+      {%- endif -%}
+    >
+  </div>
 </div>
+
+<script>
+  (function() {
+    const container = document.currentScript.previousElementSibling.previousElementSibling;
+    const inputs = container.querySelectorAll('.price-range__input');
+    const callout = container.querySelector('.price-range__callout');
+    const calloutText = container.querySelector('.price-range__value');
+    const progress = container.querySelector('.price-range__progress');
+    const minInput = document.getElementById('{{ id_prefix }}{{ filter.label | escape }}-GTE');
+    const maxInput = document.getElementById('{{ id_prefix }}{{ filter.label | escape }}-LTE');
+    const currencyFormat = '{{ 0 | money | replace: '0', 'VALUE' | replace: '0.00', 'VALUE' }}';
+
+    function updateUI() {
+      const min = parseInt(inputs[0].value);
+      const max = parseInt(inputs[1].value);
+      const total = parseInt(inputs[0].max);
+
+      const left = (min / total) * 100;
+      const right = 100 - (max / total) * 100;
+
+      progress.style.left = left + '%';
+      progress.style.right = right + '%';
+      callout.style.left = left + '%';
+      
+      const formatted = currencyFormat.replace('VALUE', min);
+      calloutText.textContent = formatted;
+
+      if (minInput) minInput.value = min;
+      if (maxInput) maxInput.value = max;
+    }
+
+    inputs.forEach(input => {
+      input.addEventListener('input', (e) => {
+        let min = parseInt(inputs[0].value);
+        let max = parseInt(inputs[1].value);
+
+        if (max - min < 10) {
+          if (e.target.classList.contains('range-min')) inputs[0].value = max - 10;
+          else inputs[1].value = min + 10;
+        }
+        updateUI();
+      });
+
+      input.addEventListener('change', () => {
+        // Trigger update on the form - Dawn's FacetFiltersForm handles this
+        const form = container.closest('facet-filters-form');
+        if (form) form.onActiveFilterClick({ target: inputs[0] });
+      });
+    });
+
+    updateUI();
+  })();
+</script>
