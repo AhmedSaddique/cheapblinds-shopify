@@ -366,7 +366,7 @@
 
 <div class="cb-header-nav">
   <div class="cb-nav-left"></div>
-    <ul class="cb-nav-menu">
+  <ul class="cb-nav-menu">
     {% for link in linklists[section.settings.menu].links %}
       {% assign is_shop_colours = false %}
       {% assign is_help_advice = false %}
@@ -381,10 +381,12 @@
         <a href="{{ link.url }}" class="cb-nav-link">
           {{ link.title }}
           {% if link.links != blank and is_shop_colours == false and is_help_advice == false %}
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
           {% endif %}
         </a>
-        
+
         {% if is_shop_colours %}
           {{ mega_menu }}
         {% elsif is_help_advice %}
@@ -410,7 +412,9 @@
                     <img src="{{ child_icon | img_url: '40x' }}" alt="{{ childlink.title }}">
                   {% else %}
                     <!-- Generic blind icon -->
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 6h16M4 10h16M4 14h16M4 18h11" stroke-linecap="round" stroke-linejoin="round"/><circle cx="17.5" cy="18.5" r="1.5" fill="#666"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                      <path d="M4 6h16M4 10h16M4 14h16M4 18h11" stroke-linecap="round" stroke-linejoin="round"/><circle cx="17.5" cy="18.5" r="1.5" fill="#666"/>
+                    </svg>
                   {% endif %}
                   {{ childlink.title }}
                 </a>
@@ -418,47 +422,93 @@
             {% endfor %}
           </ul>
         {% endif %}
-
       </li>
     {% else %}
-        <!-- Fallback if no menu selected -->
-        <li class="cb-nav-item"><a href="#" class="cb-nav-link">Roller Blinds <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
-        <li class="cb-nav-item"><a href="#" class="cb-nav-link">Roman Blinds</a></li>
-        <li class="cb-nav-item"><a href="#" class="cb-nav-link">Zebra Blinds <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
-        <li class="cb-nav-item"><a href="#" class="cb-nav-link">Vertical Blinds <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
-        <li class="cb-nav-item"><a href="#" class="cb-nav-link">Motorisation</a></li>
-        <li class="cb-nav-item cb-nav-item-mega"><a href="#" class="cb-nav-link">Shop Colours</a>
-          {{ mega_menu }}
-        </li>
-        <li class="cb-nav-item cb-nav-item-mega"><a href="#" class="cb-nav-link">Help & Advice</a>
-          {{ help_mega_menu }}
-        </li>
+      <!-- Fallback if no menu selected -->
+      <li class="cb-nav-item">
+        <a href="#" class="cb-nav-link"
+          >Roller Blinds
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </li>
+      <li class="cb-nav-item"><a href="#" class="cb-nav-link">Roman Blinds</a></li>
+      <li class="cb-nav-item">
+        <a href="#" class="cb-nav-link"
+          >Zebra Blinds
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </li>
+      <li class="cb-nav-item">
+        <a href="#" class="cb-nav-link"
+          >Vertical Blinds
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </li>
+      <li class="cb-nav-item"><a href="#" class="cb-nav-link">Motorisation</a></li>
+      <li class="cb-nav-item cb-nav-item-mega">
+        <a href="#" class="cb-nav-link">Shop Colours</a>
+        {{ mega_menu }}
+      </li>
+      <li class="cb-nav-item cb-nav-item-mega">
+        <a href="#" class="cb-nav-link">Help & Advice</a>
+        {{ help_mega_menu }}
+      </li>
     {% endfor %}
   </ul>
 
   <div class="cb-social-icons">
-      <!-- Fallbacks mimicking the design exactly if standard settings aren't set, or utilizing them if they are. -->
-      <a href="{{ settings.social_facebook_link | default: '#' }}" class="cb-social-link">
-        {% if section.settings.facebook_icon != blank %}
-          <img src="{{ section.settings.facebook_icon | img_url: '40x' }}" alt="Facebook" width="26" height="26" style="object-fit: contain;">
-        {% else %}
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
-        {% endif %}
-      </a>
-      <a href="{{ settings.social_pinterest_link | default: '#' }}" class="cb-social-link">
-        {% if section.settings.pinterest_icon != blank %}
-          <img src="{{ section.settings.pinterest_icon | img_url: '40x' }}" alt="Pinterest" width="26" height="26" style="object-fit: contain;">
-        {% else %}
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 1 0 22 12 10 10 0 0 0 12 2zm0 15a4.7 4.7 0 0 1-2.9-1 4.4 4.4 0 0 1-1-2.7c0-2 1.4-3.5 3-3.6h.2c1.3.1 2.3 1.1 2.5 2.4A4 4 0 0 1 12 17z"/><path d="M10 11.5v4.2a2.3 2.3 0 0 0 .5 1.5M10.5 8h.1"/></svg>
-        {% endif %}
-      </a>
-      <a href="{{ settings.social_instagram_link | default: '#' }}" class="cb-social-link">
-        {% if section.settings.instagram_icon != blank %}
-          <img src="{{ section.settings.instagram_icon | img_url: '40x' }}" alt="Instagram" width="26" height="26" style="object-fit: contain;">
-        {% else %}
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-        {% endif %}
-      </a>
+    <!-- Fallbacks mimicking the design exactly if standard settings aren't set, or utilizing them if they are. -->
+    <a href="{{ settings.social_facebook_link | default: '#' }}" class="cb-social-link">
+      {% if section.settings.facebook_icon != blank %}
+        <img
+          src="{{ section.settings.facebook_icon | img_url: '40x' }}"
+          alt="Facebook"
+          width="26"
+          height="26"
+          style="object-fit: contain;"
+        >
+      {% else %}
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+        </svg>
+      {% endif %}
+    </a>
+    <a href="{{ settings.social_pinterest_link | default: '#' }}" class="cb-social-link">
+      {% if section.settings.pinterest_icon != blank %}
+        <img
+          src="{{ section.settings.pinterest_icon | img_url: '40x' }}"
+          alt="Pinterest"
+          width="26"
+          height="26"
+          style="object-fit: contain;"
+        >
+      {% else %}
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path d="M12 2A10 10 0 1 0 22 12 10 10 0 0 0 12 2zm0 15a4.7 4.7 0 0 1-2.9-1 4.4 4.4 0 0 1-1-2.7c0-2 1.4-3.5 3-3.6h.2c1.3.1 2.3 1.1 2.5 2.4A4 4 0 0 1 12 17z"/><path d="M10 11.5v4.2a2.3 2.3 0 0 0 .5 1.5M10.5 8h.1"/>
+        </svg>
+      {% endif %}
+    </a>
+    <a href="{{ settings.social_instagram_link | default: '#' }}" class="cb-social-link">
+      {% if section.settings.instagram_icon != blank %}
+        <img
+          src="{{ section.settings.instagram_icon | img_url: '40x' }}"
+          alt="Instagram"
+          width="26"
+          height="26"
+          style="object-fit: contain;"
+        >
+      {% else %}
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+        </svg>
+      {% endif %}
+    </a>
   </div>
 </div>
 
