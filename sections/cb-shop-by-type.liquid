@@ -1,0 +1,409 @@
+<style>
+  .cb-shop-section-{{ section.id }} {
+    width: 100%;
+    overflow: hidden;
+    padding: 20px 5%;
+    background-color: {{ section.settings.bg_color }};
+  }
+  @media (max-width: 768px) {
+    .cb-shop-section-{{ section.id }} {
+      padding-left: 0;
+      padding-right: 0;
+    }
+  }
+  .cb-shop-heading {
+    text-align: center;
+    font-size: 36px;
+    font-weight: 600;
+    margin-bottom: 50px;
+    color: #000;
+  }
+  
+  /* Container perspective for 3D depth perception */
+  .cb-slider-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 350px;
+    margin: 0 auto;
+    user-select: none;
+    overflow: visible;
+    width: 100%;
+    max-width: 1600px;
+  }
+  @media (min-width: 768px) { .cb-slider-container { height: 430px; } , .cb-shop-heading { font-size: 24px; } }
+  @media (min-width: 1280px) { .cb-slider-container { height: 530px; } }
+
+  .cb-slide {
+    position: absolute;
+    top: 0;
+    transition: all 0.7s cubic-bezier(0.25, 0.8, 0.25, 1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  /* diff = 0 */
+  .pos-0 { z-index: 40; transform: scale(1.1) translateX(0); opacity: 1; filter: blur(0) grayscale(0); }
+  
+  /* diff = 1, -1 */
+  .pos-1 { z-index: 30; transform: scale(0.85) translateX(65%); opacity: 1; filter: blur(0.5px) grayscale(10%); }
+  .pos-neg-1 { z-index: 30; transform: scale(0.85) translateX(-65%); opacity: 1; filter: blur(0.5px) grayscale(10%); }
+  
+  @media (min-width: 768px) {
+    .pos-1 { transform: scale(0.85) translateX(100%); }
+    .pos-neg-1 { transform: scale(0.85) translateX(-100%); }
+  }
+
+  /* diff = 2, -2 */
+  .pos-2 { z-index: 20; transform: scale(0.70) translateX(120%); opacity: 0.9; filter: blur(1px) grayscale(30%); }
+  .pos-neg-2 { z-index: 20; transform: scale(0.70) translateX(-120%); opacity: 0.9; filter: blur(1px) grayscale(30%); }
+
+  @media (min-width: 768px) {
+    .pos-2 { transform: scale(0.70) translateX(200%); }
+    .pos-neg-2 { transform: scale(0.70) translateX(-200%); }
+  }
+
+  /* diff = 3, -3 */
+  .pos-3 { z-index: 10; transform: scale(0.55) translateX(170%); opacity: 0; filter: blur(2px) grayscale(50%); pointer-events: none; }
+  .pos-neg-3 { z-index: 10; transform: scale(0.55) translateX(-170%); opacity: 0; filter: blur(2px) grayscale(50%); pointer-events: none; }
+  
+  @media (min-width: 768px) {
+    .pos-3 { transform: scale(0.55) translateX(300%); opacity: 0.8; pointer-events: auto; }
+    .pos-neg-3 { transform: scale(0.55) translateX(-300%); opacity: 0.8; pointer-events: auto; }
+  }
+
+  /* hidden */
+  .pos-hidden { z-index: 0; transform: scale(0); opacity: 0; pointer-events: none; }
+
+  /* Card Inner Box */
+  .cb-card {
+    position: relative;
+    overflow: hidden;
+    background-color: white;
+    border: 4px solid #f3f4f6;
+    box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+    transition: all 0.5s;
+    height: 280px; 
+    width: 220px;
+  }
+  .pos-0 .cb-card {
+    border-color: white;
+  }
+
+  @media (min-width: 768px) { .cb-card { height: 300px; width: 240px; } }
+  @media (min-width: 1024px) { .cb-card { height: 350px; width: 280px; } }
+  @media (min-width: 1280px) { .cb-card { height: 400px; width: 320px; } }
+  @media (min-width: 1536px) { .cb-card { height: 450px; width: 380px; } }
+
+  .cb-card img, .cb-card svg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+  }
+  
+  /* Dim overlay for non-active frames */
+  .cb-card-overlay {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(255,255,255,0.1);
+    transition: background-color 0.3s;
+  }
+  .pos-0 .cb-card-overlay { display: none; }
+
+  .cb-title {
+    margin-top: 16px;
+    text-align: center;
+    font-weight: 600;
+    line-height: 1.25;
+    transition: all 0.3s;
+    font-size: 16px;
+    color: #333;
+  }
+  .pos-0 .cb-title {
+    font-size: 18px;
+    color: #000;
+  }
+
+  /* Navigation Buttons */
+  .cb-btn {
+    position: absolute;
+    top: 20%;
+    z-index: 50;
+    cursor: pointer;
+    border-radius: 9999px;
+    padding: 12px;
+    background-color: #EFEFEF;
+    color: black;
+    transition: transform 0.2s, background-color 0.2s;
+    border: none;
+    display: none; /* Hidden on desktop */
+    align-items: center;
+    justify-content: center;
+  }
+  .cb-btn:hover { background-color: white; transform: scale(1.05); }
+  .cb-btn-left { left: 16px; }
+  .cb-btn-right { right: 16px; }
+  @media (max-width: 768px) {
+    .cb-btn { 
+      padding: 4px; 
+      display: flex; /* Shown only on mobile */
+      top: -10%; 
+      width: 24px;
+      height:24px;
+    }
+    .cb-btn-left { left: 8px; }
+    .cb-btn-right { right: 8px; }
+  }
+</style>
+
+<div class="cb-shop-section-{{ section.id }}" id="cb-section-{{ section.id }}">
+  {% if section.settings.title != blank %}
+    <div class="px-4 mb-10 text-center">
+      <h2 class="cb-shop-heading">{{ section.settings.title }}</h2>
+    </div>
+  {% endif %}
+
+  <div class="cb-slider-container">
+    <button class="cb-btn cb-btn-left" id="prevBtn-{{ section.id }}" aria-label="Previous">
+      <svg width="25" height="25" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+      </svg>
+    </button>
+
+    <div id="cb-slide-wrapper-{{ section.id }}" style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
+      {% assign blocks_count = section.blocks.size %}
+      {% if blocks_count > 0 %}
+        {% assign loop_times = 1 %}
+        {% if blocks_count < 11 %}
+          {% assign loop_times = 12 | divided_by: blocks_count | plus: 1 %}
+        {% endif %}
+        
+        {% for index in (1..loop_times) %}
+          {% for block in section.blocks %}
+            <div class="cb-slide" data-url="{{ block.settings.product.url }}">
+              <div class="cb-card">
+                {% if block.settings.product != blank %}
+                  <img src="{{ block.settings.product.featured_image | img_url: '600x' }}" alt="{{ block.settings.product.title | escape }}">
+                {% else %}
+                  {{ 'product-1' | placeholder_svg_tag: 'cb-shop-slide-img placeholder-svg' }}
+                {% endif %}
+                <div class="cb-card-overlay"></div>
+              </div>
+              <div class="cb-title">
+                {{ block.settings.product.title | default: "Placeholder Product" }}
+              </div>
+            </div>
+          {% endfor %}
+        {% endfor %}
+      {% endif %}
+    </div>
+
+    <button class="cb-btn cb-btn-right" id="nextBtn-{{ section.id }}" aria-label="Next">
+      <svg width="25" height="25" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+      </svg>
+    </button>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const container = document.getElementById('cb-slide-wrapper-{{ section.id }}');
+  const prevBtn = document.getElementById('prevBtn-{{ section.id }}');
+  const nextBtn = document.getElementById('nextBtn-{{ section.id }}');
+  const sectionNode = document.getElementById('cb-section-{{ section.id }}');
+
+  if (!container || container.children.length === 0) return;
+
+  function getPositionClass(diff) {
+    if (diff === 0) return "pos-0";
+    if (diff === 1) return "pos-1";
+    if (diff === -1) return "pos-neg-1";
+    if (diff === 2) return "pos-2";
+    if (diff === -2) return "pos-neg-2";
+    if (diff === 3) return "pos-3";
+    if (diff === -3) return "pos-neg-3";
+    return "pos-hidden";
+  }
+
+  function updateClasses() {
+    const slides = Array.from(container.children);
+    // Determine mathematical center
+    const activeIndex = Math.floor(slides.length / 2);
+    
+    slides.forEach((slide, index) => {
+      const diff = index - activeIndex;
+      slide.className = 'cb-slide ' + getPositionClass(diff);
+      
+      // Handle interactive snapping and link redirection natively
+      slide.onclick = null;
+      if (diff === 0) {
+        slide.onclick = () => {
+          const url = slide.getAttribute('data-url');
+          if (url && url !== "null" && url !== "") window.location.href = url;
+        };
+      } else {
+        slide.onclick = () => jumpToSlide(index, activeIndex);
+      }
+    });
+  }
+
+  function handleNext() {
+    // Pop from left, push to right (visually infinite)
+    const first = container.firstElementChild;
+    first.style.transition = 'none'; // mask transport
+    container.appendChild(first);
+    void container.offsetHeight; // reflow
+    first.style.transition = ''; // restore
+    updateClasses();
+  }
+
+  function handlePrev() {
+    // Pop from right, push to left
+    const last = container.lastElementChild;
+    last.style.transition = 'none';
+    container.prepend(last);
+    void container.offsetHeight; 
+    last.style.transition = '';
+    updateClasses();
+  }
+
+  function jumpToSlide(targetIndex, activeIndex) {
+    const diff = targetIndex - activeIndex;
+    if (diff > 0) {
+      for(let i=0; i<diff; i++) handleNext();
+    } else {
+      for(let i=0; i<Math.abs(diff); i++) handlePrev();
+    }
+  }
+
+  nextBtn.addEventListener('click', handleNext);
+  prevBtn.addEventListener('click', handlePrev);
+
+  // Initialize view
+  updateClasses();
+  
+  // Drag handling (touch + click emulation)
+  let isDragging = false;
+  let startX = 0;
+  
+  function getEventX(e) { return e.touches ? e.touches[0].clientX : e.clientX; }
+  
+  container.addEventListener('mousedown', (e) => { isDragging = true; startX = getEventX(e); });
+  container.addEventListener('touchstart', (e) => { isDragging = true; startX = getEventX(e); }, { passive: true });
+  
+  function dragMove(e) {
+    if (!isDragging) return;
+    const currentX = getEventX(e);
+    const diff = currentX - startX;
+    if (diff > 40) { handlePrev(); isDragging = false; }
+    else if (diff < -40) { handleNext(); isDragging = false; }
+  }
+  
+  container.addEventListener('mousemove', dragMove);
+  container.addEventListener('touchmove', dragMove, { passive: true });
+  
+  function dragEnd() { isDragging = false; }
+  container.addEventListener('mouseup', dragEnd);
+  container.addEventListener('mouseleave', dragEnd);
+  container.addEventListener('touchend', dragEnd);
+
+  // Autoplay functionality
+  let autoplayInterval;
+  function startAutoplay() {
+    {% if section.settings.auto_play %}
+      if(!autoplayInterval) {
+        autoplayInterval = setInterval(handleNext, {{ section.settings.auto_play_delay | times: 1000 }});
+      }
+    {% endif %}
+  }
+  function stopAutoplay() {
+    {% if section.settings.auto_play %}
+      clearInterval(autoplayInterval);
+      autoplayInterval = null;
+    {% endif %}
+  }
+
+  sectionNode.addEventListener('mouseenter', stopAutoplay);
+  sectionNode.addEventListener('mouseleave', startAutoplay);
+  
+  // Only start autoplay when section is visible
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) startAutoplay();
+        else stopAutoplay();
+      });
+    }, { threshold: 0.3 });
+    observer.observe(sectionNode);
+  } else {
+    startAutoplay();
+  }
+});
+</script>
+
+{% schema %}
+{
+  "name": "CB Shop by Type Slider",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Shop by Type"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "checkbox",
+      "id": "auto_play",
+      "label": "Enable Auto-play",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "auto_play_delay",
+      "min": 1,
+      "max": 10,
+      "step": 1,
+      "unit": "sec",
+      "label": "Auto-play duration",
+      "default": 3
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Product Slide",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Select Product"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "CB Shop by Type Slider",
+      "category": "Products",
+      "blocks": [
+        { "type": "product" },
+        { "type": "product" },
+        { "type": "product" },
+        { "type": "product" },
+        { "type": "product" }
+      ]
+    }
+  ]
+}
+{% endschema %}
