@@ -18,7 +18,7 @@
   }
   .cb-nav-item {
     position: relative;
-    padding: 15px 25px 15px 0;
+    padding: 15px 0;
   }
   .cb-nav-link {
     color: #fff;
@@ -28,9 +28,11 @@
     align-items: center;
     gap: 5px;
     transition: opacity 0.3s ease;
+    border-radius: 20px;
+    padding: 6px 16px;
   }
-  .cb-nav-link:hover {
-    opacity: 0.8;
+  .cb-nav-item:hover > .cb-nav-link, .cb-nav-link:hover {
+    background-color: #FFB800;
   }
   .cb-nav-link svg {
     width: 10px;
@@ -49,9 +51,6 @@
     color: #fff;
     display: inline-flex;
     transition: opacity 0.3s ease;
-  }
-  .cb-social-link:hover {
-    opacity: 0.8;
   }
   .cb-social-link svg {
     width: 20px;
@@ -119,6 +118,162 @@
     z-index: 999;
   }
 
+  .cb-nav-item-mega {
+    position: static;
+  }
+  .cb-mega-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 5%;
+    right: 5%;
+    background: #fff;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    padding: 40px;
+    z-index: 100;
+  }
+  .cb-nav-item-mega:hover .cb-mega-menu {
+    display: block;
+  }
+  .cb-mega-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(130px, 1fr));
+    gap: 30px 20px;
+  }
+  .cb-color-collection-link {
+    display: flex;
+    flex-direction: rows;
+    align-items: center;
+    gap: 12px;
+    color: #000;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: 400;
+    text-align: center;
+    transition: transform 0.2s;
+  }
+  .cb-color-collection-link:hover {
+    color: #FFB800;
+    transform: translateY(-2px);
+  }
+  .cb-color-collection-image {
+    width: 36px;
+    height: 36px;
+    overflow: hidden;
+    background: #f8f8f8;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  }
+  .cb-color-collection-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .cb-mega-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    cursor: pointer;
+    background: #f0f0f0;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+  }
+  .cb-mega-close:hover {
+    background: #e0e0e0;
+  }
+
+  /* Help & Advice Mega Menu */
+  .cb-help-mega-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 5%;
+    right: 5%;
+    background: #fff;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    padding: 40px 30px 30px;
+    z-index: 100;
+  }
+  .cb-nav-item-mega:hover .cb-help-mega-menu {
+    display: block;
+  }
+  .cb-help-grid {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+  }
+  .cb-help-col {
+    flex: 1;
+  }
+  .cb-help-heading {
+    color: #FFB800;
+    font-size: 24px;
+    font-weight: 500;
+    margin-top: 0;
+    margin-bottom: 20px;
+  }
+  .cb-help-links-2col {
+    display: flex;
+    gap: 40px;
+  }
+  .cb-help-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  .cb-help-list a {
+    color: #000;
+    text-decoration: none;
+    font-size: 20px;
+    transition: color 0.2s;
+  }
+  .cb-help-list a:hover {
+    color: #FEB9073D;
+  }
+  .cb-help-box-col {
+    flex: 0 0 320px;
+    display: flex;
+    align-items: end;
+  }
+  .cb-help-box {
+    background-color: #FAEDD5;
+    padding: 10px;
+    border-radius: 6px;
+  }
+  .cb-help-box h4 {
+    margin: 0 0 10px 0;
+    font-size: 18px;
+    color: #000;
+    font-weight: 600;
+  }
+  .cb-help-box p {
+    margin: 0 0 20px 0;
+    font-size: 16px;
+    color: #000;
+    line-height: 1.5;
+  }
+  .cb-help-btn {
+    display: inline-block;
+    background-color: #FFB800;
+    color: #000;
+    padding: 6px 14px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 16px;
+    transition: opacity 0.2s;
+  }
+  .cb-help-btn:hover {
+    opacity: 0.9;
+  }
+
   /* Hide complete section on mobile to prevent white space */
   @media (max-width: 1024px) {
     #shopify-section-{{ section.id }} {
@@ -127,19 +282,116 @@
   }
 </style>
 
+{% capture mega_menu %}
+  <div class="cb-mega-menu">
+    <div class="cb-mega-close" onclick="this.parentElement.style.display='none'; setTimeout(()=>this.parentElement.style.display='', 500);">
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+    </div>
+    <div class="cb-mega-grid">
+      {% if section.settings.colours_collection_list != blank %}
+        {% for col in section.settings.colours_collection_list %}
+          <a href="{{ col.url }}" class="cb-color-collection-link">
+            <div class="cb-color-collection-image">
+              {% if col.image %}
+                <img src="{{ col.image | img_url: '400x' }}" alt="{{ col.title | escape }}">
+              {% elsif col.featured_image %}
+                <img src="{{ col.featured_image | img_url: '400x' }}" alt="{{ col.title | escape }}">
+              {% else %}
+                <div style="width:100%; height:100%; background:#eee; display:flex; align-items:center; justify-content:center; color:#999; font-size:12px;">No Image</div>
+              {% endif %}
+            </div>
+            <span>{{ col.title }}</span>
+          </a>
+        {% endfor %}
+      {% else %}
+        <!-- Fallback design -->
+        <a href="#" class="cb-color-collection-link">
+          <div class="cb-color-collection-image"><div style="width:100%; height:100%; background:#e0e0e0;"></div></div>
+          <span>Red Floral</span>
+        </a>
+        <a href="#" class="cb-color-collection-link">
+          <div class="cb-color-collection-image"><div style="width:100%; height:100%; background:#e0e0e0;"></div></div>
+          <span>Blue Floral</span>
+        </a>
+        <a href="#" class="cb-color-collection-link">
+          <div class="cb-color-collection-image"><div style="width:100%; height:100%; background:#e0e0e0;"></div></div>
+          <span>Solid Colors</span>
+        </a>
+        <a href="#" class="cb-color-collection-link">
+          <div class="cb-color-collection-image"><div style="width:100%; height:100%; background:#e0e0e0;"></div></div>
+          <span>Textured</span>
+        </a>
+      {% endif %}
+    </div>
+  </div>
+{% endcapture %}
+
+{% capture help_mega_menu %}
+  <div class="cb-help-mega-menu">
+    <div class="cb-mega-close" onclick="this.parentElement.style.display='none'; setTimeout(()=>this.parentElement.style.display='', 500);">
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+    </div>
+    <div class="cb-help-grid">
+      <div class="cb-help-col">
+        <h3 class="cb-help-heading">Help</h3>
+        <div class="cb-help-links-2col">
+          <ul class="cb-help-list" style="min-width: 140px;">
+            <li><a href="/pages/track-order">Track My Order</a></li>
+            <li><a href="/pages/delivery">Delivery</a></li>
+          </ul>
+          <ul class="cb-help-list">
+            <li><a href="/blogs/news">Blogs</a></li>
+            <li><a href="/pages/faqs">FAQs</a></li>
+            <li><a href="/pages/inspiration">Inspiration</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="cb-help-col">
+        <h3 class="cb-help-heading">Measuring & Fitting</h3>
+        <ul class="cb-help-list">
+          <li><a href="/pages/how-to-measure">How to Measure</a></li>
+          <li><a href="/pages/how-to-fit">How to Fit</a></li>
+        </ul>
+      </div>
+      <div class="cb-help-col cb-help-box-col">
+        <div class="cb-help-box">
+          <h4>Need help?</h4>
+          <p>Contact our experts for advice on covering your beautiful windows</p>
+          <a href="/pages/contact" class="cb-help-btn">Contact Hub</a>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endcapture %}
+
 <div class="cb-header-nav">
   <div class="cb-nav-left"></div>
-    <ul class="cb-nav-menu">
+  <ul class="cb-nav-menu">
     {% for link in linklists[section.settings.menu].links %}
-      <li class="cb-nav-item">
+      {% assign is_shop_colours = false %}
+      {% assign is_help_advice = false %}
+      {% assign d_title = link.title | downcase %}
+      {% if d_title == 'shop colours' %}
+        {% assign is_shop_colours = true %}
+      {% elsif d_title == 'help & advice' %}
+        {% assign is_help_advice = true %}
+      {% endif %}
+
+      <li class="cb-nav-item {% if is_shop_colours or is_help_advice %}cb-nav-item-mega{% endif %}">
         <a href="{{ link.url }}" class="cb-nav-link">
           {{ link.title }}
-          {% if link.links != blank %}
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          {% if link.links != blank and is_shop_colours == false and is_help_advice == false %}
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
           {% endif %}
         </a>
-        
-        {% if link.links != blank %}
+
+        {% if is_shop_colours %}
+          {{ mega_menu }}
+        {% elsif is_help_advice %}
+          {{ help_mega_menu }}
+        {% elsif link.links != blank %}
           <ul class="cb-dropdown">
             {% for childlink in link.links %}
               {% assign child_icon = false %}
@@ -160,7 +412,9 @@
                     <img src="{{ child_icon | img_url: '40x' }}" alt="{{ childlink.title }}">
                   {% else %}
                     <!-- Generic blind icon -->
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 6h16M4 10h16M4 14h16M4 18h11" stroke-linecap="round" stroke-linejoin="round"/><circle cx="17.5" cy="18.5" r="1.5" fill="#666"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                      <path d="M4 6h16M4 10h16M4 14h16M4 18h11" stroke-linecap="round" stroke-linejoin="round"/><circle cx="17.5" cy="18.5" r="1.5" fill="#666"/>
+                    </svg>
                   {% endif %}
                   {{ childlink.title }}
                 </a>
@@ -168,43 +422,93 @@
             {% endfor %}
           </ul>
         {% endif %}
-
       </li>
     {% else %}
-        <!-- Fallback if no menu selected -->
-        <li class="cb-nav-item"><a href="#" class="cb-nav-link">Roller Blinds <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
-        <li class="cb-nav-item"><a href="#" class="cb-nav-link">Roman Blinds</a></li>
-        <li class="cb-nav-item"><a href="#" class="cb-nav-link">Zebra Blinds <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
-        <li class="cb-nav-item"><a href="#" class="cb-nav-link">Vertical Blinds <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
-        <li class="cb-nav-item"><a href="#" class="cb-nav-link">Motorisation</a></li>
-        <li class="cb-nav-item"><a href="#" class="cb-nav-link">Shop Colours</a></li>
-        <li class="cb-nav-item"><a href="#" class="cb-nav-link">Help & Advice</a></li>
+      <!-- Fallback if no menu selected -->
+      <li class="cb-nav-item">
+        <a href="#" class="cb-nav-link"
+          >Roller Blinds
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </li>
+      <li class="cb-nav-item"><a href="#" class="cb-nav-link">Roman Blinds</a></li>
+      <li class="cb-nav-item">
+        <a href="#" class="cb-nav-link"
+          >Zebra Blinds
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </li>
+      <li class="cb-nav-item">
+        <a href="#" class="cb-nav-link"
+          >Vertical Blinds
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
+      </li>
+      <li class="cb-nav-item"><a href="#" class="cb-nav-link">Motorisation</a></li>
+      <li class="cb-nav-item cb-nav-item-mega">
+        <a href="#" class="cb-nav-link">Shop Colours</a>
+        {{ mega_menu }}
+      </li>
+      <li class="cb-nav-item cb-nav-item-mega">
+        <a href="#" class="cb-nav-link">Help & Advice</a>
+        {{ help_mega_menu }}
+      </li>
     {% endfor %}
   </ul>
 
   <div class="cb-social-icons">
-      <!-- Fallbacks mimicking the design exactly if standard settings aren't set, or utilizing them if they are. -->
-      <a href="{{ settings.social_facebook_link | default: '#' }}" class="cb-social-link">
-        {% if section.settings.facebook_icon != blank %}
-          <img src="{{ section.settings.facebook_icon | img_url: '40x' }}" alt="Facebook" width="26" height="26" style="object-fit: contain;">
-        {% else %}
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
-        {% endif %}
-      </a>
-      <a href="{{ settings.social_pinterest_link | default: '#' }}" class="cb-social-link">
-        {% if section.settings.pinterest_icon != blank %}
-          <img src="{{ section.settings.pinterest_icon | img_url: '40x' }}" alt="Pinterest" width="26" height="26" style="object-fit: contain;">
-        {% else %}
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2A10 10 0 1 0 22 12 10 10 0 0 0 12 2zm0 15a4.7 4.7 0 0 1-2.9-1 4.4 4.4 0 0 1-1-2.7c0-2 1.4-3.5 3-3.6h.2c1.3.1 2.3 1.1 2.5 2.4A4 4 0 0 1 12 17z"/><path d="M10 11.5v4.2a2.3 2.3 0 0 0 .5 1.5M10.5 8h.1"/></svg>
-        {% endif %}
-      </a>
-      <a href="{{ settings.social_instagram_link | default: '#' }}" class="cb-social-link">
-        {% if section.settings.instagram_icon != blank %}
-          <img src="{{ section.settings.instagram_icon | img_url: '40x' }}" alt="Instagram" width="26" height="26" style="object-fit: contain;">
-        {% else %}
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
-        {% endif %}
-      </a>
+    <!-- Fallbacks mimicking the design exactly if standard settings aren't set, or utilizing them if they are. -->
+    <a href="{{ settings.social_facebook_link | default: '#' }}" class="cb-social-link">
+      {% if section.settings.facebook_icon != blank %}
+        <img
+          src="{{ section.settings.facebook_icon | img_url: '40x' }}"
+          alt="Facebook"
+          width="26"
+          height="26"
+          style="object-fit: contain;"
+        >
+      {% else %}
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+        </svg>
+      {% endif %}
+    </a>
+    <a href="{{ settings.social_pinterest_link | default: '#' }}" class="cb-social-link">
+      {% if section.settings.pinterest_icon != blank %}
+        <img
+          src="{{ section.settings.pinterest_icon | img_url: '40x' }}"
+          alt="Pinterest"
+          width="26"
+          height="26"
+          style="object-fit: contain;"
+        >
+      {% else %}
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path d="M12 2A10 10 0 1 0 22 12 10 10 0 0 0 12 2zm0 15a4.7 4.7 0 0 1-2.9-1 4.4 4.4 0 0 1-1-2.7c0-2 1.4-3.5 3-3.6h.2c1.3.1 2.3 1.1 2.5 2.4A4 4 0 0 1 12 17z"/><path d="M10 11.5v4.2a2.3 2.3 0 0 0 .5 1.5M10.5 8h.1"/>
+        </svg>
+      {% endif %}
+    </a>
+    <a href="{{ settings.social_instagram_link | default: '#' }}" class="cb-social-link">
+      {% if section.settings.instagram_icon != blank %}
+        <img
+          src="{{ section.settings.instagram_icon | img_url: '40x' }}"
+          alt="Instagram"
+          width="26"
+          height="26"
+          style="object-fit: contain;"
+        >
+      {% else %}
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+        </svg>
+      {% endif %}
+    </a>
   </div>
 </div>
 
@@ -217,6 +521,12 @@
       "id": "menu",
       "label": "Menu",
       "default": "main-menu"
+    },
+    {
+      "type": "collection_list",
+      "id": "colours_collection_list",
+      "label": "Colours Collections",
+      "info": "Select the collections to display in the 'Shop Colours' mega menu."
     },
     {
       "type": "header",
