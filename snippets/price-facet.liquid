@@ -1,5 +1,7 @@
 {% comment %}
-  Renders a price range facet
+  Renders a specialized "Fixed-Min, Movable-Max" price range facet for Shopify Dawn.
+  First node is stationary (0), second node is interactive and updates the fixed tooltip.
+  Optimized for AJAX persistence: correctly initializes after Shopify Dawn filter re-loads.
 
   Accepts:
   - filter: {Object} Filter Liquid object
@@ -7,123 +9,117 @@
   - filter_type: {String} Type of filter (optional)
 {% endcomment %}
 
-<div class="cb-price-slider-container">
+<div class="cb-price-slider-container" data-currency-iso="{{ cart.currency.iso_code }}">
   <div class="price-range">
-    <div class="price-range__slider">
-      <div class="price-range__callout" id="PriceCallout-{{ id_prefix }}">
-        <span class="price-range__value">{{ filter.min_value.value | default: 0 | money }}</span>
+    <!-- Single Fixed Tooltip (Centered exactly above Fixed Min Node) -->
+    <div class="price-range__callout-container">
+      <div class="price-range__callout callout-min" id="PriceCurrent-{{ id_prefix }}-{{ filter.label | handle }}">
+        <span class="price-range__value">
+          {{- filter.max_value.value | default: filter.range_max | money -}}
+        </span>
       </div>
-      <div class="price-range__track"></div>
+    </div>
+
+    <!-- Progress Track -->
+    <div class="price-range__slider">
       <div class="price-range__progress"></div>
     </div>
+
+    <!-- Range Inputs -->
     <div class="price-range__inputs">
+      <!-- Fixed Minimum Node (Non-interactive) -->
       <input
         type="range"
         class="price-range__input range-min"
-        id="{{ id_prefix }}RangeMin-{{ filter.label | escape }}"
-        value="{{ filter.min_value.value | money_without_currency | replace: ',', '' | default: 0 }}"
+        id="{{ id_prefix }}RangeMin-{{ filter.label | handle }}"
+        value="0"
         min="0"
         max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
         step="1"
-        aria-label="Minimum price"
+        disabled
+        aria-label="Fixed minimum price"
       >
+      <!-- Moveable Maximum Node -->
       <input
         type="range"
         class="price-range__input range-max"
-        id="{{ id_prefix }}RangeMax-{{ filter.label | escape }}"
+        id="{{ id_prefix }}RangeMax-{{ filter.label | handle }}"
         value="{{ filter.max_value.value | money_without_currency | replace: ',', '' | default: filter.range_max | money_without_currency | replace: ',', '' }}"
         min="0"
         max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
         step="1"
-        aria-label="Maximum price"
+        aria-label="{{ 'products.facets.to' | t }}"
       >
     </div>
   </div>
-</div>
 
-<div class="facets__price hidden">
-  <div class="field">
-    <span class="field-currency">{{ cart.currency.symbol }}</span>
+  <!-- Hidden Native Inputs (Synced with AJAX form) -->
+  <div class="facets__price visually-hidden">
     <input
-      class="field__input filter-min-input"
       name="{{ filter.min_value.param_name }}"
-      id="{{ id_prefix }}{{ filter.label | escape }}-GTE"
-      {%- if filter.min_value.value -%}
-        value="{{ filter.min_value.value | money_without_currency | replace: ',', '' }}"
-      {%- endif -%}
+      id="{{ id_prefix }}{{ filter.label | handle }}-GTE"
+      value="0"
       type="number"
-      placeholder="0"
-      min="0"
     >
-  </div>
-  <div class="field">
-    <span class="field-currency">{{ cart.currency.symbol }}</span>
     <input
-      class="field__input filter-max-input"
       name="{{ filter.max_value.param_name }}"
-      id="{{ id_prefix }}{{ filter.label | escape }}-LTE"
+      id="{{ id_prefix }}{{ filter.label | handle }}-LTE"
       {%- if filter.max_value.value -%}
         value="{{ filter.max_value.value | money_without_currency | replace: ',', '' }}"
       {%- endif -%}
       type="number"
-      min="0"
-      {%- if filter.range_max -%}
-        placeholder="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
-        max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
-      {%- endif -%}
     >
   </div>
 </div>
 
 <script>
-  (function() {
-    const container = document.currentScript.previousElementSibling.previousElementSibling;
+  (function () {
+    const container = document.currentScript.previousElementSibling;
+    if (!container) return; // Safeguard for re-rendering
+
     const inputs = container.querySelectorAll('.price-range__input');
-    const callout = container.querySelector('.price-range__callout');
-    const calloutText = container.querySelector('.price-range__value');
+    const callout = container.querySelector('.callout-min');
+    const calloutValue = callout.querySelector('.price-range__value');
     const progress = container.querySelector('.price-range__progress');
-    const minInput = document.getElementById('{{ id_prefix }}{{ filter.label | escape }}-GTE');
-    const maxInput = document.getElementById('{{ id_prefix }}{{ filter.label | escape }}-LTE');
-    const currencyFormat = '{{ 0 | money | replace: '0', 'VALUE' | replace: '0.00', 'VALUE' }}';
+    const currency = container.dataset.currencyIso;
 
-    function updateUI() {
-      const min = parseInt(inputs[0].value);
-      const max = parseInt(inputs[1].value);
-      const total = parseInt(inputs[0].max);
-
-      const left = (min / total) * 100;
-      const right = 100 - (max / total) * 100;
-
-      progress.style.left = left + '%';
-      progress.style.right = right + '%';
-      callout.style.left = left + '%';
-      
-      const formatted = currencyFormat.replace('VALUE', min);
-      calloutText.textContent = formatted;
-
-      if (minInput) minInput.value = min;
-      if (maxInput) maxInput.value = max;
-    }
-
-    inputs.forEach(input => {
-      input.addEventListener('input', (e) => {
-        let min = parseInt(inputs[0].value);
-        let max = parseInt(inputs[1].value);
-
-        if (max - min < 10) {
-          if (e.target.classList.contains('range-min')) inputs[0].value = max - 10;
-          else inputs[1].value = min + 10;
-        }
-        updateUI();
-      });
-
-      input.addEventListener('change', () => {
-        // Trigger update on the form - Dawn's FacetFiltersForm handles this
-        const form = container.closest('facet-filters-form');
-        if (form) form.onActiveFilterClick({ target: inputs[0] });
-      });
+    // Formatting with Intl.NumberFormat
+    const formatter = new Intl.NumberFormat(undefined, {
+      style: 'currency',
+      currency: currency,
+      maximumFractionDigits: 0,
     });
 
-    updateUI();
+    function updatePriceState() {
+      const maxVal = parseInt(inputs[1].value) || 0;
+      const maxRange = parseInt(inputs[0].max) || 1;
+
+      // Ensure proper layering of handles
+      inputs[1].style.zIndex = '5';
+      inputs[0].style.zIndex = '4';
+
+      // Centered Tooltip Value update
+      calloutValue.textContent = formatter.format(maxVal);
+
+      // Yellow progress bar from start to maxPercent
+      const maxPercent = (maxVal / maxRange) * 100;
+      progress.style.left = '0%';
+      progress.style.width = maxPercent + '%';
+
+      // Always sync the native hidden input
+      const lteInput = container.querySelector('[id$="-LTE"]');
+      if (lteInput) lteInput.value = maxVal;
+    }
+
+    inputs[1].addEventListener('input', updatePriceState);
+
+    inputs[1].addEventListener('change', () => {
+      // Trigger Dawn AJAX filter refresh
+      const form = container.closest('facet-filters-form');
+      if (form) form.onActiveFilterClick({ target: inputs[1] });
+    });
+
+    // Run immediately when re-injected via AJAX
+    updatePriceState();
   })();
 </script>

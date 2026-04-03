@@ -36,47 +36,10 @@
     }
   }
 
-  /* Collection Title */
-  .section-{{ section.id }}-padding .cb-coll-title {
-    font-size: {{ section.settings.coll_title_font_size }}px;
-    font-weight: {{ section.settings.coll_title_font_weight }};
-  }
-
-  /* Collection Description */
-  .section-{{ section.id }}-padding .cb-coll-desc {
-    font-size: {{ section.settings.coll_desc_font_size }}px;
-    font-weight: {{ section.settings.coll_desc_font_weight }};
-  }
-
   /* Category Chips */
   .section-{{ section.id }}-padding .cb-category-chip {
     background-color: {{ section.settings.chip_bg_color }};
     color: {{ section.settings.chip_text_color }};
-    font-size: {{ section.settings.chip_font_size }}px;
-    font-weight: {{ section.settings.chip_font_weight }};
-  }
-
-  /* Category Chips Container */
-  .section-{{ section.id }}-padding .cb-category-chips {
-    gap: {{ section.settings.chip_gap }}px;
-    justify-content: {{ section.settings.chip_alignment }};
-  }
-
-  /* Product Card Typography */
-  .section-{{ section.id }}-padding .cb-product-title {
-    font-size: {{ section.settings.card_title_font_size }}px;
-    font-weight: {{ section.settings.card_title_font_weight }};
-    font-family: 'Open Sans';
-    display: inline;
-    width: fit-content;
-  }
-
-  .section-{{ section.id }}-padding .cb-product-price-from {
-    font-size: {{ section.settings.card_price_from_font_size }}px;
-  }
-
-  .section-{{ section.id }}-padding .cb-product-price {
-    font-size: {{ section.settings.card_price_font_size }}px;
   }
 
   /* Product Card Button */
@@ -127,26 +90,7 @@
             </div>
           </div>
 
-          <div class="product-count-vertical light" role="status">
-            <h2 class="product-count__text text-body">
-              <span id="ProductCountDesktop">
-                {%- if collection.results_count -%}
-                  {{
-                    'templates.search.results_with_count'
-                    | t: terms: collection.terms, count: collection.results_count
-                  }}
-                {%- elsif collection.products_count == collection.all_products_count -%}
-                  {{ 'products.facets.product_count_simple' | t: count: collection.products_count }}
-                {%- else -%}
-                  {{
-                    'products.facets.product_count'
-                    | t: product_count: collection.products_count, count: collection.all_products_count
-                  }}
-                {%- endif -%}
-              </span>
-            </h2>
-            {%- render 'loading-spinner' -%}
-          </div>
+
         </form>
       </facet-filters-form>
     {%- endif -%}
@@ -187,17 +131,7 @@
           </div>
         {%- endif -%}
 
-        {%- if section.settings.show_category_chips and section.blocks.size > 0 -%}
-          <div class="cb-category-chips">
-            {%- for block in section.blocks -%}
-              {%- if block.type == 'category_chip' -%}
-                <span class="cb-category-chip" {{ block.shopify_attributes }}>
-                  {{ block.settings.label | escape }}
-                </span>
-              {%- endif -%}
-            {%- endfor -%}
-          </div>
-        {%- endif -%}
+        {% render 'cb-category-chips', collection: collection, section: section %}
         {%- if collection.products.size == 0 -%}
           <div class="collection collection--empty page-width" id="product-grid" data-id="{{ section.id }}">
             <div class="loading-overlay gradient"></div>
@@ -238,6 +172,17 @@
                 {%- endif -%}
               </div>
             {%- endif -%}
+
+            <div class="cb-mobile-filter-row">
+              {% render 'facets',
+                results: collection,
+                enable_filtering: section.settings.enable_filtering,
+                enable_sorting: section.settings.enable_sorting,
+                filter_type: section.settings.filter_type,
+                paginate: paginate,
+                mobile_only: true
+              %}
+            </div>
 
             <div class="loading-overlay gradient"></div>
             <ul
@@ -423,49 +368,6 @@
       "info": "t:sections.main-collection-product-grid.settings.show_rating.info"
     },
     {
-      "type": "range",
-      "id": "card_title_font_size",
-      "label": "Title Font Size",
-      "min": 12,
-      "max": 28,
-      "step": 1,
-      "unit": "px",
-      "default": 15
-    },
-    {
-      "type": "select",
-      "id": "card_title_font_weight",
-      "label": "Title Font Weight",
-      "default": "700",
-      "options": [
-        { "value": "400", "label": "Normal (400)" },
-        { "value": "500", "label": "Medium (500)" },
-        { "value": "600", "label": "Semi Bold (600)" },
-        { "value": "700", "label": "Bold (700)" },
-        { "value": "800", "label": "Extra Bold (800)" }
-      ]
-    },
-    {
-      "type": "range",
-      "id": "card_price_from_font_size",
-      "label": "\"From\" Text Font Size",
-      "min": 10,
-      "max": 20,
-      "step": 1,
-      "unit": "px",
-      "default": 13
-    },
-    {
-      "type": "range",
-      "id": "card_price_font_size",
-      "label": "Price Font Size",
-      "min": 14,
-      "max": 32,
-      "step": 1,
-      "unit": "px",
-      "default": 18
-    },
-    {
       "type": "text",
       "id": "card_btn_text",
       "label": "Button Text",
@@ -558,7 +460,7 @@
       "step": 4,
       "unit": "px",
       "label": "t:sections.all.padding.padding_top",
-      "default": 36
+      "default": 20
     },
     {
       "type": "range",
@@ -568,7 +470,7 @@
       "step": 4,
       "unit": "px",
       "label": "t:sections.all.padding.padding_bottom",
-      "default": 36
+      "default": 20
     },
     {
       "type": "header",
@@ -579,52 +481,6 @@
       "id": "show_collection_info",
       "label": "Show Collection Title & Description",
       "default": true
-    },
-    {
-      "type": "range",
-      "id": "coll_title_font_size",
-      "label": "Title Font Size",
-      "min": 16,
-      "max": 72,
-      "step": 2,
-      "unit": "px",
-      "default": 28
-    },
-    {
-      "type": "select",
-      "id": "coll_title_font_weight",
-      "label": "Title Font Weight",
-      "default": "800",
-      "options": [
-        { "value": "400", "label": "Normal (400)" },
-        { "value": "500", "label": "Medium (500)" },
-        { "value": "600", "label": "Semi Bold (600)" },
-        { "value": "700", "label": "Bold (700)" },
-        { "value": "800", "label": "Extra Bold (800)" },
-        { "value": "900", "label": "Black (900)" }
-      ]
-    },
-    {
-      "type": "range",
-      "id": "coll_desc_font_size",
-      "label": "Description Font Size",
-      "min": 12,
-      "max": 28,
-      "step": 1,
-      "unit": "px",
-      "default": 15
-    },
-    {
-      "type": "select",
-      "id": "coll_desc_font_weight",
-      "label": "Description Font Weight",
-      "default": "400",
-      "options": [
-        { "value": "400", "label": "Normal (400)" },
-        { "value": "500", "label": "Medium (500)" },
-        { "value": "600", "label": "Semi Bold (600)" },
-        { "value": "700", "label": "Bold (700)" }
-      ]
     },
     {
       "type": "header",
@@ -638,29 +494,6 @@
       "info": "Add chips using the '+ Add block' button below"
     },
     {
-      "type": "select",
-      "id": "chip_alignment",
-      "label": "Chips Alignment",
-      "default": "flex-start",
-      "options": [
-        { "value": "flex-start", "label": "Left" },
-        { "value": "center", "label": "Center" },
-        { "value": "flex-end", "label": "Right" },
-        { "value": "space-between", "label": "Space Between" },
-        { "value": "space-around", "label": "Space Around" }
-      ]
-    },
-    {
-      "type": "range",
-      "id": "chip_gap",
-      "label": "Gap Between Chips",
-      "min": 4,
-      "max": 32,
-      "step": 2,
-      "unit": "px",
-      "default": 12
-    },
-    {
       "type": "color",
       "id": "chip_bg_color",
       "label": "Chip Background Color",
@@ -671,30 +504,6 @@
       "id": "chip_text_color",
       "label": "Chip Text Color",
       "default": "#000000"
-    },
-    {
-      "type": "range",
-      "id": "chip_font_size",
-      "label": "Chip Font Size",
-      "min": 10,
-      "max": 24,
-      "step": 1,
-      "unit": "px",
-      "default": 13
-    },
-    {
-      "type": "select",
-      "id": "chip_font_weight",
-      "label": "Chip Font Weight",
-      "default": "700",
-      "options": [
-        { "value": "400", "label": "Normal (400)" },
-        { "value": "500", "label": "Medium (500)" },
-        { "value": "600", "label": "Semi Bold (600)" },
-        { "value": "700", "label": "Bold (700)" },
-        { "value": "800", "label": "Extra Bold (800)" },
-        { "value": "900", "label": "Black (900)" }
-      ]
     },
     {
       "type": "header",

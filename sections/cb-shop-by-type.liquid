@@ -191,7 +191,7 @@
               <div class="cb-card">
                 {% if block.settings.product != blank %}
                   <img
-                    src="{{ block.settings.product.featured_image | img_url: '600x' }}"
+                    src="{{ block.settings.product.featured_image | image_url: width: 600 }}"
                     alt="{{ block.settings.product.title | escape }}"
                     width="{{ block.settings.product.featured_image.width }}"
                     height="{{ block.settings.product.featured_image.height }} "

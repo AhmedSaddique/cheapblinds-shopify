@@ -89,10 +89,7 @@
               <li class="cb-breadcrumb__item">
                 <a href="{{ collection.url }}" class="cb-breadcrumb__link">{{ collection.title }}</a>
               </li>
-              <li class="cb-breadcrumb__item cb-breadcrumb__item--current" aria-current="page">
-                {%- capture tag_url -%}{{ collection.url }}/{{ current_tags | join: "+" }}{%- endcapture -%}
-                {{ current_tags | join: " + " }}
-              </li>
+              {{ current_tags | join: ' + ' }}
             {%- else -%}
               <li class="cb-breadcrumb__item cb-breadcrumb__item--current" aria-current="page">
                 {{ collection.title }}
@@ -105,14 +102,14 @@
                 <a href="{{ blog.url }}" class="cb-breadcrumb__link">{{ blog.title }}</a>
               </li>
               <li class="cb-breadcrumb__item cb-breadcrumb__item--current" aria-current="page">
-                {{ current_tags | join: " + " }}
+                {{ current_tags | join: ' + ' }}
               </li>
             {%- elsif template contains 'search' -%}
-            <li class="cb-breadcrumb__item cb-breadcrumb__item--current" aria-current="page">
-              {{ 'templates.search.title' | t | default: 'Search' }}: {{ search.terms }}
-            </li>
+              <li class="cb-breadcrumb__item cb-breadcrumb__item--current" aria-current="page">
+                {{ 'templates.search.title' | t | default: 'Search' }}: {{ search.terms }}
+              </li>
 
-          {%- else -%}
+            {%- else -%}
               <li class="cb-breadcrumb__item cb-breadcrumb__item--current" aria-current="page">
                 {{ blog.title }}
               </li>

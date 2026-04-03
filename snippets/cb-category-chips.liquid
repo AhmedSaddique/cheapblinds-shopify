@@ -1,0 +1,224 @@
+{%- comment -%}
+  Renders custom category chips without external libraries.
+{%- endcomment -%}
+
+{%- assign collection_features = collection.metafields.custom.features.value -%}
+
+<style>
+  .cb-slider-container {
+    --gap: 12px;
+    --items-per-view: auto;
+    margin: 25px 0 35px 0;
+    position: relative;
+    width: 100%;
+  }
+
+  @media screen and (max-width: 1279px) {
+    .cb-slider-container {
+      --items-per-view: 5;
+    }
+  }
+
+  @media screen and (max-width: 1023px) {
+    .cb-slider-container {
+      --items-per-view: 4;
+    }
+  }
+
+  .cb-slider-track {
+    display: flex;
+    justify-content: space-between;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
+    gap: var(--gap);
+    padding: 10px 0;
+    cursor: grab;
+    touch-action: pan-y pinch-zoom;
+    user-select: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .cb-slider-track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .cb-slider-track:active {
+    cursor: grabbing;
+  }
+
+  .cb-slider-item {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+  }
+
+  @media screen and (max-width: 1279px) {
+    .cb-slider-item {
+      flex-basis: calc((100% - (var(--gap) * (var(--items-per-view) - 1))) / var(--items-per-view));
+    }
+  }
+
+  .cb-slider-pagination {
+    align-items: center;
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    margin-top: 12px;
+  }
+
+  .cb-slider-dot {
+    background: transparent;
+    border: 1px solid #000;
+    border-radius: 999px;
+    cursor: pointer;
+    height: 16px;
+    padding: 0;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+    width: 16px;
+  }
+
+  .cb-slider-dot.is-active {
+    background: #ffb800;
+    border-color: #000;
+  }
+</style>
+
+{%- if section.settings.show_category_chips -%}
+  {%- if collection_features != blank or section.blocks.size > 0 -%}
+    <div class="cb-slider-container" id="CustomSlider-{{ section.id }}">
+      <div class="cb-slider-track js-slider-track">
+        {%- if collection_features != blank -%}
+          {%- for feature in collection_features -%}
+            <div class="cb-slider-item">
+              <span class="cb-category-chip">{{ feature | escape }}</span>
+            </div>
+          {%- endfor -%}
+        {%- else -%}
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'category_chip' -%}
+              <div class="cb-slider-item" {{ block.shopify_attributes }}>
+                <span class="cb-category-chip">{{ block.settings.label | escape }}</span>
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+        {%- endif -%}
+      </div>
+      <div class="cb-slider-pagination js-slider-pagination" aria-label="Slider pagination"></div>
+    </div>
+  {%- endif -%}
+{%- endif -%}
+
+<script>
+  (function () {
+    const initCustomSlider = () => {
+      const container = document.getElementById('CustomSlider-{{ section.id }}');
+      if (!container || container.dataset.sliderInitialized === 'true') return;
+
+      const slider = container.querySelector('.js-slider-track');
+      const pagination = container.querySelector('.js-slider-pagination');
+      if (!slider) return;
+
+      let isPointerDown = false;
+      let startX = 0;
+      let scrollLeft = 0;
+      let pagePositions = [0];
+
+      const buildPagination = () => {
+        const maxScrollLeft = slider.scrollWidth - slider.clientWidth;
+        const pageCount = Math.max(1, Math.ceil(slider.scrollWidth / slider.clientWidth));
+        pagePositions = Array.from({ length: pageCount }, (_, index) => {
+          const rawPosition = slider.clientWidth * index;
+          return rawPosition > maxScrollLeft ? maxScrollLeft : rawPosition;
+        });
+
+        if (!pagination) return;
+
+        pagination.innerHTML = '';
+
+        if (pageCount <= 1) {
+          pagination.hidden = true;
+          return;
+        }
+
+        pagination.hidden = false;
+
+        pagePositions.forEach((position, index) => {
+          const dot = document.createElement('button');
+          dot.type = 'button';
+          dot.className = 'cb-slider-dot';
+          dot.setAttribute('aria-label', 'Go to slide ' + (index + 1));
+          dot.addEventListener('click', () => {
+            slider.scrollTo({
+              left: position,
+              behavior: 'smooth',
+            });
+          });
+          pagination.appendChild(dot);
+        });
+      };
+
+      const updatePagination = () => {
+        if (!pagination || pagination.hidden) return;
+
+        let activeIndex = 0;
+        let minDistance = Infinity;
+
+        pagePositions.forEach((position, index) => {
+          const distance = Math.abs(slider.scrollLeft - position);
+          if (distance < minDistance) {
+            minDistance = distance;
+            activeIndex = index;
+          }
+        });
+
+        Array.from(pagination.children).forEach((dot, index) => {
+          dot.classList.toggle('is-active', index === activeIndex);
+          dot.setAttribute('aria-current', index === activeIndex ? 'true' : 'false');
+        });
+      };
+
+      slider.addEventListener('pointerdown', (event) => {
+        isPointerDown = true;
+        startX = event.clientX;
+        scrollLeft = slider.scrollLeft;
+        slider.style.scrollSnapType = 'none';
+      });
+
+      slider.addEventListener('pointermove', (event) => {
+        if (!isPointerDown) return;
+        const walk = event.clientX - startX;
+        slider.scrollLeft = scrollLeft - walk;
+      });
+
+      const stopPointerDrag = () => {
+        if (!isPointerDown) return;
+        isPointerDown = false;
+        slider.style.scrollSnapType = '';
+      };
+
+      slider.addEventListener('pointerup', stopPointerDrag);
+      slider.addEventListener('pointerleave', stopPointerDrag);
+      slider.addEventListener('pointercancel', stopPointerDrag);
+      slider.addEventListener('scroll', updatePagination, { passive: true });
+      window.addEventListener('resize', () => {
+        buildPagination();
+        updatePagination();
+      });
+
+      buildPagination();
+      updatePagination();
+      container.dataset.sliderInitialized = 'true';
+    };
+
+    // Initialize
+    initCustomSlider();
+
+    // Re-init for Shopify Theme Editor
+    document.addEventListener('shopify:section:load', (e) => {
+      if (e.detail.sectionId === '{{ section.id }}') initCustomSlider();
+    });
+  })();
+</script>
