@@ -30,7 +30,7 @@
 /* Dynamic Product Grid Columns */
 #product-grid {
   display: grid !important;
-  gap: var(--grid-desktop-horizontal-spacing);
+  gap: 20px;
 }
 
 @media screen and (max-width: 767px) {
@@ -462,6 +462,7 @@
   font-weight: 600;
   margin: 0 0 8px 0;
   color: #000;
+  font-family: 'Open Sans', sans-serif;
 }
 
 .cb-product-price-from {
@@ -625,4 +626,57 @@
   display: block;
   object-fit: cover;
   border-radius: 4px;
+}
+
+@media screen and (max-width: 1100px) {
+  .cb-product-title {
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .cb-discount-badge {
+    width: 50px;
+    height: 50px;
+    font-size: 16px;
+    padding-right: 6px;
+  }
+
+  .cb-discount-badge span {
+    font-size: 14px;
+  }
+
+  .cb-color-swatch {
+    width: 42px;
+    height: 42px;
+  }
+
+  .cb-product-title {
+    font-size: 12px;
+  }
+
+  .cb-free-sample-btn {
+    padding: 10px 15px;
+    font-size: 13px;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  #product-grid {
+    gap: 10px;
+  }
+
+  .cb-color-swatch {
+    width: 35px;
+    height: 35px;
+  }
+
+  .cb-product-title {
+    font-size: 11px;
+  }
+
+  .cb-free-sample-btn {
+    padding: 6px 8px;
+    font-size: 12px;
+  }
 }

@@ -665,6 +665,7 @@
                                         {% if is_disabled %}
                                           disabled
                                         {% endif %}
+                                        style="{% if filter.label == 'Colour' or filter.label == 'Color' %}display: none;{% endif %}"
                                       >
 
                                       {%- if presentation == 'image' -%}
@@ -683,7 +684,58 @@
                                         {{- 'icon-checkmark.svg' | inline_asset_content -}}
                                       {%- endif %}
 
-                                      {{ text_value }}
+                                      {%- if filter.label == 'Type' -%}
+                                        <span class="cb-filter-icon" style="margin-right: 10px;">
+                                          {%- if value.label == 'Roller Blinds' -%}
+                                            {{ 'icon-roller.svg' | inline_asset_content }}
+                                          {%- elsif value.label == 'Roman Blinds' -%}
+                                            {{ 'icon-roman.svg' | inline_asset_content }}
+                                          {%- elsif value.label == 'Zebra Blinds' -%}
+                                            {{ 'icon-zebra.svg' | inline_asset_content }}
+                                          {%- elsif value.label == 'Vertical Blinds' -%}
+                                            {{ 'icon-vertical.svg' | inline_asset_content }}
+                                          {%- else -%}
+                                          {%- elsif value.label == 'Visible' -%}
+                                            {{ 'icon-visible.svg' | inline_asset_content }}
+                                          {%- else -%}
+                                          {%- elsif value.label == 'Dim-Out' -%}
+                                            {{ 'icon-dimout.svg' | inline_asset_content }}
+                                          {%- else -%}
+                                            {{ 'icon-fire.svg' | inline_asset_content }}
+                                          {%- endif -%}
+                                        </span>
+                                      {%- endif -%}
+
+                                      {%- if filter.label == 'Colour' or filter.label == 'Color' -%}
+                                        {%- liquid
+                                          assign swatch_hex = value.label | split: ' ' | last | handle
+                                          assign color_lookup = value.label | downcase
+                                          assign map_items = color_map | split: '||'
+                                          for item in map_items
+                                            assign parts = item | split: '##'
+                                            assign item_title = parts[0] | downcase
+                                            if item_title contains color_lookup
+                                              assign swatch_hex = parts[1]
+                                              break
+                                            endif
+                                          endfor
+                                        -%}
+                                        <span
+                                          class="cb-swatch-circle"
+                                          style="background-color: {{ swatch_hex }}; margin-right: 10px;"
+                                        ></span>
+                                      {%- endif -%}
+
+                                      {% if filter.label == 'Width Available' or filter.label == 'Width' %}
+                                        Up To&nbsp;
+                                        {{- value.label | escape }} Wide
+                                      {% else %}
+                                        {% if filter.label == 'Pattern' or filter.label == 'Composition' %}
+                                          {{ text_value }}
+                                        {% else %}
+                                          {{ text_value }}
+                                        {% endif %}
+                                      {% endif %}
                                     </label>
                                   {% endif %}
                                 </li>
