@@ -773,7 +773,6 @@ a.active-facets__button.focused .active-facets__button-inner {
   width: calc(100% - 5rem);
   margin-left: auto;
   height: 100%;
-  max-height: 95vh;
   overflow-y: auto;
   pointer-events: all;
   transition: transform var(--duration-default) ease;

@@ -116,11 +116,8 @@
       {%- endif -%}
 
       <div
-        class="product-grid-container{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+        class="product-grid-container"
         id="ProductGridContainer"
-        {% if settings.animations_reveal_on_scroll %}
-          data-cascade
-        {% endif %}
       >
         {%- if section.settings.show_collection_info -%}
           <div class="cb-coll-header">
