@@ -1,0 +1,21 @@
+<div class="samples-drawer-wrapper" id="SamplesDrawer" aria-modal="true" role="dialog" tabindex="-1">
+  <div class="samples-drawer__overlay" id="SamplesOverlay"></div>
+  <div class="samples-drawer__inner">
+    <div class="samples-drawer__header">
+      <h2 class="samples-drawer__heading">Your Free Samples</h2>
+      <button class="samples-drawer__close" id="SamplesClose" aria-label="Close samples">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+    <div class="samples-drawer__body" id="SamplesBody">
+      <!-- Items injected via JS -->
+      <div class="samples-drawer__empty hide">
+        <p>You have no free samples selected.</p>
+        <a href="{{ routes.all_products_collection_url }}" class="button button--primary" onclick="document.getElementById('SamplesClose').click();">Browse products</a>
+      </div>
+    </div>
+  </div>
+</div>
+

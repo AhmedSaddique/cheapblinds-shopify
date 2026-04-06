@@ -2,14 +2,14 @@ class Wishlist {
   constructor() {
     this.storageKey = 'cb-wishlist';
     this.items = this.getItems();
-    
+
     // DOM Elements
     this.drawer = document.getElementById('WishlistDrawer');
     this.overlay = document.getElementById('WishlistOverlay');
     this.closeBtn = document.getElementById('WishlistClose');
     this.body = document.getElementById('WishlistBody');
     this.countBubbles = document.querySelectorAll('.wishlist-counter-element');
-    
+
     this.initListeners();
     this.updateUI();
   }
@@ -22,13 +22,13 @@ class Wishlist {
         e.preventDefault();
         this.toggleItem(btn);
       }
-      
+
       const headerIcon = e.target.closest('#wishlist-icon-bubble, #wishlist-icon-bubble-mobile');
       if (headerIcon) {
         e.preventDefault();
         this.openDrawer();
       }
-      
+
       // Remove item from drawer
       const removeBtn = e.target.closest('.wishlist-item__remove');
       if (removeBtn) {
@@ -43,6 +43,10 @@ class Wishlist {
         if (variantId) {
           this.addToCart(variantId, handle, cartBtn);
         }
+      }
+
+      if (e.target === this.overlay || e.target === this.drawer || e.target.closest('.wishlist-drawer__overlay') || e.target.classList.contains('wishlist-drawer-wrapper')) {
+        this.closeDrawer();
       }
     });
 
@@ -74,23 +78,23 @@ class Wishlist {
       },
       body: JSON.stringify(formData)
     })
-    .then(response => {
-      if (response.ok) {
-        this.removeItem(handle);
-        window.location.href = window.Shopify.routes.root + 'cart';
-      } else {
+      .then(response => {
+        if (response.ok) {
+          this.removeItem(handle);
+          window.location.href = window.Shopify.routes.root + 'cart';
+        } else {
+          btn.innerHTML = 'Error';
+          setTimeout(() => {
+            btn.innerHTML = originalText;
+            btn.disabled = false;
+          }, 2000);
+        }
+      })
+      .catch((error) => {
+        console.error('Error:', error);
         btn.innerHTML = 'Error';
-        setTimeout(() => {
-          btn.innerHTML = originalText;
-          btn.disabled = false;
-        }, 2000);
-      }
-    })
-    .catch((error) => {
-      console.error('Error:', error);
-      btn.innerHTML = 'Error';
-      btn.disabled = false;
-    });
+        btn.disabled = false;
+      });
   }
 
   getItems() {
@@ -119,7 +123,7 @@ class Wishlist {
         variantId: btn.dataset.variantId
       });
     }
-    
+
     this.saveItems();
     this.openDrawer();
   }
@@ -171,7 +175,7 @@ class Wishlist {
       if (emptyState) emptyState.classList.remove('hide');
     } else {
       if (emptyState) emptyState.classList.add('hide');
-      
+
       this.items.forEach(item => {
         const div = document.createElement('div');
         div.className = 'wishlist-item';

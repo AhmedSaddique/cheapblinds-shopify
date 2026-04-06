@@ -526,11 +526,17 @@
   transition: background-color 0.25s ease, transform 0.2s ease;
   flex: 1;
   margin-right: 15px;
+  border: none;
+  cursor: pointer;
 }
 
 .cb-free-sample-btn:hover {
   background-color: #e6a600;
   transform: scale(1.02);
+}
+
+.cb-free-sample-btn.active {
+  background-color: #000;
 }
 
 .cb-card-actions {

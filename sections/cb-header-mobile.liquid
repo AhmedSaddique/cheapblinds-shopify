@@ -170,7 +170,7 @@
         <span class="cb-mob-cart-badge">{{ cart.item_count }}</span>
       </a>
 
-      <a href="/pages/samples" class="cb-mob-icon-item">
+      <a href="#" class="cb-mob-icon-item" id="samples-icon-bubble-mobile">
         {% if section.settings.samples_icon != blank %}
           <img
             src="{{ section.settings.samples_icon | img_url: '40x' }}"
@@ -193,6 +193,9 @@
           </svg>
         {% endif %}
         <span>Samples</span>
+        <span class="cb-mob-cart-badge hide samples-counter-element" id="samples-counter-mobile">
+          <span aria-hidden="true">0</span>
+        </span>
       </a>
     </div>
   </div>
