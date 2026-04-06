@@ -1,32 +1,85 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "name": "t:sections.footer.name",
   "type": "footer",
   "sections": {
     "footer": {
-      "type": "footer",
+      "type": "cb-footer",
       "settings": {
-        "color_scheme": "scheme-1",
-        "newsletter_enable": true,
-        "newsletter_heading": "Subscribe to our emails",
-        "enable_follow_on_shop": true,
-        "show_social": true,
-        "enable_country_selector": true,
-        "enable_language_selector": true,
-        "payment_enable": true,
-        "show_policy": true,
-        "margin_top": 0,
-        "padding_top": 36,
-        "padding_bottom": 36
-      }
+        "bg_color": "#ffb800",
+        "contact_heading": "Order online ANYTIME, or give us a call.",
+        "schedule_mon_sat": "Mon-Sat: 8:30am-9:00pm",
+        "schedule_sunday": "Sunday: 10:00am-6:00pm",
+        "phone": "+971 50 597 4531",
+        "location_text": "J1 Warehouses, Jebel Ali Industrial Area 1 - Dubai",
+        "menu": "footer-menu"
+      },
+      "blocks": {
+        "visa": {
+          "type": "cb_payment_icon",
+          "settings": {
+            "title": "Visa"
+          }
+        },
+        "apple_pay": {
+          "type": "cb_payment_icon",
+          "settings": {
+            "title": "Apple Pay"
+          }
+        },
+        "tabby": {
+          "type": "cb_payment_icon",
+          "settings": {
+            "title": "Tabby"
+          }
+        },
+        "mastercard": {
+          "type": "cb_payment_icon",
+          "settings": {
+            "title": "Mastercard"
+          }
+        },
+        "gpay": {
+          "type": "cb_payment_icon",
+          "settings": {
+            "title": "GPay"
+          }
+        },
+        "tamara": {
+          "type": "cb_payment_icon",
+          "settings": {
+            "title": "Tamara"
+          }
+        },
+        "facebook": {
+          "type": "social_icon",
+          "settings": {
+            "title": "Facebook"
+          }
+        },
+        "pinterest": {
+          "type": "social_icon",
+          "settings": {
+            "title": "Pinterest"
+          }
+        },
+        "instagram": {
+          "type": "social_icon",
+          "settings": {
+            "title": "Instagram"
+          }
+        }
+      },
+      "block_order": [
+        "visa",
+        "apple_pay",
+        "tabby",
+        "mastercard",
+        "gpay",
+        "tamara",
+        "facebook",
+        "pinterest",
+        "instagram"
+      ]
     }
   },
   "order": [
