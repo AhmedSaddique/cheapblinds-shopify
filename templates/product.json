@@ -9,6 +9,22 @@
  */
 {
   "sections": {
+    "custom_config": {
+      "type": "custom-product-main",
+      "blocks": {
+        "tab1": {
+          "type": "accordion",
+          "settings": {
+            "title": "How to measure",
+            "content": "<p>Measurement details here.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "tab1"
+      ],
+      "settings": {}
+    },
     "main": {
       "type": "main-product",
       "blocks": {
@@ -66,6 +82,7 @@
         "description",
         "share"
       ],
+      "disabled": true,
       "settings": {
         "enable_sticky_info": true,
         "color_scheme": "scheme-1",
@@ -84,6 +101,7 @@
     },
     "related-products": {
       "type": "related-products",
+      "disabled": true,
       "settings": {
         "heading": "You may also like",
         "heading_size": "h2",
@@ -100,26 +118,13 @@
         "padding_bottom": 28
       }
     },
-    "custom_config": {
-      "type": "custom-product-main",
-      "blocks": {
-        "tab1": {
-          "type": "accordion",
-          "settings": {
-            "title": "How to measure",
-            "content": "<p>Measurement details here.</p>"
-          }
-        }
-      },
-      "block_order": ["tab1"],
-      "settings": {}
-    },
     "custom_customers_bought": {
       "type": "custom-customers-bought",
       "blocks": {
         "card_1": {
           "type": "product_card",
           "settings": {
+            "product": "",
             "sub_label": "ROLLER BLIND",
             "feature_1": "No-Drill Install",
             "feature_2": "Easy to Fit",
@@ -129,6 +134,7 @@
         "card_2": {
           "type": "product_card",
           "settings": {
+            "product": "",
             "sub_label": "VENETIAN BLIND",
             "feature_1": "Motorised Option",
             "feature_2": "Easy to Fit",
@@ -138,6 +144,7 @@
         "card_3": {
           "type": "product_card",
           "settings": {
+            "product": "",
             "sub_label": "ROLLER BLIND",
             "feature_1": "No-Drill Install",
             "feature_2": "Blackout",
@@ -147,6 +154,7 @@
         "card_4": {
           "type": "product_card",
           "settings": {
+            "product": "",
             "sub_label": "DAY & NIGHT BLIND",
             "feature_1": "Light Filtering",
             "feature_2": "Easy to Fit",
@@ -154,10 +162,134 @@
           }
         }
       },
-      "block_order": ["card_1", "card_2", "card_3", "card_4"],
+      "block_order": [
+        "card_1",
+        "card_2",
+        "card_3",
+        "card_4"
+      ],
       "settings": {
         "heading": "Customers also bought...",
         "bg_color": "#ffffff"
+      }
+    },
+    "custom_product_features_QFVgA4": {
+      "type": "custom-product-features",
+      "blocks": {
+        "feature_JV8gjc": {
+          "type": "feature",
+          "settings": {
+            "icon": "shopify://shop_images/ICON_NO_FUSS_MESS_1.png",
+            "heading": "No-Drill Install Available",
+            "description": "Moisture resistant and easy to clean, making them perfect for kitchens and bathrooms!",
+            "button_label": "READ MORE",
+            "hover_button_label": "READ LESS",
+            "button_link": ""
+          }
+        },
+        "feature_RVaF6H": {
+          "type": "feature",
+          "settings": {
+            "icon": "shopify://shop_images/ICON_NO_FUSS_MESS_1.png",
+            "heading": "No-Drill Install Available",
+            "description": "Moisture resistant and easy to clean, making them perfect for kitchens and bathrooms!",
+            "button_label": "READ MORE",
+            "hover_button_label": "READ LESS",
+            "button_link": ""
+          }
+        },
+        "feature_h8hyYr": {
+          "type": "feature",
+          "settings": {
+            "icon": "shopify://shop_images/ICON_NO_FUSS_MESS_1.png",
+            "heading": "No-Drill Install Available",
+            "description": "Moisture resistant and easy to clean, making them perfect for kitchens and bathrooms!",
+            "button_label": "READ MORE",
+            "hover_button_label": "READ LESS",
+            "button_link": ""
+          }
+        },
+        "feature_D6DWYA": {
+          "type": "feature",
+          "settings": {
+            "icon": "shopify://shop_images/ICON_NO_FUSS_MESS_1.png",
+            "heading": "No-Drill Install Available",
+            "description": "Moisture resistant and easy to clean, making them perfect for kitchens and bathrooms!",
+            "button_label": "READ MORE",
+            "hover_button_label": "READ LESS",
+            "button_link": ""
+          }
+        },
+        "feature_bKGnKb": {
+          "type": "feature",
+          "settings": {
+            "icon": "shopify://shop_images/ICON_NO_FUSS_MESS_1.png",
+            "heading": "No-Drill Install Available",
+            "description": "Moisture resistant and easy to clean, making them perfect for kitchens and bathrooms!",
+            "button_label": "READ MORE",
+            "hover_button_label": "READ LESS",
+            "button_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "feature_JV8gjc",
+        "feature_RVaF6H",
+        "feature_h8hyYr",
+        "feature_D6DWYA",
+        "feature_bKGnKb"
+      ],
+      "name": "Custom Product Features",
+      "settings": {
+        "background_image": "shopify://shop_images/cc7d5e2e22072eec172239163eed039e650e1c53.jpg"
+      }
+    },
+    "custom_product_details_Btqj4w": {
+      "type": "custom-product-details",
+      "blocks": {
+        "point_jHAVFN": {
+          "type": "point",
+          "settings": {
+            "text": "High-quality light-filtering fabric"
+          }
+        },
+        "point_GeXwjY": {
+          "type": "point",
+          "settings": {
+            "text": "High-quality light-filtering fabric"
+          }
+        },
+        "point_M6YDfG": {
+          "type": "point",
+          "settings": {
+            "text": "High-quality light-filtering fabric"
+          }
+        },
+        "point_bGiyRx": {
+          "type": "point",
+          "settings": {
+            "text": "High-quality light-filtering fabric"
+          }
+        }
+      },
+      "block_order": [
+        "point_jHAVFN",
+        "point_GeXwjY",
+        "point_M6YDfG",
+        "point_bGiyRx"
+      ],
+      "name": "Custom Product Details",
+      "settings": {
+        "style_title": "Style to make you smile",
+        "style_title_color": "#f4a800",
+        "style_para_1": "Infuse your space with a serene glow using our Verona Pure White Roller Blind...",
+        "style_para_2": "Simple yet functional, this bespoke roller blind is the ideal addition...",
+        "video_title": "Made to measure happiness",
+        "video_url": "",
+        "video_description": "Our top-quality light-filtering range of Roller Blinds are made to the same exacting standards...",
+        "guarantee_title": "2 Year Guarantee",
+        "guarantee_para_1": "We believe our made-to-measure blinds, shutters, curtains, and cushions are the best you can buy...",
+        "guarantee_para_2": "Quite simply, we believe that you cannot buy higher quality blinds..."
       }
     }
   },
@@ -165,6 +297,8 @@
     "custom_config",
     "main",
     "related-products",
-    "custom_customers_bought"
+    "custom_customers_bought",
+    "custom_product_features_QFVgA4",
+    "custom_product_details_Btqj4w"
   ]
 }
