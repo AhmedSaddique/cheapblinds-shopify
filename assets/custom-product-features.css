@@ -1,0 +1,207 @@
+.cpf-wrapper {
+  position: relative;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 40px 0;
+  width: 100%;
+}
+
+.cpf-container {
+  position: relative;
+  z-index: 2;
+  max-width: var(--page-width, 1400px);
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.cpf-slider-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.cpf-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 40px 20px;
+  text-align: center;
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 300px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  height: auto;
+  box-sizing: border-box;
+}
+
+.cpf-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+}
+
+.cpf-card-icon,
+.cpf-placeholder-icon {
+  width: 90px;
+  height: 90px;
+  object-fit: contain;
+  margin-bottom: 25px;
+  background-color: transparent;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.cpf-placeholder-icon {
+  background-color: #f4f4f4;
+  border-radius: 50%;
+}
+
+.cpf-card-heading {
+  font-size: 16px;
+  font-weight: 700;
+  color: #000;
+  margin: 0 0 20px 0;
+  line-height: 1.4;
+  font-family: inherit;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Description animation state */
+.cpf-card-description-wrapper {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  width: 100%;
+}
+
+.cpf-card-description {
+  overflow: hidden;
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #444;
+  opacity: 0;
+  min-height: 0;
+  padding-bottom: 0px;
+  transition:
+    opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+    padding 0.3s;
+}
+
+/* Hover States for Content */
+.cpf-card:hover .cpf-card-icon,
+.cpf-card:hover .cpf-placeholder-icon {
+  width: 50px;
+  height: 50px;
+  margin-bottom: 15px;
+}
+
+.cpf-card:hover .cpf-card-heading {
+  font-size: 14px;
+  margin-bottom: 15px;
+}
+
+.cpf-card:hover .cpf-card-description-wrapper {
+  grid-template-rows: 1fr;
+}
+
+.cpf-card:hover .cpf-card-description {
+  opacity: 1;
+  padding-bottom: 20px; /* Space between description and link */
+  transition-delay: 0.1s;
+}
+
+/* Link swap animation */
+.cpf-card-link {
+  position: relative;
+  font-size: 14px;
+  color: #888;
+  text-decoration: none;
+  font-weight: 500;
+  margin-top: auto;
+  transition: color 0.2s;
+  font-family: inherit;
+  display: inline-block;
+  overflow: hidden; /* Avoid jumpiness */
+}
+
+.cpf-read-more {
+  display: inline-block;
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.cpf-read-less {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%) translateY(10px);
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition:
+    opacity 0.3s ease,
+    transform 0.3s ease;
+}
+
+.cpf-card:hover .cpf-card-link {
+  color: #000;
+}
+
+.cpf-card:hover .cpf-read-more {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
+.cpf-card:hover .cpf-read-less {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.cpf-swiper {
+  padding-bottom: 30px !important;
+  padding-top: 10px !important;
+  padding-left: 10px !important;
+  padding-right: 10px !important;
+  margin: -10px !important; /* Counteract padding so it aligns with grid */
+}
+
+@media screen and (min-width: 1024px) {
+  .cpf-wrapper {
+    padding: 60px 0;
+  }
+
+  .cpf-swiper {
+    padding-bottom: 15px !important;
+  }
+
+  .cpf-swiper-pagination {
+    display: none !important;
+  }
+
+  .cpf-card-heading {
+    font-size: 18px;
+  }
+}
+
+.cpf-swiper-pagination {
+  bottom: 0px !important;
+}
+
+.cpf-swiper-pagination .swiper-pagination-bullet {
+  background-color: #fff;
+  opacity: 0.6;
+  width: 6px;
+  height: 6px;
+  transition: all 0.3s ease;
+}
+
+.cpf-swiper-pagination .swiper-pagination-bullet-active {
+  background-color: #ffb800; /* Yellow highlight */
+  opacity: 1;
+  width: 8px;
+  height: 8px;
+}

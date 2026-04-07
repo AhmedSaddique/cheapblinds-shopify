@@ -1,0 +1,204 @@
+<link rel="stylesheet" href="{{ 'custom-product-details.css' | asset_url }}" media="print" onload="this.media='all'">
+<noscript>{{ 'custom-product-details.css' | asset_url | stylesheet_tag }}</noscript>
+
+<div class="cpd-section-wrapper">
+  <!-- Top Band: Style to make you smile -->
+  <div class="cpd-band cpd-band-white">
+    <div class="page-width">
+      {% if section.settings.style_title != blank %}
+        <h2 class="cpd-heading" style="color: {{ section.settings.style_title_color | default: '#f4a800' }};">
+          {{ section.settings.style_title }}
+        </h2>
+      {% endif %}
+
+      {% if section.settings.style_para_1 != blank or section.settings.style_para_2 != blank %}
+        <div class="cpd-twocol">
+          {% if section.settings.style_para_1 != blank %}
+            <p class="cpd-text">{{ section.settings.style_para_1 | newline_to_br }}</p>
+          {% endif %}
+          {% if section.settings.style_para_2 != blank %}
+            <p class="cpd-text">{{ section.settings.style_para_2 | newline_to_br }}</p>
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- Middle Band: Video & Bullet Points -->
+  <div class="cpd-band cpd-band-grey">
+    <div class="page-width">
+      {% if section.settings.video_title != blank %}
+        <h2 class="cpd-heading cpd-text-center">{{ section.settings.video_title }}</h2>
+      {% endif %}
+
+      <div class="cpd-video-wrapper">
+        {% if section.settings.video_image != blank %}
+          <img
+            src="{{ section.settings.video_image | image_url: width: 1200 }}"
+            alt="{{ section.settings.video_title | escape }}"
+            class="cpd-video-poster"
+            loading="lazy"
+          >
+        {% else %}
+          <div class="cpd-video-placeholder">Please select an image in the editor</div>
+        {% endif %}
+
+        <a
+          {% if section.settings.video_url != blank %}
+            href="{{ section.settings.video_url }}" target="_blank"
+          {% else %}
+            role="button"
+          {% endif %}
+          class="cpd-play-button"
+          aria-label="Play Video"
+        >
+          <svg viewBox="0 0 70 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="70" height="50" rx="10" fill="#e8211a"/>
+            <path d="M44 25L29 34V16L44 25Z" fill="white"/>
+          </svg>
+        </a>
+      </div>
+
+      {% if section.settings.video_description != blank %}
+        <p class="cpd-text cpd-video-desc">{{ section.settings.video_description | newline_to_br }}</p>
+      {% endif %}
+
+      {% if section.blocks.size > 0 %}
+        <div class="cpd-bullets-grid">
+          {% for block in section.blocks %}
+            <div class="cpd-bullet-item" {{ block.shopify_attributes }}>
+              <span class="cpd-bullet-dot"></span>
+              <span class="cpd-bullet-text">{{ block.settings.text }}</span>
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- Bottom Band: 2 Year Guarantee -->
+  <div class="cpd-band cpd-band-white">
+    <div class="page-width">
+      {% if section.settings.guarantee_title != blank %}
+        <h2 class="cpd-heading">{{ section.settings.guarantee_title }}</h2>
+      {% endif %}
+
+      {% if section.settings.guarantee_para_1 != blank or section.settings.guarantee_para_2 != blank %}
+        <div class="cpd-twocol">
+          {% if section.settings.guarantee_para_1 != blank %}
+            <p class="cpd-text">{{ section.settings.guarantee_para_1 | newline_to_br }}</p>
+          {% endif %}
+          {% if section.settings.guarantee_para_2 != blank %}
+            <p class="cpd-text">{{ section.settings.guarantee_para_2 | newline_to_br }}</p>
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Custom Product Details",
+  "tag": "section",
+  "class": "section-custom-product-details",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Top Style Section"
+    },
+    {
+      "type": "text",
+      "id": "style_title",
+      "label": "Style Section Title",
+      "default": "Style to make you smile"
+    },
+    {
+      "type": "color",
+      "id": "style_title_color",
+      "label": "Style Title Color",
+      "default": "#f4a800"
+    },
+    {
+      "type": "textarea",
+      "id": "style_para_1",
+      "label": "Style Paragraph 1",
+      "default": "Infuse your space with a serene glow using our Verona Pure White Roller Blind..."
+    },
+    {
+      "type": "textarea",
+      "id": "style_para_2",
+      "label": "Style Paragraph 2",
+      "default": "Simple yet functional, this bespoke roller blind is the ideal addition..."
+    },
+    {
+      "type": "header",
+      "content": "Middle Video & Bullet Section"
+    },
+    {
+      "type": "text",
+      "id": "video_title",
+      "label": "Video Title",
+      "default": "Made to measure happiness"
+    },
+    {
+      "type": "image_picker",
+      "id": "video_image",
+      "label": "Video Poster Image"
+    },
+    {
+      "type": "url",
+      "id": "video_url",
+      "label": "Video Link (Optional)"
+    },
+    {
+      "type": "textarea",
+      "id": "video_description",
+      "label": "Video Description",
+      "default": "Our top-quality light-filtering range of Roller Blinds are made to the same exacting standards..."
+    },
+    {
+      "type": "header",
+      "content": "Bottom Guarantee Section"
+    },
+    {
+      "type": "text",
+      "id": "guarantee_title",
+      "label": "Guarantee Title",
+      "default": "2 Year Guarantee"
+    },
+    {
+      "type": "textarea",
+      "id": "guarantee_para_1",
+      "label": "Guarantee Paragraph 1",
+      "default": "We believe our made-to-measure blinds, shutters, curtains, and cushions are the best you can buy..."
+    },
+    {
+      "type": "textarea",
+      "id": "guarantee_para_2",
+      "label": "Guarantee Paragraph 2",
+      "default": "Quite simply, we believe that you cannot buy higher quality blinds..."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "point",
+      "name": "Bullet Point",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Point Text",
+          "default": "High-quality light-filtering fabric"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Product Details",
+      "blocks": [{ "type": "point" }, { "type": "point" }, { "type": "point" }, { "type": "point" }]
+    }
+  ]
+}
+{% endschema %}
