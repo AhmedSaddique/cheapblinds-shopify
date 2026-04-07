@@ -13,68 +13,71 @@
   "sections": {
     "footer": {
       "type": "cb-footer",
-      "settings": {
-        "bg_color": "#ffb800",
-        "contact_heading": "Order online ANYTIME, or give us a call.",
-        "schedule_mon_sat": "Mon-Sat: 8:30am-9:00pm",
-        "schedule_sunday": "Sunday: 10:00am-6:00pm",
-        "phone": "+971 50 597 4531",
-        "location_text": "J1 Warehouses, Jebel Ali Industrial Area 1 - Dubai",
-        "menu": "footer-menu"
-      },
       "blocks": {
         "visa": {
           "type": "cb_payment_icon",
           "settings": {
-            "title": "Visa"
+            "title": "Visa",
+            "image": "shopify://shop_images/Visa.png"
           }
         },
         "apple_pay": {
           "type": "cb_payment_icon",
           "settings": {
-            "title": "Apple Pay"
+            "title": "Apple Pay",
+            "image": "shopify://shop_images/Pay.png"
           }
         },
         "tabby": {
           "type": "cb_payment_icon",
           "settings": {
-            "title": "Tabby"
+            "title": "Tabby",
+            "image": "shopify://shop_images/tabssss.png"
           }
         },
         "mastercard": {
           "type": "cb_payment_icon",
           "settings": {
-            "title": "Mastercard"
+            "title": "Mastercard",
+            "image": "shopify://shop_images/Mastercard.png"
           }
         },
         "gpay": {
           "type": "cb_payment_icon",
           "settings": {
-            "title": "GPay"
+            "title": "GPay",
+            "image": "shopify://shop_images/G_Pay.png"
           }
         },
         "tamara": {
           "type": "cb_payment_icon",
           "settings": {
-            "title": "Tamara"
+            "title": "Tamara",
+            "image": "shopify://shop_images/tamara-ddd.png"
           }
         },
         "facebook": {
           "type": "social_icon",
           "settings": {
-            "title": "Facebook"
+            "title": "Facebook",
+            "image": "shopify://shop_images/Frame_1321315981.png",
+            "link": ""
           }
         },
         "pinterest": {
           "type": "social_icon",
           "settings": {
-            "title": "Pinterest"
+            "title": "Pinterest",
+            "image": "shopify://shop_images/Frame_1321315979.png",
+            "link": ""
           }
         },
         "instagram": {
           "type": "social_icon",
           "settings": {
-            "title": "Instagram"
+            "title": "Instagram",
+            "image": "shopify://shop_images/Frame_1321315980.png",
+            "link": ""
           }
         }
       },
@@ -88,7 +91,21 @@
         "facebook",
         "pinterest",
         "instagram"
-      ]
+      ],
+      "settings": {
+        "bg_color": "#ffb800",
+        "girl_image": "shopify://shop_images/e7b89e0bb0fcdf722501d04c9e2eb5c6c7a5026b.png",
+        "contact_heading": "Order online ANYTIME, or give us a call.",
+        "icon_calendar": "shopify://shop_images/calendar_1_traced.png",
+        "schedule_mon_sat": "Mon-Sat: 8:30am-9:00pm",
+        "schedule_sunday": "Sunday: 10:00am-6:00pm",
+        "icon_phone": "shopify://shop_images/image_149_traced.png",
+        "phone": "+971 50 597 4531",
+        "icon_location": "shopify://shop_images/location.png",
+        "location_text": "J1 Warehouses, Jebel Ali Industrial Area 1 - Dubai",
+        "location_url": "",
+        "menu": "footer-menu"
+      }
     }
   },
   "order": [
