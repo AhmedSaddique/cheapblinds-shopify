@@ -99,10 +99,72 @@
         "padding_top": 36,
         "padding_bottom": 28
       }
+    },
+    "custom_config": {
+      "type": "custom-product-main",
+      "blocks": {
+        "tab1": {
+          "type": "accordion",
+          "settings": {
+            "title": "How to measure",
+            "content": "<p>Measurement details here.</p>"
+          }
+        }
+      },
+      "block_order": ["tab1"],
+      "settings": {}
+    },
+    "custom_customers_bought": {
+      "type": "custom-customers-bought",
+      "blocks": {
+        "card_1": {
+          "type": "product_card",
+          "settings": {
+            "sub_label": "ROLLER BLIND",
+            "feature_1": "No-Drill Install",
+            "feature_2": "Easy to Fit",
+            "feature_3": "Light Filtering"
+          }
+        },
+        "card_2": {
+          "type": "product_card",
+          "settings": {
+            "sub_label": "VENETIAN BLIND",
+            "feature_1": "Motorised Option",
+            "feature_2": "Easy to Fit",
+            "feature_3": "2 Year Guarantee"
+          }
+        },
+        "card_3": {
+          "type": "product_card",
+          "settings": {
+            "sub_label": "ROLLER BLIND",
+            "feature_1": "No-Drill Install",
+            "feature_2": "Blackout",
+            "feature_3": "Child Safe"
+          }
+        },
+        "card_4": {
+          "type": "product_card",
+          "settings": {
+            "sub_label": "DAY & NIGHT BLIND",
+            "feature_1": "Light Filtering",
+            "feature_2": "Easy to Fit",
+            "feature_3": "Motorised Option"
+          }
+        }
+      },
+      "block_order": ["card_1", "card_2", "card_3", "card_4"],
+      "settings": {
+        "heading": "Customers also bought...",
+        "bg_color": "#ffffff"
+      }
     }
   },
   "order": [
+    "custom_config",
     "main",
-    "related-products"
+    "related-products",
+    "custom_customers_bought"
   ]
 }

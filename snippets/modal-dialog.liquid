@@ -1,0 +1,13 @@
+<div id="{{ id }}" class="cpm-modal-overlay cpm-modal-hidden cpm-modal-fade">
+  <div class="cpm-modal-container" style="max-width: {{ max_width | default: '700px' }};">
+    <div class="cpm-modal-header">
+      <h2 class="cpm-modal-title">{{ title }}</h2>
+      <button type="button" class="cpm-modal-close" onclick="closeCpmModal('{{ id }}')">
+        <svg fill="none" height="16" viewBox="0 0 16 16" width="16" xmlns="http://www.w3.org/2000/svg"><path d="m1.5 1.5 13 13m0-13-13 13" stroke="#333" stroke-linecap="round" stroke-width="1.5"/></svg>
+      </button>
+    </div>
+    <div class="cpm-modal-body">
+      {{ content }}
+    </div>
+  </div>
+</div>

@@ -1,0 +1,74 @@
+{{ 'custom-product-main.css' | asset_url | stylesheet_tag }}
+<!-- Swiper dependencies -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+<div class="cpm-section">
+  <div class="page-width">
+    <div class="cpm-grid">
+      <div class="cpm-col-left">
+        {% render 'product-thumbnail' %}
+      </div>
+
+      <!-- Right column: Information -->
+      <div class="cpm-col-right">
+        {% render 'product-info' %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var thumbSwiper = new Swiper('.cpm-thumb-swiper', {
+      spaceBetween: 10,
+      slidesPerView: 5,
+      freeMode: true,
+      watchSlidesProgress: true,
+      centerInsufficientSlides: true,
+      breakpoints: {
+        320: { slidesPerView: 5, spaceBetween: 5 },
+        768: { slidesPerView: 5, spaceBetween: 10 },
+      },
+    });
+
+    var mainSwiper = new Swiper('.cpm-main-swiper', {
+      spaceBetween: 10,
+      thumbs: {
+        swiper: thumbSwiper,
+      },
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Custom Product Main",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "accordion",
+      "name": "Accordion Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Accordion Title"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Content",
+          "default": "<p>Content goes here</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Product Main"
+    }
+  ]
+}
+{% endschema %}

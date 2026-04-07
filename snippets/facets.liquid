@@ -250,25 +250,28 @@
                                     style="{% if filter.label == 'Colour' or filter.label == 'Color' %}display: none;{% endif %}"
                                   >
                                   {%- if filter.label == 'Type' -%}
-                                    <span class="cb-filter-icon">
-                                      {%- if value.label == 'Roller Blinds' -%}
-                                        {{ 'icon-roller.svg' | inline_asset_content }}
-                                      {%- elsif value.label == 'Roman Blinds' -%}
-                                        {{ 'icon-roman.svg' | inline_asset_content }}
-                                      {%- elsif value.label == 'Zebra Blinds' -%}
-                                        {{ 'icon-zebra.svg' | inline_asset_content }}
-                                      {%- elsif value.label == 'Vertical Blinds' -%}
-                                        {{ 'icon-vertical.svg' | inline_asset_content }}
-                                      {%- else -%}
-                                      {%- elsif value.label == 'Visible' -%}
-                                        {{ 'icon-visible.svg' | inline_asset_content }}
-                                      {%- else -%}
-                                      {%- elsif value.label == 'Dim-Out' -%}
-                                        {{ 'icon-dimout.svg' | inline_asset_content }}
-                                      {%- else -%}
-                                        {{ 'icon-fire.svg' | inline_asset_content }}
-                                      {%- endif -%}
-                                    </span>
+                                    {%- assign filter_icon = '' -%}
+                                    {%- if value.label contains 'Roller' -%}
+                                      {%- assign filter_icon = 'icon-roller.svg' -%}
+                                    {%- elsif value.label contains 'Roman' -%}
+                                      {%- assign filter_icon = 'icon-roman.svg' -%}
+                                    {%- elsif value.label contains 'Zebra' -%}
+                                      {%- assign filter_icon = 'icon-zebra.svg' -%}
+                                    {%- elsif value.label contains 'Vertical' -%}
+                                      {%- assign filter_icon = 'icon-vertical.svg' -%}
+                                    {%- elsif value.label contains 'Visible' -%}
+                                      {%- assign filter_icon = 'icon-visible.svg' -%}
+                                    {%- elsif value.label contains 'Dim-Out' -%}
+                                      {%- assign filter_icon = 'icon-dimout.svg' -%}
+                                    {%- elsif value.label contains 'Fire' -%}
+                                      {%- assign filter_icon = 'icon-fire.svg' -%}
+                                    {%- endif -%}
+
+                                    {%- if filter_icon != '' -%}
+                                      <span class="cb-filter-icon">
+                                        {{ filter_icon | inline_asset_content }}
+                                      </span>
+                                    {%- endif -%}
                                   {%- endif -%}
 
                                   {%- if filter.label == 'Colour' or filter.label == 'Color' -%}
@@ -363,9 +366,9 @@
                             </facet-remove>
                           {%- endif -%}
                         </div>
-                        <price-range class="facets__price">
+                        <div class="facets__price cb-price-wrapper">
                           {% render 'price-facet', filter: filter, id_prefix: 'Filter-', filter_type: filter_type %}
-                        </price-range>
+                        </div>
                       </div>
                     </details>
                 {% endcase %}
@@ -685,25 +688,28 @@
                                       {%- endif %}
 
                                       {%- if filter.label == 'Type' -%}
-                                        <span class="cb-filter-icon" style="margin-right: 10px;">
-                                          {%- if value.label == 'Roller Blinds' -%}
-                                            {{ 'icon-roller.svg' | inline_asset_content }}
-                                          {%- elsif value.label == 'Roman Blinds' -%}
-                                            {{ 'icon-roman.svg' | inline_asset_content }}
-                                          {%- elsif value.label == 'Zebra Blinds' -%}
-                                            {{ 'icon-zebra.svg' | inline_asset_content }}
-                                          {%- elsif value.label == 'Vertical Blinds' -%}
-                                            {{ 'icon-vertical.svg' | inline_asset_content }}
-                                          {%- else -%}
-                                          {%- elsif value.label == 'Visible' -%}
-                                            {{ 'icon-visible.svg' | inline_asset_content }}
-                                          {%- else -%}
-                                          {%- elsif value.label == 'Dim-Out' -%}
-                                            {{ 'icon-dimout.svg' | inline_asset_content }}
-                                          {%- else -%}
-                                            {{ 'icon-fire.svg' | inline_asset_content }}
-                                          {%- endif -%}
-                                        </span>
+                                        {%- assign filter_icon = '' -%}
+                                        {%- if value.label contains 'Roller' -%}
+                                          {%- assign filter_icon = 'icon-roller.svg' -%}
+                                        {%- elsif value.label contains 'Roman' -%}
+                                          {%- assign filter_icon = 'icon-roman.svg' -%}
+                                        {%- elsif value.label contains 'Zebra' -%}
+                                          {%- assign filter_icon = 'icon-zebra.svg' -%}
+                                        {%- elsif value.label contains 'Vertical' -%}
+                                          {%- assign filter_icon = 'icon-vertical.svg' -%}
+                                        {%- elsif value.label contains 'Visible' -%}
+                                          {%- assign filter_icon = 'icon-visible.svg' -%}
+                                        {%- elsif value.label contains 'Dim-Out' -%}
+                                          {%- assign filter_icon = 'icon-dimout.svg' -%}
+                                        {%- elsif value.label contains 'Fire' -%}
+                                          {%- assign filter_icon = 'icon-fire.svg' -%}
+                                        {%- endif -%}
+  
+                                        {%- if filter_icon != '' -%}
+                                          <span class="cb-filter-icon" style="margin-right: 10px;">
+                                            {{ filter_icon | inline_asset_content }}
+                                          </span>
+                                        {%- endif -%}
                                       {%- endif -%}
 
                                       {%- if filter.label == 'Colour' or filter.label == 'Color' -%}
@@ -790,9 +796,9 @@
                               {{ 'products.facets.max_price' | t: price: max_price_amount }}
                             </p>
 
-                            <price-range class="facets__price">
+                            <div class="facets__price cb-price-wrapper">
                               {% render 'price-facet', filter: filter, id_prefix: 'Mobile-Filter-' %}
-                            </price-range>
+                            </div>
                             <div class="mobile-facets__footer">
                               <facet-remove class="mobile-facets__clear-wrapper">
                                 <a href="{{ filter.url_to_remove }}" class="mobile-facets__clear underlined-link">
