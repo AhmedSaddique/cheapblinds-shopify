@@ -13,7 +13,8 @@
 .cb-colour-collection {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
   display: flex;
   gap: 40px;
 }
@@ -21,7 +22,7 @@
 @media screen and (max-width: 1024px) {
   .cb-colour-collection {
     flex-direction: column;
-    padding: 15px;
+    padding: 15px 0px;
     gap: 20px;
   }
 }
