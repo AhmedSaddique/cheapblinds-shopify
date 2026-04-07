@@ -1,0 +1,333 @@
+{{ 'cb-colour-collection.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+    position: relative;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+{%- assign color_name = section.settings.color_name
+  | default: collection.title
+  | remove: 'Blinds'
+  | remove: 'blinds'
+  | strip
+-%}
+
+<div class="section-{{ section.id }}-padding">
+  <div class="bg-color-collection" style="background-color: {{ section.settings.bg_color }};"></div>
+  <div class="cb-colour-collection page-width">
+    {%- comment -%} Sidebar Navigation {%- endcomment -%}
+    <aside class="cb-coll-sidebar">
+      <div class="cb-coll-header-image">
+        {%- if section.settings.header_image != blank -%}
+          <img
+            src="{{ section.settings.header_image | image_url: width: 400 }}"
+            alt="{{ collection.title }}"
+            loading="lazy"
+            width="{{ section.settings.header_image.width }}"
+            height="{{ section.settings.header_image.height }}"
+          >
+        {%- elsif collection.image != blank -%}
+          <img
+            src="{{ collection.image | image_url: width: 400 }}"
+            alt="{{ collection.title }}"
+            loading="lazy"
+            width="{{ collection.image.width }}"
+            height="{{ collection.image.height }}"
+          >
+        {%- else -%}
+          {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
+        {%- endif -%}
+      </div>
+      <ul class="cb-sidebar-nav">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'category_section' -%}
+            <li class="cb-sidebar-item">
+              <a href="#category-{{ block.id }}" class="cb-sidebar-link">
+                {{ color_name }}
+                {{ block.settings.title }}
+              </a>
+            </li>
+          {%- endif -%}
+        {%- endfor -%}
+      </ul>
+
+      <ul class="cb-sidebar-extra">
+        <li>
+          <a href="/pages/faqs" class="cb-sidebar-extra-link">{{ section.settings.faq_label }}</a>
+        </li>
+        <li>
+          <a href="/blogs/news" class="cb-sidebar-extra-link">{{ section.settings.blog_label }}</a>
+        </li>
+      </ul>
+    </aside>
+
+    {%- comment -%} Main Content Area {%- endcomment -%}
+    <main class="cb-coll-main">
+      {%- comment -%} Header Layer {%- endcomment -%}
+      <div class="cb-coll-header-info">
+        <h1>{{ collection.title }}</h1>
+        {%- if section.settings.subtitle != blank -%}
+          <p class="cb-subtitle">{{ section.settings.subtitle }}</p>
+        {%- endif -%}
+
+        <div class="cb-coll-description">
+          <div id="CollDesc-{{ section.id }}" class="cb-desc-content rte">
+            {{ collection.description }}
+          </div>
+          {%- if collection.description.size > 200 -%}
+            <button type="button" class="cb-read-more-btn" onclick="toggleDescription('{{ section.id }}')">
+              Read More
+            </button>
+          {%- endif -%}
+        </div>
+      </div>
+
+      {%- comment -%} Category Sections {%- endcomment -%}
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'category_section' -%}
+          {%- assign target_collection = block.settings.collection | default: collection -%}
+          {%- assign product_type_filter = block.settings.title -%}
+
+          <section id="category-{{ block.id }}" class="cb-category-section" {{ block.shopify_attributes }}>
+            <div class="cb-category-header">
+              <h2 class="cb-category-title">
+                {{ color_name }}
+                {{ block.settings.title }}
+              </h2>
+              {%- if block.settings.description != blank -%}
+                <div class="cb-category-desc rte">{{ block.settings.description }}</div>
+              {%- endif -%}
+            </div>
+
+            <div class="cb-category-controls">
+              {%- if section.settings.enable_sorting -%}
+                <div class="cb-sort-wrapper">
+                  <label for="SortBy-{{ block.id }}">Sort by:</label>
+                  <select name="sort_by" id="SortBy-{{ block.id }}" class="cb-sort-select">
+                    <option value="manual">Featured</option>
+                    <option value="best-selling">Most Popular</option>
+                    <option value="price-ascending">Price: Low to High</option>
+                    <option value="price-descending">Price: High to Low</option>
+                    <option value="created-descending">Newest</option>
+                  </select>
+                </div>
+              {%- endif -%}
+            </div>
+
+            <ul class="cb-coll-product-grid">
+              {%- assign count = 0 -%}
+              {%- for product in target_collection.products -%}
+                {%- if product.type == product_type_filter or target_collection != collection -%}
+                  {%- if count < block.settings.products_to_show -%}
+                    <li class="cb-grid-item">
+                      <div class="cb-product-card-wrapper" style="position: relative;">
+                        {%- if product.tags contains 'buy1get1' -%}
+                          <div class="cb-b1g1-badge">
+                            Buy 1 Get 1<br>
+                            <span>FREE</span>
+                          </div>
+                        {%- endif -%}
+
+                        {% render 'card-product',
+                          card_product: product,
+                          media_aspect_ratio: 'portrait',
+                          show_secondary_image: false,
+                          show_vendor: false,
+                          show_rating: false,
+                          lazy_load: true,
+                          section_id: section.id
+                        %}
+                      </div>
+                    </li>
+                    {%- assign count = count | plus: 1 -%}
+                  {%- endif -%}
+                {%- endif -%}
+              {%- endfor -%}
+
+              {%- if count == 0 -%}
+                <p class="center">No products found for this category and color.</p>
+              {%- endif -%}
+            </ul>
+
+            {%- if count > 0 -%}
+              <div class="cb-view-all-wrapper">
+                <a href="{{ target_collection.url }}" class="cb-view-all-btn">
+                  View all {{ color_name }}
+                  {{ block.settings.title }}
+                </a>
+              </div>
+            {%- endif -%}
+          </section>
+        {%- endif -%}
+      {%- endfor -%}
+    </main>
+  </div>
+</div>
+
+<script>
+  function toggleDescription(id) {
+    const desc = document.getElementById('CollDesc-' + id);
+    const btn = event.target;
+    if (desc.classList.contains('is-expanded')) {
+      desc.classList.remove('is-expanded');
+      btn.innerText = 'Read More';
+    } else {
+      desc.classList.add('is-expanded');
+      btn.innerText = 'Read Less';
+    }
+  }
+
+  // Handle active sidebar link on scroll
+  window.addEventListener('scroll', () => {
+    const sections = document.querySelectorAll('.cb-category-section');
+    const navLinks = document.querySelectorAll('.cb-sidebar-link');
+    let current = '';
+
+    sections.forEach((section) => {
+      const sectionTop = section.offsetTop;
+      if (pageYOffset >= sectionTop - 150) {
+        current = section.getAttribute('id');
+      }
+    });
+
+    navLinks.forEach((link) => {
+      link.classList.remove('is-active');
+      if (link.getAttribute('href').substring(1) === current) {
+        link.classList.add('is-active');
+      }
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Colour Collection",
+  "settings": [
+    {
+      "type": "text",
+      "id": "color_name",
+      "label": "Manual Colour Name (Default: dynamic from Title)",
+      "placeholder": "Cream"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Create a timeless interior with cream, beige & natural blinds"
+    },
+    {
+      "type": "image_picker",
+      "id": "header_image",
+      "label": "Featured Header Image"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#FFF6E0"
+    },
+    {
+      "type": "header",
+      "content": "Sidebar Settings"
+    },
+    {
+      "type": "text",
+      "id": "faq_label",
+      "label": "FAQ Link Label",
+      "default": "FAQS"
+    },
+    {
+      "type": "text",
+      "id": "blog_label",
+      "label": "Blog Link Label",
+      "default": "Related blog posts"
+    },
+    {
+      "type": "header",
+      "content": "Common Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_sorting",
+      "label": "Enable sorting dropdown",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 36
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category_section",
+      "name": "Category Section",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Category Name (e.g. Roller Blinds)",
+          "default": "Roller Blinds"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Category Description",
+          "default": "Easy to operate and timelessly sophisticated..."
+        },
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Specific Collection (Optional)",
+          "info": "Overrides the dynamic filtering if selected."
+        },
+        {
+          "type": "range",
+          "id": "products_to_show",
+          "min": 2,
+          "max": 12,
+          "step": 1,
+          "default": 4,
+          "label": "Products to show"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Colour Collection Template",
+      "blocks": [
+        { "type": "category_section", "settings": { "title": "Roller Blinds" } },
+        { "type": "category_section", "settings": { "title": "Roman Blinds" } },
+        { "type": "category_section", "settings": { "title": "Zebra Blinds" } },
+        { "type": "category_section", "settings": { "title": "Vertical Blinds" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

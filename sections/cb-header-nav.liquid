@@ -301,7 +301,10 @@
           <a href="{{ col.url }}" class="cb-color-collection-link">
             <div class="cb-color-collection-image">
               {% if col.image %}
-                <img src="{{ col.image | img_url: '400x' }}" alt="{{ col.title | escape }}" width="auto" height="auto">
+               <span
+                  class="cb-swatch-circle"
+                  style="background-color: #{{ col.metafields.custom.colour_code }}; margin-right: 10px;"
+                ></span>
               {% elsif col.featured_image %}
                 <img src="{{ col.featured_image | img_url: '400x' }}" alt="{{ col.title | escape }}" width="auto" height="auto">
               {% else %}
@@ -311,24 +314,6 @@
             <span>{{ col.title }}</span>
           </a>
         {% endfor %}
-      {% else %}
-        <!-- Fallback design -->
-        <a href="#" class="cb-color-collection-link">
-          <div class="cb-color-collection-image"><div style="width:100%; height:100%; background:#e0e0e0;"></div></div>
-          <span>Red Floral</span>
-        </a>
-        <a href="#" class="cb-color-collection-link">
-          <div class="cb-color-collection-image"><div style="width:100%; height:100%; background:#e0e0e0;"></div></div>
-          <span>Blue Floral</span>
-        </a>
-        <a href="#" class="cb-color-collection-link">
-          <div class="cb-color-collection-image"><div style="width:100%; height:100%; background:#e0e0e0;"></div></div>
-          <span>Solid Colors</span>
-        </a>
-        <a href="#" class="cb-color-collection-link">
-          <div class="cb-color-collection-image"><div style="width:100%; height:100%; background:#e0e0e0;"></div></div>
-          <span>Textured</span>
-        </a>
       {% endif %}
     </div>
   </div>
