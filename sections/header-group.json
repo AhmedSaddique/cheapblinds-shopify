@@ -72,6 +72,10 @@
       "name": "CB Navigation Menu",
       "settings": {
         "menu": "main-menu",
+        "colours_collection_list": [
+          "colours",
+          "blue-floral-copy"
+        ],
         "facebook_icon": "shopify://shop_images/Frame_1321315981.png",
         "pinterest_icon": "shopify://shop_images/Frame_1321315979.png",
         "instagram_icon": "shopify://shop_images/Frame_1321315980.png"
@@ -81,12 +85,17 @@
       "type": "cb-header-reviews",
       "name": "CB Reviews Bar",
       "settings": {
-        "bg_color": "#FFB800",
+        "bg_color": "#ffb800",
         "text_color": "#000000",
         "brand_color": "#874141",
         "brand_text": "Google Reviews",
         "rating_text": "4.7 rating of 84,290 reviews",
+        "star_color": "#ffffff",
         "button_text": "Write a reviews",
+        "button_bg_color": "#ffffff",
+        "button_text_color": "#000000",
+        "button_hover_bg_color": "#f7f7f7",
+        "button_hover_text_color": "#000000",
         "button_link": ""
       }
     },
@@ -94,7 +103,7 @@
       "type": "cb-header-mobile",
       "name": "CB Mobile Header",
       "settings": {
-        "bg_color": "#FFB800",
+        "bg_color": "#ffb800",
         "logo": "shopify://shop_images/cropped-cheapblinds_logo_colour_1_1x_2_traced.png",
         "logo_width": 150,
         "menu": "main-menu",

@@ -1,0 +1,478 @@
+<div class="cpm-info">
+  <!-- Desktop Title is usually handled by theme, but we can also add it if not present. Let's start with Price -->
+
+  <div class="cpm-price-row">
+    <span class="cpm-price-label">From:</span>
+    <span class="cpm-price-amount">{{ product.price | money }}</span>
+  </div>
+
+  <p class="cpm-instruction-text">
+    Enter window width and height in the boxes below for an exact made-to-measure price
+  </p>
+
+  <!-- Unit selection -->
+  <div class="cpm-unit-selector">
+    <label class="cpm-radio-label">
+      <input type="radio" name="measurement_unit" value="mm" class="cpm-visually-hidden" checked>
+      <span class="cpm-custom-radio"></span>
+      <span class="cpm-radio-text">mm</span>
+    </label>
+
+    <label class="cpm-radio-label">
+      <input type="radio" name="measurement_unit" value="cm" class="cpm-visually-hidden">
+      <span class="cpm-custom-radio"></span>
+      <span class="cpm-radio-text">cm</span>
+    </label>
+
+    <label class="cpm-radio-label">
+      <input type="radio" name="measurement_unit" value="inches" class="cpm-visually-hidden">
+      <span class="cpm-custom-radio"></span>
+      <span class="cpm-radio-text">Inches</span>
+    </label>
+  </div>
+
+  <!-- Measurement Inputs -->
+  <div class="cpm-measurements-grid">
+    <!-- Width Box -->
+    <div
+      class="cpm-measure-item"
+      data-base-min="{{ product.metafields.custom['min-width'] | default: 300 }}"
+      data-base-max="{{ product.metafields.custom['max-width'] | default: 2600 }}"
+    >
+      <label for="cpm-width" class="cpm-measure-label">Width (<span class="cpm-unit-display">mm</span>)</label>
+      <input
+        type="number"
+        id="cpm-width"
+        class="cpm-measure-input cpm-input-width"
+        value=""
+        step="any"
+        min="{{ product.metafields.custom['min-width'] | default: 300 }}"
+        max="{{ product.metafields.custom['max-width'] | default: 2600 }}"
+      >
+
+      <div class="cpm-measure-hints">
+        Min: <span class="cpm-min-val-disp">{{ product.metafields.custom['min-width'] | default: '300' }}</span>
+        <span class="cpm-unit-display-small">mm</span> Max:
+        <span class="cpm-max-val-disp">{{ product.metafields.custom['max-width'] | default: '2600' }}</span>
+        <span class="cpm-unit-display-small">mm</span>
+      </div>
+    </div>
+
+    <!-- Height Box -->
+    <div
+      class="cpm-measure-item"
+      data-base-min="{{ product.metafields.custom['min-height'] | default: 300 }}"
+      data-base-max="{{ product.metafields.custom['max-height'] | default: 3000 }}"
+    >
+      <label for="cpm-height" class="cpm-measure-label">Height (<span class="cpm-unit-display">mm</span>)</label>
+      <input
+        type="number"
+        id="cpm-height"
+        class="cpm-measure-input cpm-input-height"
+        value=""
+        step="any"
+        min="{{ product.metafields.custom['min-height'] | default: 300 }}"
+        max="{{ product.metafields.custom['max-height'] | default: 3000 }}"
+      >
+
+      <div class="cpm-measure-hints">
+        Min: <span class="cpm-min-val-disp">{{ product.metafields.custom['min-height'] | default: '300' }}</span>
+        <span class="cpm-unit-display-small">mm</span> | Max:
+        <span class="cpm-max-val-disp">{{ product.metafields.custom['max-height'] | default: '3000' }}</span>
+        <span class="cpm-unit-display-small">mm</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Fitting Type -->
+  <div class="cpm-fitting-section">
+    <div class="cpm-fitting-header">
+      <span class="cpm-fitting-title">Choose Fitting Type</span>
+      <button type="button" class="cpm-help-link" onclick="openCpmModal('fittingModal')">
+        Help <span class="cpm-help-icon">?</span>
+      </button>
+    </div>
+
+    <div class="cpm-fitting-options">
+      <!-- Outside Recess -->
+      <label class="cpm-fitting-label">
+        <input
+          type="radio"
+          name="fitting_type"
+          value="Outside Recess"
+          class="cpm-visually-hidden cpm-fitting-radio"
+          checked
+        >
+        <div class="cpm-fitting-box">
+          <span class="cpm-fitting-text">Outside Recess</span>
+          <svg class="cpm-fitting-check" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="12" r="10" fill="#fff"/><path d="M8 12.5L10.5 15L16 9" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </label>
+
+      <!-- Inside Recess -->
+      <label class="cpm-fitting-label">
+        <input type="radio" name="fitting_type" value="Inside Recess" class="cpm-visually-hidden cpm-fitting-radio">
+        <div class="cpm-fitting-box">
+          <span class="cpm-fitting-text">Inside Recess</span>
+          <svg class="cpm-fitting-check" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="12" r="10" fill="#fff"/><path d="M8 12.5L10.5 15L16 9" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+      </label>
+    </div>
+  </div>
+
+  <button type="button" class="cpm-btn cpm-btn-primary">Get Price</button>
+
+  {% capture fitting_modal_content %}
+    <div class="cpm-fitting-modal-info">
+      <div class="cpm-fitting-info-row">
+        <div class="cpm-fitting-info-img">
+          <img src="{{ 'outside.jpeg' | asset_url }}" alt="Outside Recess Guide" width="200" height="200" onerror="this.src='https://via.placeholder.com/200x200?text=Outside+Recess'">
+        </div>
+        <div class="cpm-fitting-info-text">
+          <p><strong>Outside Recess</strong> - Choose this option when fitting your blind outside a window area. If you select outside recess measurements we will make your blind to the outside recess width you have given to us. Please note that the fabric will be slightly narrower than the listed width to accommodate the control mechanism.</p>
+        </div>
+      </div>
+      
+      <div class="cpm-fitting-info-row">
+        <div class="cpm-fitting-info-img">
+          <img src="{{ 'inside.jpeg' | asset_url }}" alt="Inside Recess Guide" width="200" height="200" onerror="this.src='https://via.placeholder.com/200x200?text=Inside+Recess'">
+        </div>
+        <div class="cpm-fitting-info-text">
+          <p><strong>Inside Recess</strong> - Choose this option when fitting your blind inside a window recess. What we will do is reduce the width measurement you enter by 1cm/10mm. This means the blind will fit perfectly inside the recess.</p>
+        </div>
+      </div>
+    </div>
+  {% endcapture %}
+
+  {% render 'modal-dialog',
+    id: 'fittingModal',
+    title: 'Choose Fitting Type',
+    max_width: '1000px',
+    content: fitting_modal_content
+  %}
+
+  <!-- Info Badges -->
+  <div class="cpm-badges-wrapper">
+    <!-- BNPL Payments -->
+    <div class="cpm-badge-box cpm-payment-badge">
+      <span class="cpm-badge-text">Pay in 4 interest-free payments with</span>
+      <div class="cpm-payment-options">
+        <div class="cpm-pay-provider">
+          <img
+            src="{{ 'tamara.png' | asset_img_url: '150x' }}"
+            alt="Tamara"
+            width="100"
+            height="30"
+            class="cpm-provider-logo"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-flex';"
+          >
+          <span
+            class="cpm-provider-fallback"
+            style="display:none; background: linear-gradient(90deg, #ffc9a8 0%, #f6a192 100%); padding: 2px 6px; border-radius: 4px; font-weight: bold; font-size: 13px; color: #000;"
+            >tamara</span
+          >
+          <button
+            type="button"
+            class="cpm-info-icon"
+            title="More info about Tamara"
+            onclick="openCpmModal('tamaraModal')"
+          >
+            i
+          </button>
+        </div>
+        <div class="cpm-pay-provider">
+          <img
+            src="{{ 'tabby.png' | asset_img_url: '150x' }}"
+            alt="Tabby"
+            width="100"
+            height="30"
+            class="cpm-provider-logo"
+            onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-flex';"
+          >
+          <span
+            class="cpm-provider-fallback"
+            style="display:none; background: #3bf1b2; padding: 2px 6px; border-radius: 4px; font-weight: bold; font-size: 13px; color: #000;"
+            >tabby</span
+          >
+          <button
+            type="button"
+            class="cpm-info-icon"
+            title="More info about Tabby"
+            onclick="openCpmModal('tabbyModal')"
+          >
+            i
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Delivery Box -->
+    <div class="cpm-badge-box cpm-delivery-badge">
+      <div class="cpm-delivery-left">
+        <svg class="cpm-truck-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M5 13L2.5 13C2.22386 13 2 12.7761 2 12.5V8.5C2 7.67157 2.67157 7 3.5 7H14.5C15.3284 7 16 7.67157 16 8.5V13C16 13.2761 15.7761 13.5 15.5 13.5H13" stroke="#ffb803" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M16 10H18.5L21.5 13.5V17.5C21.5 17.7761 21.2761 18 21 18H19M16 18H13" stroke="#ffb803" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M16 13.5H21.5" stroke="#ffb803" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="11" cy="18" r="2" stroke="#ffb803" stroke-width="1.5"/>
+          <circle cx="17" cy="18" r="2" stroke="#ffb803" stroke-width="1.5"/>
+        </svg>
+        <span class="cpm-badge-text">Delivered in 1–2 working days</span>
+      </div>
+      <div class="cpm-delivery-right">
+        <div class="cpm-stars">
+          <svg viewBox="0 0 24 24" fill="#ffb803" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
+          </svg>
+          <svg viewBox="0 0 24 24" fill="#ffb803" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
+          </svg>
+          <svg viewBox="0 0 24 24" fill="#ffb803" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
+          </svg>
+          <svg viewBox="0 0 24 24" fill="#ffb803" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
+          </svg>
+          <svg viewBox="0 0 24 24" fill="#ffb803" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/>
+          </svg>
+        </div>
+        <span class="cpm-review-count">14 reviews</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Free Sample Box -->
+  <div class="cpm-free-sample">
+    <div class="cpm-free-sample-content">
+      <h4 class="cpm-free-sample-title">Not sure? Order a free sample</h4>
+      <p class="cpm-free-sample-sub">Dispatched the same day by first class post</p>
+    </div>
+    <button type="button" class="cpm-sample-btn">
+      <span class="cpm-plus-icon">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 14px; height: 14px;">
+          <path d="M12 5V19M5 12H19" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      Free Sample
+    </button>
+  </div>
+
+  <!-- Accordions -->
+  <div class="cpm-accordions">
+    {% for block in section.blocks %}
+      {% if block.type == 'accordion' %}
+        <div class="cpm-accordion-item" {{ block.shopify_attributes }}>
+          <button type="button" class="cpm-accordion-header" onclick="toggleCpmAccordion(this)">
+            <span class="cpm-accordion-title">{{ block.settings.title }}</span>
+            <span class="cpm-accordion-icon">
+              <!-- Plus SVG -->
+              <svg class="cpm-icon-plus" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 5V19M5 12H19" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <!-- Minus SVG -->
+              <svg class="cpm-icon-minus" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M5 12H19" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+          </button>
+          <div class="cpm-accordion-body">
+            <div class="cpm-accordion-content">
+              {{ block.settings.content }}
+            </div>
+          </div>
+        </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+
+  <!-- Tamara Modal Capture -->
+  {% capture tamara_modal_content %}
+    <div class="cpm-bnpl-modal cpm-tamara-modal">
+      
+      <h3 class="cpm-tamara-top-title">Pay easier with Tamara</h3>
+      
+      <div class="cpm-bnpl-center-logo">
+        <img src="{{ 'tamara.png' | asset_img_url: '150x' }}" alt="Tamara" width="120" height="40" onerror="this.style.display='none'">
+      </div>
+      
+      <div class="cpm-tamara-options-box">
+        <div class="cpm-tamara-option">
+          <strong>Split in 4</strong>
+          <p>Pay a fraction now and the rest in 3 payments over the next 3 months. No late fees, shariah-compliant!*</p>
+        </div>
+        <div class="cpm-tamara-option">
+          <strong>Pay in Full</strong>
+          <p>Pay the full amount today and enjoy exclusive perks with Tamara!*</p>
+        </div>
+      </div>
+      
+      <h4 class="cpm-tamara-why-title">Why Tamara?</h4>
+      <div class="cpm-tamara-badges">
+        <span class="cpm-tamara-badge">Sharia-compliant</span>
+        <span class="cpm-tamara-badge">No late fees</span>
+        <span class="cpm-tamara-badge">Quick and easy</span>
+      </div>
+      
+      <div class="cpm-bnpl-terms">
+        <p>(1) Payment options availability may vary based on your order value and Tamara record.</p>
+        <p>(2) Subject to terms and conditions.</p>
+        <p>(3) Tamara is Sharia-compliant.</p>
+        <p>(4) Eligible for customers in United Arab Emirates.</p>
+        <p>(5) Your final payment plan may vary depending on your credit history.</p>
+      </div>
+    </div>
+  {% endcapture %}
+
+  <!-- Tabby Modal Capture -->
+  {% capture tabby_modal_content %}
+    <div class="cpm-bnpl-modal cpm-tabby-modal">
+      <div class="cpm-tabby-header">
+        <img src="{{ 'tabby.png' | asset_img_url: '150x' }}" alt="Tabby" width="100" height="30" onerror="this.style.display='none'">
+      </div>
+      
+      <div class="cpm-tabby-slogan">
+        <span class="cpm-tabby-pill">Shop now,</span>
+        <span class="cpm-tabby-slogan-text">pay over time.</span>
+      </div>
+      
+      <ul class="cpm-tabby-features">
+        <li>-No interest. No fees.</li>
+        <li>-Trusted by 4,5m+ customers.</li>
+        <li>-Shariah-compliant.</li>
+      </ul>
+      
+      <h4 class="cpm-bnpl-subtitle cpm-tabby-how">How it works</h4>
+      <ol class="cpm-tabby-steps">
+        <li><span>1</span> Choose Tabby at checkout</li>
+        <li><span>2</span> Enter your information and add your debit or credit card.</li>
+        <li><span>3</span> Your first payment is taken when the order is made.</li>
+        <li><span>4</span> We will send you a reminder when your next payment is due</li>
+      </ol>
+      
+      <div class="cpm-tabby-methods">
+        <img src="https://cdn.shopify.com/s/images/admin/checkout/payment_methods/mastercard.svg" onerror="this.style.display='none'" width="45" height="28" alt="Mastercard">
+        <img src="https://cdn.shopify.com/s/images/admin/checkout/payment_methods/visa.svg" onerror="this.style.display='none'" width="45" height="28" alt="Visa">
+        <!-- Google Pay fallback logic to ensure maximum likelihood of hitting correct Shopify asset -->
+        <img src="https://cdn.shopify.com/s/images/admin/checkout/payment_methods/google_pay.svg" onerror="this.src='https://cdn.shopify.com/s/images/admin/checkout/payment_methods/googlepay.svg'" width="45" height="28" alt="Google Pay">
+      </div>
+    </div>
+  {% endcapture %}
+
+  {% render 'modal-dialog',
+    id: 'tamaraModal',
+    title: 'Pay easier with Tamara',
+    max_width: '1200px',
+    content: tamara_modal_content
+  %}
+  {% render 'modal-dialog',
+    id: 'tabbyModal',
+    title: 'Easy Monthly Installments',
+    max_width: '1200px',
+    content: tabby_modal_content
+  %}
+</div>
+
+<!-- Basic Script for Unit Change -->
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const unitRadios = document.querySelectorAll('input[name="measurement_unit"]');
+    const unitDisplays = document.querySelectorAll('.cpm-unit-display');
+    const unitSmallDisplays = document.querySelectorAll('.cpm-unit-display-small');
+    const measureItems = document.querySelectorAll('.cpm-measure-item');
+
+    function convertValue(value, unit) {
+      if (!value || isNaN(value)) return value;
+      let numeric = parseFloat(value);
+      if (unit === 'inches') {
+        return (numeric / 25.4).toFixed(2);
+      } else if (unit === 'cm') {
+        let conv = numeric / 10;
+        return Number.isInteger(conv) ? conv : conv.toFixed(1);
+      } else {
+        return Math.round(numeric);
+      }
+    }
+
+    function updateUnits() {
+      const selectedUnit = document.querySelector('input[name="measurement_unit"]:checked').value;
+      const displayLabel = selectedUnit === 'inches' ? 'Inches' : selectedUnit;
+
+      unitDisplays.forEach((el) => {
+        el.textContent = displayLabel;
+      });
+      unitSmallDisplays.forEach((el) => {
+        el.textContent = displayLabel;
+      });
+
+      // Update minimums and maximums according to the base rules
+      measureItems.forEach((item) => {
+        const baseMin = item.getAttribute('data-base-min');
+        const baseMax = item.getAttribute('data-base-max');
+        const input = item.querySelector('.cpm-measure-input');
+        const minDisp = item.querySelector('.cpm-min-val-disp');
+        const maxDisp = item.querySelector('.cpm-max-val-disp');
+
+        const newMin = convertValue(baseMin, selectedUnit);
+        const newMax = convertValue(baseMax, selectedUnit);
+
+        if (input) {
+          input.min = newMin;
+          input.max = newMax;
+        }
+        if (minDisp) minDisp.textContent = newMin;
+        if (maxDisp) maxDisp.textContent = newMax;
+      });
+    }
+
+    unitRadios.forEach((radio) => {
+      radio.addEventListener('change', updateUnits);
+    });
+
+    // Set initial unit on load matching checked radio
+    updateUnits();
+  });
+
+  // Global Modal Functions
+  window.openCpmModal = function (id) {
+    var modal = document.getElementById(id);
+    if (modal) {
+      modal.classList.remove('cpm-modal-hidden');
+      document.body.style.overflow = 'hidden';
+    }
+  };
+
+  window.closeCpmModal = function (id) {
+    var modal = document.getElementById(id);
+    if (modal) {
+      modal.classList.add('cpm-modal-hidden');
+      document.body.style.overflow = 'auto'; // restore scroll
+    }
+  };
+
+  // Close modal when clicking on overlay background
+  document.addEventListener('click', function (e) {
+    if (e.target.classList.contains('cpm-modal-overlay')) {
+      window.closeCpmModal(e.target.id);
+    }
+  });
+
+  // Accordion toggle logic
+  window.toggleCpmAccordion = function (btn) {
+    const item = btn.parentElement;
+    const allItems = document.querySelectorAll('.cpm-accordion-item');
+
+    // Close others
+    allItems.forEach((i) => {
+      if (i !== item) {
+        i.classList.remove('cpm-accordion-active');
+      }
+    });
+
+    // Toggle current
+    item.classList.toggle('cpm-accordion-active');
+  };
+</script>
