@@ -195,12 +195,69 @@
         "padding_top": 60,
         "padding_bottom": 60
       }
+    },
+    "brand_trust_slider_X7DJdK": {
+      "type": "brand-trust-slider",
+      "blocks": {
+        "logo_NnbNBV": {
+          "type": "logo",
+          "settings": {
+            "logo_image": "shopify://shop_images/1.png"
+          }
+        },
+        "logo_qpmqrK": {
+          "type": "logo",
+          "settings": {
+            "logo_image": "shopify://shop_images/download_2_2.png"
+          }
+        },
+        "logo_pnM6cQ": {
+          "type": "logo",
+          "settings": {
+            "logo_image": "shopify://shop_images/Frame_1321316088.png"
+          }
+        },
+        "logo_wbqXjC": {
+          "type": "logo",
+          "settings": {
+            "logo_image": "shopify://shop_images/download_2.png"
+          }
+        },
+        "logo_9YAJHf": {
+          "type": "logo",
+          "settings": {
+            "logo_image": "shopify://shop_images/download_2_1.png"
+          }
+        },
+        "logo_8cabe8": {
+          "type": "logo",
+          "settings": {
+            "logo_image": "shopify://shop_images/Frame_1707486446.png"
+          }
+        }
+      },
+      "block_order": [
+        "logo_NnbNBV",
+        "logo_qpmqrK",
+        "logo_pnM6cQ",
+        "logo_wbqXjC",
+        "logo_9YAJHf",
+        "logo_8cabe8"
+      ],
+      "name": "Brand Trust Slider",
+      "settings": {
+        "title": "TRUSTED BY MANY INTERNATIONAL BRANDS",
+        "bg_color": "#FFF6E0",
+        "margin_top": 80,
+        "margin_bottom": 60
+      }
     }
   },
   "order": [
     "cb_breadcrumb_wRW6kp",
     "product-grid",
     "info_text_blocks_NnPDJB",
-    "google_reviews_rVdwU6"
+    "google_reviews_rVdwU6",
+    "brand_trust_slider_X7DJdK"
   ]
 }
