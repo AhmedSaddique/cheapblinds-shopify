@@ -129,11 +129,78 @@
         "padding_top": 60,
         "padding_bottom": 60
       }
+    },
+    "google_reviews_rVdwU6": {
+      "type": "google-reviews",
+      "blocks": {
+        "review_jDAE6X": {
+          "type": "review",
+          "settings": {
+            "avatar": "shopify://shop_images/ff1b39fe0f246ec57b9fc579c2593fb4facf39ef.jpg",
+            "user_name": "Customer Name",
+            "date": "Jan 24, 2026",
+            "review_text": "I love this product because the support is great."
+          }
+        },
+        "review_V4mxNw": {
+          "type": "review",
+          "settings": {
+            "avatar": "shopify://shop_images/ff1b39fe0f246ec57b9fc579c2593fb4facf39ef.jpg",
+            "user_name": "Customer Name",
+            "date": "Jan 24, 2026",
+            "review_text": "I love this product because the support is great."
+          }
+        },
+        "review_PjLmcb": {
+          "type": "review",
+          "settings": {
+            "avatar": "shopify://shop_images/pexels-photo-2093158.jpg",
+            "user_name": "Customer Name",
+            "date": "Jan 24, 2026",
+            "review_text": "I love this product because the support is great."
+          }
+        },
+        "review_ePUhnD": {
+          "type": "review",
+          "settings": {
+            "avatar": "shopify://shop_images/ff1b39fe0f246ec57b9fc579c2593fb4facf39ef.jpg",
+            "user_name": "Customer Name",
+            "date": "Jan 24, 2026",
+            "review_text": "I love this product because the support is great."
+          }
+        },
+        "review_6bwRLc": {
+          "type": "review",
+          "settings": {
+            "avatar": "shopify://shop_images/ff1b39fe0f246ec57b9fc579c2593fb4facf39ef.jpg",
+            "user_name": "Customer Name",
+            "date": "Jan 24, 2026",
+            "review_text": "I love this product because the support is great."
+          }
+        }
+      },
+      "block_order": [
+        "review_jDAE6X",
+        "review_V4mxNw",
+        "review_PjLmcb",
+        "review_ePUhnD",
+        "review_6bwRLc"
+      ],
+      "name": "Google Reviews Slider",
+      "settings": {
+        "logo": "shopify://shop_images/cropped-cheapblinds_logo_colour_1_1x_1.png",
+        "title": "Google Reviews from Our Customers",
+        "review_count": "84,290",
+        "write_link": "",
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
     }
   },
   "order": [
     "cb_breadcrumb_wRW6kp",
     "product-grid",
-    "info_text_blocks_NnPDJB"
+    "info_text_blocks_NnPDJB",
+    "google_reviews_rVdwU6"
   ]
 }
