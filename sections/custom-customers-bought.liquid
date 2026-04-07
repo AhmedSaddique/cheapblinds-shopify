@@ -1,0 +1,472 @@
+{% schema %}
+{
+  "name": "Customers Also Bought",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Customers also bought..."
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product_card",
+      "name": "Product Card",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        },
+        {
+          "type": "text",
+          "id": "sub_label",
+          "label": "Sub Label",
+          "default": "ROLLER BLIND"
+        },
+        {
+          "type": "text",
+          "id": "feature_1",
+          "label": "Feature 1",
+          "default": "No-Drill Install"
+        },
+        {
+          "type": "text",
+          "id": "feature_2",
+          "label": "Feature 2",
+          "default": "Easy to Fit"
+        },
+        {
+          "type": "text",
+          "id": "feature_3",
+          "label": "Feature 3",
+          "default": "Light Filtering"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Customers Also Bought",
+      "category": "Custom Sections",
+      "blocks": [
+        { "type": "product_card" },
+        { "type": "product_card" },
+        { "type": "product_card" },
+        { "type": "product_card" }
+      ]
+    }
+  ],
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  }
+}
+{% endschema %}
+
+<!-- Swiper dependencies -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" as="style">
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
+
+<style>
+  .ccb-section-{{ section.id }} {
+    padding: 60px 0;
+    background-color: {{ section.settings.bg_color }};
+  }
+
+  .ccb-header-flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px;
+    position: relative;
+  }
+
+  .ccb-heading {
+    text-align: center;
+    font-size: 32px;
+    font-weight: 700;
+    color: #000;
+    margin: 0;
+  }
+
+  .ccb-arrows-wrapper {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    display: none;
+    gap: 12px;
+  }
+
+  @media (max-width: 768px) {
+    .ccb-header-flex {
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+    .ccb-arrows-wrapper {
+      position: absolute;
+      display: flex;
+      right: 0;
+      top: -40px; /* Adjust if needed based on title */
+    }
+    .ccb-heading {
+      font-size: 24px;
+    }
+  }
+
+  .ccb-arrow {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid #EAEAEA;
+    background: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: #000;
+  }
+
+  .ccb-arrow:hover {
+    background: #FFF5D8;
+    border-color: #FFB800;
+    color: #FFB800;
+  }
+
+  .ccb-arrow.swiper-button-disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background: #fff;
+    border-color: #EAEAEA;
+    color: #999;
+  }
+
+  .ccb-arrow svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  /* Swiper styles */
+  .ccb-slider {
+    padding-bottom: 50px; /* Space for pagination dots on mobile */
+  }
+
+  .ccb-card {
+    border: 1px solid #EAEAEA;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    transition: box-shadow 0.3s ease;
+  }
+  .ccb-card:hover {
+    box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+  }
+
+  .ccb-image-wrapper {
+    position: relative;
+    width: 100%;
+    height: 240px;
+    background: #F8F8F8;
+    overflow: hidden;
+  }
+
+  .ccb-image-wrapper img {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    object-fit: cover;
+  }
+
+  .ccb-content {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+
+  .ccb-type {
+    font-size: 12px;
+    text-transform: uppercase;
+    color: #FEBC06;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+  }
+
+  .ccb-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #000;
+  }
+
+  .ccb-price {
+    font-size: 14px;
+    margin-bottom: 8px;
+    color: #000;
+  }
+
+  .ccb-price-value {
+    color: #FEBC06;
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+  /* Features list */
+  .ccb-features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 10px 0;
+    flex-grow: 1;
+  }
+
+  .ccb-features li {
+    font-size: 12px;
+    color: #666;
+    position: relative;
+    padding-left: 16px;
+    display: flex;
+    align-items: center;
+  }
+
+  .ccb-features li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 6px;
+    height: 6px;
+    background-color: #FFB800;
+    border-radius: 50%;
+  }
+
+  /* Buttons */
+  .ccb-buttons {
+    display: flex;
+    gap: 12px;
+    margin-top: auto;
+  }
+
+  .ccb-btn {
+    flex: 1;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    height: 44px;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+
+  .ccb-btn-view {
+    background-color: #FEBC06;
+    color: #000;
+    border: none;
+  }
+
+  .ccb-btn-view:hover {
+    background-color: #e5a600;
+  }
+
+  .ccb-btn-sample {
+    background-color: #fff;
+    color: #000;
+    border: 1px solid #333;
+  }
+
+  .ccb-btn-sample:hover {
+    background-color: #f5f5f5;
+  }
+
+  /* Swiper Pagination (Pill style dots) */
+  .ccb-swiper-pagination {
+    bottom: 0 !important;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .ccb-slider .swiper-pagination-bullet {
+    width: 24px;
+    height: 8px;
+    border-radius: 4px;
+    background: transparent;
+    border: 1px solid #666;
+    opacity: 1;
+    margin: 0 !important; /* using gap */
+    transition: all 0.3s ease;
+  }
+
+  .ccb-slider .swiper-pagination-bullet-active {
+    background: #FFB800;
+    border-color: #FFB800;
+    border-width: 2px;
+  }
+
+  /* Hide pagination on desktop by default as per design, arrows only on mobile or both?
+   Image 1 (Desktop): no dots, maybe arrows.
+   Image 2 (Mobile): arrows on top right, dots on bottom. */
+  @media (min-width: 769px) {
+    .ccb-swiper-pagination {
+      display: none;
+    }
+    .ccb-slider {
+      padding-bottom: 0;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .ccb-image-wrapper {
+      height: 200px;
+    }
+    .ccb-title {
+      font-size: 16px;
+    }
+    .ccb-btn {
+      height: 40px;
+      font-size: 13px;
+    }
+    .ccb-arrows-wrapper {
+        top: -60px; /* Above image, relative to section or flex container */
+    }
+    .ccb-header-flex {
+        display: none; /* Stack title and arrows */
+    }
+    .ccb-arrows-wrapper {
+        position: absolute;
+        top: 0;
+        right: 0;
+        transform: none;
+    }
+  }
+</style>
+
+<div class="ccb-section-{{ section.id }}">
+  <div class="page-width">
+    <div class="ccb-header-flex">
+      {% if section.settings.heading != blank %}
+        <h2 class="ccb-heading">{{ section.settings.heading }}</h2>
+      {% endif %}
+
+      <div class="ccb-arrows-wrapper">
+        <div class="ccb-arrow ccb-prev-{{ section.id }}">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7" />
+          </svg>
+        </div>
+        <div class="ccb-arrow ccb-next-{{ section.id }}">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+          </svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="swiper ccb-slider ccb-swiper-{{ section.id }}">
+      <div class="swiper-wrapper">
+        {% for block in section.blocks %}
+          {% assign prod = block.settings.product %}
+          <div class="swiper-slide">
+            <div class="ccb-card">
+              <a href="{{ prod.url | default: '#' }}" class="ccb-image-wrapper">
+                {% if prod.featured_image != blank %}
+                  <img
+                    src="{{ prod.featured_image | image_url: width: 600 }}"
+                    alt="{{ prod.title | escape }}"
+                    width="600"
+                    height="{{ 600 | divided_by: prod.featured_image.aspect_ratio | round }}"
+                  >
+                {% else %}
+                  {{ 'product-1' | placeholder_svg_tag: 'placeholder-svg' }}
+                {% endif %}
+              </a>
+
+              <div class="ccb-content">
+                <div class="ccb-type">{{ block.settings.sub_label }}</div>
+                <div class="ccb-title">{{ prod.title | default: 'Sample Product Title' }}</div>
+
+                <div class="ccb-price">
+                  From
+                  <span class="ccb-price-value">
+                    {% if prod.price %}
+                      <span style="font-family: Arial, sans-serif; margin-right: 2px;">AED</span>
+                      {{- prod.price_min | money_without_currency }}
+                    {% else %}
+                      <span style="font-family: Arial, sans-serif; margin-right: 2px;">AED</span> 299.25
+                    {% endif %}
+                  </span>
+                </div>
+
+                <ul class="ccb-features">
+                  {% if block.settings.feature_1 != blank %}
+                    <li>{{ block.settings.feature_1 }}</li>
+                  {% endif %}
+                  {% if block.settings.feature_2 != blank %}
+                    <li>{{ block.settings.feature_2 }}</li>
+                  {% endif %}
+                  {% if block.settings.feature_3 != blank %}
+                    <li>{{ block.settings.feature_3 }}</li>
+                  {% endif %}
+                </ul>
+
+                <div class="ccb-buttons">
+                  <a href="{{ prod.url | default: '#' }}" class="ccb-btn ccb-btn-view">View</a>
+                  <a href="{{ prod.url | default: '#' }}" class="ccb-btn ccb-btn-sample">Free Sample</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+
+      <!-- Pagination -->
+      <div class="swiper-pagination ccb-swiper-pagination ccb-pagination-{{ section.id }}"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    new Swiper('.ccb-swiper-{{ section.id }}', {
+      slidesPerView: 1.2,
+      spaceBetween: 16,
+      navigation: {
+        nextEl: '.ccb-next-{{ section.id }}',
+        prevEl: '.ccb-prev-{{ section.id }}',
+      },
+      pagination: {
+        el: '.ccb-pagination-{{ section.id }}',
+        clickable: true,
+      },
+      breakpoints: {
+        640: {
+          slidesPerView: 2.2,
+          spaceBetween: 20,
+        },
+        768: {
+          slidesPerView: 3,
+          spaceBetween: 24,
+        },
+        1024: {
+          slidesPerView: 4,
+          spaceBetween: 24,
+        },
+      },
+    });
+  });
+</script>
