@@ -101,10 +101,39 @@
         "promo_title": "BEAT THE HEAT KEEP IT CHEAP",
         "promo_text": "UP TO 70% OFF ON ALL BLINDS"
       }
+    },
+    "info_text_blocks_NnPDJB": {
+      "type": "info-text-blocks",
+      "blocks": {
+        "info_block_z3WkR4": {
+          "type": "info_block",
+          "settings": {
+            "heading": "Discover More About our Roller Blinds",
+            "content": "<p>Discover a great selection of roller blinds from 247 blinds. These versatile blinds work perfectly in any room in the house including living rooms, kitchens, bedrooms and bathrooms and are made to measure giving you perfect window dressing options to fit all window sizes. Our high-quality roller blinds are available in a wide variety of fabrics and colour options to perfectly match your decor and personal style. For a great night's sleep, opt for a <a href=\"/collections/blackout-roller-blinds\" title=\"Blackout Roller Blinds\">blackout roller blind</a> to keep out any unwanted light and to create a peaceful space to get some rest. To learn more about our roller blinds and how to measure and install them, have a look at our useful FAQs below:</p>"
+          }
+        },
+        "info_block_T3PaJb": {
+          "type": "info_block",
+          "settings": {
+            "heading": "How Do I Measure For Roller Blinds?",
+            "content": "<p>To measure for a roller blind you first need to decide whether you are going for an exact fitting or a recess fitting, once you have picked this all you will need is a metal tape measure and something to take notes!<br/>For a recess fitting, you will need to be measuring wall-to-wall inside the window opening. You will take 3 measurements top to bottom for the drop and then 3 measurements right to left for the width, input the smallest measurement from each, and you will, we’ll do the rest to get you a perfectly fitted blind.</p><p><br/></p><p>For an exact fitting, the steps are very similar. Measure where you want the blind to be exactly on the wall, for this we would recommend adding an additional 50mm from the edges of the recess on each side for a great finish. You will measure 3 times right to left, and then 3 times top to bottom, and take the smallest from each of these sets to get the sizes you need. We won't make any adjustments to these sizes, so make sure you have allowed enough space for a neat fit! <br/>If you still are a little unsure, we put together a helpful video guide you can check out here! <br/><br/></p>"
+          }
+        }
+      },
+      "block_order": [
+        "info_block_z3WkR4",
+        "info_block_T3PaJb"
+      ],
+      "name": "SEO & Info Text",
+      "settings": {
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
     }
   },
   "order": [
     "cb_breadcrumb_wRW6kp",
-    "product-grid"
+    "product-grid",
+    "info_text_blocks_NnPDJB"
   ]
 }
