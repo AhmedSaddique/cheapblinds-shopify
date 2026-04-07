@@ -9,14 +9,6 @@
  */
 {
   "sections": {
-    // "banner": {
-    //   "type": "main-collection-banner",
-    //   "settings": {
-    //     "show_collection_description": true,
-    //     "show_collection_image": false,
-    //     "color_scheme": "scheme-1"
-    //   }
-    // },
     "product-grid": {
       "type": "main-collection-product-grid",
       "blocks": {
@@ -68,6 +60,7 @@
       "settings": {
         "products_per_page": 16,
         "columns_desktop": 4,
+        "columns_mobile": "2",
         "color_scheme": "scheme-1",
         "image_ratio": "portrait",
         "image_shape": "default",
@@ -78,21 +71,12 @@
         "enable_filtering": true,
         "filter_type": "vertical",
         "enable_sorting": false,
-        "columns_mobile": "2",
         "padding_top": 20,
         "padding_bottom": 20,
         "show_collection_info": true,
-        "coll_title_font_size": 28,
-        "coll_title_font_weight": "800",
-        "coll_desc_font_size": 15,
-        "coll_desc_font_weight": "400",
         "show_category_chips": true,
-        "chip_alignment": "flex-start",
-        "chip_gap": 12,
         "chip_bg_color": "#ffb800",
         "chip_text_color": "#000000",
-        "chip_font_size": 13,
-        "chip_font_weight": "700",
         "show_promo_banner": true
       }
     },
@@ -113,7 +97,6 @@
     }
   },
   "order": [
-    // "banner",
     "cb_breadcrumb_wRW6kp",
     "product-grid"
   ]
