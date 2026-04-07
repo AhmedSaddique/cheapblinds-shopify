@@ -291,6 +291,92 @@
         "guarantee_para_1": "We believe our made-to-measure blinds, shutters, curtains, and cushions are the best you can buy...",
         "guarantee_para_2": "Quite simply, we believe that you cannot buy higher quality blinds..."
       }
+    },
+    "google_reviews_888EFq": {
+      "type": "google-reviews",
+      "blocks": {
+        "review_MrdQtC": {
+          "type": "review",
+          "settings": {
+            "user_name": "Customer Name",
+            "date": "Jan 24, 2026",
+            "review_text": "I love this product because the support is great."
+          }
+        },
+        "review_rQdnqt": {
+          "type": "review",
+          "settings": {
+            "user_name": "Customer Name",
+            "date": "Jan 24, 2026",
+            "review_text": "I love this product because the support is great."
+          }
+        },
+        "review_EzVRFT": {
+          "type": "review",
+          "settings": {
+            "user_name": "Customer Name",
+            "date": "Jan 24, 2026",
+            "review_text": "I love this product because the support is great."
+          }
+        }
+      },
+      "block_order": [
+        "review_MrdQtC",
+        "review_rQdnqt",
+        "review_EzVRFT"
+      ],
+      "name": "Google Reviews Slider",
+      "settings": {
+        "title": "Google Reviews from Our Customers",
+        "review_count": "84,290",
+        "write_link": "",
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    },
+    "brand_trust_slider_VqFdGd": {
+      "type": "brand-trust-slider",
+      "blocks": {
+        "logo_HJ39Fw": {
+          "type": "logo",
+          "settings": {}
+        },
+        "logo_Tj6mEH": {
+          "type": "logo",
+          "settings": {}
+        },
+        "logo_bjYxdP": {
+          "type": "logo",
+          "settings": {}
+        },
+        "logo_cdwK4R": {
+          "type": "logo",
+          "settings": {}
+        },
+        "logo_DUFU84": {
+          "type": "logo",
+          "settings": {}
+        },
+        "logo_zVz4gN": {
+          "type": "logo",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "logo_HJ39Fw",
+        "logo_Tj6mEH",
+        "logo_bjYxdP",
+        "logo_cdwK4R",
+        "logo_DUFU84",
+        "logo_zVz4gN"
+      ],
+      "name": "Brand Trust Slider",
+      "settings": {
+        "title": "TRUSTED BY MANY INTERNATIONAL BRANDS",
+        "bg_color": "#FFF6E0",
+        "margin_top": 80,
+        "margin_bottom": 60
+      }
     }
   },
   "order": [
@@ -299,6 +385,8 @@
     "related-products",
     "custom_customers_bought",
     "custom_product_features_QFVgA4",
-    "custom_product_details_Btqj4w"
+    "custom_product_details_Btqj4w",
+    "google_reviews_888EFq",
+    "brand_trust_slider_VqFdGd"
   ]
 }
