@@ -194,7 +194,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 4px;
+  padding: 8px;
 }
 
 .cb-footer__payment-card img {
