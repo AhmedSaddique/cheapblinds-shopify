@@ -1,0 +1,312 @@
+{% comment %}
+  Custom Footer Section
+  Recreating Next.js design with Liquid and Schema.
+{% endcomment %}
+
+{{ 'cb-footer.css' | asset_url | stylesheet_tag }}
+
+<style>
+  :root {
+    --cb-footer-bg: {{ section.settings.bg_color }};
+  }
+</style>
+
+<footer class="cb-footer-wrapper">
+  <div class="cb-footer">
+    <div class="cb-footer__container">
+      {%- if section.settings.girl_image != blank -%}
+        {{ section.settings.girl_image | image_url: width: 1000 | image_tag: 
+          loading: 'lazy',
+          class: 'cb-footer__girl-img',
+          widths: '300, 500, 800, 1000'
+        }}
+      {%- endif -%}
+
+      <div class="cb-footer__main-row">
+        <!-- Contact Section -->
+        <div class="cb-footer__contact">
+          <div class="cb-footer__contact-heading">
+            {{ section.settings.contact_heading }}
+          </div>
+
+          <div class="mt-4 cb-footer__contact-info">
+            <div class="cb-footer__contact-item">
+              {%- if section.settings.icon_calendar != blank -%}
+                <img src="{{ section.settings.icon_calendar | image_url: width: 44 }}" alt="calendar" class="cb-footer__contact-icon" width="22" height="22">
+              {%- else -%}
+                <div class="cb-footer__contact-icon" style="background:#eee"></div>
+              {%- endif -%}
+              <div class="leading-7">
+                <p>{{ section.settings.schedule_mon_sat }}</p>
+                <p>{{ section.settings.schedule_sunday }}</p>
+              </div>
+            </div>
+
+            <a href="tel:{{ section.settings.phone | replace: ' ', '' }}" class="cb-footer__contact-item">
+              {%- if section.settings.icon_phone != blank -%}
+                <img src="{{ section.settings.icon_phone | image_url: width: 44 }}" alt="phone" class="cb-footer__contact-icon" width="22" height="22">
+              {%- else -%}
+                <div class="cb-footer__contact-icon" style="background:#eee"></div>
+              {%- endif -%}
+              <span>{{ section.settings.phone }}</span>
+            </a>
+
+            <div class="cb-footer__contact-item">
+              {%- if section.settings.icon_location != blank -%}
+                <img src="{{ section.settings.icon_location | image_url: width: 44 }}" alt="location" class="cb-footer__contact-icon mt-2" width="20" height="20">
+              {%- else -%}
+                <div class="cb-footer__contact-icon" style="background:#eee"></div>
+              {%- endif -%}
+              <a href="{{ section.settings.location_url }}" target="_blank" class="cb-footer__contact-address">
+                {{ section.settings.location_text }}
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Links and Right Side -->
+        <div class="cb-footer__content">
+          <div class="cb-footer__grid">
+            {%- for link in section.settings.menu.links -%}
+              <div class="cb-footer__menu-col">
+                <h3 class="cb-footer__menu-title">{{ link.title }}</h3>
+                <ul class="cb-footer__menu-links">
+                  {%- for childlink in link.links -%}
+                    <li>
+                      <a href="{{ childlink.url }}">{{ childlink.title }}</a>
+                    </li>
+                  {%- endfor -%}
+                </ul>
+              </div>
+            {%- endfor -%}
+
+            <!-- Payments and Newsletter Row -->
+            <div class="cb-footer__bottom-grid">
+              <div class="cb-footer__payment-section">
+                <p>Choose Your Payment Method</p>
+                <div class="cb-footer__payment-list">
+                  {%- for block in section.blocks -%}
+                    {%- if block.type == 'cb_payment_icon' -%}
+                      <div class="cb-footer__payment-card">
+                        {%- if block.settings.image != blank -%}
+                          <img src="{{ block.settings.image | image_url: width: 100 }}" alt="{{ block.settings.title }}" loading="lazy" width="56" height="32">
+                        {%- else -%}
+                          <span>{{ block.settings.title }}</span>
+                        {%- endif -%}
+                      </div>
+                    {%- endif -%}
+                  {%- endfor -%}
+                </div>
+              </div>
+
+              <div class="cb-footer__newsletter-section">
+                <p class="cb-footer__newsletter-title">For the latest offers and inspiration sign up below</p>
+                {%- form 'customer', id: 'FooterNewsletterForm', class: 'cb-footer__newsletter-form' -%}
+                  <input type="hidden" name="contact[tags]" value="newsletter">
+                  <input
+                    type="email"
+                    name="contact[email]"
+                    class="cb-footer__newsletter-input"
+                    value="{{ form.email }}"
+                    aria-required="true"
+                    autocorrect="off"
+                    autocapitalize="off"
+                    autocomplete="email"
+                    placeholder="Enter your email address"
+                    required
+                  >
+                  <button type="submit" class="cb-footer__newsletter-button" name="commit">
+                    Sign up
+                  </button>
+                  
+                  {%- if form.posted_successfully? -%}
+                    <p class="form__message" style="position: absolute; bottom: -25px; font-size: 12px; color: green;">Success! Thanks for subscribing.</p>
+                  {%- endif -%}
+                {%- endform -%}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Black Bottom Bar -->
+  <div class="cb-footer-bottom">
+    <div class="cb-footer-bottom__container">
+      <div class="cb-footer-bottom__links">
+        {%- if shop.customer_accounts_enabled -%}
+          {%- if customer -%}
+            <a href="{{ routes.account_url }}">My Account</a>
+            <a href="{{ routes.account_logout_url }}">Sign Out</a>
+          {%- else -%}
+            <a href="{{ routes.account_login_url }}">Sign In</a>
+            <a href="{{ routes.account_login_url }}#recover">Forgot Password</a>
+          {%- endif -%}
+        {%- endif -%}
+        <a href="{{ routes.account_url }}">Your Orders</a>
+        <a href="/apps/trackorder">Order Tracking</a>
+      </div>
+
+      <p class="cb-footer-bottom__copyright hide-mobile">
+        &copy; Cheap blinds {{ 'now' | date: '%Y' }} All rights reserved
+      </p>
+
+      <div class="cb-footer-bottom__social">
+        <span>Follow Us</span>
+        <div class="cb-footer-bottom__social-list">
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'social_icon' -%}
+              <a href="{{ block.settings.link }}" class="cb-footer-bottom__social-icon" target="_blank">
+                {%- if block.settings.image != blank -%}
+                  <img src="{{ block.settings.image | image_url: width: 48 }}" alt="{{ block.settings.title }}" width="24" height="24">
+                {%- else -%}
+                  <span>{{ block.settings.title }}</span>
+                {%- endif -%}
+              </a>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </div>
+
+      <p class="cb-footer-bottom__copyright show-mobile">
+        &copy; Cheap blinds {{ 'now' | date: '%Y' }} All rights reserved
+      </p>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Custom Footer",
+  "settings": [
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#ffb800"
+    },
+    {
+      "type": "image_picker",
+      "id": "girl_image",
+      "label": "Background Girl Image"
+    },
+    {
+      "type": "header",
+      "content": "Contact Info"
+    },
+    {
+      "type": "text",
+      "id": "contact_heading",
+      "label": "Contact Heading",
+      "default": "Order online ANYTIME, or give us a call."
+    },
+    {
+      "type": "image_picker",
+      "id": "icon_calendar",
+      "label": "Calendar Icon"
+    },
+    {
+      "type": "text",
+      "id": "schedule_mon_sat",
+      "label": "Mon-Sat Schedule",
+      "default": "Mon-Sat: 8:30am-9:00pm"
+    },
+    {
+      "type": "text",
+      "id": "schedule_sunday",
+      "label": "Sunday Schedule",
+      "default": "Sunday: 10:00am-6:00pm"
+    },
+    {
+      "type": "image_picker",
+      "id": "icon_phone",
+      "label": "Phone Icon"
+    },
+    {
+      "type": "text",
+      "id": "phone",
+      "label": "Phone Number",
+      "default": "+971 50 597 4531"
+    },
+    {
+      "type": "image_picker",
+      "id": "icon_location",
+      "label": "Location Icon"
+    },
+    {
+      "type": "text",
+      "id": "location_text",
+      "label": "Location Text",
+      "default": "J1 Warehouses, Jebel Ali Industrial Area 1 - Dubai"
+    },
+    {
+      "type": "url",
+      "id": "location_url",
+      "label": "Location Map URL"
+    },
+    {
+      "type": "header",
+      "content": "Navigation"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Footer Menu",
+      "default": "footer"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "cb_payment_icon",
+      "name": "Payment Icon",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Payment Name (Fallback)"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Payment Icon Image"
+        }
+      ]
+    },
+    {
+      "type": "social_icon",
+      "name": "Social Icon",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Platform Name (Fallback)"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Social Icon Image"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Social Profile Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Footer",
+      "blocks": [
+        { "type": "cb_payment_icon", "settings": { "title": "Visa" } },
+        { "type": "cb_payment_icon", "settings": { "title": "Apple Pay" } },
+        { "type": "cb_payment_icon", "settings": { "title": "Tabby" } },
+        { "type": "social_icon", "settings": { "title": "Facebook" } },
+        { "type": "social_icon", "settings": { "title": "Pinterest" } },
+        { "type": "social_icon", "settings": { "title": "Instagram" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

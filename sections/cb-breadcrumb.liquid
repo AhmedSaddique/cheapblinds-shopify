@@ -1,0 +1,220 @@
+{%- style -%}
+  .cb-breadcrumb-wrapper {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    background-color: {{ section.settings.background_color }};
+  }
+
+  .cb-breadcrumb {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 1.4rem;
+    font-family: var(--font-body-family);
+  }
+
+  .cb-breadcrumb__item {
+    display: flex;
+    align-items: center;
+    color: {{ section.settings.link_color }};
+  }
+
+  .cb-breadcrumb__item:not(:last-child)::after {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-top: 1.5px solid {{ section.settings.separator_color }};
+    border-right: 1.5px solid {{ section.settings.separator_color }};
+    transform: rotate(45deg);
+    margin: 0 12px;
+    flex-shrink: 0;
+  }
+
+  .cb-breadcrumb__link {
+    text-decoration: none;
+    color: inherit;
+    transition: color 0.3s ease;
+  }
+
+  .cb-breadcrumb__link:hover {
+    color: {{ section.settings.link_hover_color }};
+  }
+
+  .cb-breadcrumb__item--current {
+    color: {{ section.settings.current_color }};
+    font-weight: 500;
+  }
+
+  @media screen and (max-width: 749px) {
+    .cb-breadcrumb {
+      font-size: 1.2rem;
+    }
+    .cb-breadcrumb__item:not(:last-child)::after {
+      margin: 0 8px;
+    }
+  }
+{%- endstyle -%}
+
+{%- unless template == 'index' or template == 'cart' or template == 'list-collections' or template == '404' -%}
+  <div class="cb-breadcrumb-wrapper color-{{ section.settings.color_scheme }} gradient">
+    <div class="page-width">
+      <nav class="breadcrumb-nav" aria-label="Breadcrumb">
+        <ol class="cb-breadcrumb">
+          <li class="cb-breadcrumb__item">
+            <a href="{{ routes.root_url }}" class="cb-breadcrumb__link" title="{{ section.settings.home_label }}">
+              {{ section.settings.home_label }}
+            </a>
+          </li>
+
+          {%- if template contains 'page' -%}
+            <li class="cb-breadcrumb__item cb-breadcrumb__item--current" aria-current="page">
+              {{ page.title }}
+            </li>
+
+          {%- elsif template contains 'product' -%}
+            {%- if collection.url -%}
+              <li class="cb-breadcrumb__item">
+                <a href="{{ collection.url }}" class="cb-breadcrumb__link">{{ collection.title }}</a>
+              </li>
+            {%- endif -%}
+            <li class="cb-breadcrumb__item cb-breadcrumb__item--current" aria-current="page">
+              {{ product.title }}
+            </li>
+
+          {%- elsif template contains 'collection' and collection.handle -%}
+            {%- if current_tags -%}
+              <li class="cb-breadcrumb__item">
+                <a href="{{ collection.url }}" class="cb-breadcrumb__link">{{ collection.title }}</a>
+              </li>
+              {{ current_tags | join: ' + ' }}
+            {%- else -%}
+              <li class="cb-breadcrumb__item cb-breadcrumb__item--current" aria-current="page">
+                {{ collection.title }}
+              </li>
+            {%- endif -%}
+
+          {%- elsif template == 'blog' -%}
+            {%- if current_tags -%}
+              <li class="cb-breadcrumb__item">
+                <a href="{{ blog.url }}" class="cb-breadcrumb__link">{{ blog.title }}</a>
+              </li>
+              <li class="cb-breadcrumb__item cb-breadcrumb__item--current" aria-current="page">
+                {{ current_tags | join: ' + ' }}
+              </li>
+            {%- elsif template contains 'search' -%}
+              <li class="cb-breadcrumb__item cb-breadcrumb__item--current" aria-current="page">
+                {{ 'templates.search.title' | t | default: 'Search' }}: {{ search.terms }}
+              </li>
+
+            {%- else -%}
+              <li class="cb-breadcrumb__item cb-breadcrumb__item--current" aria-current="page">
+                {{ blog.title }}
+              </li>
+            {%- endif -%}
+
+          {%- elsif template == 'article' -%}
+            <li class="cb-breadcrumb__item">
+              <a href="{{ blog.url }}" class="cb-breadcrumb__link">{{ blog.title }}</a>
+            </li>
+            <li class="cb-breadcrumb__item cb-breadcrumb__item--current" aria-current="page">
+              {{ article.title }}
+            </li>
+
+          {%- else -%}
+            <li class="cb-breadcrumb__item cb-breadcrumb__item--current" aria-current="page">
+              {{ page_title }}
+            </li>
+          {%- endif -%}
+        </ol>
+      </nav>
+    </div>
+  </div>
+{%- endunless -%}
+
+{% schema %}
+{
+  "name": "Custom Breadcrumbs",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "home_label",
+      "label": "Home Label",
+      "default": "Home"
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "t:sections.all.colors.label",
+      "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Breadcrumb Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "transparent"
+    },
+    {
+      "type": "color",
+      "id": "link_color",
+      "label": "Link Color",
+      "default": "#888888"
+    },
+    {
+      "type": "color",
+      "id": "link_hover_color",
+      "label": "Link Hover Color",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "current_color",
+      "label": "Current Page Color",
+      "default": "#333333"
+    },
+    {
+      "type": "color",
+      "id": "separator_color",
+      "label": "Separator Color",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 16
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Breadcrumbs"
+    }
+  ]
+}
+{% endschema %}

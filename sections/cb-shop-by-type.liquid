@@ -18,7 +18,7 @@
     margin-bottom: 50px;
     color: #000;
   }
-  
+
   /* Container perspective for 3D depth perception */
   .cb-slider-container {
     position: relative;
@@ -47,11 +47,11 @@
 
   /* diff = 0 */
   .pos-0 { z-index: 40; transform: scale(1.1) translateX(0); opacity: 1; filter: blur(0) grayscale(0); }
-  
+
   /* diff = 1, -1 */
   .pos-1 { z-index: 30; transform: scale(0.85) translateX(65%); opacity: 1; filter: blur(0.5px) grayscale(10%); }
   .pos-neg-1 { z-index: 30; transform: scale(0.85) translateX(-65%); opacity: 1; filter: blur(0.5px) grayscale(10%); }
-  
+
   @media (min-width: 768px) {
     .pos-1 { transform: scale(0.85) translateX(100%); }
     .pos-neg-1 { transform: scale(0.85) translateX(-100%); }
@@ -69,7 +69,7 @@
   /* diff = 3, -3 */
   .pos-3 { z-index: 10; transform: scale(0.55) translateX(170%); opacity: 0; filter: blur(2px) grayscale(50%); pointer-events: none; }
   .pos-neg-3 { z-index: 10; transform: scale(0.55) translateX(-170%); opacity: 0; filter: blur(2px) grayscale(50%); pointer-events: none; }
-  
+
   @media (min-width: 768px) {
     .pos-3 { transform: scale(0.55) translateX(300%); opacity: 0.8; pointer-events: auto; }
     .pos-neg-3 { transform: scale(0.55) translateX(-300%); opacity: 0.8; pointer-events: auto; }
@@ -86,7 +86,7 @@
     border: 4px solid #f3f4f6;
     box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
     transition: all 0.5s;
-    height: 280px; 
+    height: 280px;
     width: 220px;
   }
   .pos-0 .cb-card {
@@ -104,7 +104,7 @@
     object-fit: cover;
     pointer-events: none;
   }
-  
+
   /* Dim overlay for non-active frames */
   .cb-card-overlay {
     position: absolute;
@@ -148,10 +148,10 @@
   .cb-btn-left { left: 16px; }
   .cb-btn-right { right: 16px; }
   @media (max-width: 768px) {
-    .cb-btn { 
-      padding: 4px; 
+    .cb-btn {
+      padding: 4px;
       display: flex; /* Shown only on mobile */
-      top: -10%; 
+      top: -10%;
       width: 24px;
       height:24px;
     }
@@ -174,27 +174,35 @@
       </svg>
     </button>
 
-    <div id="cb-slide-wrapper-{{ section.id }}" style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;">
+    <div
+      id="cb-slide-wrapper-{{ section.id }}"
+      style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;"
+    >
       {% assign blocks_count = section.blocks.size %}
       {% if blocks_count > 0 %}
         {% assign loop_times = 1 %}
         {% if blocks_count < 11 %}
           {% assign loop_times = 12 | divided_by: blocks_count | plus: 1 %}
         {% endif %}
-        
+
         {% for index in (1..loop_times) %}
           {% for block in section.blocks %}
             <div class="cb-slide" data-url="{{ block.settings.product.url }}">
               <div class="cb-card">
                 {% if block.settings.product != blank %}
-                  <img src="{{ block.settings.product.featured_image | img_url: '600x' }}" alt="{{ block.settings.product.title | escape }}">
+                  <img
+                    src="{{ block.settings.product.featured_image | image_url: width: 600 }}"
+                    alt="{{ block.settings.product.title | escape }}"
+                    width="{{ block.settings.product.featured_image.width }}"
+                    height="{{ block.settings.product.featured_image.height }} "
+                  >
                 {% else %}
                   {{ 'product-1' | placeholder_svg_tag: 'cb-shop-slide-img placeholder-svg' }}
                 {% endif %}
                 <div class="cb-card-overlay"></div>
               </div>
               <div class="cb-title">
-                {{ block.settings.product.title | default: "Placeholder Product" }}
+                {{ block.settings.product.title | default: 'Placeholder Product' }}
               </div>
             </div>
           {% endfor %}
@@ -211,139 +219,139 @@
 </div>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-  const container = document.getElementById('cb-slide-wrapper-{{ section.id }}');
-  const prevBtn = document.getElementById('prevBtn-{{ section.id }}');
-  const nextBtn = document.getElementById('nextBtn-{{ section.id }}');
-  const sectionNode = document.getElementById('cb-section-{{ section.id }}');
+  document.addEventListener('DOMContentLoaded', function() {
+    const container = document.getElementById('cb-slide-wrapper-{{ section.id }}');
+    const prevBtn = document.getElementById('prevBtn-{{ section.id }}');
+    const nextBtn = document.getElementById('nextBtn-{{ section.id }}');
+    const sectionNode = document.getElementById('cb-section-{{ section.id }}');
 
-  if (!container || container.children.length === 0) return;
+    if (!container || container.children.length === 0) return;
 
-  function getPositionClass(diff) {
-    if (diff === 0) return "pos-0";
-    if (diff === 1) return "pos-1";
-    if (diff === -1) return "pos-neg-1";
-    if (diff === 2) return "pos-2";
-    if (diff === -2) return "pos-neg-2";
-    if (diff === 3) return "pos-3";
-    if (diff === -3) return "pos-neg-3";
-    return "pos-hidden";
-  }
-
-  function updateClasses() {
-    const slides = Array.from(container.children);
-    // Determine mathematical center
-    const activeIndex = Math.floor(slides.length / 2);
-    
-    slides.forEach((slide, index) => {
-      const diff = index - activeIndex;
-      slide.className = 'cb-slide ' + getPositionClass(diff);
-      
-      // Handle interactive snapping and link redirection natively
-      slide.onclick = null;
-      if (diff === 0) {
-        slide.onclick = () => {
-          const url = slide.getAttribute('data-url');
-          if (url && url !== "null" && url !== "") window.location.href = url;
-        };
-      } else {
-        slide.onclick = () => jumpToSlide(index, activeIndex);
-      }
-    });
-  }
-
-  function handleNext() {
-    // Pop from left, push to right (visually infinite)
-    const first = container.firstElementChild;
-    first.style.transition = 'none'; // mask transport
-    container.appendChild(first);
-    void container.offsetHeight; // reflow
-    first.style.transition = ''; // restore
-    updateClasses();
-  }
-
-  function handlePrev() {
-    // Pop from right, push to left
-    const last = container.lastElementChild;
-    last.style.transition = 'none';
-    container.prepend(last);
-    void container.offsetHeight; 
-    last.style.transition = '';
-    updateClasses();
-  }
-
-  function jumpToSlide(targetIndex, activeIndex) {
-    const diff = targetIndex - activeIndex;
-    if (diff > 0) {
-      for(let i=0; i<diff; i++) handleNext();
-    } else {
-      for(let i=0; i<Math.abs(diff); i++) handlePrev();
+    function getPositionClass(diff) {
+      if (diff === 0) return "pos-0";
+      if (diff === 1) return "pos-1";
+      if (diff === -1) return "pos-neg-1";
+      if (diff === 2) return "pos-2";
+      if (diff === -2) return "pos-neg-2";
+      if (diff === 3) return "pos-3";
+      if (diff === -3) return "pos-neg-3";
+      return "pos-hidden";
     }
-  }
 
-  nextBtn.addEventListener('click', handleNext);
-  prevBtn.addEventListener('click', handlePrev);
+    function updateClasses() {
+      const slides = Array.from(container.children);
+      // Determine mathematical center
+      const activeIndex = Math.floor(slides.length / 2);
 
-  // Initialize view
-  updateClasses();
-  
-  // Drag handling (touch + click emulation)
-  let isDragging = false;
-  let startX = 0;
-  
-  function getEventX(e) { return e.touches ? e.touches[0].clientX : e.clientX; }
-  
-  container.addEventListener('mousedown', (e) => { isDragging = true; startX = getEventX(e); });
-  container.addEventListener('touchstart', (e) => { isDragging = true; startX = getEventX(e); }, { passive: true });
-  
-  function dragMove(e) {
-    if (!isDragging) return;
-    const currentX = getEventX(e);
-    const diff = currentX - startX;
-    if (diff > 40) { handlePrev(); isDragging = false; }
-    else if (diff < -40) { handleNext(); isDragging = false; }
-  }
-  
-  container.addEventListener('mousemove', dragMove);
-  container.addEventListener('touchmove', dragMove, { passive: true });
-  
-  function dragEnd() { isDragging = false; }
-  container.addEventListener('mouseup', dragEnd);
-  container.addEventListener('mouseleave', dragEnd);
-  container.addEventListener('touchend', dragEnd);
+      slides.forEach((slide, index) => {
+        const diff = index - activeIndex;
+        slide.className = 'cb-slide ' + getPositionClass(diff);
 
-  // Autoplay functionality
-  let autoplayInterval;
-  function startAutoplay() {
-    {% if section.settings.auto_play %}
-      if(!autoplayInterval) {
-        autoplayInterval = setInterval(handleNext, {{ section.settings.auto_play_delay | times: 1000 }});
-      }
-    {% endif %}
-  }
-  function stopAutoplay() {
-    {% if section.settings.auto_play %}
-      clearInterval(autoplayInterval);
-      autoplayInterval = null;
-    {% endif %}
-  }
-
-  sectionNode.addEventListener('mouseenter', stopAutoplay);
-  sectionNode.addEventListener('mouseleave', startAutoplay);
-  
-  // Only start autoplay when section is visible
-  if ('IntersectionObserver' in window) {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) startAutoplay();
-        else stopAutoplay();
+        // Handle interactive snapping and link redirection natively
+        slide.onclick = null;
+        if (diff === 0) {
+          slide.onclick = () => {
+            const url = slide.getAttribute('data-url');
+            if (url && url !== "null" && url !== "") window.location.href = url;
+          };
+        } else {
+          slide.onclick = () => jumpToSlide(index, activeIndex);
+        }
       });
-    }, { threshold: 0.3 });
-    observer.observe(sectionNode);
-  } else {
-    startAutoplay();
-  }
-});
+    }
+
+    function handleNext() {
+      // Pop from left, push to right (visually infinite)
+      const first = container.firstElementChild;
+      first.style.transition = 'none'; // mask transport
+      container.appendChild(first);
+      void container.offsetHeight; // reflow
+      first.style.transition = ''; // restore
+      updateClasses();
+    }
+
+    function handlePrev() {
+      // Pop from right, push to left
+      const last = container.lastElementChild;
+      last.style.transition = 'none';
+      container.prepend(last);
+      void container.offsetHeight;
+      last.style.transition = '';
+      updateClasses();
+    }
+
+    function jumpToSlide(targetIndex, activeIndex) {
+      const diff = targetIndex - activeIndex;
+      if (diff > 0) {
+        for(let i=0; i<diff; i++) handleNext();
+      } else {
+        for(let i=0; i<Math.abs(diff); i++) handlePrev();
+      }
+    }
+
+    nextBtn.addEventListener('click', handleNext);
+    prevBtn.addEventListener('click', handlePrev);
+
+    // Initialize view
+    updateClasses();
+
+    // Drag handling (touch + click emulation)
+    let isDragging = false;
+    let startX = 0;
+
+    function getEventX(e) { return e.touches ? e.touches[0].clientX : e.clientX; }
+
+    container.addEventListener('mousedown', (e) => { isDragging = true; startX = getEventX(e); });
+    container.addEventListener('touchstart', (e) => { isDragging = true; startX = getEventX(e); }, { passive: true });
+
+    function dragMove(e) {
+      if (!isDragging) return;
+      const currentX = getEventX(e);
+      const diff = currentX - startX;
+      if (diff > 40) { handlePrev(); isDragging = false; }
+      else if (diff < -40) { handleNext(); isDragging = false; }
+    }
+
+    container.addEventListener('mousemove', dragMove);
+    container.addEventListener('touchmove', dragMove, { passive: true });
+
+    function dragEnd() { isDragging = false; }
+    container.addEventListener('mouseup', dragEnd);
+    container.addEventListener('mouseleave', dragEnd);
+    container.addEventListener('touchend', dragEnd);
+
+    // Autoplay functionality
+    let autoplayInterval;
+    function startAutoplay() {
+      {% if section.settings.auto_play %}
+        if(!autoplayInterval) {
+          autoplayInterval = setInterval(handleNext, {{ section.settings.auto_play_delay | times: 1000 }});
+        }
+      {% endif %}
+    }
+    function stopAutoplay() {
+      {% if section.settings.auto_play %}
+        clearInterval(autoplayInterval);
+        autoplayInterval = null;
+      {% endif %}
+    }
+
+    sectionNode.addEventListener('mouseenter', stopAutoplay);
+    sectionNode.addEventListener('mouseleave', startAutoplay);
+
+    // Only start autoplay when section is visible
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) startAutoplay();
+          else stopAutoplay();
+        });
+      }, { threshold: 0.3 });
+      observer.observe(sectionNode);
+    } else {
+      startAutoplay();
+    }
+  });
 </script>
 
 {% schema %}

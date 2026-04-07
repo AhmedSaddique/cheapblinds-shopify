@@ -103,7 +103,13 @@
     <div class="cb-mob-icon-col">
       <a href="#" class="cb-mob-icon-item" onclick="document.body.classList.toggle('menu-open'); return false;">
         {% if section.settings.menu_icon != blank %}
-          <img src="{{ section.settings.menu_icon | img_url: '40x' }}" alt="Menu">
+          <img
+            src="{{ section.settings.menu_icon | img_url: '40x' }}"
+            alt="Menu"
+            width="24"
+            height="24"
+            style="object-fit: contain;"
+          >
         {% else %}
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
             <path d="M3 8h18M3 16h18" stroke-linecap="round" stroke-linejoin="round"/>
@@ -114,7 +120,13 @@
 
       <a href="{{ routes.search_url }}" class="cb-mob-icon-item">
         {% if section.settings.search_icon != blank %}
-          <img src="{{ section.settings.search_icon | img_url: '40x' }}" alt="Search">
+          <img
+            src="{{ section.settings.search_icon | img_url: '40x' }}"
+            alt="Search"
+            width="24"
+            height="24"
+            style="object-fit: contain;"
+          >
         {% else %}
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
             <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-linecap="round" stroke-linejoin="round"/>
@@ -142,7 +154,13 @@
     <div class="cb-mob-icon-col">
       <a href="{{ routes.cart_url }}" class="cb-mob-icon-item">
         {% if section.settings.cart_icon != blank %}
-          <img src="{{ section.settings.cart_icon | img_url: '40x' }}" alt="Basket">
+          <img
+            src="{{ section.settings.cart_icon | img_url: '40x' }}"
+            alt="Basket"
+            width="24"
+            height="24"
+            style="object-fit: contain;"
+          >
         {% else %}
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="cb-icon-basket-fill">
             <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1.003 1.003 0 0 0 20 4H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/>
@@ -152,9 +170,15 @@
         <span class="cb-mob-cart-badge">{{ cart.item_count }}</span>
       </a>
 
-      <a href="/pages/samples" class="cb-mob-icon-item">
+      <a href="#" class="cb-mob-icon-item" id="samples-icon-bubble-mobile">
         {% if section.settings.samples_icon != blank %}
-          <img src="{{ section.settings.samples_icon | img_url: '40x' }}" alt="Samples">
+          <img
+            src="{{ section.settings.samples_icon | img_url: '40x' }}"
+            alt="Samples"
+            width="24"
+            height="24"
+            style="object-fit: contain;"
+          >
         {% else %}
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -169,6 +193,9 @@
           </svg>
         {% endif %}
         <span>Samples</span>
+        <span class="cb-mob-cart-badge hide samples-counter-element" id="samples-counter-mobile">
+          <span aria-hidden="true">0</span>
+        </span>
       </a>
     </div>
   </div>
@@ -188,7 +215,13 @@
                 <div class="cb-toggle-icon">
                   <span class="icon-plus">
                     {% if section.settings.accordion_open_icon != blank %}
-                      <img src="{{ section.settings.accordion_open_icon | img_url: '40x' }}" alt="+">
+                      <img
+                        src="{{ section.settings.accordion_open_icon | img_url: '40x' }}"
+                        alt="+"
+                        width="24"
+                        height="24"
+                        style="object-fit: contain;"
+                      >
                     {% else %}
                       <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <circle cx="12" cy="12" r="12" fill="#FFB800"/><path d="M12 7V17M7 12H17" stroke="white" stroke-width="2" stroke-linecap="round"/>
@@ -197,7 +230,13 @@
                   </span>
                   <span class="icon-minus">
                     {% if section.settings.accordion_close_icon != blank %}
-                      <img src="{{ section.settings.accordion_close_icon | img_url: '40x' }}" alt="-">
+                      <img
+                        src="{{ section.settings.accordion_close_icon | img_url: '40x' }}"
+                        alt="-"
+                        width="24"
+                        height="24"
+                        style="object-fit: contain;"
+                      >
                     {% else %}
                       <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <circle cx="12" cy="12" r="12" fill="#FFB800"/><path d="M7 12H17" stroke="white" stroke-width="2" stroke-linecap="round"/>
@@ -257,7 +296,13 @@
               <div class="cb-toggle-icon">
                 <span class="icon-plus">
                   {% if section.settings.accordion_open_icon != blank %}
-                    <img src="{{ section.settings.accordion_open_icon | img_url: '40x' }}" alt="+">
+                    <img
+                      src="{{ section.settings.accordion_open_icon | img_url: '40x' }}"
+                      alt="+"
+                      width="24"
+                      height="24"
+                      style="object-fit: contain;"
+                    >
                   {% else %}
                     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <circle cx="12" cy="12" r="12" fill="#FFB800"/><path d="M12 7V17M7 12H17" stroke="white" stroke-width="2" stroke-linecap="round"/>
@@ -266,7 +311,13 @@
                 </span>
                 <span class="icon-minus">
                   {% if section.settings.accordion_close_icon != blank %}
-                    <img src="{{ section.settings.accordion_close_icon | img_url: '40x' }}" alt="-">
+                    <img
+                      src="{{ section.settings.accordion_close_icon | img_url: '40x' }}"
+                      alt="-"
+                      width="24"
+                      height="24"
+                      style="object-fit: contain;"
+                    >
                   {% else %}
                     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <circle cx="12" cy="12" r="12" fill="#FFB800"/><path d="M7 12H17" stroke="white" stroke-width="2" stroke-linecap="round"/>
@@ -315,11 +366,14 @@
         </a>
       </li>
       <li>
-        <a href="/pages/wishlist">
-          <div class="cb-b-left cb-acc-icon">
+        <a href="#" id="wishlist-icon-bubble-mobile">
+          <div class="cb-b-left cb-acc-icon" style="position: relative;">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" stroke="none">
               <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
             </svg>
+            <span class="cb-mob-cart-badge hide wishlist-counter-element" style="position: absolute; top: -5px; left: 8px; right: auto;">
+              <span aria-hidden="true">0</span>
+            </span>
             <span style="color: #333;">Wishlist</span>
           </div>
           <div class="cb-b-right">

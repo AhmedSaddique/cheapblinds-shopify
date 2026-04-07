@@ -3,7 +3,8 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 15px 5%;
+    padding-top: 15px;
+    padding-bottom: 15px;
     background-color: #ffffff;
     border-bottom: 2px solid #f0f0f0;
     gap: 10px;
@@ -86,7 +87,7 @@
     stroke-width: 2;
   }
   .cb-cart-icon svg {
-     fill: currentColor;
+     fill: #fff;
   }
   .cb-cart-count {
     position: absolute;
@@ -117,7 +118,7 @@
   }
 </style>
 
-<div class="cb-header-main">
+<div class="cb-header-main page-width">
   <div class="cb-logo-container">
     <a href="/" class="cb-logo-link">
       {% if section.settings.logo != blank %}
@@ -208,7 +209,7 @@
       </a>
     {% endif %}
 
-    <a href="/pages/wishlist" class="cb-icon-link">
+    <a href="#" class="cb-icon-link" id="wishlist-icon-bubble">
       {% if section.settings.wishlist_icon != blank %}
         <img
           src="{{ section.settings.wishlist_icon | img_url: '40x' }}"
@@ -222,9 +223,12 @@
           <path style="fill:#000;stroke:none;" d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
         </svg>
       {% endif %}
+      <span class="cb-cart-count hide wishlist-counter-element">
+        <span aria-hidden="true">0</span>
+      </span>
     </a>
 
-    <a href="/pages/samples" class="cb-icon-link">
+    <a href="#" class="cb-icon-link" id="samples-icon-bubble">
       {% if section.settings.samples_icon != blank %}
         <img
           src="{{ section.settings.samples_icon | img_url: '40x' }}"
@@ -246,9 +250,12 @@
           <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><path d="M12 2v20"/><path d="M16 2v20"/>
         </svg>
       {% endif %}
+      <span class="cb-cart-count hide samples-counter-element" id="samples-counter-desktop">
+        <span aria-hidden="true">0</span>
+      </span>
     </a>
 
-    <a href="{{ routes.cart_url }}" class="cb-icon-link cb-cart-icon" id="cart-icon-bubble">
+    <a href="{{ routes.cart_url }}" class="cb-icon-link cb-cart-icon" id="cb-cart-icon-bubble">
       {% if section.settings.cart_icon != blank %}
         <img
           src="{{ section.settings.cart_icon | img_url: '40x' }}"
@@ -262,10 +269,49 @@
           <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49A1.003 1.003 0 0 0 20 4H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/>
         </svg>
       {% endif %}
-      <span class="cb-cart-count">{{ cart.item_count }}</span>
+      <span class="cb-cart-count {% if cart.item_count == 0 %}hidden{% endif %}" id="cb-cart-count-badge">
+        {{ cart.item_count }}
+      </span>
     </a>
   </div>
 </div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    var badge = document.getElementById('cb-cart-count-badge');
+    if (!badge) return;
+
+    function updateCartBadge(count) {
+      count = parseInt(count, 10) || 0;
+      badge.textContent = count;
+      if (count > 0) {
+        badge.classList.remove('hidden');
+      } else {
+        badge.classList.add('hidden');
+      }
+    }
+
+    // Shopify always re-renders #cart-icon-bubble (in header.liquid, hidden on
+    // desktop) after every cart change. Watch it and mirror the count.
+    var cartBubble = document.getElementById('cart-icon-bubble');
+    if (cartBubble) {
+      var observer = new MutationObserver(function () {
+        var countEl = cartBubble.querySelector('.cart-count-bubble [aria-hidden="true"]');
+        updateCartBadge(countEl ? countEl.textContent.trim() : 0);
+      });
+      observer.observe(cartBubble, { childList: true, subtree: true, characterData: true });
+    }
+
+    // Pubsub fallback — fires on quantity change / remove from cart drawer.
+    if (typeof subscribe !== 'undefined' && typeof PUB_SUB_EVENTS !== 'undefined') {
+      subscribe(PUB_SUB_EVENTS.cartUpdate, function (event) {
+        if (event && event.cartData && typeof event.cartData.item_count !== 'undefined') {
+          updateCartBadge(event.cartData.item_count);
+        }
+      });
+    }
+  });
+</script>
 
 {% schema %}
 {

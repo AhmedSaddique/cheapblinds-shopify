@@ -1,6 +1,7 @@
 {{ 'template-collection.css' | asset_url | stylesheet_tag }}
 {{ 'component-card.css' | asset_url | stylesheet_tag }}
 {{ 'component-price.css' | asset_url | stylesheet_tag }}
+{{ 'cb-product-grid.css' | asset_url | stylesheet_tag }}
 
 {% if section.settings.image_shape == 'blob' %}
   {{ 'mask-blobs.css' | asset_url | stylesheet_tag }}
@@ -33,6 +34,22 @@
       padding-top: {{ section.settings.padding_top }}px;
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
+  }
+
+  /* Category Chips */
+  .section-{{ section.id }}-padding .cb-category-chip {
+    background-color: {{ section.settings.chip_bg_color }};
+    color: {{ section.settings.chip_text_color }};
+  }
+
+  /* Product Card Button */
+  .section-{{ section.id }}-padding .cb-free-sample-btn {
+    background-color: {{ section.settings.card_btn_bg_color }};
+    color: {{ section.settings.card_btn_text_color }};
+  }
+
+  .section-{{ section.id }}-padding .cb-free-sample-btn:hover {
+    background-color: {{ section.settings.card_btn_hover_color }};
   }
 {%- endstyle -%}
 
@@ -73,26 +90,7 @@
             </div>
           </div>
 
-          <div class="product-count-vertical light" role="status">
-            <h2 class="product-count__text text-body">
-              <span id="ProductCountDesktop">
-                {%- if collection.results_count -%}
-                  {{
-                    'templates.search.results_with_count'
-                    | t: terms: collection.terms, count: collection.results_count
-                  }}
-                {%- elsif collection.products_count == collection.all_products_count -%}
-                  {{ 'products.facets.product_count_simple' | t: count: collection.products_count }}
-                {%- else -%}
-                  {{
-                    'products.facets.product_count'
-                    | t: product_count: collection.products_count, count: collection.all_products_count
-                  }}
-                {%- endif -%}
-              </span>
-            </h2>
-            {%- render 'loading-spinner' -%}
-          </div>
+
         </form>
       </facet-filters-form>
     {%- endif -%}
@@ -118,12 +116,19 @@
       {%- endif -%}
 
       <div
-        class="product-grid-container{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+        class="product-grid-container"
         id="ProductGridContainer"
-        {% if settings.animations_reveal_on_scroll %}
-          data-cascade
-        {% endif %}
       >
+        {%- if section.settings.show_collection_info -%}
+          <div class="cb-coll-header">
+            <h1 class="cb-coll-title">{{ collection.title | escape }}</h1>
+            {%- if collection.description != blank -%}
+              <div class="cb-coll-desc rte">{{ collection.description }}</div>
+            {%- endif -%}
+          </div>
+        {%- endif -%}
+
+        {% render 'cb-category-chips', collection: collection, section: section %}
         {%- if collection.products.size == 0 -%}
           <div class="collection collection--empty page-width" id="product-grid" data-id="{{ section.id }}">
             <div class="loading-overlay gradient"></div>
@@ -142,6 +147,40 @@
           <div
             class="collection{% if section.settings.filter_type != 'vertical' %} page-width{% endif %}"
           >
+            {%- if section.settings.show_promo_banner -%}
+              <div class="cb-promo-banner{% if section.settings.promo_image != blank %} cb-promo-banner--image{% endif %}">
+                {%- if section.settings.promo_image != blank -%}
+                  <img
+                    src="{{ section.settings.promo_image | image_url: width: 1400 }}"
+                    srcset="{{ section.settings.promo_image | image_url: width: 750 }} 750w, {{ section.settings.promo_image | image_url: width: 1100 }} 1100w, {{ section.settings.promo_image | image_url: width: 1400 }} 1400w"
+                    sizes="100vw"
+                    alt="{{ section.settings.promo_image.alt | default: 'Promotional Banner' | escape }}"
+                    class="cb-promo-img"
+                    loading="lazy"
+                    width="{{ section.settings.promo_image.width }}"
+                    height="{{ section.settings.promo_image.height }}"
+                  >
+                {%- else -%}
+                  <div class="cb-promo-banner-content">
+                    <h3 class="cb-promo-title">{{ section.settings.promo_title | escape }}</h3>
+                    <p class="cb-promo-text">{{ section.settings.promo_text | escape }}</p>
+                  </div>
+                  <div class="cb-promo-banner-image"></div>
+                {%- endif -%}
+              </div>
+            {%- endif -%}
+
+            <div class="cb-mobile-filter-row">
+              {% render 'facets',
+                results: collection,
+                enable_filtering: section.settings.enable_filtering,
+                enable_sorting: section.settings.enable_sorting,
+                filter_type: section.settings.filter_type,
+                paginate: paginate,
+                mobile_only: true
+              %}
+            </div>
+
             <div class="loading-overlay gradient"></div>
             <ul
               id="product-grid"
@@ -175,6 +214,7 @@
                     lazy_load: lazy_load,
                     skip_styles: skip_card_product_styles,
                     quick_add: section.settings.quick_add,
+                    card_btn_text: section.settings.card_btn_text,
                     section_id: section.id
                   %}
                 </li>
@@ -233,7 +273,7 @@
           "label": "t:sections.main-collection-product-grid.settings.columns_mobile.options__2.label"
         }
       ]
-    },    
+    },
     {
       "type": "color_scheme",
       "id": "color_scheme",
@@ -325,6 +365,30 @@
       "info": "t:sections.main-collection-product-grid.settings.show_rating.info"
     },
     {
+      "type": "text",
+      "id": "card_btn_text",
+      "label": "Button Text",
+      "default": "Free Sample"
+    },
+    {
+      "type": "color",
+      "id": "card_btn_bg_color",
+      "label": "Button Background Color",
+      "default": "#ffb800"
+    },
+    {
+      "type": "color",
+      "id": "card_btn_text_color",
+      "label": "Button Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "card_btn_hover_color",
+      "label": "Button Hover Color",
+      "default": "#e6a600"
+    },
+    {
       "type": "select",
       "id": "quick_add",
       "default": "none",
@@ -393,7 +457,7 @@
       "step": 4,
       "unit": "px",
       "label": "t:sections.all.padding.padding_top",
-      "default": 36
+      "default": 20
     },
     {
       "type": "range",
@@ -403,7 +467,81 @@
       "step": 4,
       "unit": "px",
       "label": "t:sections.all.padding.padding_bottom",
-      "default": 36
+      "default": 20
+    },
+    {
+      "type": "header",
+      "content": "Collection Info"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_collection_info",
+      "label": "Show Collection Title & Description",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Category Chips"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_category_chips",
+      "label": "Show Category Chips",
+      "default": true,
+      "info": "Add chips using the '+ Add block' button below"
+    },
+    {
+      "type": "color",
+      "id": "chip_bg_color",
+      "label": "Chip Background Color",
+      "default": "#ffb800"
+    },
+    {
+      "type": "color",
+      "id": "chip_text_color",
+      "label": "Chip Text Color",
+      "default": "#000000"
+    },
+    {
+      "type": "header",
+      "content": "Promotional Banner"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_promo_banner",
+      "label": "Show Promo Banner",
+      "default": true
+    },
+    {
+      "type": "image_picker",
+      "id": "promo_image",
+      "label": "Promotional Banner Image"
+    },
+    {
+      "type": "text",
+      "id": "promo_title",
+      "label": "Promo Title (fallback when no image)",
+      "default": "BEAT THE HEAT KEEP IT CHEAP"
+    },
+    {
+      "type": "text",
+      "id": "promo_text",
+      "label": "Promo Text (fallback when no image)",
+      "default": "UP TO 70% OFF ON ALL BLINDS"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category_chip",
+      "name": "Category Chip",
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Chip Label",
+          "default": "Category"
+        }
+      ]
     }
   ]
 }
