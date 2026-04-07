@@ -9,6 +9,21 @@
  */
 {
   "sections": {
+    "cb_breadcrumb_wRW6kp": {
+      "type": "cb-breadcrumb",
+      "name": "Custom Breadcrumbs",
+      "settings": {
+        "home_label": "Home",
+        "color_scheme": "",
+        "background_color": "rgba(0,0,0,0)",
+        "link_color": "#888888",
+        "link_hover_color": "#333333",
+        "current_color": "#333333",
+        "separator_color": "#000000",
+        "padding_top": 16,
+        "padding_bottom": 16
+      }
+    },
     "product-grid": {
       "type": "main-collection-product-grid",
       "blocks": {
@@ -67,6 +82,10 @@
         "show_secondary_image": false,
         "show_vendor": false,
         "show_rating": false,
+        "card_btn_text": "Free Sample",
+        "card_btn_bg_color": "#ffb800",
+        "card_btn_text_color": "#ffffff",
+        "card_btn_hover_color": "#e6a600",
         "quick_add": "none",
         "enable_filtering": true,
         "filter_type": "vertical",
@@ -77,22 +96,10 @@
         "show_category_chips": true,
         "chip_bg_color": "#ffb800",
         "chip_text_color": "#000000",
-        "show_promo_banner": true
-      }
-    },
-    "cb_breadcrumb_wRW6kp": {
-      "type": "cb-breadcrumb",
-      "name": "Custom Breadcrumbs",
-      "settings": {
-        "home_label": "Home",
-        "color_scheme": "",
-        "background_color": "transparent",
-        "link_color": "#888888",
-        "link_hover_color": "#333333",
-        "current_color": "#333333",
-        "separator_color": "#000000",
-        "padding_top": 16,
-        "padding_bottom": 16
+        "show_promo_banner": true,
+        "promo_image": "shopify://shop_images/Rectangle_34625366.png",
+        "promo_title": "BEAT THE HEAT KEEP IT CHEAP",
+        "promo_text": "UP TO 70% OFF ON ALL BLINDS"
       }
     }
   },
