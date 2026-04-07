@@ -1,45 +1,71 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
-    "banner": {
-      "type": "main-collection-banner",
+    "breadcrumb": {
+      "type": "cb-breadcrumb",
       "settings": {
-        "show_collection_description": true,
-        "show_collection_image": false,
-        "color_scheme": "scheme-1"
+        "home_label": "Home",
+        "color_scheme": "",
+        "background_color": "transparent",
+        "link_color": "#888888",
+        "link_hover_color": "#333333",
+        "current_color": "#333333",
+        "separator_color": "#000000",
+        "padding_top": 16,
+        "padding_bottom": 16
       }
     },
-    "product-grid": {
-      "type": "main-collection-product-grid",
+    "main": {
+      "type": "main-colour-collection",
+      "blocks": {
+        "roller": {
+          "type": "category_section",
+          "settings": {
+            "title": "Roller Blinds",
+            "description": "Easy to operate and timelessly sophisticated, a set of cream roller blinds will instantly elevate and complement your home aesthetic without becoming the main focal point. Browse a multitude of tones, textures and patterns and create a space you can't wait to retreat to.",
+            "products_to_show": 4
+          }
+        },
+        "roman": {
+          "type": "category_section",
+          "settings": {
+            "title": "Roman Blinds",
+            "description": "An ever-popular choice in the home, cream roman blinds present the ideal addition to any room. Crafted from fabric and articulated in a concertina style, these blinds will add a touch of elegance and cosiness to your space.",
+            "products_to_show": 4
+          }
+        },
+        "zebra": {
+          "type": "category_section",
+          "settings": {
+            "title": "Zebra Blinds",
+            "description": "A stylish and versatile option, Zebra blinds allow you to control light and privacy with ease. The alternating sheer and solid fabric bands create a contemporary look that's perfect for any modern home.",
+            "products_to_show": 4
+          }
+        },
+        "vertical": {
+          "type": "category_section",
+          "settings": {
+            "title": "Vertical Blinds",
+            "description": "Practical and elegant, vertical blinds are perfect for large windows and sliding doors. They provide excellent light control and privacy while maintaining a clean, modern aesthetic.",
+            "products_to_show": 4
+          }
+        }
+      },
+      "block_order": [
+        "roller",
+        "roman",
+        "zebra",
+        "vertical"
+      ],
       "settings": {
-        "products_per_page": 16,
-        "columns_desktop": 4,
-        "color_scheme": "scheme-1",
-        "image_ratio": "adapt",
-        "image_shape": "default",
-        "show_secondary_image": false,
-        "show_vendor": false,
-        "show_rating": false,
-        "quick_add": "none",
-        "enable_filtering": true,
-        "filter_type": "horizontal",
+        "subtitle": "Create a timeless interior with cream, beige & natural blinds",
         "enable_sorting": true,
-        "columns_mobile": "2",
-        "padding_top": 36,
-        "padding_bottom": 36
+        "padding_top": 0,
+        "padding_bottom": 36,
       }
     }
   },
   "order": [
-    "banner",
-    "product-grid"
+    "breadcrumb",
+    "main"
   ]
 }
