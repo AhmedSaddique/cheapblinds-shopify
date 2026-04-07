@@ -1,0 +1,164 @@
+<link rel="stylesheet" href="{{ 'custom-product-features.css' | asset_url }}" media="print" onload="this.media='all'">
+<noscript>{{ 'custom-product-features.css' | asset_url | stylesheet_tag }}</noscript>
+
+<!-- Swiper dependencies if not already loaded globally -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css">
+<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js" defer></script>
+
+<div
+  class="cpf-wrapper"
+  style="{% if section.settings.background_image != blank %}background-image: url('{{ section.settings.background_image | image_url: width: 2400 }}');{% else %}background-color: #ddd;{% endif %}"
+>
+  <div class="cpf-container page-width">
+    <div class="cpf-slider-wrapper">
+      <div class="swiper cpf-swiper" id="cpf-swiper-{{ section.id }}">
+        <div class="swiper-wrapper">
+          {% for block in section.blocks %}
+            <div class="swiper-slide cpf-slide" {{ block.shopify_attributes }}>
+              <div class="cpf-card">
+                {% if block.settings.icon != blank %}
+                  <img
+                    src="{{ block.settings.icon | image_url: width: 250 }}"
+                    alt="{{ block.settings.heading | escape }}"
+                    class="cpf-card-icon"
+                    loading="lazy"
+                  >
+                {% else %}
+                  <div class="cpf-placeholder-icon"></div>
+                {% endif %}
+
+                {% if block.settings.heading != blank %}
+                  <h3 class="cpf-card-heading">{{ block.settings.heading }}</h3>
+                {% endif %}
+
+                {% if block.settings.description != blank %}
+                  <div class="cpf-card-description-wrapper">
+                    <p class="cpf-card-description">{{ block.settings.description }}</p>
+                  </div>
+                {% endif %}
+
+                {% if block.settings.button_label != blank %}
+                  <a
+                    {% if block.settings.button_link != blank %}
+                      href="{{ block.settings.button_link }}"
+                    {% else %}
+                      role="link" aria-disabled="true"
+                    {% endif %}
+                    class="cpf-card-link"
+                  >
+                    <span class="cpf-read-more">{{ block.settings.button_label }}</span>
+                    <span class="cpf-read-less">{{ block.settings.hover_button_label | default: 'READ LESS' }}</span>
+                  </a>
+                {% endif %}
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+        <!-- Pagination for mobile -->
+        <div class="swiper-pagination cpf-swiper-pagination-{{ section.id }}"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    function initCPFSwiper() {
+      if (typeof Swiper !== 'undefined') {
+        new Swiper('#cpf-swiper-{{ section.id }}', {
+          slidesPerView: 1.2,
+          spaceBetween: 15,
+          breakpoints: {
+            480: {
+              slidesPerView: 2.2,
+              spaceBetween: 15,
+            },
+            768: {
+              slidesPerView: 3.2,
+              spaceBetween: 20,
+            },
+            1024: {
+              slidesPerView: 5,
+              spaceBetween: 20,
+              watchOverflow: true, // disables slider if fewer than 5 items
+              allowTouchMove: false, // Optional: lock it down completely on desktop
+            },
+          },
+        });
+      } else {
+        setTimeout(initCPFSwiper, 100);
+      }
+    }
+    initCPFSwiper();
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Custom Product Features",
+  "tag": "section",
+  "class": "section-custom-product-features",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background Image"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature Card",
+      "limit": 10,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon/Image (SVG supported)"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "No-Drill Install Available"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description (Shown on Hover)",
+          "default": "Moisture resistant and easy to clean, making them perfect for kitchens and bathrooms!"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Link Label",
+          "default": "READ MORE"
+        },
+        {
+          "type": "text",
+          "id": "hover_button_label",
+          "label": "Hover Link Label",
+          "default": "READ LESS"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Link URL"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Product Features",
+      "blocks": [
+        { "type": "feature" },
+        { "type": "feature" },
+        { "type": "feature" },
+        { "type": "feature" },
+        { "type": "feature" }
+      ]
+    }
+  ]
+}
+{% endschema %}
