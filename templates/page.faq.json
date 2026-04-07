@@ -1,0 +1,88 @@
+{
+  "sections": {
+    "breadcrumb": {
+      "type": "cb-breadcrumb",
+      "settings": {
+        "padding_top": 16,
+        "padding_bottom": 16
+      }
+    },
+    "main": {
+      "type": "custom-faq",
+      "blocks": {
+        "block_1": {
+          "type": "faq_item",
+          "settings": {
+            "category": "Products",
+            "question": "Our measuring and fitting guides help?",
+            "answer": "<p>Thanks to their neutral colourway, cream blinds present the ideal addition to any room, irrespective of scheme and style. So, whether your home is a neutral oasis packed with sumptuous soft hues, or you reside in a mood-boosting, colour-pop space that's packed with vibrant decorative touches, a set of cream blinds will blend seamlessly with your aesthetic.<\/p>"
+          }
+        },
+        "block_2": {
+          "type": "faq_item",
+          "settings": {
+            "category": "Products",
+            "question": "Our measuring and fitting guides help?",
+            "answer": "<p>Thanks to their neutral colourway, cream blinds present the ideal addition to any room, irrespective of scheme and style.<\/p>"
+          }
+        },
+        "block_3": {
+          "type": "faq_item",
+          "settings": {
+            "category": "Measuring",
+            "question": "Our measuring and fitting guides help?",
+            "answer": "<p>Thanks to their neutral colourway, cream blinds present the ideal addition to any room, irrespective of scheme and style.<\/p>"
+          }
+        },
+        "block_4": {
+          "type": "faq_item",
+          "settings": {
+            "category": "Measuring",
+            "question": "Our measuring and fitting guides help?",
+            "answer": "<p>Thanks to their neutral colourway, cream blinds present the ideal addition to any room, irrespective of scheme and style.<\/p>"
+          }
+        },
+        "block_5": {
+          "type": "faq_item",
+          "settings": {
+            "category": "Fitting",
+            "question": "Our measuring and fitting guides help?",
+            "answer": "<p>Thanks to their neutral colourway, cream blinds present the ideal addition to any room, irrespective of scheme and style.<\/p>"
+          }
+        },
+        "block_6": {
+          "type": "faq_item",
+          "settings": {
+            "category": "Support",
+            "question": "Our measuring and fitting guides help?",
+            "answer": "<p>Thanks to their neutral colourway, cream blinds present the ideal addition to any room, irrespective of scheme and style.<\/p>"
+          }
+        },
+        "block_7": {
+          "type": "faq_item",
+          "settings": {
+            "category": "Deliveries",
+            "question": "Our measuring and fitting guides help?",
+            "answer": "<p>Thanks to their neutral colourway, cream blinds present the ideal addition to any room, irrespective of scheme and style.<\/p>"
+          }
+        }
+      },
+      "block_order": [
+        "block_1",
+        "block_2",
+        "block_3",
+        "block_4",
+        "block_5",
+        "block_6",
+        "block_7"
+      ],
+      "settings": {
+        "title": "Frequently Asked Question"
+      }
+    }
+  },
+  "order": [
+    "breadcrumb",
+    "main"
+  ]
+}
