@@ -327,6 +327,7 @@
       ],
       "name": "Google Reviews Slider",
       "settings": {
+        "logo": "shopify://shop_images/cropped-cheapblinds_logo_colour_1_1x_1.png",
         "title": "Google Reviews from Our Customers",
         "review_count": "84,290",
         "write_link": "",
@@ -373,7 +374,7 @@
       "name": "Brand Trust Slider",
       "settings": {
         "title": "TRUSTED BY MANY INTERNATIONAL BRANDS",
-        "bg_color": "#FFF6E0",
+        "bg_color": "#fff6e0",
         "margin_top": 80,
         "margin_bottom": 60
       }
