@@ -1,0 +1,12 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #ffb800;
+  --color-primary-light: #fffcf0;
+  --color-secondary: #e5e7eb;
+  --font-rubik: "Rubik", sans-serif;
+}
+
+@utility text-heading {
+  @apply text-3xl font-bold uppercase tracking-tight font-rubik;
+}
