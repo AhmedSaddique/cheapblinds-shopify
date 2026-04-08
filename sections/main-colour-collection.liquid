@@ -1,4 +1,5 @@
 {{ 'cb-colour-collection.css' | asset_url | stylesheet_tag }}
+{{ 'component-card.css' | asset_url | stylesheet_tag }}
 
 {%- style -%}
   .section-{{ section.id }}-padding {
@@ -27,10 +28,10 @@
   <div class="cb-colour-collection page-width">
     {%- comment -%} Sidebar Navigation {%- endcomment -%}
     <aside class="cb-coll-sidebar">
-      <div class="cb-coll-header-image">
+      <div class="cb-coll-header-image" id="HeaderImage">
         {%- if section.settings.header_image != blank -%}
           <img
-            src="{{ section.settings.header_image | image_url: width: 400 }}"
+            src="{{ section.settings.header_image | image_url: width: 800 }}"
             alt="{{ collection.title }}"
             loading="lazy"
             width="{{ section.settings.header_image.width }}"
@@ -38,7 +39,7 @@
           >
         {%- elsif collection.image != blank -%}
           <img
-            src="{{ collection.image | image_url: width: 400 }}"
+            src="{{ collection.image | image_url: width: 800 }}"
             alt="{{ collection.title }}"
             loading="lazy"
             width="{{ collection.image.width }}"
@@ -48,48 +49,51 @@
           {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg' }}
         {%- endif -%}
       </div>
-      <ul class="cb-sidebar-nav">
-        {%- for block in section.blocks -%}
-          {%- if block.type == 'category_section' -%}
-            <li class="cb-sidebar-item">
-              <a href="#category-{{ block.id }}" class="cb-sidebar-link">
-                {{ color_name }}
-                {{ block.settings.title }}
-              </a>
-            </li>
-          {%- endif -%}
-        {%- endfor -%}
-      </ul>
 
-      <ul class="cb-sidebar-extra">
-        <li>
-          <a href="/pages/faqs" class="cb-sidebar-extra-link">{{ section.settings.faq_label }}</a>
-        </li>
-        <li>
-          <a href="/blogs/news" class="cb-sidebar-extra-link">{{ section.settings.blog_label }}</a>
-        </li>
-      </ul>
+      <div class="cb-sidebar-nav-wrapper" id="SidebarNav">
+        <ul class="cb-sidebar-nav">
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'category_section' -%}
+              <li class="cb-sidebar-item">
+                <a href="#category-{{ block.id }}" class="cb-sidebar-link">
+                  {{ color_name }}
+                  {{ block.settings.title }}
+                </a>
+              </li>
+            {%- endif -%}
+          {%- endfor -%}
+        </ul>
+
+        <ul class="cb-sidebar-extra">
+          <li>
+            <a href="#faqs" class="cb-sidebar-extra-link">{{ section.settings.faq_label }}</a>
+          </li>
+          <li>
+            <a href="#blogs" class="cb-sidebar-extra-link">{{ section.settings.blog_label }}</a>
+          </li>
+        </ul>
+      </div>
     </aside>
 
     {%- comment -%} Main Content Area {%- endcomment -%}
     <main class="cb-coll-main">
       {%- comment -%} Header Layer {%- endcomment -%}
-      <div class="cb-coll-header-info">
+      <div class="cb-coll-header-info" id="HeaderInfo">
         <h1>{{ collection.title }}</h1>
         {%- if section.settings.subtitle != blank -%}
           <p class="cb-subtitle">{{ section.settings.subtitle }}</p>
         {%- endif -%}
+      </div>
 
-        <div class="cb-coll-description">
-          <div id="CollDesc-{{ section.id }}" class="cb-desc-content rte">
-            {{ collection.description }}
-          </div>
-          {%- if collection.description.size > 200 -%}
-            <button type="button" class="cb-read-more-btn" onclick="toggleDescription('{{ section.id }}')">
-              Read More
-            </button>
-          {%- endif -%}
+      <div class="cb-coll-description" id="HeaderDesc">
+        <div id="CollDesc-{{ section.id }}" class="cb-desc-content rte">
+          {{ collection.description }}
         </div>
+        {%- if collection.description.size > 200 -%}
+          <button type="button" class="cb-read-more-btn" onclick="toggleDescription('{{ section.id }}')">
+            Read More
+          </button>
+        {%- endif -%}
       </div>
 
       {%- comment -%} Category Sections {%- endcomment -%}
@@ -113,13 +117,20 @@
               {%- if section.settings.enable_sorting -%}
                 <div class="cb-sort-wrapper">
                   <label for="SortBy-{{ block.id }}">Sort by:</label>
-                  <select name="sort_by" id="SortBy-{{ block.id }}" class="cb-sort-select">
-                    <option value="manual">Featured</option>
-                    <option value="best-selling">Most Popular</option>
-                    <option value="price-ascending">Price: Low to High</option>
-                    <option value="price-descending">Price: High to Low</option>
-                    <option value="created-descending">Newest</option>
-                  </select>
+                  <div class="cb-select-wrapper">
+                    <select name="sort_by" id="SortBy-{{ block.id }}" class="cb-sort-select">
+                      <option value="manual">Featured</option>
+                      <option value="best-selling">Most Popular</option>
+                      <option value="price-ascending">Price: Low to High</option>
+                      <option value="price-descending">Price: High to Low</option>
+                      <option value="created-descending">Newest</option>
+                    </select>
+                    <span class="cb-select-icon">
+                      <svg width="12" height="8" viewBox="0 0 12 8" fill="none">
+                        <path d="M1 1.5L6 6.5L11 1.5" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                    </span>
+                  </div>
                 </div>
               {%- endif -%}
             </div>
@@ -140,11 +151,15 @@
 
                         {% render 'card-product',
                           card_product: product,
-                          media_aspect_ratio: 'portrait',
-                          show_secondary_image: false,
-                          show_vendor: false,
-                          show_rating: false,
-                          lazy_load: true,
+                          media_aspect_ratio: section.settings.image_ratio,
+                          image_shape: section.settings.image_shape,
+                          show_secondary_image: section.settings.show_secondary_image,
+                          show_vendor: section.settings.show_vendor,
+                          show_rating: section.settings.show_rating,
+                          lazy_load: false,
+                          skip_styles: false,
+                          quick_add: section.settings.quick_add,
+                          card_btn_text: section.settings.card_btn_text,
                           section_id: section.id
                         %}
                       </div>
@@ -170,14 +185,121 @@
           </section>
         {%- endif -%}
       {%- endfor -%}
+
+      {%- comment -%} FAQ Section {%- endcomment -%}
+      {%- assign faq_blocks = section.blocks | where: 'type', 'faq_item' -%}
+      {%- if faq_blocks.size > 0 -%}
+        <div id="faqs" class="cb-faq-section cb-faq-section--main">
+          <h2 class="cb-faq-title">{{ section.settings.faq_title | default: 'FAQs' }}</h2>
+          <div class="cb-faq-list">
+            {%- for block in faq_blocks -%}
+              <div class="cb-faq-item" {{ block.shopify_attributes }}>
+                <button type="button" class="cb-faq-question" onclick="toggleFaq(this)">
+                  <span>{{ block.settings.question }}</span>
+                  <span class="cb-faq-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" class="cb-icon-plus">
+                      <circle cx="12" cy="12" r="10" fill="#FFB800"/>
+                      <path d="M12 8V16M8 12H16" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                    <svg
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      class="cb-icon-minus"
+                      style="display:none;"
+                    >
+                      <circle cx="12" cy="12" r="10" fill="#FFB800"/>
+                      <path d="M8 12H16" stroke="white" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                  </span>
+                </button>
+                <div class="cb-faq-answer" style="display: none;">
+                  <div class="cb-faq-answer-inner rte">
+                    {{ block.settings.answer }}
+                  </div>
+                </div>
+              </div>
+            {%- endfor -%}
+          </div>
+        </div>
+      {%- endif -%}
     </main>
   </div>
 </div>
 
+{%- comment -%} Related Blog Posts Section {%- endcomment -%}
+{%- if section.settings.blog != blank -%}
+  <div id="blogs" class="cb-blogs-section-wrapper" style="background-color: #FFF6E0;">
+    <div class="cb-blogs-section page-width">
+      <div class="cb-blogs-header">
+        <h2 class="cb-blogs-title">{{ section.settings.blog_section_title | default: 'Related blog posts' }}</h2>
+        {%- if section.settings.blog_section_subtitle != blank -%}
+          <p class="cb-blogs-subtitle">{{ section.settings.blog_section_subtitle }}</p>
+        {%- endif -%}
+
+        <div class="cb-blog-slider-nav">
+          <button type="button" class="cb-blog-slider-prev" aria-label="Previous">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+          </button>
+          <button type="button" class="cb-blog-slider-next" aria-label="Next">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="cb-blogs-grid" id="BlogSlider">
+        {%- for article in section.settings.blog.articles limit: section.settings.blog_limit -%}
+          <a href="{{ article.url }}" class="cb-blog-card">
+            <div class="cb-blog-image">
+              {%- if article.image -%}
+                <img
+                  src="{{ article.image | image_url: width: 600 }}"
+                  alt="{{ article.title }}"
+                  loading="lazy"
+                  width="{{ article.image.width }}"
+                  height="{{ article.image.height }}"
+                >
+              {%- endif -%}
+              <div class="cb-blog-overlay">
+                <span class="cb-blog-tag">{{ section.settings.blog.title | upcase }}</span>
+                <h3 class="cb-blog-card-title">{{ article.title }}</h3>
+              </div>
+            </div>
+          </a>
+        {%- endfor -%}
+      </div>
+      <div class="cb-blog-dots" id="BlogDots"></div>
+    </div>
+  </div>
+{%- endif -%}
+
 <script>
   function toggleDescription(id) {
     const desc = document.getElementById('CollDesc-' + id);
-    const btn = event.target;
+    const btn = event.currentTarget || event.target;
     if (desc.classList.contains('is-expanded')) {
       desc.classList.remove('is-expanded');
       btn.innerText = 'Read More';
@@ -187,7 +309,6 @@
     }
   }
 
-  // Handle active sidebar link on scroll
   window.addEventListener('scroll', () => {
     const sections = document.querySelectorAll('.cb-category-section');
     const navLinks = document.querySelectorAll('.cb-sidebar-link');
@@ -206,6 +327,95 @@
         link.classList.add('is-active');
       }
     });
+  });
+
+  // Smooth scroll for sidebar links
+  document.querySelectorAll('.cb-sidebar-link, .cb-sidebar-extra-link').forEach((anchor) => {
+    anchor.addEventListener('click', function (e) {
+      const href = this.getAttribute('href');
+      if (href && href.startsWith('#')) {
+        e.preventDefault();
+        const targetElement = document.querySelector(href);
+        if (targetElement) {
+          const offset = 100;
+          const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - offset;
+          window.scrollTo({
+            top: targetPosition,
+            behavior: 'smooth',
+          });
+        }
+      }
+    });
+  });
+
+  function toggleFaq(button) {
+    const item = button.closest('.cb-faq-item');
+    const answer = item.querySelector('.cb-faq-answer');
+    const plusIcon = button.querySelector('.cb-icon-plus');
+    const minusIcon = button.querySelector('.cb-icon-minus');
+    const isOpen = item.classList.contains('is-open');
+
+    if (isOpen) {
+      item.classList.remove('is-open');
+      answer.style.display = 'none';
+      plusIcon.style.display = 'block';
+      minusIcon.style.display = 'none';
+    } else {
+      item.classList.add('is-open');
+      answer.style.display = 'block';
+      plusIcon.style.display = 'none';
+      minusIcon.style.display = 'block';
+    }
+  }
+
+  // Blog Slider Logic
+  document.addEventListener('DOMContentLoaded', () => {
+    const slider = document.getElementById('BlogSlider');
+    const dotsContainer = document.getElementById('BlogDots');
+    const prevBtn = document.querySelector('.cb-blog-slider-prev');
+    const nextBtn = document.querySelector('.cb-blog-slider-next');
+
+    if (slider && dotsContainer) {
+      const cards = slider.querySelectorAll('.cb-blog-card');
+      if (cards.length === 0) return;
+
+      // Create dots
+      cards.forEach((_, index) => {
+        const dot = document.createElement('div');
+        dot.classList.add('cb-blog-dot');
+        if (index === 0) dot.classList.add('is-active');
+        dot.addEventListener('click', () => {
+          slider.scrollTo({
+            left: cards[index].offsetLeft - slider.offsetLeft,
+            behavior: 'smooth',
+          });
+        });
+        dotsContainer.appendChild(dot);
+      });
+
+      const dots = dotsContainer.querySelectorAll('.cb-blog-dot');
+
+      // Update dots on scroll
+      slider.addEventListener('scroll', () => {
+        const scrollPos = slider.scrollLeft;
+        const cardWidth = cards[0].offsetWidth;
+        const activeIndex = Math.round(scrollPos / cardWidth);
+
+        dots.forEach((dot, index) => {
+          dot.classList.toggle('is-active', index === activeIndex);
+        });
+      });
+
+      // Arrow navigation
+      if (prevBtn && nextBtn) {
+        prevBtn.addEventListener('click', () => {
+          slider.scrollBy({ left: -slider.offsetWidth * 0.8, behavior: 'smooth' });
+        });
+        nextBtn.addEventListener('click', () => {
+          slider.scrollBy({ left: slider.offsetWidth * 0.8, behavior: 'smooth' });
+        });
+      }
+    }
   });
 </script>
 
@@ -239,6 +449,104 @@
     {
       "type": "header",
       "content": "Sidebar Settings"
+    },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "options": [
+        {
+          "value": "adapt",
+          "label": "Adapt to image"
+        },
+        {
+          "value": "portrait",
+          "label": "Portrait"
+        },
+        {
+          "value": "square",
+          "label": "Square"
+        }
+      ],
+      "default": "adapt",
+      "label": "Image ratio"
+    },
+    {
+      "type": "select",
+      "id": "image_shape",
+      "options": [
+        {
+          "value": "default",
+          "label": "Default"
+        },
+        {
+          "value": "arch",
+          "label": "Arch"
+        },
+        {
+          "value": "round",
+          "label": "Round"
+        }
+      ],
+      "default": "default",
+      "label": "Image shape"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_secondary_image",
+      "default": false,
+      "label": "Show secondary image on hover"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "default": false,
+      "label": "Show vendor"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_rating",
+      "default": false,
+      "label": "Show product rating"
+    },
+    {
+      "type": "text",
+      "id": "card_btn_text",
+      "label": "Button Text",
+      "default": "Free Sample"
+    },
+    {
+      "type": "color",
+      "id": "card_btn_bg_color",
+      "label": "Button Background Color",
+      "default": "#ffb800"
+    },
+    {
+      "type": "color",
+      "id": "card_btn_text_color",
+      "label": "Button Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "card_btn_hover_color",
+      "label": "Button Hover Color",
+      "default": "#e6a600"
+    },
+    {
+      "type": "select",
+      "id": "quick_add",
+      "default": "none",
+      "label": "Quick add",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "standard",
+          "label": "Standard"
+        }
+      ]
     },
     {
       "type": "text",
@@ -281,6 +589,46 @@
       "unit": "px",
       "label": "Padding Bottom",
       "default": 36
+    },
+    {
+      "type": "header",
+      "content": "FAQ Settings"
+    },
+    {
+      "type": "text",
+      "id": "faq_title",
+      "label": "FAQ Section Title",
+      "default": "FAQs"
+    },
+    {
+      "type": "header",
+      "content": "Blog Section Settings"
+    },
+    {
+      "type": "text",
+      "id": "blog_section_title",
+      "label": "Blog Section Title",
+      "default": "Related blog posts"
+    },
+    {
+      "type": "text",
+      "id": "blog_section_subtitle",
+      "label": "Blog Section Subtitle",
+      "default": "Discover expert tips, design inspiration, and the latest trends..."
+    },
+    {
+      "type": "blog",
+      "id": "blog",
+      "label": "Select Blog"
+    },
+    {
+      "type": "range",
+      "id": "blog_limit",
+      "min": 2,
+      "max": 6,
+      "step": 1,
+      "default": 3,
+      "label": "Number of blog posts to show"
     }
   ],
   "blocks": [
@@ -291,20 +639,19 @@
         {
           "type": "text",
           "id": "title",
-          "label": "Category Name (e.g. Roller Blinds)",
+          "label": "Category Name",
           "default": "Roller Blinds"
         },
         {
           "type": "textarea",
           "id": "description",
           "label": "Category Description",
-          "default": "Easy to operate and timelessly sophisticated..."
+          "default": "Easy to operate..."
         },
         {
           "type": "collection",
           "id": "collection",
-          "label": "Specific Collection (Optional)",
-          "info": "Overrides the dynamic filtering if selected."
+          "label": "Specific Collection"
         },
         {
           "type": "range",
@@ -314,6 +661,24 @@
           "step": 1,
           "default": 4,
           "label": "Products to show"
+        }
+      ]
+    },
+    {
+      "type": "faq_item",
+      "name": "FAQ Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "What colour walls match cream blinds?"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Answer",
+          "default": "<p>Thanks to their neutral colourway...</p>"
         }
       ]
     }
