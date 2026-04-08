@@ -1,368 +1,75 @@
-{{ 'component-image-with-text.css' | asset_url | stylesheet_tag }}
-
 {%- style -%}
   .section-{{ section.id }}-padding {
     padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
     padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
   }
-
   @media screen and (min-width: 750px) {
     .section-{{ section.id }}-padding {
       padding-top: {{ section.settings.padding_top }}px;
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
   }
-
-  .section-{{ section.id }}-padding .image-with-text__heading {
-    font-size: 34px !important;
-    font-weight: 700 !important;
-    margin-bottom: 20px;
-    color: #151515;
-  }
-
-  .section-{{ section.id }}-padding .image-with-text__text {
-    font-size: 16px !important;
-    line-height: 1.6;
-    color: #151515;
-  }
-
-  .btn-primary {
-    background-color: #FEBD0B !important;
-    color: #000 !important;
-    border-radius: 50px !important;
-    padding: 12px 40px !important;
-    font-weight: 700 !important;
-    border: none !important;
-    box-shadow: none !important;
-    text-transform: none !important;
-    font-size: 14px !important;
-    min-width: 150px;
-    transition: background-color 0.3s ease;
-  }
-
-  .section-{{ section.id }}-padding .image-with-text__media {
-    border-radius: 12px !important;
-    overflow: hidden !important;
-  }
 {%- endstyle -%}
 
-{%- liquid
-  if section.settings.image_layout contains 'right'
-    assign odd_class = ' image-with-text__grid--reverse'
-  else
-    assign even_class = ' image-with-text__grid--reverse'
-  endif
+<section class="section-{{ section.id }}-padding bg-white overflow-hidden">
+  <div class="page-width">
+    <div class="flex flex-col gap-20 md:gap-32">
+      {% for block in section.blocks %}
+        <div
+          class="flex flex-col md:flex-row items-center gap-12 md:gap-24 {% if block.settings.layout == 'image_first' %}md:flex-row-reverse{% endif %}"
+          {{ block.shopify_attributes }}
+        >
+          <!-- Text Content (50%) -->
+          <div class="w-full md:w-1/2 flex flex-col justify-center">
+            {% if block.settings.heading != blank %}
+              <h2 class="text-3xl md:text-4xl font-extrabold text-black mb-6 leading-[1.1]">
+                {{ block.settings.heading }}
+              </h2>
+            {% endif %}
 
-  if section.settings.row_color_scheme == section.settings.section_color_scheme
-    assign no_content_background = true
-  endif
+            {% if block.settings.text != blank %}
+              <div class="mb-8">
+                {{ block.settings.text }}
+              </div>
+            {% endif %}
 
-  if settings.text_boxes_shadow_opacity == 0 and settings.text_boxes_border_thickness == 0 or settings.text_boxes_border_opacity == 0
-    assign no_content_styles = true
-  endif
-
-  if settings.text_boxes_border_thickness > 0 and settings.text_boxes_border_opacity > 0 and settings.media_border_thickness > 0 and settings.media_border_opacity > 0
-    assign borders_class = ' collapse-borders'
-  endif
-
-  if no_content_background and no_content_styles
-    assign padding_class = ' collapse-padding'
-  endif
-
-  unless no_content_background and no_content_styles
-    assign corners_class = ' collapse-corners'
-  endunless
--%}
-
-<div class="multirow section-{{ section.id }}-padding gradient color-{{ section.settings.section_color_scheme }}">
-  <div class="multirow__inner page-width">
-    {%- for block in section.blocks -%}
-      <div
-        class="image-with-text isolate{{ borders_class }}{{ corners_class }}{{ padding_class }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
-        {{ block.shopify_attributes }}
-      >
-        <div class="image-with-text__grid grid grid--gapless grid--1-col grid--{% if section.settings.desktop_image_width == 'medium' %}2-col-tablet{% else %}3-col-tablet{% endif %}{% if section.settings.image_layout contains 'alternate' %}{% cycle odd_class, even_class %}{% else %}{{ odd_class }}{% endif %}">
-          <div class="image-with-text__media-item image-with-text__media-item--{{ section.settings.desktop_image_width }} image-with-text__media-item--{{ section.settings.desktop_content_position }} grid__item">
-            <div
-              class="image-with-text__media image-with-text__media--{{ section.settings.image_height }} gradient color-{{ section.settings.row_color_scheme }} global-media-settings{% if block.settings.image != blank %} media{% else %} image-with-text__media--placeholder placeholder{% endif %}"
-              {% if section.settings.image_height == 'adapt' and block.settings.image != blank %}
-                style="padding-bottom: {{ 1 | divided_by: block.settings.image.aspect_ratio | times: 100 }}%;"
-              {% endif %}
-            >
-              {%- if block.settings.image != blank -%}
-                {%- capture sizes -%}
-                  (min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 100 | divided_by: 2 }}px,
-                  (min-width: 750px) calc((100vw - 130px) / 2), calc((100vw - 50px) / 2)
-                {%- endcapture -%}
-                {{
-                  block.settings.image
-                  | image_url: width: 1500
-                  | image_tag: sizes: sizes, widths: '165, 360, 535, 750, 1070, 1500'
-                }}
-              {%- else -%}
-                {{ 'detailed-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
-              {%- endif -%}
-            </div>
-          </div>
-          <div class="image-with-text__text-item grid__item">
-            <div class="image-with-text__content image-with-text__content--{{ section.settings.desktop_content_position }} image-with-text__content--desktop-{{ section.settings.desktop_content_alignment }} image-with-text__content--mobile-{{ section.settings.mobile_content_alignment }} image-with-text__content--{{ section.settings.image_height }} content-container{% unless no_content_background and no_content_styles %} gradient color-{{ section.settings.row_color_scheme }}{% else %} background-transparent{% endunless %}">
-              {%- if block.settings.caption -%}
-                <p class="image-with-text__text image-with-text__text--caption caption-with-letter-spacing caption-with-letter-spacing--medium">
-                  {{ block.settings.caption | escape }}
-                </p>
-              {%- endif -%}
-              {%- if block.settings.heading -%}
-                <h2 class="image-with-text__heading {{ section.settings.heading_size }} rte">
-                  {{ block.settings.heading }}
-                </h2>
-              {%- endif -%}
-              {%- if block.settings.text -%}
-                <div class="image-with-text__text rte {{ section.settings.text_style }}">{{ block.settings.text }}</div>
-              {%- endif -%}
-              {%- if block.settings.button_label != blank -%}
+            {% if block.settings.button_label != blank %}
+              <div>
                 <a
-                  {% if block.settings.button_link == blank %}
-                    role="link" aria-disabled="true"
-                  {% else %}
-                    href="{{ block.settings.button_link }}"
-                  {% endif %}
-                  class="btn-primary button--{{ section.settings.button_style }}"
+                  href="{{ block.settings.button_link }}"
+                  class="inline-block bg-primary text-black font-bold py-3 px-10 rounded-full"
                 >
-                  {{ block.settings.button_label | escape }}
+                  {{ block.settings.button_label }}
                 </a>
-              {%- endif -%}
+              </div>
+            {% endif %}
+          </div>
+
+          <!-- Image Content (50% with constrained size) -->
+          <div class="w-full md:w-1/2 flex justify-center">
+            <div class="w-full aspect-[4/3] rounded-2xl overflow-hidden">
+              {% if block.settings.image != blank %}
+                <img
+                  src="{{ block.settings.image | img_url: '600x' }}"
+                  alt="{{ block.settings.image.alt | escape }}"
+                  class="w-full h-full object-cover"
+                  loading="lazy"
+                >
+              {% else %}
+                {{ 'image' | placeholder_svg_tag: 'w-full h-full bg-gray-100' }}
+              {% endif %}
             </div>
           </div>
         </div>
-      </div>
-    {%- endfor -%}
+      {% endfor %}
+    </div>
   </div>
-</div>
+</section>
 
 {% schema %}
 {
-  "name": "t:sections.multirow.name",
-  "class": "section",
-  "disabled_on": {
-    "groups": ["header", "footer"]
-  },
+  "name": "Multirow Custom",
   "settings": [
-    {
-      "type": "header",
-      "content": "t:sections.multirow.settings.header.content"
-    },
-    {
-      "type": "select",
-      "id": "image_height",
-      "options": [
-        {
-          "value": "adapt",
-          "label": "t:sections.multirow.settings.image_height.options__1.label"
-        },
-        {
-          "value": "small",
-          "label": "t:sections.multirow.settings.image_height.options__2.label"
-        },
-        {
-          "value": "medium",
-          "label": "t:sections.multirow.settings.image_height.options__3.label"
-        },
-        {
-          "value": "large",
-          "label": "t:sections.multirow.settings.image_height.options__4.label"
-        }
-      ],
-      "default": "medium",
-      "label": "t:sections.multirow.settings.image_height.label"
-    },
-    {
-      "type": "select",
-      "id": "desktop_image_width",
-      "options": [
-        {
-          "value": "small",
-          "label": "t:sections.multirow.settings.desktop_image_width.options__1.label"
-        },
-        {
-          "value": "medium",
-          "label": "t:sections.multirow.settings.desktop_image_width.options__2.label"
-        },
-        {
-          "value": "large",
-          "label": "t:sections.multirow.settings.desktop_image_width.options__3.label"
-        }
-      ],
-      "default": "medium",
-      "label": "t:sections.multirow.settings.desktop_image_width.label"
-    },
-    {
-      "type": "select",
-      "id": "image_layout",
-      "options": [
-        {
-          "value": "alternate-left",
-          "label": "t:sections.multirow.settings.image_layout.options__1.label"
-        },
-        {
-          "value": "alternate-right",
-          "label": "t:sections.multirow.settings.image_layout.options__2.label"
-        },
-        {
-          "value": "align-left",
-          "label": "t:sections.multirow.settings.image_layout.options__3.label"
-        },
-        {
-          "value": "align-right",
-          "label": "t:sections.multirow.settings.image_layout.options__4.label"
-        }
-      ],
-      "default": "alternate-left",
-      "label": "t:sections.multirow.settings.image_layout.label"
-    },
-    {
-      "type": "header",
-      "content": "t:sections.multirow.settings.header_2.content"
-    },
-    {
-      "type": "select",
-      "id": "heading_size",
-      "options": [
-        {
-          "value": "h2",
-          "label": "t:sections.all.heading_size.options__1.label"
-        },
-        {
-          "value": "h1",
-          "label": "t:sections.all.heading_size.options__2.label"
-        },
-        {
-          "value": "h0",
-          "label": "t:sections.all.heading_size.options__3.label"
-        },
-        {
-          "value": "hxl",
-          "label": "t:sections.all.heading_size.options__4.label"
-        },
-        {
-          "value": "hxxl",
-          "label": "t:sections.all.heading_size.options__5.label"
-        }
-      ],
-      "default": "h1",
-      "label": "t:sections.all.heading_size.label"
-    },
-    {
-      "type": "select",
-      "id": "text_style",
-      "options": [
-        {
-          "value": "body",
-          "label": "t:sections.multirow.settings.text_style.options__1.label"
-        },
-        {
-          "value": "subtitle",
-          "label": "t:sections.multirow.settings.text_style.options__2.label"
-        }
-      ],
-      "default": "body",
-      "label": "t:sections.multirow.settings.text_style.label"
-    },
-    {
-      "type": "select",
-      "id": "button_style",
-      "options": [
-        {
-          "value": "primary",
-          "label": "t:sections.multirow.settings.button_style.options__1.label"
-        },
-        {
-          "value": "secondary",
-          "label": "t:sections.multirow.settings.button_style.options__2.label"
-        }
-      ],
-      "default": "secondary",
-      "label": "t:sections.multirow.settings.button_style.label"
-    },
-    {
-      "type": "select",
-      "id": "desktop_content_position",
-      "options": [
-        {
-          "value": "top",
-          "label": "t:sections.multirow.settings.desktop_content_position.options__1.label"
-        },
-        {
-          "value": "middle",
-          "label": "t:sections.multirow.settings.desktop_content_position.options__2.label"
-        },
-        {
-          "value": "bottom",
-          "label": "t:sections.multirow.settings.desktop_content_position.options__3.label"
-        }
-      ],
-      "default": "middle",
-      "label": "t:sections.multirow.settings.desktop_content_position.label"
-    },
-    {
-      "type": "select",
-      "id": "desktop_content_alignment",
-      "options": [
-        {
-          "value": "left",
-          "label": "t:sections.multirow.settings.desktop_content_alignment.options__1.label"
-        },
-        {
-          "value": "center",
-          "label": "t:sections.multirow.settings.desktop_content_alignment.options__2.label"
-        },
-        {
-          "value": "right",
-          "label": "t:sections.multirow.settings.desktop_content_alignment.options__3.label"
-        }
-      ],
-      "default": "left",
-      "label": "t:sections.multirow.settings.desktop_content_alignment.label"
-    },
-    {
-      "type": "select",
-      "id": "mobile_content_alignment",
-      "options": [
-        {
-          "value": "left",
-          "label": "t:sections.multirow.settings.mobile_content_alignment.options__1.label"
-        },
-        {
-          "value": "center",
-          "label": "t:sections.multirow.settings.mobile_content_alignment.options__2.label"
-        },
-        {
-          "value": "right",
-          "label": "t:sections.multirow.settings.mobile_content_alignment.options__3.label"
-        }
-      ],
-      "default": "left",
-      "label": "t:sections.multirow.settings.mobile_content_alignment.label"
-    },
-    {
-      "type": "header",
-      "content": "t:sections.multirow.settings.header_3.content"
-    },
-    {
-      "type": "color_scheme",
-      "id": "section_color_scheme",
-      "label": "t:sections.all.colors.label",
-      "default": "scheme-1"
-    },
-    {
-      "type": "color_scheme",
-      "id": "row_color_scheme",
-      "label": "t:sections.multirow.settings.container_color_scheme.label",
-      "default": "scheme-1"
-    },
-    {
-      "type": "header",
-      "content": "t:sections.all.padding.section_padding_heading"
-    },
     {
       "type": "range",
       "id": "padding_top",
@@ -370,8 +77,8 @@
       "max": 100,
       "step": 4,
       "unit": "px",
-      "label": "t:sections.all.padding.padding_top",
-      "default": 36
+      "label": "Padding Top",
+      "default": 80
     },
     {
       "type": "range",
@@ -380,65 +87,73 @@
       "max": 100,
       "step": 4,
       "unit": "px",
-      "label": "t:sections.all.padding.padding_bottom",
-      "default": 36
+      "label": "Padding Bottom",
+      "default": 80
     }
   ],
   "blocks": [
     {
       "type": "row",
-      "name": "t:sections.multirow.blocks.row.name",
+      "name": "Row",
       "settings": [
         {
           "type": "image_picker",
           "id": "image",
-          "label": "t:sections.multirow.blocks.row.settings.image.label"
+          "label": "Image"
+        },
+        {
+          "type": "select",
+          "id": "layout",
+          "label": "Desktop Image Placement",
+          "options": [
+            { "value": "text_first", "label": "Image on Right" },
+            { "value": "image_first", "label": "Image on Left" }
+          ],
+          "default": "text_first"
         },
         {
           "type": "text",
-          "id": "caption",
-          "default": "t:sections.multirow.blocks.row.settings.caption.default",
-          "label": "t:sections.multirow.blocks.row.settings.caption.label"
-        },
-        {
-          "type": "inline_richtext",
           "id": "heading",
-          "default": "t:sections.multirow.blocks.row.settings.heading.default",
-          "label": "t:sections.multirow.blocks.row.settings.heading.label"
+          "label": "Heading"
         },
         {
           "type": "richtext",
           "id": "text",
-          "default": "t:sections.multirow.blocks.row.settings.text.default",
-          "label": "t:sections.multirow.blocks.row.settings.text.label"
+          "label": "Description"
         },
         {
           "type": "text",
           "id": "button_label",
-          "default": "t:sections.multirow.blocks.row.settings.button_label.default",
-          "label": "t:sections.multirow.blocks.row.settings.button_label.label",
-          "info": "t:sections.multirow.blocks.row.settings.button_label.info"
+          "label": "Button Label"
         },
         {
           "type": "url",
           "id": "button_link",
-          "label": "t:sections.multirow.blocks.row.settings.button_link.label"
+          "label": "Button Link"
         }
       ]
     }
   ],
   "presets": [
     {
-      "name": "t:sections.multirow.presets.name",
+      "name": "Multirow Custom",
       "blocks": [
         {
-          "type": "row"
+          "type": "row",
+          "settings": {
+            "heading": "High Quality Blinds at Prices You'll Love",
+            "text": "<p>Perfectly fitted blinds don't just improve the look, they enhance comfort too. Our easy measuring guides help you get accurate results, so your blinds sit exactly as they should. Quality is at the core of everything we do.</p>",
+            "layout": "text_first"
+          }
         },
         {
-          "type": "row"
-        },
-        {
-          "type": "row"
+          "type": "row",
+          "settings": {
+            "heading": "Here to Help, Every Step of the Way",
+            "text": "<p>Questions, ideas, or need a second opinion? Our friendly team is always ready to assist. From choosing the right style to placing your order, support is just a message away.</p>",
+            "button_label": "Contact Us",
+            "layout": "text_first"
+          }
         }
       ]
     }
