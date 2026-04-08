@@ -79,7 +79,7 @@
 /* base */
 
 .page-width {
-  max-width: var(--page-width);
+  max-width: var(--page-width) !important;
   margin: 0 auto;
   padding: 0 1.5rem;
 }
@@ -104,7 +104,7 @@ body:has(.section-header .drawer-menu) .announcement-bar-section .page-width {
 
 @media screen and (min-width: 750px) {
   .page-width {
-    padding: 0 5rem;
+    padding: 0 10rem;
   }
 
   .header.page-width,
@@ -885,8 +885,6 @@ summary::-webkit-details-marker {
   font-size: 1.6rem;
   letter-spacing: 0.08rem;
 }
-
-
 
 /* component-media */
 .media {
@@ -3477,3 +3475,5 @@ details-disclosure > details {
     transform: translateX(100%) scaleX(0);
   }
 }
+
+/*

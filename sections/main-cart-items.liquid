@@ -1,6 +1,83 @@
-<div class="page-width mt-10">
-  <div class="grid grid-cols-12 gap-4">
-    <div class="col-span-9 border-2 border-amber-950">sadasdas</div>
-    <div class="col-span-3 border border-amber-400">asdsad</div>
+<div class="page-width">
+  <div class="grid grid-cols-12 gap-4 my-20">
+    <div class="col-span-12 md:col-span-7 lg:col-span-9 space-y-5 md:space-y-10">
+      <h1 class="text-heading">Your Shopping Basket</h1>
+
+      <div>
+        <div class="hidden lg:flex bg-primary-light p-2 font-rubik font-medium text-xl">
+          <div class="w-[64%]">Product</div>
+          <div class="w-[16%] text-center">Quantity</div>
+          <div class="w-[16%] text-center">Unit Price</div>
+          <div class="w-[4%]"></div>
+        </div>
+
+        <div
+          key="{item.id}"
+          class="flex p-2 text-xl border-b-2 border-secondary items-center"
+        >
+          <div class="w-full lg:w-[64%]">
+            <div class="flex lg:hidden justify-end">
+              <div
+                class="rounded-full bg-primary-light w-fit h-fit p-2 text-center cursor-pointer"
+              >
+                delete
+              </div>
+            </div>
+
+            <div class="flex lg:flex-nowrap gap-4 pr-2 py-6 items-center ">
+              <a
+                href="/"
+                class="relative aspect-square w-3/12 xl:w-72 shrink-0 overflow-hidden rounded-2xl border border-gray-100 shadow-sm"
+              >
+                <img
+                  unoptimized
+                  src="https://cdn.shopify.com/s/files/1/0729/8447/files/1.png?v=1744146305"
+                  alt="placeholder"
+                  width="auto"
+                  height="auto"
+                  class="object-cover"
+                >
+              </a>
+
+              <div class="flex lg:hidden justify-between items-center h-14 w-9/12">
+                Counter {/* Mobile Unit Price */}
+                <div class="bg-primary border-2 rounded-md font-semibold p-1 h-fit">123</div>
+              </div>
+
+              select
+            </div>
+
+            select
+          </div>
+
+          <div class="w-[16%] hidden lg:flex items-start justify-center">counter</div>
+
+          <div class="w-[16%] hidden lg:flex justify-center">
+            <span class="bg-primary border-2 rounded-md font-semibold p-1 h-fit"> 123 </span>
+          </div>
+
+          <div class="w-[4%] hidden lg:flex">
+            <div class="flex justify-end">
+              <div
+                class="rounded-full bg-primary-light w-fit h-fit p-2 text-center cursor-pointer"
+              >
+                deltete
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class=" col-span-12 md:col-span-5 lg:col-span-3 space-y-5 md:space-y-10">
+      <h2 class="text-heading">Order summary</h2>
+      checkout section
+      <a
+        href="/"
+        class="bg-primary hover:bg-primary/90 font-semibold rounded-lg text-center py-3 flex justify-center items-center gap-2"
+      >
+        arrow Continue Shopping
+      </a>
+    </div>
   </div>
 </div>
