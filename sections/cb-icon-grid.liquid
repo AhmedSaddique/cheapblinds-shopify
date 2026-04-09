@@ -1,0 +1,96 @@
+{% comment %}
+  Custom Icon Grid Section
+  Alternating background colors, 5 items desktop, 3+2 mobile.
+{% endcomment %}
+
+{{ 'cb-icon-grid.css' | asset_url | stylesheet_tag }}
+
+<section class="cb-icon-grid page-width" id="cb-icon-grid-{{ section.id }}">
+  <div class="cb-icon-grid__container">
+    {%- for block in section.blocks -%}
+      {%- liquid
+        assign mod = forloop.index0 | modulo: 2
+        if mod == 0
+          assign bg_class = 'cb-icon-grid__item--light'
+        else
+          assign bg_class = 'cb-icon-grid__item--bright'
+        endif
+      -%}
+
+      <div class="cb-icon-grid__item {{ bg_class }}" {{ block.shopify_attributes }}>
+        <div class="cb-icon-grid__icon">
+          {%- if block.settings.icon != blank -%}
+            {{ block.settings.icon | image_url: width: 120 | image_tag: loading: 'lazy', widths: '60, 120' }}
+          {%- else -%}
+            {{ 'logo' | placeholder_svg_tag: 'placeholder-svg' }}
+          {%- endif -%}
+        </div>
+        <h3 class="cb-icon-grid__title">{{ block.settings.title }}</h3>
+      </div>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Icon Grid Row",
+  "max_blocks": 5,
+  "settings": [],
+  "blocks": [
+    {
+      "type": "icon_item",
+      "name": "Icon Item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon (SVG recommended)"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Feature Title"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Icon Grid Row",
+      "blocks": [
+        {
+          "type": "icon_item",
+          "settings": {
+            "title": "25 Years Experience in UAE"
+          }
+        },
+        {
+          "type": "icon_item",
+          "settings": {
+            "title": "Affordable"
+          }
+        },
+        {
+          "type": "icon_item",
+          "settings": {
+            "title": "Free Samples"
+          }
+        },
+        {
+          "type": "icon_item",
+          "settings": {
+            "title": "5 Years Warranty"
+          }
+        },
+        {
+          "type": "icon_item",
+          "settings": {
+            "title": "Free Next Day Delivery"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
