@@ -1,0 +1,161 @@
+{% comment %}
+  Custom About Us Section
+  Dual-part layout: About Us (Yellow) and Why Us? (White)
+{% endcomment %}
+
+{{ 'cb-about-us.css' | asset_url | stylesheet_tag }}
+
+<section class="cb-about-us" id="cb-about-us-{{ section.id }}">
+  <!-- Part 1: About Us (Yellow Background) -->
+  <div class="cb-about-us__section cb-about-us__section--yellow">
+    <div class="cb-about-us__container page-width" style="padding-top: 60px; padding-bottom: 60px;">
+      <div class="cb-about-us__image-wrapper">
+        {%- if section.settings.about_image != blank -%}
+          {{
+            section.settings.about_image
+            | image_url: width: 1200
+            | image_tag: loading: 'lazy', class: 'cb-about-us__img', widths: '400, 600, 800, 1000, 1200'
+          }}
+        {%- else -%}
+          {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+        {%- endif -%}
+      </div>
+
+      <div class="cb-about-us__content cb-about-us__content--card">
+        <h2 class="cb-about-us__title">{{ section.settings.about_heading }}</h2>
+        <div class="cb-about-us__text">
+          {{ section.settings.about_text_1 | newline_to_br }}
+        </div>
+        {%- if section.settings.about_text_2 != blank -%}
+          <div class="cb-about-us__text">
+            {{ section.settings.about_text_2 | newline_to_br }}
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+
+  <!-- Part 2: Why Us? (White Background) -->
+  <div class="cb-about-us__section cb-about-us__section--white">
+    <div class="cb-about-us__container page-width cb-about-us__container--reverse">
+      <div class="cb-about-us__content">
+        <h2 class="cb-about-us__title">{{ section.settings.why_heading }}</h2>
+        <ul class="cb-about-us__list">
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'bullet' -%}
+              <li class="cb-about-us__list-item" {{ block.shopify_attributes }}>
+                {{ block.settings.text }}
+              </li>
+            {%- endif -%}
+          {%- endfor -%}
+        </ul>
+      </div>
+
+      <div class="cb-about-us__image-wrapper">
+        {%- if section.settings.why_image != blank -%}
+          {{
+            section.settings.why_image
+            | image_url: width: 1200
+            | image_tag: loading: 'lazy', class: 'cb-about-us__img', widths: '400, 600, 800, 1000, 1200'
+          }}
+        {%- else -%}
+          {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "About Us Complex",
+  "settings": [
+    {
+      "type": "header",
+      "content": "About Us (Part 1)"
+    },
+    {
+      "type": "text",
+      "id": "about_heading",
+      "label": "Heading",
+      "default": "About Us"
+    },
+    {
+      "type": "textarea",
+      "id": "about_text_1",
+      "label": "Text Paragraph 1",
+      "default": "Cheapblinds.ae is a division of AGSONS Middle East Trading LLC. At cheapblinds.ae, we strive not only to give you a great deal on your blinds, but also to speedily deliver them right to your door, making them as simple and easy as your weekly online grocery shop."
+    },
+    {
+      "type": "textarea",
+      "id": "about_text_2",
+      "label": "Text Paragraph 2",
+      "default": "Being one of the first ecommerce blinds shop in the UAE, we offer a free sample service and speedy delivery without breaking the bank. With all of this at your fingertips, there has never been a better time to update your home!"
+    },
+    {
+      "type": "image_picker",
+      "id": "about_image",
+      "label": "Image"
+    },
+    {
+      "type": "header",
+      "content": "Why Us? (Part 2)"
+    },
+    {
+      "type": "text",
+      "id": "why_heading",
+      "label": "Heading",
+      "default": "Why Us?"
+    },
+    {
+      "type": "image_picker",
+      "id": "why_image",
+      "label": "Image"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "bullet",
+      "name": "Bullet Point",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Bullet Text"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "About Us Complex",
+      "blocks": [
+        {
+          "type": "bullet",
+          "settings": {
+            "text": "Speedy delivery all over the UAE, with free next-day delivery on most orders."
+          }
+        },
+        {
+          "type": "bullet",
+          "settings": {
+            "text": "Bespoke range of styles, guaranteed to suit any vision you may have. Most fabrics are designed and sourced from the UK."
+          }
+        },
+        {
+          "type": "bullet",
+          "settings": {
+            "text": "Significant time and resources have been used to sustainably source the highest quality fabrics with the lowest prices."
+          }
+        },
+        {
+          "type": "bullet",
+          "settings": {
+            "text": "The website has been designed to provide the best user experience, making the journey from selection to check-out swift and simple whether you're using a laptop, tablet or phone."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
