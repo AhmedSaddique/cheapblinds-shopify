@@ -1,0 +1,362 @@
+{% comment %}
+  Custom Cart Section for Cheap Blinds
+  Unified Basket and Summary Sidebar
+{% endcomment %}
+
+{{ 'cb-cart.css' | asset_url | stylesheet_tag }}
+
+<script src="{{ 'cart.js' | asset_url }}" defer="defer"></script>
+
+<div class="cb-cart page-width" id="main-cart-items" data-id="{{ section.id }}">
+  <div class="cb-cart__layout js-contents">
+    {%- if cart != empty -%}
+      <div class="cb-cart__basket">
+        <h1 class="cb-cart__title">Your Shopping Basket</h1>
+        <!-- Basket Header -->
+        <div class="cb-cart__basket-header">
+          <span>{{ 'sections.cart.headings.product' | t }}</span>
+          <span class="text-center">{{ 'sections.cart.headings.quantity' | t }}</span>
+          <span class="text-right">Unit price</span>
+        </div>
+
+        <cart-items>
+          <div class="cb-cart__items-list">
+            {%- for item in cart.items -%}
+              <div class="cb-cart__item" id="CartItem-{{ item.index | plus: 1 }}">
+                <!-- Col 1: Product -->
+                <div class="cb-cart__item-product">
+                  <div class="cb-cart__item-image-wrapper">
+                    {% if item.image %}
+                      {{ item.image | image_url: width: 400 | image_tag: loading: 'lazy' }}
+                    {% else %}
+                      <div style="background-color: #f4f4f4; width: 100%; aspect-ratio: 1/1;"></div>
+                    {% endif %}
+                  </div>
+                  <div class="cb-cart__item-details">
+                    <div class="cb-cart__item-top">
+                      <h2 class="cb-cart__item-title">
+                        <a href="{{ item.url }}">Lindsay White Blackout Roller Blinds</a>
+                      </h2>
+                      <div class="cb-cart__item-props">
+                        <div>41cm Width &times; 41cm Drop</div>
+                        <div>Recess measurement</div>
+                        <div>Standard brackets</div>
+                      </div>
+                    </div>
+                    <!-- Motorised Option Selection (Static Mockup) -->
+                    <div class="cb-cart__option-selector">
+                      <div class="cb-cart__option-item">
+                        <div class="cb-cart__option-radio">
+                          <span class="cb-cart__option-radio-circle"></span>
+                          Without Motorised
+                        </div>
+                        <div class="cb-cart__option-price">Đ 315</div>
+                      </div>
+                      <div class="cb-cart__option-item cb-cart__option-item--selected">
+                        <div class="cb-cart__option-selected-label">
+                          <span class="cb-cart__option-selected-icon">✓</span>
+                          Selected
+                        </div>
+                        <div class="cb-cart__option-radio">
+                          <span class="cb-cart__option-radio-circle"></span>
+                          Motorised <span class="cb-cart__option-tag">MOTORISED</span>
+                        </div>
+                        <div class="cb-cart__option-price">Đ 315</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Mobile Header (Hidden on Desktop) -->
+                <div class="cb-cart__mobile-header">
+                  <span>Quantity</span>
+                  <span>Unit price</span>
+                </div>
+
+                <!-- Col 2 & 3 Mobile Wrapper -->
+                <div class="cb-cart__item-actions-wrapper">
+                  <!-- Col 2: Quantity -->
+                  <div class="cb-cart__item-quantity">
+                    <div class="cb-cart__qty-selector">
+                      <button
+                        class="cb-cart__qty-btn minus"
+                        name="minus"
+                        type="button"
+                        onclick="this.parentNode.querySelector('input').stepDown(); this.parentNode.querySelector('input').dispatchEvent(new Event('change', { bubbles: true }));"
+                      >
+                        -
+                      </button>
+                      <input
+                        class="cb-cart__qty-input"
+                        type="number"
+                        name="updates[]"
+                        value="50"
+                        min="0"
+                        data-index="{{ item.index | plus: 1 }}"
+                        id="Quantity-{{ item.index | plus: 1 }}"
+                      >
+                      <button
+                        class="cb-cart__qty-btn plus"
+                        name="plus"
+                        type="button"
+                        onclick="this.parentNode.querySelector('input').stepUp(); this.parentNode.querySelector('input').dispatchEvent(new Event('change', { bubbles: true }));"
+                      >
+                        +
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- Col 3: Price & Trash -->
+                  <div class="cb-cart__item-price">
+                    <div class="cb-cart__price-box">Đ 800</div>
+
+                    <cart-remove-button
+                      id="Remove-{{ item.index | plus: 1 }}"
+                      data-index="{{ item.index | plus: 1 }}"
+                    >
+                      <button
+                        class="cb-cart__remove-btn"
+                        type="button"
+                        aria-label="{{ 'sections.cart.remove_title' | t: title: item.title }}"
+                      >
+                        <svg
+                          width="14"
+                          height="16"
+                          viewBox="0 0 14 16"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path d="M1 4h12M4.5 4V2.5C4.5 1.67157 5.17157 1 6 1h2c0.82843 0 1.5 0.671573 1.5 1.5V4m-5 9.5V7.5m3 6V7.5M2.5 4v9.5c0 0.8284 0.67157 1.5 1.5 1.5h6c0.8284 0 1.5-0.6715 1.5-1.5V4" stroke="#444" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                      </button>
+                    </cart-remove-button>
+                  </div>
+                </div>
+              </div>
+            {%- endfor -%}
+          </div>
+        </cart-items>
+      </div>
+
+      <!-- Order Summary Sidebar -->
+      <div>
+        <h2 class="cb-cart__title">Order summary</h2>
+        <aside class="cb-cart__summary" id="main-cart-footer" data-id="{{ section.id }}">
+          <div class="js-contents">
+            <div class="cb-cart__summary-row">
+              <span>Subtotal</span>
+              <span>{{ cart.total_price | money }}</span>
+            </div>
+
+            <p class="cb-cart__summary-note">Shipping options will be updated during checkout.</p>
+
+            <div class="cb-cart__summary-row cb-cart__summary-row--total">
+              <span>Total</span>
+              <span>{{ cart.total_price | money }}</span>
+            </div>
+
+            <p class="cb-cart__summary-note">Prices are inclusive of VAT</p>
+
+            <div class="cb-cart__safe-checkout">Payment Methods</div>
+
+            <div class="cb-cart__payment-methods">
+              {%- if section.settings.show_payment_icons -%}
+                {%- for block in section.blocks -%}
+                  {%- if block.type == 'payment_icon' and block.settings.icon_image != blank -%}
+                    <div class="cb-footer__payment-card">
+                      <img
+                        src="{{ block.settings.icon_image | image_url: width: 150 }}"
+                        alt="{{ block.settings.icon_image.alt | default: 'Payment Icon' }}"
+                        class="cb-cart__payment-icon"
+                        style="height: {{ block.settings.icon_height }}px; width: auto; object-fit: contain;"
+                        loading="lazy"
+                        {{ block.shopify_attributes }}
+                      >
+                    </div>
+                  {%- endif -%}
+                {%- endfor -%}
+
+                {%- if section.blocks.size == 0 -%}
+                  <img
+                    src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg"
+                    class="cb-cart__payment-icon"
+                    alt="Visa"
+                  >
+                  <img
+                    src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg"
+                    class="cb-cart__payment-icon"
+                    alt="Apple Pay"
+                    style="height:20px"
+                  >
+                  <img
+                    src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg"
+                    class="cb-cart__payment-icon"
+                    style="height:15px; margin-top:5px"
+                    alt="PayPal"
+                  >
+                  <img
+                    src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg"
+                    class="cb-cart__payment-icon"
+                    alt="Mastercard"
+                  >
+                {%- endif -%}
+              {%- endif -%}
+            </div>
+
+            <div
+              class="cb-cart__safe-checkout"
+              style="margin-top:20px; font-weight:600; border-top:1px solid #eee; padding-top:15px"
+            >
+              Guaranteed Safe Checkout
+            </div>
+
+            <!-- Tabby Widget Placeholder -->
+            <div class="cb-cart__installment">
+              <div class="cb-cart__installment-logo">
+                <img src="{{ 'tabby.png' | asset_url }}" alt="Tabby">
+              </div>
+              <p class="cb-cart__installment-text">
+                Pay 4 interest-free payments of <span>Learn more...</span>
+              </p>
+              <div class="cb-cart__installment-table">
+                {% assign installment_price = cart.total_price | divided_by: 4 %}
+                <div class="cb-cart__installment-step">
+                  <b>{{ installment_price | money }}</b>Today
+                </div>
+                <div class="cb-cart__installment-step">
+                  <b>{{ installment_price | money }}</b>In 1 month
+                </div>
+                <div class="cb-cart__installment-step">
+                  <b>{{ installment_price | money }}</b>In 2 month
+                </div>
+                <div class="cb-cart__installment-step">
+                  <b>{{ installment_price | money }}</b>In 3 month
+                </div>
+              </div>
+            </div>
+
+            <!-- Tamara Widget Placeholder -->
+            <div class="cb-cart__installment cb-cart__installment--tamara">
+              <div class="cb-cart__installment-logo">
+                <img src="{{ 'tamara.png' | asset_url }}" alt="Tamara">
+              </div>
+              <p class="cb-cart__installment-text">
+                Pay 4 interest-free payments of <span>Learn more...</span>
+              </p>
+              <div class="cb-cart__installment-table">
+                <div class="cb-cart__installment-step">
+                  <b>{{ installment_price | money }}</b>Today
+                </div>
+                <div class="cb-cart__installment-step">
+                  <b>{{ installment_price | money }}</b>In 1 month
+                </div>
+                <div class="cb-cart__installment-step">
+                  <b>{{ installment_price | money }}</b>In 2 month
+                </div>
+                <div class="cb-cart__installment-step">
+                  <b>{{ installment_price | money }}</b>In 3 month
+                </div>
+              </div>
+            </div>
+
+            <a href="/checkout" class="cb-cart__checkout-btn"> Checkout </a>
+
+            <div class="cb-cart__delivery-info">
+              <div class="cb-cart__delivery-text">
+                <span class="cb-cart__truck-icon">🚚</span>
+                Delivered in 1-2 working days
+              </div>
+              <div class="cb-cart__reviews">
+                <span class="cb-cart__stars">★★★★★</span>
+                14 reviews
+              </div>
+            </div>
+
+            <a href="{{ routes.all_products_collection_url }}" class="cb-cart__continue-shopping">
+              <span class="cb-cart__arrow">←</span> Continue shopping
+            </a>
+          </div>
+        </aside>
+      </div>
+    {%- else -%}
+      <div class="cb-cart__empty text-center">
+        <h2 class="cb-cart__empty-title">{{ 'sections.cart.empty' | t }}</h2>
+        <a
+          href="{{ routes.all_products_collection_url }}"
+          class="cb-cart__checkout-btn"
+          style="display:inline-block; width:auto; padding: 15px 40px;"
+        >
+          {{ 'general.continue_shopping' | t }}
+        </a>
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Custom Cart",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_payment_icons",
+      "label": "Show Payment Icons",
+      "default": true
+    }
+  ],
+  "blocks": [
+    {
+      "type": "payment_icon",
+      "name": "Payment Icon",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon_image",
+          "label": "Payment Icon Image"
+        },
+        {
+          "type": "range",
+          "id": "icon_height",
+          "min": 10,
+          "max": 50,
+          "step": 1,
+          "unit": "px",
+          "label": "Icon Height",
+          "default": 24
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Cart",
+      "blocks": [{ "type": "payment_icon" }, { "type": "payment_icon" }]
+    }
+  ]
+}
+{% endschema %}
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Handle Motorised option selector mockup
+    document.querySelectorAll('.cb-cart__option-item').forEach((item) => {
+      item.addEventListener('click', function () {
+        const parent = this.closest('.cb-cart__option-selector');
+        parent.querySelectorAll('.cb-cart__option-item').forEach((i) => {
+          i.classList.remove('cb-cart__option-item--selected');
+          const label = i.querySelector('.cb-cart__option-selected-label');
+          if (label) label.remove();
+        });
+
+        this.classList.add('cb-cart__option-item--selected');
+        const selectedLabel = document.createElement('div');
+        selectedLabel.className = 'cb-cart__option-selected-label';
+        selectedLabel.innerHTML = '<span class="cb-cart__option-selected-icon">✓</span> Selected';
+        this.appendChild(selectedLabel);
+
+        // Note: Real implementation would trigger a variant change via Cart AJAX API
+        console.log('Selected option:', this.innerText.trim());
+      });
+    });
+  });
+</script>
