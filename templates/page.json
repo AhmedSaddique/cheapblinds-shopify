@@ -160,6 +160,7 @@
       ],
       "name": "Google Reviews Slider",
       "settings": {
+        "logo": "shopify://shop_images/cropped-cheapblinds_logo_colour_1_1x_1.png",
         "title": "Google Reviews from Our Customers",
         "review_count": "84,290",
         "write_link": "",
