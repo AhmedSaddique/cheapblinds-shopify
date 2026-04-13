@@ -43,26 +43,53 @@
                         <div>Standard brackets</div>
                       </div>
                     </div>
-                    <!-- Motorised Option Selection (Static Mockup) -->
+                    <!-- Motorised Option Selection (Form Toggleable) -->
                     <div class="cb-cart__option-selector">
-                      <div class="cb-cart__option-item">
-                        <div class="cb-cart__option-radio">
-                          <span class="cb-cart__option-radio-circle"></span>
-                          Without Motorised
+                      <label class="cb-cart__option-item">
+                        <input
+                          type="radio"
+                          name="motorised-{{ item.index }}"
+                          value="without"
+                          class="cb-cart__option-input visually-hidden"
+                          checked
+                        >
+                        <div class="cb-cart__option-content">
+                          <div class="cb-cart__option-selected-label">
+                            <span class="cb-cart__option-selected-icon">✓</span>
+                            Selected
+                          </div>
+                          <div class="cb-cart__option-radio">
+                            <span class="cb-cart__option-radio-circle"></span>
+                            Without Motorised
+                          </div>
+                          <div class="cb-cart__option-price cb-price-with-icon">
+                            {{- 'icon-currency.svg' | inline_asset_content -}}
+                            <span>315</span>
+                          </div>
                         </div>
-                        <div class="cb-cart__option-price">Đ 315</div>
-                      </div>
-                      <div class="cb-cart__option-item cb-cart__option-item--selected">
-                        <div class="cb-cart__option-selected-label">
-                          <span class="cb-cart__option-selected-icon">✓</span>
-                          Selected
+                      </label>
+                      <label class="cb-cart__option-item">
+                        <input
+                          type="radio"
+                          name="motorised-{{ item.index }}"
+                          value="motorised"
+                          class="cb-cart__option-input visually-hidden"
+                        >
+                        <div class="cb-cart__option-content">
+                          <div class="cb-cart__option-selected-label">
+                            <span class="cb-cart__option-selected-icon">✓</span>
+                            Selected
+                          </div>
+                          <div class="cb-cart__option-radio">
+                            <span class="cb-cart__option-radio-circle"></span>
+                            Motorised <span class="cb-cart__option-tag">MOTORISED</span>
+                          </div>
+                          <div class="cb-cart__option-price cb-price-with-icon">
+                            {{- 'icon-currency.svg' | inline_asset_content -}}
+                            <span>365</span>
+                          </div>
                         </div>
-                        <div class="cb-cart__option-radio">
-                          <span class="cb-cart__option-radio-circle"></span>
-                          Motorised <span class="cb-cart__option-tag">MOTORISED</span>
-                        </div>
-                        <div class="cb-cart__option-price">Đ 315</div>
-                      </div>
+                      </label>
                     </div>
                   </div>
                 </div>
@@ -109,19 +136,22 @@
 
                   <!-- Col 3: Price & Trash -->
                   <div class="cb-cart__item-price">
-                    <div class="cb-cart__price-box">Đ 800</div>
+                    <div class="cb-cart__price-box cb-price-with-icon">
+                      {{- 'icon-currency.svg' | inline_asset_content -}}
+                      <span>800</span>
+                    </div>
 
                     <cart-remove-button
                       id="Remove-{{ item.index | plus: 1 }}"
                       data-index="{{ item.index | plus: 1 }}"
                     >
-                      <button
+                      <a
+                        href="{{ item.url_to_remove }}"
                         class="cb-cart__remove-btn"
-                        type="button"
                         aria-label="{{ 'sections.cart.remove_title' | t: title: item.title }}"
                       >
                         {{- 'icon-delete-cart.svg' | inline_asset_content -}}
-                      </button>
+                      </a>
                     </cart-remove-button>
                   </div>
                 </div>
@@ -138,14 +168,20 @@
           <div class="js-contents cb-cart__summary-box">
             <div class="cb-cart__summary-row">
               <span>Subtotal</span>
-              <span>{{ cart.total_price | money }}</span>
+              <span class="cb-price-with-icon">
+                {{- 'icon-currency.svg' | inline_asset_content -}}
+                <span>{{ cart.total_price | money_without_currency }}</span>
+              </span>
             </div>
 
             <p class="cb-cart__summary-note">Shipping options will be updated during checkout.</p>
 
             <div class="cb-cart__summary-row cb-cart__summary-row--total">
               <span>Total</span>
-              <span>{{ cart.total_price | money }}</span>
+              <span class="cb-price-with-icon">
+                {{- 'icon-currency.svg' | inline_asset_content -}}
+                <span>{{ cart.total_price | money_without_currency }}</span>
+              </span>
             </div>
 
             <p class="cb-cart__safe-checkout">Prices are inclusive of VAT</p>
@@ -214,16 +250,36 @@
               <div class="cb-cart__installment-table">
                 {% assign installment_price = cart.total_price | divided_by: 4 %}
                 <div class="cb-cart__installment-step">
-                  <b>{{ installment_price | money }}</b>Today
+                  <b
+                    ><span class="cb-price-with-icon">
+                      {{- 'icon-currency.svg' | inline_asset_content -}}
+                      <span>{{ installment_price | money_without_currency }}</span></span
+                    ></b
+                  >Today
                 </div>
                 <div class="cb-cart__installment-step">
-                  <b>{{ installment_price | money }}</b>In 1 month
+                  <b
+                    ><span class="cb-price-with-icon">
+                      {{- 'icon-currency.svg' | inline_asset_content -}}
+                      <span>{{ installment_price | money_without_currency }}</span></span
+                    ></b
+                  >In 1 month
                 </div>
                 <div class="cb-cart__installment-step">
-                  <b>{{ installment_price | money }}</b>In 2 month
+                  <b
+                    ><span class="cb-price-with-icon">
+                      {{- 'icon-currency.svg' | inline_asset_content -}}
+                      <span>{{ installment_price | money_without_currency }}</span></span
+                    ></b
+                  >In 2 month
                 </div>
                 <div class="cb-cart__installment-step">
-                  <b>{{ installment_price | money }}</b>In 3 month
+                  <b
+                    ><span class="cb-price-with-icon">
+                      {{- 'icon-currency.svg' | inline_asset_content -}}
+                      <span>{{ installment_price | money_without_currency }}</span></span
+                    ></b
+                  >In 3 month
                 </div>
               </div>
             </div>
@@ -238,16 +294,36 @@
               </p>
               <div class="cb-cart__installment-table">
                 <div class="cb-cart__installment-step">
-                  <b>{{ installment_price | money }}</b>Today
+                  <b
+                    ><span class="cb-price-with-icon">
+                      {{- 'icon-currency.svg' | inline_asset_content -}}
+                      <span>{{ installment_price | money_without_currency }}</span></span
+                    ></b
+                  >Today
                 </div>
                 <div class="cb-cart__installment-step">
-                  <b>{{ installment_price | money }}</b>In 1 month
+                  <b
+                    ><span class="cb-price-with-icon">
+                      {{- 'icon-currency.svg' | inline_asset_content -}}
+                      <span>{{ installment_price | money_without_currency }}</span></span
+                    ></b
+                  >In 1 month
                 </div>
                 <div class="cb-cart__installment-step">
-                  <b>{{ installment_price | money }}</b>In 2 month
+                  <b
+                    ><span class="cb-price-with-icon">
+                      {{- 'icon-currency.svg' | inline_asset_content -}}
+                      <span>{{ installment_price | money_without_currency }}</span></span
+                    ></b
+                  >In 2 month
                 </div>
                 <div class="cb-cart__installment-step">
-                  <b>{{ installment_price | money }}</b>In 3 month
+                  <b
+                    ><span class="cb-price-with-icon">
+                      {{- 'icon-currency.svg' | inline_asset_content -}}
+                      <span>{{ installment_price | money_without_currency }}</span></span
+                    ></b
+                  >In 3 month
                 </div>
               </div>
             </div>
@@ -330,28 +406,3 @@
   ]
 }
 {% endschema %}
-
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    // Handle Motorised option selector mockup
-    document.querySelectorAll('.cb-cart__option-item').forEach((item) => {
-      item.addEventListener('click', function () {
-        const parent = this.closest('.cb-cart__option-selector');
-        parent.querySelectorAll('.cb-cart__option-item').forEach((i) => {
-          i.classList.remove('cb-cart__option-item--selected');
-          const label = i.querySelector('.cb-cart__option-selected-label');
-          if (label) label.remove();
-        });
-
-        this.classList.add('cb-cart__option-item--selected');
-        const selectedLabel = document.createElement('div');
-        selectedLabel.className = 'cb-cart__option-selected-label';
-        selectedLabel.innerHTML = '<span class="cb-cart__option-selected-icon">✓</span> Selected';
-        this.appendChild(selectedLabel);
-
-        // Note: Real implementation would trigger a variant change via Cart AJAX API
-        console.log('Selected option:', this.innerText.trim());
-      });
-    });
-  });
-</script>
