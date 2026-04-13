@@ -11,17 +11,8 @@
   "sections": {
     "main": {
       "type": "main-page",
+      "disabled": true,
       "settings": {
-        "padding_top": 36,
-        "padding_bottom": 36
-      }
-    },
-    "form": {
-      "type": "contact-form",
-      "settings": {
-        "heading": "",
-        "heading_size": "h1",
-        "color_scheme": "scheme-1",
         "padding_top": 36,
         "padding_bottom": 36
       }
@@ -184,7 +175,7 @@
       "name": "Brand Trust Slider",
       "settings": {
         "title": "TRUSTED BY MANY INTERNATIONAL BRANDS",
-        "bg_color": "#FFF6E0",
+        "bg_color": "#fff6e0",
         "margin_top": 80,
         "margin_bottom": 60
       }
@@ -192,7 +183,6 @@
   },
   "order": [
     "main",
-    "form",
     "contact_banner_Bk3hgT",
     "help_navigation_T4UjzG",
     "custom_contact_4LTVHy",
