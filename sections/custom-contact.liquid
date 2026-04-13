@@ -1,0 +1,502 @@
+{%- style -%}
+      .section-{{ section.id }}-padding {
+        padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+        padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+      }
+
+      @media screen and (min-width: 750px) {
+        .section-{{ section.id }}-padding {
+          padding-top: {{ section.settings.padding_top }}px;
+          padding-bottom: {{ section.settings.padding_bottom }}px;
+        }
+      }
+
+     .custom-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* Large screens */
+    @media screen and (min-width: 1440px) {
+      .custom-container {
+        max-width: 1370px;
+      }
+    }
+
+    @media screen and (min-width: 1920px) {
+      .custom-container {
+        max-width: 1530px;
+      }
+    }
+
+    /* Small screens */
+    @media screen and (max-width: 749px) {
+      .custom-container {
+        padding: 0 1rem;
+      }
+    }
+
+      .contact-header {
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+
+      .contact-header h2 {
+        font-size: 24px;
+        font-weight: 600;
+        margin: 0;
+        color: #000;
+      }
+
+      @media screen and (min-width: 750px) {
+        .contact-header h2 {
+          font-size: 36px;
+          margin-bottom: 4rem;
+          margin-top: 4rem;
+        }
+      }
+
+      .contact-wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 3rem;
+      }
+
+      @media screen and (min-width: 750px) {
+        .contact-wrapper {
+          flex-direction: row;
+          align-items: flex-start;
+          gap: 0;
+        }
+
+        .contact-info {
+          padding-right: 4rem;
+        }
+
+        .contact-form-column {
+          border-left: 2px solid #000000cc;
+          margin-left: 2rem;
+          padding-left: 2rem;
+        }
+      }
+
+      .contact-info {
+        flex: 1;
+        background: #EFEFEF;
+        padding: 1rem;
+      }
+
+      .contact-info h3 {
+        font-size: 36px;
+        font-weight: 600;
+        margin: 0 0 1.5rem 0;
+        color: #000;
+      }
+
+      .contact-info p {
+        font-size: 16px;
+        line-height: 1.6;
+        color: #444;
+        font-weight: 500;
+        margin-bottom: 2rem;
+      }
+
+      .contact-details {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+
+      .contact-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+        text-decoration: none;
+        color: inherit;
+        transition: opacity 0.3s ease;
+      }
+
+      .contact-item:hover {
+        opacity: 0.8;
+      }
+
+      .contact-item svg {
+        width: 20px;
+        height: 20px;
+        flex-shrink: 0;
+        margin-top: 3px;
+      }
+
+      .contact-item span {
+        font-size: 16px;
+        font-weight: 500;
+        color: #333;
+      }
+
+      .contact-hours {
+        margin-top: 1rem;
+      }
+
+      .contact-hours-title {
+        font-weight: 700;
+        font-size: 20px;
+        margin-bottom: 1rem;
+        display: block;
+        color: #000;
+      }
+
+      .contact-map {
+        margin-top: 2rem;
+        width: 100%;
+        border-radius: 8px;
+        overflow: hidden;
+        height: 250px;
+      }
+
+      .contact-map iframe {
+        width: 100%;
+        height: 100%;
+        border: 0;
+      }
+
+      /* Form Column */
+      .contact-form-column {
+        flex: 1;
+      }
+
+      .form-subhead {
+        font-size: 16px;
+        color: #333;
+        font-weight: 600;
+      }
+
+      .form-mainhead {
+        font-size: 16px;
+        font-weight: 600;
+      }
+
+      .contact-form {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+
+      .form-field {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .form-label {
+        font-size: 16px;
+        font-weight: 600;
+        color: #333;
+      }
+
+  .form-input,
+  .form-select,
+  .form-textarea {
+    padding: 12px 16px;
+    border: 1px solid #e5e5e5;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 600;
+    width: 100%;
+    outline: none;
+    transition: border-color 0.3s ease;
+    background: #fff;
+    color: #333;
+    box-shadow: none;
+  }
+
+  .form-input:focus,
+  .form-textarea:focus {
+    border-color: #FFB800;
+    outline: none;
+    box-shadow: none;
+  }
+      .form-textarea {
+        min-height: 120px;
+        resize: vertical;
+      }
+
+      .error-message {
+        color: #f44336;
+        font-size: 13px;
+        margin-top: 4px;
+        display: none;
+      }
+
+      .form-field.has-error .error-message {
+        display: block;
+      }
+
+      .form-field.has-error .form-input,
+      .form-field.has-error .form-select {
+        border-color: #f44336 !important;
+      }
+
+      .submit-btn {
+        background: #000;
+        color: #fff;
+        padding: 14px 30px;
+        border: none;
+        border-radius: 6px;
+        font-size: 16px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        align-self: flex-start;
+      }
+
+      @media screen and (max-width: 749px) {
+        .submit-btn {
+          width: 100%;
+          background: #FFB800;
+          color: #000;
+        }
+        .contact-info h3 {
+          font-size: 24px;
+        }
+      }
+
+      .submit-btn:hover {
+        background: #FFB800;
+        color: #000;
+      }
+{%- endstyle -%}
+
+<div class="section-{{ section.id }}-padding">
+  <div class="custom-container">
+    <div class="contact-header">
+      <h2>{{ section.settings.title }}</h2>
+    </div>
+
+    <div class="contact-wrapper">
+      <!-- Info Column -->
+      <div class="contact-info">
+        <h3>{{ section.settings.info_title }}</h3>
+        <p>{{ section.settings.info_text }}</p>
+
+        <div class="contact-details">
+          <a href="mailto:{{ section.settings.email }}" class="contact-item">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+            <span>{{ section.settings.email }}</span>
+          </a>
+
+          <a href="tel:{{ section.settings.phone | replace: ' ', '' }}" class="contact-item">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+            </svg>
+            <span>{{ section.settings.phone }}</span>
+          </a>
+
+          <div class="contact-item">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <div>
+              <span>Mon-Sat: {{ section.settings.hours_mon_sat }}</span><br>
+              <span>Sunday: {{ section.settings.hours_sun }}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-hours">
+          <span class="contact-hours-title">Opening Hours</span>
+          <div class="contact-item">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+            <span>Mon-Sat: {{ section.settings.opening_hours }}</span>
+          </div>
+        </div>
+
+        <div class="contact-map">
+          {% if section.settings.map_iframe != blank %}
+            {{ section.settings.map_iframe }}
+          {% else %}
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3611.8317772718134!2d55.2442468!3d25.1416752!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f69f21db5383f%3A0xc0f19c9616e05f0b!2sBlinds%20and%20Curtains%20Dubai!5e0!3m2!1sen!2sae!4v1712497645678!5m2!1sen!2sae"
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+            ></iframe>
+          {% endif %}
+        </div>
+      </div>
+
+      <!-- Form Column -->
+      <div class="contact-form-column">
+        <p class="form-subhead">Still Need Help?</p>
+        <h3 class="form-mainhead">Get in touch with us.</h3>
+
+        {% form 'contact' %}
+          {% if form.posted_successfully? %}
+            <p class="form-success">Thanks for contacting us. We'll get back to you as soon as possible.</p>
+          {% endif %}
+
+          {{ form.errors | default_errors }}
+
+          <div class="contact-form" id="contactForm-{{ section.id }}">
+            <div class="form-field">
+              <p class="form-subhead">Still Need Help?</p>
+              <select class="form-input" name="contact[inquiry_type]" id="ContactInquiryType">
+                <option value="" disabled selected>Contact Type</option>
+                <option value="Email">Email</option>
+                <option value="Phone">Phone</option>
+                <option value="WhatsApp">WhatsApp</option>
+                <option value="Other">Other</option>
+              </select>
+              <div class="error-message">Please select a contact type</div>
+            </div>
+
+            <div class="form-field">
+              <label class="form-label" for="ContactFormName">Your name</label>
+              <input
+                type="text"
+                id="ContactFormName"
+                name="contact[name]"
+                class="form-input"
+                required
+              >
+              <div class="error-message">Name is required</div>
+            </div>
+
+            <div class="form-field">
+              <label class="form-label" for="ContactFormEmail">Your email</label>
+              <input
+                type="email"
+                id="ContactFormEmail"
+                name="contact[email]"
+                class="form-input"
+                required
+              >
+              <div class="error-message">Email is required</div>
+            </div>
+
+            <div class="form-field">
+              <label class="form-label" for="ContactFormPhone">Mobile Number</label>
+              <input
+                type="tel"
+                id="ContactFormPhone"
+                name="contact[phone]"
+                class="form-input"
+                required
+              >
+              <div class="error-message">Phone is required</div>
+            </div>
+
+            <div class="form-field">
+              <label class="form-label" for="ContactFormMessage">Your message (optional)</label>
+              <textarea
+                id="ContactFormMessage"
+                name="contact[body]"
+                class="form-textarea"
+              ></textarea>
+            </div>
+
+            <button type="submit" class="submit-btn">Submit</button>
+          </div>
+        {% endform %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Custom Contact Form",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Main Title",
+      "default": "Need Help?"
+    },
+    {
+      "type": "header",
+      "content": "Info Column"
+    },
+    {
+      "type": "text",
+      "id": "info_title",
+      "label": "Info Title",
+      "default": "Let us know how to contact you"
+    },
+    {
+      "type": "textarea",
+      "id": "info_text",
+      "label": "Info Text",
+      "default": "Call or send us an email, and a member of our Customer Service team will be happy to help."
+    },
+    {
+      "type": "text",
+      "id": "email",
+      "label": "Email",
+      "default": "help@cheapblinds.ae"
+    },
+    {
+      "type": "text",
+      "id": "phone",
+      "label": "Phone",
+      "default": "+971 50 597 4531"
+    },
+    {
+      "type": "text",
+      "id": "hours_mon_sat",
+      "label": "Hours Mon-Sat",
+      "default": "8:30am-9:00pm"
+    },
+    {
+      "type": "text",
+      "id": "hours_sun",
+      "label": "Hours Sunday",
+      "default": "10:00am-6:00pm"
+    },
+    {
+      "type": "text",
+      "id": "opening_hours",
+      "label": "Opening Hours (Label)",
+      "default": "8:30am-9:00pm"
+    },
+    {
+      "type": "html",
+      "id": "map_iframe",
+      "label": "Map Iframe Embed Code",
+      "info": "Paste Google Maps iframe here"
+    },
+    {
+      "type": "header",
+      "content": "Section Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 36
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Contact Form"
+    }
+  ]
+}
+{% endschema %}
