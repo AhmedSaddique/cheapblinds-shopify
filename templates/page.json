@@ -17,6 +17,21 @@
         "padding_bottom": 28
       }
     },
+    "cb_breadcrumb_BXnTfx": {
+      "type": "cb-breadcrumb",
+      "name": "Custom Breadcrumbs",
+      "settings": {
+        "home_label": "Home",
+        "color_scheme": "",
+        "background_color": "transparent",
+        "link_color": "#888888",
+        "link_hover_color": "#333333",
+        "current_color": "#333333",
+        "separator_color": "#000000",
+        "padding_top": 16,
+        "padding_bottom": 16
+      }
+    },
     "custom_faq_MhcP4k": {
       "type": "custom-faq",
       "blocks": {
@@ -92,10 +107,72 @@
         "padding_top": 36,
         "padding_bottom": 36
       }
+    },
+    "custom_contact_weHdkp": {
+      "type": "custom-contact",
+      "name": "Custom Contact Form",
+      "settings": {
+        "title": "Need Help?",
+        "info_title": "Let us know how to contact you",
+        "info_text": "Call or send us an email, and a member of our Customer Service team will be happy to help.",
+        "email": "help@cheapblinds.ae",
+        "phone": "+971 50 597 4531",
+        "hours_mon_sat": "8:30am-9:00pm",
+        "hours_sun": "10:00am-6:00pm",
+        "opening_hours": "8:30am-9:00pm",
+        "map_iframe": "",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "google_reviews_ygm3rt": {
+      "type": "google-reviews",
+      "blocks": {
+        "review_XiEFRG": {
+          "type": "review",
+          "settings": {
+            "user_name": "Customer Name",
+            "date": "Jan 24, 2026",
+            "review_text": "I love this product because the support is great."
+          }
+        },
+        "review_LfeLM7": {
+          "type": "review",
+          "settings": {
+            "user_name": "Customer Name",
+            "date": "Jan 24, 2026",
+            "review_text": "I love this product because the support is great."
+          }
+        },
+        "review_gkWXnj": {
+          "type": "review",
+          "settings": {
+            "user_name": "Customer Name",
+            "date": "Jan 24, 2026",
+            "review_text": "I love this product because the support is great."
+          }
+        }
+      },
+      "block_order": [
+        "review_XiEFRG",
+        "review_LfeLM7",
+        "review_gkWXnj"
+      ],
+      "name": "Google Reviews Slider",
+      "settings": {
+        "title": "Google Reviews from Our Customers",
+        "review_count": "84,290",
+        "write_link": "",
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
     }
   },
   "order": [
     "main",
-    "custom_faq_MhcP4k"
+    "cb_breadcrumb_BXnTfx",
+    "custom_faq_MhcP4k",
+    "custom_contact_weHdkp",
+    "google_reviews_ygm3rt"
   ]
 }
