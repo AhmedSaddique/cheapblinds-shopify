@@ -11,13 +11,74 @@
   "sections": {
     "main": {
       "type": "main-page",
+      "disabled": true,
       "settings": {
         "padding_top": 28,
         "padding_bottom": 28
       }
+    },
+    "cb_breadcrumb_BXnTfx": {
+      "type": "cb-breadcrumb",
+      "name": "Custom Breadcrumbs",
+      "settings": {
+        "home_label": "Home",
+        "color_scheme": "",
+        "background_color": "rgba(0,0,0,0)",
+        "link_color": "#888888",
+        "link_hover_color": "#333333",
+        "current_color": "#333333",
+        "separator_color": "#000000",
+        "padding_top": 16,
+        "padding_bottom": 16
+      }
+    },
+    "google_reviews_ygm3rt": {
+      "type": "google-reviews",
+      "blocks": {
+        "review_XiEFRG": {
+          "type": "review",
+          "settings": {
+            "user_name": "Customer Name",
+            "date": "Jan 24, 2026",
+            "review_text": "I love this product because the support is great."
+          }
+        },
+        "review_LfeLM7": {
+          "type": "review",
+          "settings": {
+            "user_name": "Customer Name",
+            "date": "Jan 24, 2026",
+            "review_text": "I love this product because the support is great."
+          }
+        },
+        "review_gkWXnj": {
+          "type": "review",
+          "settings": {
+            "user_name": "Customer Name",
+            "date": "Jan 24, 2026",
+            "review_text": "I love this product because the support is great."
+          }
+        }
+      },
+      "block_order": [
+        "review_XiEFRG",
+        "review_LfeLM7",
+        "review_gkWXnj"
+      ],
+      "name": "Google Reviews Slider",
+      "settings": {
+        "logo": "shopify://shop_images/cropped-cheapblinds_logo_colour_1_1x_1.png",
+        "title": "Google Reviews from Our Customers",
+        "review_count": "84,290",
+        "write_link": "",
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "cb_breadcrumb_BXnTfx",
+    "google_reviews_ygm3rt"
   ]
 }

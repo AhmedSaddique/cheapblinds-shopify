@@ -11,24 +11,182 @@
   "sections": {
     "main": {
       "type": "main-page",
+      "disabled": true,
       "settings": {
         "padding_top": 36,
         "padding_bottom": 36
       }
     },
-    "form": {
-      "type": "contact-form",
+    "contact_banner_Bk3hgT": {
+      "type": "contact-banner",
+      "name": "Contact Banner",
       "settings": {
-        "heading": "",
-        "heading_size": "h1",
-        "color_scheme": "scheme-1",
+        "image_desktop": "shopify://shop_images/contactbanner.webp",
+        "image_mobile": "shopify://shop_images/mobile-contact.webp",
+        "link": "",
+        "full_width": true,
         "padding_top": 36,
         "padding_bottom": 36
+      }
+    },
+    "help_navigation_T4UjzG": {
+      "type": "help-navigation",
+      "blocks": {
+        "card_PQneKJ": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/h1.png",
+            "title": "Help making an order",
+            "text": "<p>If you would like help placing an order, click below</p>",
+            "button_label": "Sales Help",
+            "button_link": ""
+          }
+        },
+        "card_G9iyUW": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/h2.png",
+            "title": "Help with an existing order",
+            "text": "<p>If you would like help with an existing order, click below</p>",
+            "button_label": "Order Help",
+            "button_link": ""
+          }
+        },
+        "card_WPxNgy": {
+          "type": "card",
+          "settings": {
+            "image": "shopify://shop_images/h3.png",
+            "title": "Help with delivery",
+            "text": "<p>If you would like help with delivery, click below</p>",
+            "button_label": "Delivery Help",
+            "button_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "card_PQneKJ",
+        "card_G9iyUW",
+        "card_WPxNgy"
+      ],
+      "name": "Help Navigation Cards",
+      "settings": {
+        "title": "How can we help you?",
+        "heading_size": "h1",
+        "background_color": "#ffffff",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "custom_contact_4LTVHy": {
+      "type": "custom-contact",
+      "name": "Custom Contact Form",
+      "settings": {
+        "title": "Need Help?",
+        "info_title": "Let us know how to contact you",
+        "info_text": "Call or send us an email, and a member of our Customer Service team will be happy to help.",
+        "email": "help@cheapblinds.ae",
+        "phone": "+971 50 597 4531",
+        "hours_mon_sat": "8:30am-9:00pm",
+        "hours_sun": "10:00am-6:00pm",
+        "opening_hours": "8:30am-9:00pm",
+        "map_iframe": "",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "google_reviews_yb3nze": {
+      "type": "google-reviews",
+      "blocks": {
+        "review_xbFxYU": {
+          "type": "review",
+          "settings": {
+            "user_name": "Customer Name",
+            "date": "Jan 24, 2026",
+            "review_text": "I love this product because the support is great."
+          }
+        },
+        "review_3xRag6": {
+          "type": "review",
+          "settings": {
+            "user_name": "Customer Name",
+            "date": "Jan 24, 2026",
+            "review_text": "I love this product because the support is great."
+          }
+        },
+        "review_UCiE6U": {
+          "type": "review",
+          "settings": {
+            "user_name": "Customer Name",
+            "date": "Jan 24, 2026",
+            "review_text": "I love this product because the support is great."
+          }
+        }
+      },
+      "block_order": [
+        "review_xbFxYU",
+        "review_3xRag6",
+        "review_UCiE6U"
+      ],
+      "name": "Google Reviews Slider",
+      "settings": {
+        "title": "Google Reviews from Our Customers",
+        "review_count": "84,290",
+        "write_link": "",
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    },
+    "brand_trust_slider_7XUcdn": {
+      "type": "brand-trust-slider",
+      "blocks": {
+        "logo_QhcyjB": {
+          "type": "logo",
+          "settings": {}
+        },
+        "logo_xgiewb": {
+          "type": "logo",
+          "settings": {}
+        },
+        "logo_yrrgxM": {
+          "type": "logo",
+          "settings": {}
+        },
+        "logo_cUmXmQ": {
+          "type": "logo",
+          "settings": {}
+        },
+        "logo_Ea7NJ8": {
+          "type": "logo",
+          "settings": {}
+        },
+        "logo_gLDc97": {
+          "type": "logo",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "logo_QhcyjB",
+        "logo_xgiewb",
+        "logo_yrrgxM",
+        "logo_cUmXmQ",
+        "logo_Ea7NJ8",
+        "logo_gLDc97"
+      ],
+      "name": "Brand Trust Slider",
+      "settings": {
+        "title": "TRUSTED BY MANY INTERNATIONAL BRANDS",
+        "bg_color": "#fff6e0",
+        "margin_top": 80,
+        "margin_bottom": 60
       }
     }
   },
   "order": [
     "main",
-    "form"
+    "contact_banner_Bk3hgT",
+    "help_navigation_T4UjzG",
+    "custom_contact_4LTVHy",
+    "google_reviews_yb3nze",
+    "brand_trust_slider_7XUcdn"
   ]
 }
