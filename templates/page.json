@@ -23,106 +23,13 @@
       "settings": {
         "home_label": "Home",
         "color_scheme": "",
-        "background_color": "transparent",
+        "background_color": "rgba(0,0,0,0)",
         "link_color": "#888888",
         "link_hover_color": "#333333",
         "current_color": "#333333",
         "separator_color": "#000000",
         "padding_top": 16,
         "padding_bottom": 16
-      }
-    },
-    "custom_faq_MhcP4k": {
-      "type": "custom-faq",
-      "blocks": {
-        "faq_item_qehK66": {
-          "type": "faq_item",
-          "settings": {
-            "category": "Products",
-            "question": "Our measuring and fitting guides help?",
-            "answer": "<p>Thanks to their neutral colourway, cream blinds present the ideal addition to any room, irrespective of scheme and style. So, whether your home is a neutral oasis packed with sumptuous soft hues, or you reside in a mood-boosting, colour-pop space that's packed with vibrant decorative touches, a set of cream blinds will blend seamlessly with your aesthetic.</p>"
-          }
-        },
-        "faq_item_f8DdK3": {
-          "type": "faq_item",
-          "settings": {
-            "category": "Measuring",
-            "question": "Our measuring and fitting guides help?",
-            "answer": "<p>Thanks to their neutral colourway, cream blinds present the ideal addition to any room, irrespective of scheme and style. So, whether your home is a neutral oasis packed with sumptuous soft hues, or you reside in a mood-boosting, colour-pop space that's packed with vibrant decorative touches, a set of cream blinds will blend seamlessly with your aesthetic.</p>"
-          }
-        },
-        "faq_item_YRG6iM": {
-          "type": "faq_item",
-          "settings": {
-            "category": "Fitting",
-            "question": "Our measuring and fitting guides help?",
-            "answer": "<p>Thanks to their neutral colourway, cream blinds present the ideal addition to any room, irrespective of scheme and style. So, whether your home is a neutral oasis packed with sumptuous soft hues, or you reside in a mood-boosting, colour-pop space that's packed with vibrant decorative touches, a set of cream blinds will blend seamlessly with your aesthetic.</p>"
-          }
-        },
-        "faq_item_z6BxNJ": {
-          "type": "faq_item",
-          "settings": {
-            "category": "Support",
-            "question": "Our measuring and fitting guides help?",
-            "answer": "<p>Thanks to their neutral colourway, cream blinds present the ideal addition to any room, irrespective of scheme and style. So, whether your home is a neutral oasis packed with sumptuous soft hues, or you reside in a mood-boosting, colour-pop space that's packed with vibrant decorative touches, a set of cream blinds will blend seamlessly with your aesthetic.</p>"
-          }
-        },
-        "faq_item_8pij7f": {
-          "type": "faq_item",
-          "settings": {
-            "category": "Measuring",
-            "question": "Our measuring and fitting guides help?",
-            "answer": "<p>Thanks to their neutral colourway, cream blinds present the ideal addition to any room, irrespective of scheme and style. So, whether your home is a neutral oasis packed with sumptuous soft hues, or you reside in a mood-boosting, colour-pop space that's packed with vibrant decorative touches, a set of cream blinds will blend seamlessly with your aesthetic.</p>"
-          }
-        },
-        "faq_item_D4DNMY": {
-          "type": "faq_item",
-          "settings": {
-            "category": "Products",
-            "question": "Our measuring and fitting guides help?",
-            "answer": "<p>Thanks to their neutral colourway, cream blinds present the ideal addition to any room, irrespective of scheme and style. So, whether your home is a neutral oasis packed with sumptuous soft hues, or you reside in a mood-boosting, colour-pop space that's packed with vibrant decorative touches, a set of cream blinds will blend seamlessly with your aesthetic.</p>"
-          }
-        },
-        "faq_item_V9xa8B": {
-          "type": "faq_item",
-          "settings": {
-            "category": "Deliveries",
-            "question": "Our measuring and fitting guides help?",
-            "answer": "<p>Thanks to their neutral colourway, cream blinds present the ideal addition to any room, irrespective of scheme and style. So, whether your home is a neutral oasis packed with sumptuous soft hues, or you reside in a mood-boosting, colour-pop space that's packed with vibrant decorative touches, a set of cream blinds will blend seamlessly with your aesthetic.</p>"
-          }
-        }
-      },
-      "block_order": [
-        "faq_item_qehK66",
-        "faq_item_f8DdK3",
-        "faq_item_YRG6iM",
-        "faq_item_z6BxNJ",
-        "faq_item_8pij7f",
-        "faq_item_D4DNMY",
-        "faq_item_V9xa8B"
-      ],
-      "name": "Custom FAQ",
-      "settings": {
-        "title": "Frequently Asked Question",
-        "padding_top": 36,
-        "padding_bottom": 36
-      }
-    },
-    "custom_contact_weHdkp": {
-      "type": "custom-contact",
-      "name": "Custom Contact Form",
-      "settings": {
-        "title": "Need Help?",
-        "info_title": "Let us know how to contact you",
-        "info_text": "Call or send us an email, and a member of our Customer Service team will be happy to help.",
-        "email": "help@cheapblinds.ae",
-        "phone": "+971 50 597 4531",
-        "hours_mon_sat": "8:30am-9:00pm",
-        "hours_sun": "10:00am-6:00pm",
-        "opening_hours": "8:30am-9:00pm",
-        "map_iframe": "",
-        "padding_top": 36,
-        "padding_bottom": 36
       }
     },
     "google_reviews_ygm3rt": {
@@ -172,8 +79,6 @@
   "order": [
     "main",
     "cb_breadcrumb_BXnTfx",
-    "custom_faq_MhcP4k",
-    "custom_contact_weHdkp",
     "google_reviews_ygm3rt"
   ]
 }
