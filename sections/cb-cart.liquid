@@ -71,6 +71,7 @@
                 <div class="cb-cart__mobile-header">
                   <span>Quantity</span>
                   <span>Unit price</span>
+                  <span></span>
                 </div>
 
                 <!-- Col 2 & 3 Mobile Wrapper -->
@@ -155,7 +156,7 @@
               <span>{{ cart.total_price | money }}</span>
             </div>
 
-            <p class="cb-cart__summary-note">Prices are inclusive of VAT</p>
+            <p class="cb-cart__safe-checkout">Prices are inclusive of VAT</p>
 
             <div class="cb-cart__safe-checkout">Payment Methods</div>
 
@@ -205,7 +206,7 @@
 
             <div
               class="cb-cart__safe-checkout"
-              style="margin-top:20px; font-weight:600; border-top:1px solid #eee; padding-top:15px"
+              style="margin-top:20px; margin-bottom:20px; font-weight:600; border-top:1px solid #eee; padding-top:15px"
             >
               Guaranteed Safe Checkout
             </div>
@@ -263,7 +264,9 @@
 
             <div class="cb-cart__delivery-info">
               <div class="cb-cart__delivery-text">
-                <span class="cb-cart__truck-icon">🚚</span>
+                <span class="cb-cart__truck-icon">
+                  {{- 'icon-truck-cart.svg' | inline_asset_content -}}
+                </span>
                 Delivered in 1-2 working days
               </div>
               <div class="cb-cart__reviews">
@@ -271,12 +274,12 @@
                 14 reviews
               </div>
             </div>
-
-            <a href="{{ routes.all_products_collection_url }}" class="cb-cart__continue-shopping">
-              <span class="cb-cart__arrow">←</span> Continue shopping
-            </a>
           </div>
         </aside>
+        <a href="{{ routes.all_products_collection_url }}" class="cb-cart__continue-shopping">
+          <span class="cb-cart__arrow">{{- 'icon-arrow-cart.svg' | inline_asset_content -}}</span>
+          Continue shopping
+        </a>
       </div>
     {%- else -%}
       <div class="cb-cart__empty text-center">
