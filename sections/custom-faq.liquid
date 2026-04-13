@@ -1,0 +1,499 @@
+{%- style -%}
+          .section-{{ section.id }}-padding {
+            padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+            padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+          }
+
+          @media screen and (min-width: 750px) {
+            .section-{{ section.id }}-padding {
+              padding-top: {{ section.settings.padding_top }}px;
+              padding-bottom: {{ section.settings.padding_bottom }}px;
+            }
+          }
+
+          .faq-container-{{ section.id }} {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+          }
+
+          @media screen and (min-width: 1440px) {
+            .faq-container-{{ section.id }} {
+              max-width: 1370px;
+            }
+          }
+
+          @media screen and (min-width: 1920px) {
+            .faq-container-{{ section.id }} {
+              max-width: 1530px;
+            }
+          }
+
+          .faq-header {
+            text-align: center;
+            margin-bottom: 3rem;
+          }
+
+          .faq-title {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: #000;
+          }
+
+          .faq-tabs-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 3rem;
+          }
+
+          .faq-tabs-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            position: sticky;
+            top: 0;
+            background: #fff;
+          padding: 2.5rem 0;
+            z-index: 10;
+          }
+
+          .faq-tabs {
+            display: flex;
+          gap: 20px;
+            overflow-x: auto;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+          padding: 10px;
+            justify-content: center;
+          }
+
+          .faq-tabs::-webkit-scrollbar {
+            display: none;
+          }
+
+          .faq-tab {
+            padding: 10px 24px;
+            border: 1.5px solid #FFB800 !important;
+            border-radius: 30px;
+            background-color: #ffffff !important;
+            color: #000 !important;
+            cursor: pointer;
+            white-space: nowrap;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 16px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+          }
+
+        .faq-tab.active {
+          background-color: #FFB800 !important; /* active yellow */
+          color: #000 !important;
+        }
+          .faq-content {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+          }
+
+          .faq-section {
+            scroll-margin-top: 100px;
+          }
+
+          .faq-category-title {
+            color: #FFB800;
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-align: left;
+          }
+
+          .faq-items {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+          }
+
+          .faq-item {
+            border-radius: 4px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+          }
+
+          .faq-question-wrapper {
+            background: #F9F9F9;
+            padding: 16px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            user-select: none;
+            transition: background 0.3s ease;
+          }
+
+          .faq-question {
+            font-weight: 500;
+            font-size: 16px;
+            color: #333;
+            padding-right: 15px;
+          }
+
+         .faq-icon-box {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background-color: #FFB800;
+        position: relative;
+        flex-shrink: 0;
+      }
+
+      .faq-icon-box svg {
+        width: 12px;
+        height: 12px;
+        transition: transform 0.3s ease;
+      }
+
+      @media screen and (max-width: 640px) {
+        .faq-icon-box {
+          width: 16px;
+          height: 16px;
+        }
+
+        .faq-icon-box svg {
+          width: 8px;
+          height: 8px;
+        }
+      }
+          .faq-icon-box .bar-vertical {
+            transition: all 0.3s ease;
+            transform-origin: center;
+          }
+
+          .faq-item.active .faq-icon-box .bar-vertical {
+            transform: rotate(90deg);
+            opacity: 0;
+          }
+
+          .faq-answer-wrapper {
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            background: #F4F4F4;
+          }
+
+          .faq-item.active .faq-answer-wrapper {
+            max-height: 1000px;
+          }
+
+          .faq-answer {
+            padding: 20px;
+            font-size: 16px;
+            line-height: 1.6;
+            color: #555;
+          }
+
+    .mobile-dots {
+      display: none;
+    }
+
+    @media screen and (max-width: 749px) {
+      .mobile-dots {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 10px;
+        margin-top: 20px;
+        padding-bottom: 10px;
+      }
+
+   .dot {
+    width: 10px !important;
+    height: 10px !important;
+    min-width: 10px !important;
+    min-height: 10px !important;
+    background-color: #BDBDBD !important;
+    border-radius: 50% !important;
+    cursor: pointer;
+    display: block !important;
+  }
+
+  .dot.active {
+    background-color: #FFB800 !important;
+  }
+    }
+
+
+          @media screen and (max-width: 749px) {
+            .faq-container-{{ section.id }} {
+                padding: 0 1rem;
+            }
+            .faq-title {
+              font-size: 24px;
+            }
+            .faq-tabs {
+                justify-content: flex-start;
+                padding: 5px 20px;
+                width: 100%;
+                gap: 10px;
+            }
+            .faq-tabs-container {
+          border-bottom: 1px solid #E5E5E5;
+          box-shadow: 0 5px 10px -10px rgba(0,0,0,0.2);
+          background: #ffffff;
+          padding: 10px 0;
+          margin-left: -1.5rem;
+          margin-right: -1.5rem;
+          width: calc(100% + 3rem);
+      }
+
+            .faq-tab {
+                padding: 8px 18px;
+                font-size: 14px;
+            }
+
+            .faq-question {
+                font-size: 14px;
+            }
+            .faq-answer {
+                font-size: 14px;
+            }
+            .faq-category-title {
+                font-size: 18px;
+            }
+          }
+{%- endstyle -%}
+
+{%- liquid
+  assign categories_raw = ''
+  for block in section.blocks
+    assign cat = block.settings.category | strip
+    if cat != ''
+      unless categories_raw contains cat
+        assign categories_raw = categories_raw | append: cat | append: '|'
+      endunless
+    endif
+  endfor
+  assign category_list = categories_raw | split: '|'
+-%}
+
+<div class="faq-container-{{ section.id }} section-{{ section.id }}-padding">
+  <div class="faq-header">
+    <h2 class="faq-title">{{ section.settings.title }}</h2>
+
+    <div class="faq-tabs-wrapper">
+      <div class="faq-tabs-container">
+        <div class="faq-tabs" id="faqTabs-{{ section.id }}">
+          {%- for cat in category_list -%}
+            <button class="faq-tab{% if forloop.first %} active{% endif %}" data-target="{{ cat | handleize }}">
+              <span class="faq-tab-label">{{ cat }}</span>
+            </button>
+          {%- endfor -%}
+        </div>
+      </div>
+
+      <div class="mobile-dots" id="faqDots-{{ section.id }}">
+        {%- for cat in category_list -%}
+          <div class="dot{% if forloop.first %} active{% endif %}" data-index="{{ forloop.index0 }}"></div>
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+
+  <div class="faq-content">
+    {%- for cat in category_list -%}
+      <div id="{{ cat | handleize }}" class="faq-section" data-index="{{ forloop.index0 }}">
+        <h3 class="faq-category-title">{{ cat }}</h3>
+        <div class="faq-items">
+          {%- for block in section.blocks -%}
+            {%- if block.settings.category == cat -%}
+              <div class="faq-item" {{ block.shopify_attributes }}>
+                <div class="faq-question-wrapper">
+                  <div class="faq-question">{{ block.settings.question }}</div>
+                  <div class="faq-icon-box">
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M1 6H11" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      <path class="bar-vertical" d="M6 1V11" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </div>
+                </div>
+                <div class="faq-answer-wrapper">
+                  <div class="faq-answer">
+                    {{ block.settings.answer }}
+                  </div>
+                </div>
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </div>
+    {%- endfor -%}
+  </div>
+</div>
+
+<script>
+  (function () {
+    function initFaq() {
+      const section = document.querySelector('.faq-container-{{ section.id }}');
+      if (!section) return;
+
+      const tabs = section.querySelectorAll('.faq-tab');
+      const dots = section.querySelectorAll('.dot');
+      const faqSections = section.querySelectorAll('.faq-section');
+      const questions = section.querySelectorAll('.faq-question-wrapper');
+      const tabsScrollContainer = section.querySelector('.faq-tabs');
+
+      // 1. Accordion toggle logic
+      questions.forEach((q) => {
+        q.addEventListener('click', function () {
+          const item = this.closest('.faq-item');
+          item.classList.toggle('active');
+        });
+      });
+
+      // 2. Tab click logic
+      tabs.forEach((tab, index) => {
+        tab.addEventListener('click', function () {
+          tabs.forEach((t) => t.classList.remove('active'));
+          this.classList.add('active');
+
+          const targetId = this.getAttribute('data-target');
+          const targetEl = document.getElementById(targetId);
+
+          if (targetEl) {
+            const headerOffset = 130;
+            const elementPosition = targetEl.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+            window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+          }
+        });
+      });
+
+      // 3. Dot click logic
+      dots.forEach((dot, index) => {
+        dot.addEventListener('click', function () {
+          if (tabs[index]) {
+            tabs[index].scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+            tabs[index].click();
+          }
+        });
+      });
+
+      // >>> PASTE YOUR CODE HERE <<<
+      tabsScrollContainer.addEventListener('scroll', function () {
+        const containerScrollLeft = tabsScrollContainer.scrollLeft;
+        const containerWidth = tabsScrollContainer.offsetWidth;
+        const scrollCenter = containerScrollLeft + containerWidth / 2;
+
+        let closestIdx = 0;
+        let minDistance = Infinity;
+
+        tabs.forEach((tab, idx) => {
+          const tabCenter = tab.offsetLeft + tab.offsetWidth / 2;
+          const distance = Math.abs(scrollCenter - tabCenter);
+          if (distance < minDistance) {
+            minDistance = distance;
+            closestIdx = idx;
+          }
+        });
+
+        // Update dots state
+        dots.forEach((d, idx) => {
+          if (idx === closestIdx) d.classList.add('active');
+          else d.classList.remove('active');
+        });
+      });
+      // >>> END OF YOUR CODE <<<
+    }
+
+    document.addEventListener('DOMContentLoaded', initFaq);
+    if (window.Shopify && window.Shopify.designMode) {
+      document.addEventListener('shopify:section:load', initFaq);
+    }
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Custom FAQ",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Frequently Asked Question"
+    },
+    {
+      "type": "header",
+      "content": "Section Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 36
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq_item",
+      "name": "FAQ Item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "category_icon",
+          "label": "Category Icon"
+        },
+        {
+          "type": "text",
+          "id": "category",
+          "label": "Category",
+          "default": "Products",
+          "info": "Case sensitive. Items with same category will be grouped together."
+        },
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "Our measuring and fitting guides help?"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Answer",
+          "default": "<p>Thanks to their neutral colourway, cream blinds present the ideal addition to any room, irrespective of scheme and style. So, whether your home is a neutral oasis packed with sumptuous soft hues, or you reside in a mood-boosting, colour-pop space that's packed with vibrant decorative touches, a set of cream blinds will blend seamlessly with your aesthetic.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom FAQ",
+      "blocks": [
+        { "type": "faq_item" },
+        { "type": "faq_item", "settings": { "category": "Measuring" } },
+        { "type": "faq_item", "settings": { "category": "Fitting" } },
+        { "type": "faq_item", "settings": { "category": "Support" } },
+        { "type": "faq_item", "settings": { "category": "Deliveries" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

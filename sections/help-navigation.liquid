@@ -1,0 +1,295 @@
+{%- style -%}
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+      padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+    }
+
+    @media screen and (min-width: 750px) {
+      .section-{{ section.id }}-padding {
+        padding-top: {{ section.settings.padding_top }}px;
+        padding-bottom: {{ section.settings.padding_bottom }}px;
+      }
+    }
+
+    .help-navigation {
+      background-color: {{ section.settings.background_color }};
+    }
+
+   .help-navigation__title {
+    text-align: center;
+    margin-bottom: 20px;
+    font-weight: 600;
+    font-size: 24px;
+  }
+
+  /* md and above */
+  @media (min-width: 768px) {
+    .help-navigation__title {
+      font-size: 36px;
+      margin-bottom: 40px;
+    }
+  }
+    .help-navigation__wrapper {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .help-navigation__card {
+      background-color: #FFF9E7;
+      padding: 30px 20px;
+      flex: 1;
+      min-width: 240px;
+      max-width: 250px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      border-radius: 4px;
+    }
+
+    .help-navigation__icon {
+      width: 80px;
+      height: 80px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .help-navigation__icon img {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+    }
+
+    .help-navigation__heading {
+      margin: 0 0 10px 0;
+      font-size: 20px;
+      font-weight: 500;
+      line-height: 1.2;
+      color: #000;
+    }
+
+    .help-navigation__text {
+      margin: 0 0 20px 0;
+      font-size: 16px;
+      line-height: 1.5;
+      color: #333;
+      max-width: 250px;
+    }
+
+    .help-navigation__button {
+      background-color: #FFB800;
+      color: #000;
+      padding: 12px 30px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 16px;
+      margin-top: auto;
+      transition: transform 0.2s ease;
+    }
+
+    .help-navigation__button:hover {
+      transform: scale(1.02);
+    }
+
+    @media screen and (max-width: 749px) {
+      .help-navigation__wrapper {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        justify-content: flex-start;
+        padding-bottom: 20px;
+        -webkit-overflow-scrolling: touch;
+        gap: 15px;
+        padding-right: 24px;
+      }
+
+      .help-navigation__wrapper::-webkit-scrollbar {
+        display: none;
+      }
+
+      .help-navigation__card {
+        scroll-snap-align: center;
+        padding: 25px 15px;
+      }
+
+      .help-navigation__heading {
+        font-size: 20px;
+      }
+    }
+{%- endstyle -%}
+
+<div class="help-navigation section-{{ section.id }}-padding">
+  <div class="custom-container">
+    {%- if section.settings.title != blank -%}
+      <h2 class="help-navigation__title {{ section.settings.heading_size }}">
+        {{ section.settings.title }}
+      </h2>
+    {%- endif -%}
+
+    <div class="help-navigation__wrapper">
+      {%- for block in section.blocks -%}
+        <div class="help-navigation__card" {{ block.shopify_attributes }}>
+          <div class="help-navigation__icon">
+            {%- if block.settings.image != blank -%}
+              {{ block.settings.image | image_url: width: 200 | image_tag: loading: 'lazy' }}
+            {%- else -%}
+              {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+            {%- endif -%}
+          </div>
+
+          {%- if block.settings.title != blank -%}
+            <h3 class="help-navigation__heading">{{ block.settings.title }}</h3>
+          {%- endif -%}
+
+          {%- if block.settings.text != blank -%}
+            <div class="help-navigation__text">{{ block.settings.text }}</div>
+          {%- endif -%}
+
+          {%- if block.settings.button_label != blank -%}
+            <a href="{{ block.settings.button_link | default: '#' }}" class="help-navigation__button">
+              {{ block.settings.button_label }}
+            </a>
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Help Navigation Cards",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "How can we help you?"
+    },
+    {
+      "type": "select",
+      "id": "heading_size",
+      "options": [
+        {
+          "value": "h2",
+          "label": "Small"
+        },
+        {
+          "value": "h1",
+          "label": "Medium"
+        },
+        {
+          "value": "h0",
+          "label": "Large"
+        }
+      ],
+      "default": "h1",
+      "label": "Heading Size"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Section Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 36
+    }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Card",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Icon Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "Help Topic"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>Description of the help topic goes here.</p>"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button Label",
+          "default": "Click Here"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Help Navigation Cards",
+      "blocks": [
+        {
+          "type": "card",
+          "settings": {
+            "title": "Help making an order",
+            "text": "<p>If you would like help placing an order, click below</p>",
+            "button_label": "Sales Help"
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "title": "Help with an existing order",
+            "text": "<p>If you would like help with an existing order, click below</p>",
+            "button_label": "Order Help"
+          }
+        },
+        {
+          "type": "card",
+          "settings": {
+            "title": "Help with delivery",
+            "text": "<p>If you would like help with delivery, click below</p>",
+            "button_label": "Delivery Help"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
