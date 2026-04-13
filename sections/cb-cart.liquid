@@ -120,15 +120,7 @@
                         type="button"
                         aria-label="{{ 'sections.cart.remove_title' | t: title: item.title }}"
                       >
-                        <svg
-                          width="14"
-                          height="16"
-                          viewBox="0 0 14 16"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path d="M1 4h12M4.5 4V2.5C4.5 1.67157 5.17157 1 6 1h2c0.82843 0 1.5 0.671573 1.5 1.5V4m-5 9.5V7.5m3 6V7.5M2.5 4v9.5c0 0.8284 0.67157 1.5 1.5 1.5h6c0.8284 0 1.5-0.6715 1.5-1.5V4" stroke="#444" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
+                        {{- 'icon-delete-cart.svg' | inline_asset_content -}}
                       </button>
                     </cart-remove-button>
                   </div>
@@ -143,7 +135,7 @@
       <div>
         <h2 class="cb-cart__title">Order summary</h2>
         <aside class="cb-cart__summary" id="main-cart-footer" data-id="{{ section.id }}">
-          <div class="js-contents">
+          <div class="js-contents cb-cart__summary-box">
             <div class="cb-cart__summary-row">
               <span>Subtotal</span>
               <span>{{ cart.total_price | money }}</span>
@@ -206,7 +198,7 @@
 
             <div
               class="cb-cart__safe-checkout"
-              style="margin-top:20px; margin-bottom:20px; font-weight:600; border-top:1px solid #eee; padding-top:15px"
+              style="margin-top:10px; margin-bottom:20px; font-weight:600; padding-top:15px"
             >
               Guaranteed Safe Checkout
             </div>
