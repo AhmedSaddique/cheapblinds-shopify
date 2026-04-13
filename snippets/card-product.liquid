@@ -122,8 +122,12 @@
               data-product-price="{{ card_product.price | money | escape }}"
               data-product-url="{{ card_product.url }}"
               data-product-image="{% if card_product.featured_media %}{{ card_product.featured_media | image_url: width: 300 }}{% endif %}"
-            >{{ card_btn_text | default: 'Free Sample' }}</button>
-            <button class="cb-wishlist-button" aria-label="Add to wishlist"
+            >
+              {{ card_btn_text | default: 'Free Sample' }}
+            </button>
+            <button
+              class="cb-wishlist-button"
+              aria-label="Add to wishlist"
               data-product-handle="{{ card_product.handle }}"
               data-product-title="{{ card_product.title | escape }}"
               data-product-price="{{ card_product.price | money | escape }}"

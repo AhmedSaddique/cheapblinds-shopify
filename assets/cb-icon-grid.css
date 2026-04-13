@@ -1,0 +1,99 @@
+/* cb-icon-grid.css */
+.cb-icon-grid {
+  padding-top: 60px;
+}
+
+.cb-icon-grid__container {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  row-gap: 10px;
+}
+
+.cb-icon-grid__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 30px 15px;
+  gap: 15px;
+  width: 20%;
+}
+
+/* Background alternating colors */
+.cb-icon-grid__item--light {
+  background-color: #fdf6df;
+  /* Light yellow from image */
+}
+
+.cb-icon-grid__item--bright {
+  background-color: #ffb800;
+  /* Main brand yellow */
+}
+
+.cb-icon-grid__icon {
+  width: 100%;
+  max-width: 100px;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cb-icon-grid__icon img {
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+/* Invert colors for bright background items if needed, 
+   but in the image the icons are either outline or solid black/white.
+   Let's ensure text is readable. 
+*/
+.cb-icon-grid__item--bright .cb-icon-grid__title {
+  color: #fff;
+}
+
+.cb-icon-grid__item--light .cb-icon-grid__title {
+  color: #000;
+}
+
+/* Specific icon inversions if they are SVGs / images */
+/* Based on image: 
+   - 25 Years: Black outline icons on light yellow
+   - Affordable: White outline icon on bright yellow
+   - Free Samples: Black solid icon on light yellow
+   - Warranty: White outline icon on bright yellow
+   - Delivery: Black solid icon on light yellow
+*/
+
+.cb-icon-grid__title {
+  font-size: 16px;
+  font-weight: 500;
+  margin: 0;
+}
+
+
+/* Mobile: 3 + 2 layout */
+@media screen and (max-width: 1023px) {
+  .cb-icon-grid__item {
+    width: 33.333%;
+    padding: 20px 10px;
+    gap: 10px;
+  }
+
+  /* The last 2 items should take half width each to form the second row */
+  .cb-icon-grid__item:nth-child(4),
+  .cb-icon-grid__item:nth-child(5) {
+    width: 50%;
+  }
+
+  .cb-icon-grid__title {
+    font-size: 12px;
+  }
+
+  .cb-icon-grid__icon {
+    max-width: 45px;
+  }
+}
