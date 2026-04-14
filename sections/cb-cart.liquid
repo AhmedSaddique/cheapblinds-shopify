@@ -4,8 +4,35 @@
 {% endcomment %}
 
 {{ 'cb-cart.css' | asset_url | stylesheet_tag }}
+{{ 'custom-product-main.css' | asset_url | stylesheet_tag }}
 
 <script src="{{ 'cart.js' | asset_url }}" defer="defer"></script>
+
+<script>
+  // Global Modal Functions
+  window.openCpmModal = function (id) {
+    var modal = document.getElementById(id);
+    if (modal) {
+      modal.classList.remove('cpm-modal-hidden');
+      document.body.style.overflow = 'hidden';
+    }
+  };
+
+  window.closeCpmModal = function (id) {
+    var modal = document.getElementById(id);
+    if (modal) {
+      modal.classList.add('cpm-modal-hidden');
+      document.body.style.overflow = 'auto'; // restore scroll
+    }
+  };
+
+  // Close modal when clicking on overlay background
+  document.addEventListener('click', function (e) {
+    if (e.target.classList.contains('cpm-modal-overlay')) {
+      window.closeCpmModal(e.target.id);
+    }
+  });
+</script>
 
 <div class="cb-cart page-width" id="main-cart-items" data-id="{{ section.id }}">
   <div class="cb-cart__layout js-contents">
@@ -245,7 +272,10 @@
                 <img src="{{ 'tabby.png' | asset_url }}" alt="Tabby">
               </div>
               <p class="cb-cart__installment-text">
-                Pay 4 interest-free payments of <span>Learn more...</span>
+                Pay 4 interest-free payments of
+                <span onclick="openCpmModal('tabbyModal')" style="cursor:pointer"
+                  >Learn more...</span
+                >
               </p>
               <div class="cb-cart__installment-table">
                 {% assign installment_price = cart.total_price | divided_by: 4 %}
@@ -290,7 +320,10 @@
                 <img src="{{ 'tamara.png' | asset_url }}" alt="Tamara">
               </div>
               <p class="cb-cart__installment-text">
-                Pay 4 interest-free payments of <span>Learn more...</span>
+                Pay 4 interest-free payments of
+                <span onclick="openCpmModal('tamaraModal')" style="cursor:pointer"
+                  >Learn more...</span
+                >
               </p>
               <div class="cb-cart__installment-table">
                 <div class="cb-cart__installment-step">
@@ -361,6 +394,91 @@
         </a>
       </div>
     {%- endif -%}
+    <!-- Tamara Modal Capture -->
+    {% capture tamara_modal_content %}
+    <div class="cpm-bnpl-modal cpm-tamara-modal">
+      
+      <h3 class="cpm-tamara-top-title">Pay easier with Tamara</h3>
+      
+      <div class="cpm-bnpl-center-logo">
+        <img src="{{ 'tamara.png' | asset_img_url: '150x' }}" alt="Tamara" width="120" height="40" onerror="this.style.display='none'">
+      </div>
+      
+      <div class="cpm-tamara-options-box">
+        <div class="cpm-tamara-option">
+          <strong>Split in 4</strong>
+          <p>Pay a fraction now and the rest in 3 payments over the next 3 months. No late fees, shariah-compliant!*</p>
+        </div>
+        <div class="cpm-tamara-option">
+          <strong>Pay in Full</strong>
+          <p>Pay the full amount today and enjoy exclusive perks with Tamara!*</p>
+        </div>
+      </div>
+      
+      <h4 class="cpm-tamara-why-title">Why Tamara?</h4>
+      <div class="cpm-tamara-badges">
+        <span class="cpm-tamara-badge">Sharia-compliant</span>
+        <span class="cpm-tamara-badge">No late fees</span>
+        <span class="cpm-tamara-badge">Quick and easy</span>
+      </div>
+      
+      <div class="cpm-bnpl-terms">
+        <p>(1) Payment options availability may vary based on your order value and Tamara record.</p>
+        <p>(2) Subject to terms and conditions.</p>
+        <p>(3) Tamara is Sharia-compliant.</p>
+        <p>(4) Eligible for customers in United Arab Emirates.</p>
+        <p>(5) Your final payment plan may vary depending on your credit history.</p>
+      </div>
+    </div>
+  {% endcapture %}
+
+    <!-- Tabby Modal Capture -->
+    {% capture tabby_modal_content %}
+    <div class="cpm-bnpl-modal cpm-tabby-modal">
+      <div class="cpm-tabby-header">
+        <img src="{{ 'tabby.png' | asset_img_url: '150x' }}" alt="Tabby" width="100" height="30" onerror="this.style.display='none'">
+      </div>
+      
+      <div class="cpm-tabby-slogan">
+        <span class="cpm-tabby-pill">Shop now,</span>
+        <span class="cpm-tabby-slogan-text">pay over time.</span>
+      </div>
+      
+      <ul class="cpm-tabby-features">
+        <li>-No interest. No fees.</li>
+        <li>-Trusted by 4,5m+ customers.</li>
+        <li>-Shariah-compliant.</li>
+      </ul>
+      
+      <h4 class="cpm-bnpl-subtitle cpm-tabby-how">How it works</h4>
+      <ol class="cpm-tabby-steps">
+        <li><span>1</span> Choose Tabby at checkout</li>
+        <li><span>2</span> Enter your information and add your debit or credit card.</li>
+        <li><span>3</span> Your first payment is taken when the order is made.</li>
+        <li><span>4</span> We will send you a reminder when your next payment is due</li>
+      </ol>
+      
+      <div class="cpm-tabby-methods">
+        <img src="https://cdn.shopify.com/s/images/admin/checkout/payment_methods/mastercard.svg" onerror="this.style.display='none'" width="45" height="28" alt="Mastercard">
+        <img src="https://cdn.shopify.com/s/images/admin/checkout/payment_methods/visa.svg" onerror="this.style.display='none'" width="45" height="28" alt="Visa">
+        <!-- Google Pay fallback logic to ensure maximum likelihood of hitting correct Shopify asset -->
+        <img src="https://cdn.shopify.com/s/images/admin/checkout/payment_methods/google_pay.svg" onerror="this.src='https://cdn.shopify.com/s/images/admin/checkout/payment_methods/googlepay.svg'" width="45" height="28" alt="Google Pay">
+      </div>
+    </div>
+  {% endcapture %}
+
+    {% render 'modal-dialog',
+      id: 'tamaraModal',
+      title: 'Pay easier with Tamara',
+      max_width: '1200px',
+      content: tamara_modal_content
+    %}
+    {% render 'modal-dialog',
+      id: 'tabbyModal',
+      title: 'Easy Monthly Installments',
+      max_width: '1200px',
+      content: tabby_modal_content
+    %}
   </div>
 </div>
 

@@ -1,5 +1,7 @@
 <div class="cpm-info">
-  <!-- Desktop Title is usually handled by theme, but we can also add it if not present. Let's start with Price -->
+  <!--
+    Desktop Title is usually handled by theme, but we can also add it if not present. Let's start with Price
+  -->
 
   <div class="cpm-price-row">
     <span class="cpm-price-label">From:</span>
@@ -39,7 +41,9 @@
       data-base-min="{{ product.metafields.custom['min-width'] | default: 300 }}"
       data-base-max="{{ product.metafields.custom['max-width'] | default: 2600 }}"
     >
-      <label for="cpm-width" class="cpm-measure-label">Width (<span class="cpm-unit-display">mm</span>)</label>
+      <label for="cpm-width" class="cpm-measure-label"
+        >Width (<span class="cpm-unit-display">mm</span>)</label
+      >
       <input
         type="number"
         id="cpm-width"
@@ -51,9 +55,14 @@
       >
 
       <div class="cpm-measure-hints">
-        Min: <span class="cpm-min-val-disp">{{ product.metafields.custom['min-width'] | default: '300' }}</span>
+        Min:
+        <span class="cpm-min-val-disp">
+          {{- product.metafields.custom['min-width'] | default: '300' -}}
+        </span>
         <span class="cpm-unit-display-small">mm</span> Max:
-        <span class="cpm-max-val-disp">{{ product.metafields.custom['max-width'] | default: '2600' }}</span>
+        <span class="cpm-max-val-disp">
+          {{- product.metafields.custom['max-width'] | default: '2600' -}}
+        </span>
         <span class="cpm-unit-display-small">mm</span>
       </div>
     </div>
@@ -64,7 +73,9 @@
       data-base-min="{{ product.metafields.custom['min-height'] | default: 300 }}"
       data-base-max="{{ product.metafields.custom['max-height'] | default: 3000 }}"
     >
-      <label for="cpm-height" class="cpm-measure-label">Height (<span class="cpm-unit-display">mm</span>)</label>
+      <label for="cpm-height" class="cpm-measure-label"
+        >Height (<span class="cpm-unit-display">mm</span>)</label
+      >
       <input
         type="number"
         id="cpm-height"
@@ -76,9 +87,14 @@
       >
 
       <div class="cpm-measure-hints">
-        Min: <span class="cpm-min-val-disp">{{ product.metafields.custom['min-height'] | default: '300' }}</span>
+        Min:
+        <span class="cpm-min-val-disp">
+          {{- product.metafields.custom['min-height'] | default: '300' -}}
+        </span>
         <span class="cpm-unit-display-small">mm</span> | Max:
-        <span class="cpm-max-val-disp">{{ product.metafields.custom['max-height'] | default: '3000' }}</span>
+        <span class="cpm-max-val-disp">
+          {{- product.metafields.custom['max-height'] | default: '3000' -}}
+        </span>
         <span class="cpm-unit-display-small">mm</span>
       </div>
     </div>
@@ -105,7 +121,12 @@
         >
         <div class="cpm-fitting-box">
           <span class="cpm-fitting-text">Outside Recess</span>
-          <svg class="cpm-fitting-check" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg
+            class="cpm-fitting-check"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
             <circle cx="12" cy="12" r="10" fill="#fff"/><path d="M8 12.5L10.5 15L16 9" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </div>
@@ -113,10 +134,20 @@
 
       <!-- Inside Recess -->
       <label class="cpm-fitting-label">
-        <input type="radio" name="fitting_type" value="Inside Recess" class="cpm-visually-hidden cpm-fitting-radio">
+        <input
+          type="radio"
+          name="fitting_type"
+          value="Inside Recess"
+          class="cpm-visually-hidden cpm-fitting-radio"
+        >
         <div class="cpm-fitting-box">
           <span class="cpm-fitting-text">Inside Recess</span>
-          <svg class="cpm-fitting-check" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg
+            class="cpm-fitting-check"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
             <circle cx="12" cy="12" r="10" fill="#fff"/><path d="M8 12.5L10.5 15L16 9" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </div>
@@ -158,62 +189,115 @@
   <!-- Info Badges -->
   <div class="cpm-badges-wrapper">
     <!-- BNPL Payments -->
-    <div class="cpm-badge-box cpm-payment-badge">
-      <span class="cpm-badge-text">Pay in 4 interest-free payments with</span>
-      <div class="cpm-payment-options">
-        <div class="cpm-pay-provider">
-          <img
-            src="{{ 'tamara.png' | asset_img_url: '150x' }}"
-            alt="Tamara"
-            width="100"
-            height="30"
-            class="cpm-provider-logo"
-            onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-flex';"
-          >
-          <span
-            class="cpm-provider-fallback"
-            style="display:none; background: linear-gradient(90deg, #ffc9a8 0%, #f6a192 100%); padding: 2px 6px; border-radius: 4px; font-weight: bold; font-size: 13px; color: #000;"
-            >tamara</span
-          >
-          <button
-            type="button"
-            class="cpm-info-icon"
-            title="More info about Tamara"
-            onclick="openCpmModal('tamaraModal')"
-          >
-            i
-          </button>
+    {{ 'cb-cart.css' | asset_url | stylesheet_tag }}
+    <div class="cpm-safe-checkout-wrapper">
+      <div
+        class="cb-cart__safe-checkout"
+        style="font-weight:600; padding-bottom:15px; text-align: start; color: #000"
+      >
+        Guaranteed Safe Checkout
+      </div>
+
+      <!-- Tabby Widget Placeholder -->
+      <div class="cb-cart__installment">
+        <div class="cb-cart__installment-logo">
+          <img src="{{ 'tabby.png' | asset_url }}" alt="Tabby">
         </div>
-        <div class="cpm-pay-provider">
-          <img
-            src="{{ 'tabby.png' | asset_img_url: '150x' }}"
-            alt="Tabby"
-            width="100"
-            height="30"
-            class="cpm-provider-logo"
-            onerror="this.style.display='none'; this.nextElementSibling.style.display='inline-flex';"
-          >
-          <span
-            class="cpm-provider-fallback"
-            style="display:none; background: #3bf1b2; padding: 2px 6px; border-radius: 4px; font-weight: bold; font-size: 13px; color: #000;"
-            >tabby</span
-          >
-          <button
-            type="button"
-            class="cpm-info-icon"
-            title="More info about Tabby"
-            onclick="openCpmModal('tabbyModal')"
-          >
-            i
-          </button>
+        <p class="cb-cart__installment-text">
+          Pay 4 interest-free payments of
+          <span onclick="openCpmModal('tabbyModal')" style="cursor:pointer">Learn more...</span>
+        </p>
+        <div class="cb-cart__installment-table" style="justify-content: start; gap: 16px">
+          {% assign installment_price = product.price | divided_by: 4 %}
+          <div class="cb-cart__installment-step">
+            <b
+              ><span class="cb-price-with-icon">
+                {{- 'icon-currency.svg' | inline_asset_content -}}
+                <span>{{ installment_price | money_without_currency }}</span>
+              </span></b
+            >Today
+          </div>
+          <div class="cb-cart__installment-step">
+            <b
+              ><span class="cb-price-with-icon">
+                {{- 'icon-currency.svg' | inline_asset_content -}}
+                <span>{{ installment_price | money_without_currency }}</span>
+              </span></b
+            >In 1 month
+          </div>
+          <div class="cb-cart__installment-step">
+            <b
+              ><span class="cb-price-with-icon">
+                {{- 'icon-currency.svg' | inline_asset_content -}}
+                <span>{{ installment_price | money_without_currency }}</span>
+              </span></b
+            >In 2 month
+          </div>
+          <div class="cb-cart__installment-step">
+            <b
+              ><span class="cb-price-with-icon">
+                {{- 'icon-currency.svg' | inline_asset_content -}}
+                <span>{{ installment_price | money_without_currency }}</span>
+              </span></b
+            >In 3 month
+          </div>
+        </div>
+      </div>
+
+      <!-- Tamara Widget Placeholder -->
+      <div class="cb-cart__installment cb-cart__installment--tamara" style="margin-bottom: 0px">
+        <div class="cb-cart__installment-logo">
+          <img src="{{ 'tamara.png' | asset_url }}" alt="Tamara">
+        </div>
+        <p class="cb-cart__installment-text">
+          Pay 4 interest-free payments of
+          <span onclick="openCpmModal('tamaraModal')" style="cursor:pointer">Learn more...</span>
+        </p>
+        <div class="cb-cart__installment-table" style="justify-content: start; gap: 16px">
+          <div class="cb-cart__installment-step">
+            <b
+              ><span class="cb-price-with-icon">
+                {{- 'icon-currency.svg' | inline_asset_content -}}
+                <span>{{ installment_price | money_without_currency }}</span>
+              </span></b
+            >Today
+          </div>
+          <div class="cb-cart__installment-step">
+            <b
+              ><span class="cb-price-with-icon">
+                {{- 'icon-currency.svg' | inline_asset_content -}}
+                <span>{{ installment_price | money_without_currency }}</span>
+              </span></b
+            >In 1 month
+          </div>
+          <div class="cb-cart__installment-step">
+            <b
+              ><span class="cb-price-with-icon">
+                {{- 'icon-currency.svg' | inline_asset_content -}}
+                <span>{{ installment_price | money_without_currency }}</span>
+              </span></b
+            >In 2 month
+          </div>
+          <div class="cb-cart__installment-step">
+            <b
+              ><span class="cb-price-with-icon">
+                {{- 'icon-currency.svg' | inline_asset_content -}}
+                <span>{{ installment_price | money_without_currency }}</span>
+              </span></b
+            >In 3 month
+          </div>
         </div>
       </div>
     </div>
-
     <!-- Delivery Box -->
     <div class="cpm-badge-box cpm-delivery-badge">
       <div class="cpm-delivery-left">
-        <svg class="cpm-truck-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg
+          class="cpm-truck-icon"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
           <path d="M5 13L2.5 13C2.22386 13 2 12.7761 2 12.5V8.5C2 7.67157 2.67157 7 3.5 7H14.5C15.3284 7 16 7.67157 16 8.5V13C16 13.2761 15.7761 13.5 15.5 13.5H13" stroke="#ffb803" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
           <path d="M16 10H18.5L21.5 13.5V17.5C21.5 17.7761 21.2761 18 21 18H19M16 18H13" stroke="#ffb803" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
           <path d="M16 13.5H21.5" stroke="#ffb803" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -253,7 +337,12 @@
     </div>
     <button type="button" class="cpm-sample-btn">
       <span class="cpm-plus-icon">
-        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width: 14px; height: 14px;">
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          style="width: 14px; height: 14px;"
+        >
           <path d="M12 5V19M5 12H19" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </span>
@@ -270,11 +359,21 @@
             <span class="cpm-accordion-title">{{ block.settings.title }}</span>
             <span class="cpm-accordion-icon">
               <!-- Plus SVG -->
-              <svg class="cpm-icon-plus" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg
+                class="cpm-icon-plus"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
                 <path d="M12 5V19M5 12H19" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
               <!-- Minus SVG -->
-              <svg class="cpm-icon-minus" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg
+                class="cpm-icon-minus"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
                 <path d="M5 12H19" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
             </span>
