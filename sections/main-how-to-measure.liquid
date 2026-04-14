@@ -1,0 +1,301 @@
+{{ 'how-to-measure.css' | asset_url | stylesheet_tag }}
+
+<div class="htm-section page-width" id="how-to-measure-section" data-section-id="{{ section.id }}">
+  <!-- Desktop Tabs -->
+  <div class="htm-tabs htm-hide-mobile">
+    {% for block in section.blocks %}
+      <button
+        type="button"
+        class="htm-tab-btn {% if forloop.first %}htm-tab-active{% endif %}"
+        data-index="{{ forloop.index0 }}"
+        onclick="htmSwitchTab({{ forloop.index0 }})"
+      >
+        {{ block.settings.title }}
+      </button>
+    {% endfor %}
+  </div>
+
+  <!-- Mobile Tabs (Scrollable) -->
+  <div class="htm-tabs-mobile-wrapper htm-hide-desktop">
+    <div class="htm-tabs-scroll-area">
+      <div class="htm-tabs-mobile">
+        {% for block in section.blocks %}
+          <button
+            type="button"
+            class="htm-tab-btn {% if forloop.first %}htm-tab-active{% endif %}"
+            data-index="{{ forloop.index0 }}"
+            onclick="htmSwitchTab({{ forloop.index0 }})"
+          >
+            {{ block.settings.title }}
+          </button>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  <div class="htm-content-area page-width">
+    {% for block in section.blocks %}
+      <div
+        class="htm-tab-content {% if forloop.first %}htm-content-active{% endif %}"
+        data-index="{{ forloop.index0 }}"
+        {{ block.shopify_attributes }}
+      >
+        <div class="htm-layout">
+          <!-- Text Area -->
+          <div class="htm-text-column">
+            {% if block.settings.subtitle != blank %}
+              <div class="htm-subtitle-pill">{{ block.settings.subtitle }}</div>
+            {% endif %}
+
+            <h1 class="htm-heading">
+              {% if block.settings.heading_black != blank %}
+                <span class="htm-heading-black">{{ block.settings.heading_black }}</span>
+              {% endif %}
+              {% if block.settings.heading_yellow != blank %}
+                <br>
+                <span class="htm-heading-yellow">{{ block.settings.heading_yellow }}</span>
+              {% endif %}
+            </h1>
+
+            {% if block.settings.description != blank %}
+              <div class="htm-description">
+                {{ block.settings.description }}
+              </div>
+            {% endif %}
+
+            {% if block.settings.pdf_url != blank %}
+              <a
+                href="{{ block.settings.pdf_url }}"
+                class="htm-download-btn"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <svg
+                  class="htm-download-icon"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path d="M12 15L12 3M12 15L8 11M12 15L16 11M21 21H3" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Download PDF
+              </a>
+            {% else %}
+              <button class="htm-download-btn">
+                <svg
+                  class="htm-download-icon"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path d="M12 15L12 3M12 15L8 11M12 15L16 11M21 21H3" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Download PDF
+              </button>
+            {% endif %}
+          </div>
+
+          <!-- Media Area -->
+          <div class="htm-media-column">
+            <div class="htm-media-wrapper">
+              {% if block.settings.video %}
+                {{
+                  block.settings.video
+                  | video_tag: class: 'htm-video-element', image_size: '800x', controls: false
+                }}
+                <div class="htm-play-overlay">
+                  <button
+                    type="button"
+                    class="htm-play-btn"
+                    aria-label="Play video"
+                    onclick="htmToggleVideo(this)"
+                  >
+                    <svg viewBox="0 0 24 24" fill="#fff" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M8 5V19L19 12L8 5Z"/>
+                    </svg>
+                  </button>
+                </div>
+              {% elsif block.settings.video_url != blank %}
+                <video
+                  class="htm-video-element"
+                  poster="{{ block.settings.image | img_url: '800x' }}"
+                  playsinline
+                >
+                  <source src="{{ block.settings.video_url }}" type="video/mp4">
+                  Your browser does not support HTML5 video.
+                </video>
+                <div class="htm-play-overlay">
+                  <button
+                    type="button"
+                    class="htm-play-btn"
+                    aria-label="Play video"
+                    onclick="htmToggleVideo(this)"
+                  >
+                    <svg viewBox="0 0 24 24" fill="#fff" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M8 5V19L19 12L8 5Z"/>
+                    </svg>
+                  </button>
+                </div>
+              {% elsif block.settings.image %}
+                {{
+                  block.settings.image
+                  | image_url: width: 800
+                  | image_tag: class: 'htm-image-element', loading: 'lazy'
+                }}
+              {% else %}
+                <div style="background:#f4f4f4; width:100%; height:100%; border-radius:10px; display:flex; align-items:center; justify-content:center; min-height: 300px;">
+                  <span style="color: #666">Image/Video Placeholder</span>
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+<script>
+  function htmSwitchTab(index) {
+    const section = document.getElementById('how-to-measure-section');
+
+    // Update active tab buttons
+    const btns = section.querySelectorAll('.htm-tab-btn');
+    btns.forEach((btn) => {
+      if (parseInt(btn.getAttribute('data-index')) === index) {
+        btn.classList.add('htm-tab-active');
+        // If mobile, try to scroll tab into view
+        btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      } else {
+        btn.classList.remove('htm-tab-active');
+      }
+    });
+
+    // Update active content, pausing any videos in non-active tabs
+    const contents = section.querySelectorAll('.htm-tab-content');
+    contents.forEach((content) => {
+      if (parseInt(content.getAttribute('data-index')) === index) {
+        content.classList.add('htm-content-active');
+      } else {
+        content.classList.remove('htm-content-active');
+        // Pause video if playing
+        const vid = content.querySelector('.htm-video-element');
+        if (vid) {
+          vid.pause();
+          const overlay = content.querySelector('.htm-play-overlay');
+          if (overlay) overlay.style.display = 'flex';
+        }
+      }
+    });
+  }
+
+  function htmToggleVideo(btn) {
+    const wrapper = btn.closest('.htm-media-wrapper');
+    const video = wrapper.querySelector('.htm-video-element');
+    const overlay = wrapper.querySelector('.htm-play-overlay');
+
+    if (video) {
+      if (video.paused) {
+        video.play();
+        overlay.style.display = 'none';
+      } else {
+        video.pause();
+        overlay.style.display = 'flex';
+      }
+    }
+  }
+
+  // Allow clicking directly on the video to pause/play
+  document.addEventListener('DOMContentLoaded', () => {
+    const videos = document.querySelectorAll('.htm-video-element');
+    videos.forEach((vid) => {
+      vid.addEventListener('click', function () {
+        const overlay = this.closest('.htm-media-wrapper').querySelector('.htm-play-overlay');
+        if (!this.paused) {
+          this.pause();
+          if (overlay) overlay.style.display = 'flex';
+        } else {
+          this.play();
+          if (overlay) overlay.style.display = 'none';
+        }
+      });
+      // Handle HTML5 native controls or end of video
+      vid.addEventListener('ended', function () {
+        const overlay = this.closest('.htm-media-wrapper').querySelector('.htm-play-overlay');
+        if (overlay) overlay.style.display = 'flex';
+      });
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "How to Measure Guide",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "tab",
+      "name": "Tab content",
+      "limit": 8,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Tab Title",
+          "default": "Roller Blinds"
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": "Small Pill Subtitle",
+          "default": "Measuring Guide"
+        },
+        {
+          "type": "text",
+          "id": "heading_black",
+          "label": "Black Heading Text",
+          "default": "How to Measure"
+        },
+        {
+          "type": "text",
+          "id": "heading_yellow",
+          "label": "Yellow Heading Text",
+          "default": "Roller Blinds"
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "Description",
+          "default": "<p>Accurate measurements are essential for a perfect fit. Follow our step-by-step guide to measure your windows with confidence.</p>"
+        },
+        {
+          "type": "url",
+          "id": "pdf_url",
+          "label": "PDF Download Link (Optional)"
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image / Video Poster"
+        },
+        {
+          "type": "video",
+          "id": "video",
+          "label": "Shopify Video (Overrides Image)"
+        },
+        {
+          "type": "text",
+          "id": "video_url",
+          "label": "External Video URL (.mp4)"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "How to Measure Guide",
+      "blocks": [{ "type": "tab" }, { "type": "tab" }, { "type": "tab" }]
+    }
+  ]
+}
+{% endschema %}
