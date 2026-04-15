@@ -10,12 +10,22 @@
       </button>
     </div>
     <div class="samples-drawer__body" id="SamplesBody">
-      <!-- Items injected via JS -->
+      <div class="samples-drawer__message hide" id="SamplesLimitMessage"></div>
       <div class="samples-drawer__empty hide">
         <p>You have no free samples selected.</p>
-        <a href="{{ routes.all_products_collection_url }}" class="button button--primary" onclick="document.getElementById('SamplesClose').click();">Browse products</a>
+        <a
+          href="{{ routes.all_products_collection_url }}"
+          class="button button--primary"
+          onclick="document.getElementById('SamplesClose').click();"
+        >
+          Browse products
+        </a>
       </div>
+    </div>
+    <div class="samples-drawer__footer">
+      <a href="/pages/free-samples" class="samples-drawer__link" data-open-samples-page>
+        View free samples
+      </a>
     </div>
   </div>
 </div>
-

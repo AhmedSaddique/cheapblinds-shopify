@@ -10,11 +10,21 @@
       </button>
     </div>
     <div class="wishlist-drawer__body" id="WishlistBody">
-      <!-- Items will be injected here via JS -->
       <div class="wishlist-drawer__empty hide">
         <p>Your wishlist is currently empty.</p>
-        <a href="{{ routes.all_products_collection_url }}" class="button button--primary" onclick="document.getElementById('WishlistClose').click();">Continue shopping</a>
+        <a
+          href="{{ routes.all_products_collection_url }}"
+          class="button button--primary"
+          onclick="document.getElementById('WishlistClose').click();"
+        >
+          Continue shopping
+        </a>
       </div>
+    </div>
+    <div class="wishlist-drawer__footer">
+      <a href="/pages/wishlist" class="wishlist-drawer__link" data-open-wishlist-page>
+        View wishlist
+      </a>
     </div>
   </div>
 </div>

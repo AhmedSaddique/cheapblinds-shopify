@@ -1,0 +1,198 @@
+<!-- 1. Added Swiper.js CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+
+<style>
+  html {
+    scroll-behavior: smooth;
+  }
+  /* Styling to match the pill shapes in your image */
+  .swiper-pagination-custom .swiper-pagination-bullet {
+    width: 25px;
+    height: 10px;
+    border-radius: 999px;
+    background: #fff;
+    border: 1px solid #000;
+    opacity: 1;
+    margin: 0 !important;
+    transition: all 0.3s ease;
+  }
+  .swiper-pagination-custom .swiper-pagination-bullet-active {
+    background: #ffb800 !important; /* Gold/Yellow from image */
+    border-color: #ffb800 !important;
+    width: 45px;
+  }
+  /* Ensure the text sections have some breathing room when scrolled to */
+  .faq-content-section {
+    scroll-margin-top: 50px;
+  }
+  /* Styles to ensure the rich text output looks clean with your border design */
+  .faq-rich-text ul {
+    list-style: disc;
+    margin-left: 20px;
+  }
+  .faq-rich-text p {
+    margin-bottom: 10px;
+  }
+</style>
+
+<div class="page-width my-20 text-black space-y-10">
+  <!-- Header Section -->
+  <div class="space-y-3 text-center max-w-250 mx-auto border-b border-[#00000066] pb-5">
+    <h1 class="text-xl md:text-4xl text-black">{{ section.settings.heading }}</h1>
+    <p class="text-sm md:text-base text-black">{{ section.settings.sub_text }}</p>
+    <p class="text-sm md:text-base text-black">{{ section.settings.description }}</p>
+    <div class="flex items-center justify-center gap-1">
+      <svg
+        width="21"
+        height="21"
+        viewBox="0 0 21 21"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path d="M20.47 16.83C20.47 17.19 20.39 17.56 20.22 17.92C20.05 18.28 19.83 18.62 19.54 18.94C19.05 19.48 18.51 19.87 17.9 20.12C17.3 20.37 16.65 20.5 15.95 20.5C14.93 20.5 13.84 20.26 12.69 19.77C11.54 19.28 10.39 18.62 9.25 17.79C8.1 16.95 7.01 16.02 5.97 14.99C4.94 13.95 4.01 12.86 3.18 11.72C2.36 10.58 1.7 9.44 1.22 8.31C0.74 7.17 0.5 6.08 0.5 5.04C0.5 4.36 0.62 3.71 0.86 3.11C1.1 2.5 1.48 1.94 2.01 1.44C2.65 0.81 3.35 0.5 4.09 0.5C4.37 0.5 4.65 0.56 4.9 0.68C5.16 0.8 5.39 0.98 5.57 1.24L7.89 4.51C8.07 4.76 8.2 4.99 8.29 5.21C8.38 5.42 8.43 5.63 8.43 5.82C8.43 6.06 8.36 6.3 8.22 6.53C8.09 6.76 7.9 7 7.66 7.24L6.9 8.03C6.79 8.14 6.74 8.27 6.74 8.43C6.74 8.51 6.75 8.58 6.77 8.66C6.8 8.74 6.83 8.8 6.85 8.86C7.03 9.19 7.34 9.62 7.78 10.14C8.23 10.66 8.71 11.19 9.23 11.72C9.77 12.25 10.29 12.74 10.82 13.19C11.34 13.63 11.77 13.93 12.11 14.11C12.16 14.13 12.22 14.16 12.29 14.19C12.37 14.22 12.45 14.23 12.54 14.23C12.71 14.23 12.84 14.17 12.95 14.06L13.71 13.31C13.96 13.06 14.2 12.87 14.43 12.75C14.66 12.61 14.89 12.54 15.14 12.54C15.33 12.54 15.53 12.58 15.75 12.67C15.97 12.76 16.2 12.89 16.45 13.06L19.76 15.41C20.02 15.59 20.2 15.8 20.31 16.05C20.41 16.3 20.47 16.55 20.47 16.83Z" stroke="black" stroke-miterlimit="10"/>
+      </svg>
+      <p class="font-semibold">{{ section.settings.phone_number }}</p>
+    </div>
+  </div>
+
+  <!-- Cards Navigation Slider -->
+  <div class="space-y-4">
+    <p class="text-center text-xl font-semibold hidden md:block">
+      What do you need help with today?
+    </p>
+    <div class="bg-primary-light py-5 md:py-12 px-4 md:px-10 space-y-4">
+      <p class="text-center text-xl font-semibold block md:hidden">
+        What do you need help with today?
+      </p>
+      <div class="help-swiper swiper max-w-250 mx-auto overflow-hidden">
+        <div class="swiper-wrapper">
+          {% for block in section.blocks %}
+            <div class="swiper-slide h-auto">
+              <a
+                href="#faq-{{ block.id }}"
+                class="flex flex-col items-center justify-center bg-white p-6 md:p-10 h-full no-underline hover:shadow-md transition-shadow"
+              >
+                <div class="mb-5 h-16 w-16 flex items-center justify-center">
+                  {% if block.settings.image != blank %}
+                    <img
+                      src="{{ block.settings.image | image_url: width: 100 }}"
+                      alt="{{ block.settings.title }}"
+                      class="object-contain w-full h-full"
+                      width="auto"
+                      height="auto"
+                    >
+                  {% else %}
+                    <svg
+                      class="w-12 h-12 text-gray-400"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"></path>
+                    </svg>
+                  {% endif %}
+                </div>
+                <span class="text-center text-sm md:text-base font-semibold text-gray-800">
+                  {{- block.settings.title -}}
+                </span>
+              </a>
+            </div>
+          {% endfor %}
+        </div>
+        <div class="swiper-pagination-custom flex justify-center gap-2 mt-8"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dynamic Content Sections -->
+  <div class="space-y-12 py-10">
+    {% for block in section.blocks %}
+      <div id="faq-{{ block.id }}" class="faq-content-section space-y-4">
+        <h2 class="underline font-bold text-xl">{{ block.settings.title }}</h2>
+        <div class="border-l border-[#0000001F] pl-4 text-gray-800 faq-rich-text">
+          {{ block.settings.content }}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    new Swiper('.help-swiper', {
+      slidesPerView: 1.2,
+      spaceBetween: 16,
+      pagination: {
+        el: '.swiper-pagination-custom',
+        clickable: true,
+      },
+      breakpoints: {
+        1024: { slidesPerView: 4, spaceBetween: 16 },
+        768: { slidesPerView: 2, spaceBetween: 16 },
+      },
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Customer Service",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Customer Service"
+    },
+    {
+      "type": "textarea",
+      "id": "sub_text",
+      "label": "Sub Text",
+      "default": "Engage in seamless customer experience with us!"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "For all your question and queries, We have compiled a list of those most frequently asked, divided into handy section below For further queries, call us."
+    },
+    {
+      "type": "text",
+      "id": "phone_number",
+      "label": "Phone Number",
+      "default": "+971 50 597 4531"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "FAQ Category",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Card Icon"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Category Title",
+          "default": "Order Queries"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Section Content",
+          "default": "<p>Put your formatted text here.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Customer Service"
+    }
+  ]
+}
+{% endschema %}

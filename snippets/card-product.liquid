@@ -121,7 +121,12 @@
               data-product-title="{{ card_product.title | escape }}"
               data-product-price="{{ card_product.price | money | escape }}"
               data-product-url="{{ card_product.url }}"
-              data-product-image="{% if card_product.featured_media %}{{ card_product.featured_media | image_url: width: 300 }}{% endif %}"
+              data-product-image="{% if card_product.featured_media %}{{ card_product.featured_media | image_url: width: 533 }}{% endif %}"
+              data-product-compare-price="{{ card_product.compare_at_price | money | escape }}"
+              data-product-discount="{{ discount }}"
+              data-product-same-day="{% if same_day == true or same_day == 'true' or same_day == 'True' %}true{% else %}false{% endif %}"
+              data-product-color="{% if swatch_color != blank %}{{ swatch_color }}{% endif %}"
+              data-product-swatch-image="{% if swatch_color == blank and card_product.featured_media %}{{ card_product.featured_media | image_url: width: 150 }}{% endif %}"
             >
               {{ card_btn_text | default: 'Free Sample' }}
             </button>
@@ -132,7 +137,12 @@
               data-product-title="{{ card_product.title | escape }}"
               data-product-price="{{ card_product.price | money | escape }}"
               data-product-url="{{ card_product.url }}"
-              data-product-image="{% if card_product.featured_media %}{{ card_product.featured_media | image_url: width: 300 }}{% endif %}"
+              data-product-image="{% if card_product.featured_media %}{{ card_product.featured_media | image_url: width: 533 }}{% endif %}"
+              data-product-compare-price="{{ card_product.compare_at_price | money | escape }}"
+              data-product-discount="{{ discount }}"
+              data-product-same-day="{% if same_day == true or same_day == 'true' or same_day == 'True' %}true{% else %}false{% endif %}"
+              data-product-color="{% if swatch_color != blank %}{{ swatch_color }}{% endif %}"
+              data-product-swatch-image="{% if swatch_color == blank and card_product.featured_media %}{{ card_product.featured_media | image_url: width: 150 }}{% endif %}"
               data-variant-id="{{ card_product.selected_or_first_available_variant.id }}"
             >
               <svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
