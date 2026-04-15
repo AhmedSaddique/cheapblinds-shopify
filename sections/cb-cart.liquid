@@ -4,8 +4,35 @@
 {% endcomment %}
 
 {{ 'cb-cart.css' | asset_url | stylesheet_tag }}
+{{ 'custom-product-main.css' | asset_url | stylesheet_tag }}
 
 <script src="{{ 'cart.js' | asset_url }}" defer="defer"></script>
+
+<script>
+  // Global Modal Functions
+  window.openCpmModal = function (id) {
+    var modal = document.getElementById(id);
+    if (modal) {
+      modal.classList.remove('cpm-modal-hidden');
+      document.body.style.overflow = 'hidden';
+    }
+  };
+
+  window.closeCpmModal = function (id) {
+    var modal = document.getElementById(id);
+    if (modal) {
+      modal.classList.add('cpm-modal-hidden');
+      document.body.style.overflow = 'auto'; // restore scroll
+    }
+  };
+
+  // Close modal when clicking on overlay background
+  document.addEventListener('click', function (e) {
+    if (e.target.classList.contains('cpm-modal-overlay')) {
+      window.closeCpmModal(e.target.id);
+    }
+  });
+</script>
 
 <div class="cb-cart page-width" id="main-cart-items" data-id="{{ section.id }}">
   <div class="cb-cart__layout js-contents">
@@ -43,26 +70,53 @@
                         <div>Standard brackets</div>
                       </div>
                     </div>
-                    <!-- Motorised Option Selection (Static Mockup) -->
+                    <!-- Motorised Option Selection (Form Toggleable) -->
                     <div class="cb-cart__option-selector">
-                      <div class="cb-cart__option-item">
-                        <div class="cb-cart__option-radio">
-                          <span class="cb-cart__option-radio-circle"></span>
-                          Without Motorised
+                      <label class="cb-cart__option-item">
+                        <input
+                          type="radio"
+                          name="motorised-{{ item.index }}"
+                          value="without"
+                          class="cb-cart__option-input visually-hidden"
+                          checked
+                        >
+                        <div class="cb-cart__option-content">
+                          <div class="cb-cart__option-selected-label">
+                            <span class="cb-cart__option-selected-icon">✓</span>
+                            Selected
+                          </div>
+                          <div class="cb-cart__option-radio">
+                            <span class="cb-cart__option-radio-circle"></span>
+                            Without Motorised
+                          </div>
+                          <div class="cb-cart__option-price cb-price-with-icon">
+                            {{- 'icon-currency.svg' | inline_asset_content -}}
+                            <span>315</span>
+                          </div>
                         </div>
-                        <div class="cb-cart__option-price">Đ 315</div>
-                      </div>
-                      <div class="cb-cart__option-item cb-cart__option-item--selected">
-                        <div class="cb-cart__option-selected-label">
-                          <span class="cb-cart__option-selected-icon">✓</span>
-                          Selected
+                      </label>
+                      <label class="cb-cart__option-item">
+                        <input
+                          type="radio"
+                          name="motorised-{{ item.index }}"
+                          value="motorised"
+                          class="cb-cart__option-input visually-hidden"
+                        >
+                        <div class="cb-cart__option-content">
+                          <div class="cb-cart__option-selected-label">
+                            <span class="cb-cart__option-selected-icon">✓</span>
+                            Selected
+                          </div>
+                          <div class="cb-cart__option-radio">
+                            <span class="cb-cart__option-radio-circle"></span>
+                            Motorised <span class="cb-cart__option-tag">MOTORISED</span>
+                          </div>
+                          <div class="cb-cart__option-price cb-price-with-icon">
+                            {{- 'icon-currency.svg' | inline_asset_content -}}
+                            <span>365</span>
+                          </div>
                         </div>
-                        <div class="cb-cart__option-radio">
-                          <span class="cb-cart__option-radio-circle"></span>
-                          Motorised <span class="cb-cart__option-tag">MOTORISED</span>
-                        </div>
-                        <div class="cb-cart__option-price">Đ 315</div>
-                      </div>
+                      </label>
                     </div>
                   </div>
                 </div>
@@ -109,27 +163,22 @@
 
                   <!-- Col 3: Price & Trash -->
                   <div class="cb-cart__item-price">
-                    <div class="cb-cart__price-box">Đ 800</div>
+                    <div class="cb-cart__price-box cb-price-with-icon">
+                      {{- 'icon-currency.svg' | inline_asset_content -}}
+                      <span>800</span>
+                    </div>
 
                     <cart-remove-button
                       id="Remove-{{ item.index | plus: 1 }}"
                       data-index="{{ item.index | plus: 1 }}"
                     >
-                      <button
+                      <a
+                        href="{{ item.url_to_remove }}"
                         class="cb-cart__remove-btn"
-                        type="button"
                         aria-label="{{ 'sections.cart.remove_title' | t: title: item.title }}"
                       >
-                        <svg
-                          width="14"
-                          height="16"
-                          viewBox="0 0 14 16"
-                          fill="none"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path d="M1 4h12M4.5 4V2.5C4.5 1.67157 5.17157 1 6 1h2c0.82843 0 1.5 0.671573 1.5 1.5V4m-5 9.5V7.5m3 6V7.5M2.5 4v9.5c0 0.8284 0.67157 1.5 1.5 1.5h6c0.8284 0 1.5-0.6715 1.5-1.5V4" stroke="#444" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-                        </svg>
-                      </button>
+                        {{- 'icon-delete-cart.svg' | inline_asset_content -}}
+                      </a>
                     </cart-remove-button>
                   </div>
                 </div>
@@ -143,17 +192,23 @@
       <div>
         <h2 class="cb-cart__title">Order summary</h2>
         <aside class="cb-cart__summary" id="main-cart-footer" data-id="{{ section.id }}">
-          <div class="js-contents">
+          <div class="js-contents cb-cart__summary-box">
             <div class="cb-cart__summary-row">
               <span>Subtotal</span>
-              <span>{{ cart.total_price | money }}</span>
+              <span class="cb-price-with-icon">
+                {{- 'icon-currency.svg' | inline_asset_content -}}
+                <span>{{ cart.total_price | money_without_currency }}</span>
+              </span>
             </div>
 
             <p class="cb-cart__summary-note">Shipping options will be updated during checkout.</p>
 
             <div class="cb-cart__summary-row cb-cart__summary-row--total">
               <span>Total</span>
-              <span>{{ cart.total_price | money }}</span>
+              <span class="cb-price-with-icon">
+                {{- 'icon-currency.svg' | inline_asset_content -}}
+                <span>{{ cart.total_price | money_without_currency }}</span>
+              </span>
             </div>
 
             <p class="cb-cart__safe-checkout">Prices are inclusive of VAT</p>
@@ -206,7 +261,7 @@
 
             <div
               class="cb-cart__safe-checkout"
-              style="margin-top:20px; margin-bottom:20px; font-weight:600; border-top:1px solid #eee; padding-top:15px"
+              style="margin-top:10px; margin-bottom:20px; font-weight:600; padding-top:15px"
             >
               Guaranteed Safe Checkout
             </div>
@@ -217,21 +272,44 @@
                 <img src="{{ 'tabby.png' | asset_url }}" alt="Tabby">
               </div>
               <p class="cb-cart__installment-text">
-                Pay 4 interest-free payments of <span>Learn more...</span>
+                Pay 4 interest-free payments of
+                <span onclick="openCpmModal('tabbyModal')" style="cursor:pointer"
+                  >Learn more...</span
+                >
               </p>
               <div class="cb-cart__installment-table">
                 {% assign installment_price = cart.total_price | divided_by: 4 %}
                 <div class="cb-cart__installment-step">
-                  <b>{{ installment_price | money }}</b>Today
+                  <b
+                    ><span class="cb-price-with-icon">
+                      {{- 'icon-currency.svg' | inline_asset_content -}}
+                      <span>{{ installment_price | money_without_currency }}</span></span
+                    ></b
+                  >Today
                 </div>
                 <div class="cb-cart__installment-step">
-                  <b>{{ installment_price | money }}</b>In 1 month
+                  <b
+                    ><span class="cb-price-with-icon">
+                      {{- 'icon-currency.svg' | inline_asset_content -}}
+                      <span>{{ installment_price | money_without_currency }}</span></span
+                    ></b
+                  >In 1 month
                 </div>
                 <div class="cb-cart__installment-step">
-                  <b>{{ installment_price | money }}</b>In 2 month
+                  <b
+                    ><span class="cb-price-with-icon">
+                      {{- 'icon-currency.svg' | inline_asset_content -}}
+                      <span>{{ installment_price | money_without_currency }}</span></span
+                    ></b
+                  >In 2 month
                 </div>
                 <div class="cb-cart__installment-step">
-                  <b>{{ installment_price | money }}</b>In 3 month
+                  <b
+                    ><span class="cb-price-with-icon">
+                      {{- 'icon-currency.svg' | inline_asset_content -}}
+                      <span>{{ installment_price | money_without_currency }}</span></span
+                    ></b
+                  >In 3 month
                 </div>
               </div>
             </div>
@@ -242,20 +320,43 @@
                 <img src="{{ 'tamara.png' | asset_url }}" alt="Tamara">
               </div>
               <p class="cb-cart__installment-text">
-                Pay 4 interest-free payments of <span>Learn more...</span>
+                Pay 4 interest-free payments of
+                <span onclick="openCpmModal('tamaraModal')" style="cursor:pointer"
+                  >Learn more...</span
+                >
               </p>
               <div class="cb-cart__installment-table">
                 <div class="cb-cart__installment-step">
-                  <b>{{ installment_price | money }}</b>Today
+                  <b
+                    ><span class="cb-price-with-icon">
+                      {{- 'icon-currency.svg' | inline_asset_content -}}
+                      <span>{{ installment_price | money_without_currency }}</span></span
+                    ></b
+                  >Today
                 </div>
                 <div class="cb-cart__installment-step">
-                  <b>{{ installment_price | money }}</b>In 1 month
+                  <b
+                    ><span class="cb-price-with-icon">
+                      {{- 'icon-currency.svg' | inline_asset_content -}}
+                      <span>{{ installment_price | money_without_currency }}</span></span
+                    ></b
+                  >In 1 month
                 </div>
                 <div class="cb-cart__installment-step">
-                  <b>{{ installment_price | money }}</b>In 2 month
+                  <b
+                    ><span class="cb-price-with-icon">
+                      {{- 'icon-currency.svg' | inline_asset_content -}}
+                      <span>{{ installment_price | money_without_currency }}</span></span
+                    ></b
+                  >In 2 month
                 </div>
                 <div class="cb-cart__installment-step">
-                  <b>{{ installment_price | money }}</b>In 3 month
+                  <b
+                    ><span class="cb-price-with-icon">
+                      {{- 'icon-currency.svg' | inline_asset_content -}}
+                      <span>{{ installment_price | money_without_currency }}</span></span
+                    ></b
+                  >In 3 month
                 </div>
               </div>
             </div>
@@ -293,6 +394,91 @@
         </a>
       </div>
     {%- endif -%}
+    <!-- Tamara Modal Capture -->
+    {% capture tamara_modal_content %}
+    <div class="cpm-bnpl-modal cpm-tamara-modal">
+      
+      <h3 class="cpm-tamara-top-title">Pay easier with Tamara</h3>
+      
+      <div class="cpm-bnpl-center-logo">
+        <img src="{{ 'tamara.png' | asset_img_url: '150x' }}" alt="Tamara" width="120" height="40" onerror="this.style.display='none'">
+      </div>
+      
+      <div class="cpm-tamara-options-box">
+        <div class="cpm-tamara-option">
+          <strong>Split in 4</strong>
+          <p>Pay a fraction now and the rest in 3 payments over the next 3 months. No late fees, shariah-compliant!*</p>
+        </div>
+        <div class="cpm-tamara-option">
+          <strong>Pay in Full</strong>
+          <p>Pay the full amount today and enjoy exclusive perks with Tamara!*</p>
+        </div>
+      </div>
+      
+      <h4 class="cpm-tamara-why-title">Why Tamara?</h4>
+      <div class="cpm-tamara-badges">
+        <span class="cpm-tamara-badge">Sharia-compliant</span>
+        <span class="cpm-tamara-badge">No late fees</span>
+        <span class="cpm-tamara-badge">Quick and easy</span>
+      </div>
+      
+      <div class="cpm-bnpl-terms">
+        <p>(1) Payment options availability may vary based on your order value and Tamara record.</p>
+        <p>(2) Subject to terms and conditions.</p>
+        <p>(3) Tamara is Sharia-compliant.</p>
+        <p>(4) Eligible for customers in United Arab Emirates.</p>
+        <p>(5) Your final payment plan may vary depending on your credit history.</p>
+      </div>
+    </div>
+  {% endcapture %}
+
+    <!-- Tabby Modal Capture -->
+    {% capture tabby_modal_content %}
+    <div class="cpm-bnpl-modal cpm-tabby-modal">
+      <div class="cpm-tabby-header">
+        <img src="{{ 'tabby.png' | asset_img_url: '150x' }}" alt="Tabby" width="100" height="30" onerror="this.style.display='none'">
+      </div>
+      
+      <div class="cpm-tabby-slogan">
+        <span class="cpm-tabby-pill">Shop now,</span>
+        <span class="cpm-tabby-slogan-text">pay over time.</span>
+      </div>
+      
+      <ul class="cpm-tabby-features">
+        <li>-No interest. No fees.</li>
+        <li>-Trusted by 4,5m+ customers.</li>
+        <li>-Shariah-compliant.</li>
+      </ul>
+      
+      <h4 class="cpm-bnpl-subtitle cpm-tabby-how">How it works</h4>
+      <ol class="cpm-tabby-steps">
+        <li><span>1</span> Choose Tabby at checkout</li>
+        <li><span>2</span> Enter your information and add your debit or credit card.</li>
+        <li><span>3</span> Your first payment is taken when the order is made.</li>
+        <li><span>4</span> We will send you a reminder when your next payment is due</li>
+      </ol>
+      
+      <div class="cpm-tabby-methods">
+        <img src="https://cdn.shopify.com/s/images/admin/checkout/payment_methods/mastercard.svg" onerror="this.style.display='none'" width="45" height="28" alt="Mastercard">
+        <img src="https://cdn.shopify.com/s/images/admin/checkout/payment_methods/visa.svg" onerror="this.style.display='none'" width="45" height="28" alt="Visa">
+        <!-- Google Pay fallback logic to ensure maximum likelihood of hitting correct Shopify asset -->
+        <img src="https://cdn.shopify.com/s/images/admin/checkout/payment_methods/google_pay.svg" onerror="this.src='https://cdn.shopify.com/s/images/admin/checkout/payment_methods/googlepay.svg'" width="45" height="28" alt="Google Pay">
+      </div>
+    </div>
+  {% endcapture %}
+
+    {% render 'modal-dialog',
+      id: 'tamaraModal',
+      title: 'Pay easier with Tamara',
+      max_width: '1200px',
+      content: tamara_modal_content
+    %}
+    {% render 'modal-dialog',
+      id: 'tabbyModal',
+      title: 'Easy Monthly Installments',
+      max_width: '1200px',
+      content: tabby_modal_content
+    %}
   </div>
 </div>
 
@@ -338,28 +524,3 @@
   ]
 }
 {% endschema %}
-
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-    // Handle Motorised option selector mockup
-    document.querySelectorAll('.cb-cart__option-item').forEach((item) => {
-      item.addEventListener('click', function () {
-        const parent = this.closest('.cb-cart__option-selector');
-        parent.querySelectorAll('.cb-cart__option-item').forEach((i) => {
-          i.classList.remove('cb-cart__option-item--selected');
-          const label = i.querySelector('.cb-cart__option-selected-label');
-          if (label) label.remove();
-        });
-
-        this.classList.add('cb-cart__option-item--selected');
-        const selectedLabel = document.createElement('div');
-        selectedLabel.className = 'cb-cart__option-selected-label';
-        selectedLabel.innerHTML = '<span class="cb-cart__option-selected-icon">✓</span> Selected';
-        this.appendChild(selectedLabel);
-
-        // Note: Real implementation would trigger a variant change via Cart AJAX API
-        console.log('Selected option:', this.innerText.trim());
-      });
-    });
-  });
-</script>
