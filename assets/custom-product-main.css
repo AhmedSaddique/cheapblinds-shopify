@@ -8,6 +8,7 @@
 .cpm-hide-mobile {
   display: block;
 }
+
 .cpm-hide-desktop {
   display: none;
 }
@@ -90,6 +91,7 @@
   z-index: 10;
   max-width: 150px;
 }
+
 .cpm-badge-overlay img {
   width: 100%;
   height: auto;
@@ -111,7 +113,8 @@
 
 .cpm-thumb-slide.swiper-slide-thumb-active {
   opacity: 1;
-  border-color: #333; /* Dark border to match image */
+  border-color: #333;
+  /* Dark border to match image */
 }
 
 .cpm-thumb-image {
@@ -133,6 +136,7 @@
   font-weight: 700;
   color: #000;
 }
+
 .cpm-instruction-text {
   font-size: 14px;
 }
@@ -143,18 +147,21 @@
   justify-content: space-around;
   margin-bottom: 20px;
 }
+
 .cpm-visually-hidden {
   position: absolute;
   opacity: 0;
   width: 0;
   height: 0;
 }
+
 .cpm-radio-label {
   display: flex;
   align-items: center;
   cursor: pointer;
   font-size: 14px;
 }
+
 .cpm-custom-radio {
   display: inline-block;
   width: 18px;
@@ -166,10 +173,12 @@
   background: #f7f7f7;
   transition: all 0.2s ease;
 }
-.cpm-visually-hidden:checked + .cpm-custom-radio {
+
+.cpm-visually-hidden:checked+.cpm-custom-radio {
   border-color: #ddd;
 }
-.cpm-visually-hidden:checked + .cpm-custom-radio::after {
+
+.cpm-visually-hidden:checked+.cpm-custom-radio::after {
   content: "";
   position: absolute;
   top: 50%;
@@ -188,9 +197,11 @@
   gap: 20px;
   margin-bottom: 30px;
 }
+
 .cpm-measure-label {
   display: block;
 }
+
 .cpm-measure-input {
   width: 100%;
   height: 48px;
@@ -201,6 +212,7 @@
   box-sizing: border-box;
   background: #f9fafb;
 }
+
 .cpm-measure-input:focus {
   outline: none;
   border-color: #ffb803;
@@ -210,6 +222,7 @@
   .cpm-promo-main {
     font-size: 28px;
   }
+
   .cpm-title {
     font-size: 28px;
   }
@@ -238,6 +251,7 @@
     font-size: 20px;
     text-align: center;
   }
+
   .cpm-promo-banner {
     flex-wrap: wrap;
     justify-content: center;
@@ -254,17 +268,20 @@
 .cpm-fitting-section {
   margin-bottom: 30px;
 }
+
 .cpm-fitting-header {
   display: flex;
   align-items: center;
   gap: 10px;
   margin-bottom: 12px;
 }
+
 .cpm-fitting-title {
   font-size: 14px;
   font-weight: 400;
   color: #111;
 }
+
 .cpm-help-link {
   background: none;
   border: none;
@@ -276,6 +293,7 @@
   gap: 4px;
   padding: 0;
 }
+
 .cpm-help-icon {
   display: inline-block;
   width: 16px;
@@ -292,9 +310,11 @@
   grid-template-columns: 1fr 1fr;
   gap: 12px;
 }
+
 .cpm-fitting-label {
   cursor: pointer;
 }
+
 .cpm-fitting-box {
   display: flex;
   align-items: center;
@@ -305,18 +325,21 @@
   padding: 0 15px;
   background: #fff;
 }
+
 .cpm-fitting-check {
   width: 18px;
   height: 18px;
   opacity: 0;
   transition: opacity 0.2s;
 }
-.cpm-fitting-radio:checked + .cpm-fitting-box {
+
+.cpm-fitting-radio:checked+.cpm-fitting-box {
   background: #000;
   border-color: #000;
   color: #fff;
 }
-.cpm-fitting-radio:checked + .cpm-fitting-box .cpm-fitting-check {
+
+.cpm-fitting-radio:checked+.cpm-fitting-box .cpm-fitting-check {
   opacity: 1;
 }
 
@@ -335,12 +358,20 @@
   justify-content: center;
   margin-bottom: 20px;
 }
+
 .cpm-btn-primary {
   background-color: #ffb803;
   color: #000;
 }
+
 .cpm-btn-primary:hover {
   background-color: #e5a400;
+}
+
+.cpm-safe-checkout-wrapper {
+  border: 1px solid #0000001F;
+  border-radius: 8px;
+  padding: 10px;
 }
 
 /* --- Modal --- */
@@ -358,9 +389,11 @@
   padding: 20px;
   box-sizing: border-box;
 }
+
 .cpm-modal-hidden {
   display: none !important;
 }
+
 .cpm-modal-container {
   background: #fff;
   width: 100%;
@@ -371,6 +404,7 @@
   flex-direction: column;
   max-height: 90vh;
 }
+
 .cpm-modal-header {
   display: flex;
   justify-content: space-between;
@@ -378,11 +412,13 @@
   padding: 20px 24px;
   border-bottom: 1px solid #eaeaea;
 }
+
 .cpm-modal-title {
   margin: 0;
   font-size: 20px;
   font-weight: 600;
 }
+
 .cpm-modal-close {
   background: none;
   border: none;
@@ -392,6 +428,7 @@
   align-items: center;
   justify-content: center;
 }
+
 .cpm-modal-body {
   padding: 24px;
   overflow-y: auto;
@@ -404,23 +441,28 @@
   margin-bottom: 25px;
   align-items: flex-start;
 }
+
 .cpm-fitting-info-row:last-child {
   margin-bottom: 0;
 }
+
 .cpm-fitting-info-img {
   flex-shrink: 0;
   width: 180px;
 }
+
 .cpm-fitting-info-img img {
   width: 100%;
   height: auto;
   border-radius: 4px;
 }
+
 .cpm-fitting-info-text {
   font-size: 14px;
   line-height: 1.6;
   color: #444;
 }
+
 .cpm-fitting-info-text strong {
   color: #000;
 }
@@ -429,10 +471,12 @@
   .cpm-fitting-info-row {
     flex-direction: column;
   }
+
   .cpm-fitting-info-img {
     width: 100%;
     max-width: 250px;
   }
+
   .cpm-fitting-options {
     grid-template-columns: 1fr;
   }
@@ -448,18 +492,22 @@
   justify-content: space-between;
   margin-bottom: 30px;
 }
+
 .cpm-free-sample-content {
   color: #000;
 }
+
 .cpm-free-sample-title {
   margin: 0 0 5px 0;
   font-size: 16px;
   font-weight: 600;
 }
+
 .cpm-free-sample-sub {
   margin: 0;
   font-size: 14px;
 }
+
 .cpm-sample-btn {
   background: #fff;
   border: none;
@@ -475,6 +523,7 @@
   color: #000;
   flex-shrink: 0;
 }
+
 .cpm-plus-icon {
   display: inline-flex;
   align-items: center;
@@ -494,12 +543,14 @@
   flex-direction: column;
   gap: 10px;
 }
+
 .cpm-accordion-item {
   border: 1px solid #ddd;
   border-radius: 6px;
   background: #f9fafb;
   overflow: hidden;
 }
+
 .cpm-accordion-header {
   width: 100%;
   text-align: left;
@@ -514,6 +565,7 @@
   align-items: center;
   font-family: inherit;
 }
+
 .cpm-accordion-icon {
   display: inline-flex;
   align-items: center;
@@ -543,19 +595,23 @@
 .cpm-accordion-active .cpm-icon-minus {
   display: block;
 }
+
 .cpm-accordion-body {
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.3s ease;
 }
+
 .cpm-accordion-content {
   padding: 0 20px 20px 20px;
   font-size: 14px;
   line-height: 1.5;
 }
+
 .cpm-accordion-active .cpm-accordion-body {
   max-height: 1000px;
 }
+
 .cpm-accordion-active .cpm-accordion-header {
   font-weight: 500;
 }
@@ -567,6 +623,7 @@
   gap: 12px;
   margin-bottom: 25px;
 }
+
 .cpm-badge-box {
   border: 1px solid #ddd;
   border-radius: 6px;
@@ -578,25 +635,30 @@
   flex-wrap: wrap;
   gap: 10px;
 }
+
 .cpm-badge-text {
   font-size: 13px;
   color: #555;
 }
+
 .cpm-payment-options {
   display: flex;
   align-items: center;
   gap: 10px;
 }
+
 .cpm-pay-provider {
   display: flex;
   align-items: center;
   gap: 6px;
 }
+
 .cpm-provider-logo {
   height: 25px;
   width: auto;
   object-fit: contain;
 }
+
 .cpm-info-icon {
   width: 16px;
   height: 16px;
@@ -613,29 +675,35 @@
   cursor: pointer;
   padding: 0;
 }
+
 .cpm-delivery-left {
   display: flex;
   align-items: center;
   gap: 8px;
 }
+
 .cpm-truck-icon {
   width: 20px;
   height: 20px;
 }
+
 .cpm-delivery-right {
   display: flex;
   align-items: center;
   gap: 8px;
 }
+
 .cpm-stars {
   display: flex;
   align-items: center;
   gap: 2px;
 }
+
 .cpm-stars svg {
   width: 14px;
   height: 14px;
 }
+
 .cpm-review-count {
   font-size: 13px;
   color: #777;
@@ -647,6 +715,7 @@
     align-items: flex-start;
     gap: 15px;
   }
+
   .cpm-badge-box {
     justify-content: center;
   }
@@ -657,16 +726,19 @@
   font-family: inherit;
   color: #000;
 }
+
 .cpm-bnpl-title {
   text-align: center;
   font-size: 22px;
   font-weight: bold;
   margin-bottom: 20px;
 }
+
 .cpm-bnpl-center-logo {
   text-align: center;
   margin-bottom: 10px;
 }
+
 .cpm-bnpl-subtitle {
   font-size: 18px;
   font-weight: bold;
@@ -680,6 +752,7 @@
   font-weight: 800;
   margin: 15px 0;
 }
+
 .cpm-tamara-options-box {
   background:
     linear-gradient(#fdf7f3, #fdf7f3) padding-box,
@@ -689,29 +762,35 @@
   padding: 30px;
   margin-bottom: 30px;
 }
+
 .cpm-tamara-option {
   margin-bottom: 25px;
 }
+
 .cpm-tamara-option:last-child {
   margin-bottom: 0;
 }
+
 .cpm-tamara-option strong {
   display: block;
   font-size: 22px;
   margin-bottom: 8px;
   font-weight: 800;
 }
+
 .cpm-tamara-option p {
   margin: 0;
   font-size: 16px;
   color: #333;
   line-height: 1.5;
 }
+
 .cpm-tamara-why-title {
   font-size: 26px;
   font-weight: 800;
   margin: 0 0 25px 0;
 }
+
 .cpm-tamara-badges {
   display: flex;
   flex-wrap: wrap;
@@ -719,6 +798,7 @@
   gap: 15px;
   margin-bottom: 35px;
 }
+
 .cpm-tamara-badge {
   background: #ffb803;
   color: #fff;
@@ -727,6 +807,7 @@
   font-size: 20px;
   font-weight: 800;
 }
+
 .cpm-bnpl-terms p {
   font-size: 14px;
   color: #444;
@@ -737,6 +818,7 @@
 .cpm-tabby-header {
   margin-bottom: 20px;
 }
+
 .cpm-tabby-slogan {
   display: flex;
   flex-direction: column;
@@ -744,6 +826,7 @@
   gap: 8px;
   margin-bottom: 30px;
 }
+
 .cpm-tabby-pill {
   background: #3bf1b2;
   color: #000;
@@ -752,11 +835,13 @@
   font-size: 16px;
   font-weight: 800;
 }
+
 .cpm-tabby-slogan-text {
   color: #3bf1b2;
   font-size: 16px;
   font-weight: 800;
 }
+
 .cpm-tabby-features {
   list-style: none;
   padding: 0;
@@ -765,16 +850,19 @@
   font-weight: 800;
   line-height: 1.6;
 }
+
 .cpm-tabby-how {
   font-size: 26px;
   font-weight: 800;
   margin: 0 0 25px 0;
 }
+
 .cpm-tabby-steps {
   list-style: none;
   padding: 0;
   margin: 0 0 40px;
 }
+
 .cpm-tabby-steps li {
   display: flex;
   align-items: flex-start;
@@ -784,6 +872,7 @@
   line-height: 1.4;
   font-weight: 500;
 }
+
 .cpm-tabby-steps li span {
   background: #fdf5e6;
   color: #000;
@@ -798,6 +887,7 @@
   flex-shrink: 0;
   margin-top: -2px;
 }
+
 .cpm-tabby-methods {
   display: flex;
   justify-content: flex-end;
@@ -805,6 +895,7 @@
   gap: 18px;
   margin-top: 30px;
 }
+
 .cpm-tabby-methods img {
   height: 28px;
   width: auto;
