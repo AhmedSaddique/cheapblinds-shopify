@@ -3,26 +3,15 @@
     <div class="flex flex-col lg:flex-row gap-8 lg:gap-12">
       <!-- Left Column: Basket (Section 1) -->
       <div class="flex-1">
-        <h1 class="text-2xl md:text-3xl font-bold mb-6 font-rubik">Your Samples Basket</h1>
+        <h1 class="text-[24px] md:text-[36px] font-bold mb-6 font-rubik">Your Samples Basket</h1>
 
         <div class="bg-[#FFF9E7] py-3 px-4 text-center rounded-sm mb-8">
-          <span class="text-sm md:text-base font-semibold">Unlimited Samples - Free of Charge</span>
+          <span class="text-[20px] font-semibold font-rubik"
+            >Unlimited Samples - Free of Charge</span
+          >
         </div>
 
         <div id="SamplesPageList" class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8">
-          <!-- Items injected via JS -->
-          <div
-            id="SamplesPageEmpty"
-            class="col-span-full py-12 text-center border-2 border-dashed border-gray-200 rounded-lg hidden"
-          >
-            <p class="text-gray-500 mb-4">You have no free samples selected.</p>
-            <a
-              href="{{ section.settings.browse_link | default: routes.all_products_collection_url }}"
-              class="inline-block bg-primary text-black px-6 py-2 rounded-md font-semibold hover:opacity-90 transition"
-              >Browse Products</a
-            >
-          </div>
-
           <!-- Add more samples card (always visible) -->
           <a
             href="{{ section.settings.browse_link | default: routes.all_products_collection_url }}"
@@ -39,11 +28,12 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
               </svg>
             </div>
-            <span class="text-sm font-semibold">Add more samples</span>
+            <span class="text-[16px] font-sans">Add more samples</span>
           </a>
         </div>
 
-        <div class="text-center md:text-left text-sm text-gray-700">
+        <div class="text-center md:text-left text-16 text-gray-700 font-sans">
+          <p class="mb-1">Please enter your shipping details below</p>
           <p class="mb-1">
             All sample orders received before 4:00 pm Mon-Fri will be dispatched the same day by
           </p>
