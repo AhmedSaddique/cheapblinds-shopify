@@ -32,6 +32,20 @@
         "padding_bottom": 16
       }
     },
+    "cb_saved_items_page_6DeeBA": {
+      "type": "cb-saved-items-page",
+      "name": "Wishlist Page",
+      "settings": {
+        "page_type": "wishlist",
+        "wishlist_heading": "My Wishlist",
+        "samples_heading": "My Free Samples",
+        "wishlist_empty_text": "Your wishlist is currently empty.",
+        "samples_empty_text": "You have no free samples selected yet.",
+        "continue_label": "Continue shopping",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
     "google_reviews_ygm3rt": {
       "type": "google-reviews",
       "blocks": {
@@ -79,6 +93,7 @@
   "order": [
     "main",
     "cb_breadcrumb_BXnTfx",
+    "cb_saved_items_page_6DeeBA",
     "google_reviews_ygm3rt"
   ]
 }
