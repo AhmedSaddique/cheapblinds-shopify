@@ -111,6 +111,8 @@ class Wishlist {
     }
   }
 
+
+  
   toggleItem(btn) {
     const handle = btn.dataset.productHandle;
     const exists = this.items.some((item) => item.handle === handle);
