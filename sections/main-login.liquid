@@ -1,11 +1,11 @@
 {{ 'customer.css' | asset_url | stylesheet_tag }}
+{{ 'cb-login.css' | asset_url | stylesheet_tag }}
 
 {%- style -%}
   .section-{{ section.id }}-padding {
     padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
     padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
   }
-
   @media screen and (min-width: 750px) {
     .section-{{ section.id }}-padding {
       padding-top: {{ section.settings.padding_top }}px;
@@ -18,156 +18,231 @@
   {%- assign hide_shop_login_button = true -%}
 {%- endif -%}
 
-<div class="customer login section-{{ section.id }}-padding">
-  <h1 id="recover" tabindex="-1">
-    {{ 'customer.recover_password.title' | t }}
-  </h1>
-  <div>
-    <p>
-      {{ 'customer.recover_password.subtext' | t }}
-    </p>
-
-    {%- form 'recover_customer_password' -%}
-      {% assign recover_success = form.posted_successfully? %}
-      <div class="field">
-        <input
-          type="email"
-          value=""
-          name="email"
-          id="RecoverEmail"
-          autocorrect="off"
-          autocapitalize="off"
-          autocomplete="email"
-          {% if form.errors %}
-            aria-invalid="true"
-            aria-describedby="RecoverEmail-email-error"
-            autofocus
-          {% endif %}
-          placeholder="{{ 'customer.login_page.email' | t }}"
-        >
-        <label for="RecoverEmail">
-          {{ 'customer.login_page.email' | t }}
-        </label>
-      </div>
-      {%- if form.errors -%}
-        <small id="RecoverEmail-email-error" class="form__message">
-          <span class="svg-wrapper">
-            {{- 'icon-error.svg' | inline_asset_content -}}
-          </span>
-          {{ form.errors.messages.form }}
-        </small>
-      {%- endif -%}
-
-      <button>
-        {{ 'customer.login_page.submit' | t }}
-      </button>
-
-      <a href="#login">
-        {{ 'customer.login_page.cancel' | t }}
-      </a>
-    {%- endform -%}
-  </div>
-
-  <h1 id="login" tabindex="-1">
-    {{ 'customer.login_page.title' | t }}
-  </h1>
-  <div>
-    {%- if recover_success == true -%}
-      <h3 class="form__message" tabindex="-1" autofocus>
-        <span class="svg-wrapper">
-          {{- 'icon-success.svg' | inline_asset_content -}}
-        </span>
-        {{ 'customer.recover_password.success' | t }}
-      </h3>
-    {%- endif -%}
-    {%- form 'customer_login', novalidate: 'novalidate' -%}
-      {%- if form.errors -%}
-        <h2 class="form__message" tabindex="-1" autofocus>
-          <span class="visually-hidden">{{ 'accessibility.error' | t }} </span>
-          <span class="svg-wrapper">
-            {{- 'icon-error.svg' | inline_asset_content -}}
-          </span>
-          {{ 'templates.contact.form.error_heading' | t }}
-        </h2>
-        {{ form.errors | default_errors }}
-      {%- endif -%}
-
-      {%- if shop.features.login_with_shop_classic_customer_accounts? -%}
-        <section name="sign-in-with-shop-provider">
-          {{ shop | login_button: hide_button: hide_shop_login_button }}
-
-          {%- unless hide_shop_login_button -%}
-            <p>
-              {{ 'customer.login_page.alternate_provider_separator' | t }}
-            </p>
-          {%- endunless -%}
-        </section>
-      {%- endif -%}
-
-      <div class="field">
-        <input
-          type="email"
-          name="customer[email]"
-          id="CustomerEmail"
-          autocomplete="email"
-          autocorrect="off"
-          autocapitalize="off"
-          {% if form.errors contains 'form' %}
-            aria-invalid="true"
-          {% endif %}
-          placeholder="{{ 'customer.login_page.email' | t }}"
-        >
-        <label for="CustomerEmail">
-          {{ 'customer.login_page.email' | t }}
-        </label>
+<div class="cbl-wrapper page-width section-{{ section.id }}-padding">
+  <div class="cbl-grid">
+    <!-- ===== LEFT: Registered Customers ===== -->
+    <div class="cbl-col cbl-col--login">
+      <!-- Recover Password Form (hidden by default, shown via anchor) -->
+      <div id="cbl-recover" class="cbl-recover-form" style="display:none;">
+        <h2 class="cbl-heading">{{ 'customer.recover_password.title' | t }}</h2>
+        <p class="cbl-subtext">{{ 'customer.recover_password.subtext' | t }}</p>
+        {%- form 'recover_customer_password' -%}
+          {% assign recover_success = form.posted_successfully? %}
+          <div class="cbl-field">
+            <input
+              type="email"
+              value=""
+              name="email"
+              id="RecoverEmail"
+              autocorrect="off"
+              autocapitalize="off"
+              autocomplete="email"
+              {% if form.errors %}
+                aria-invalid="true"
+              {% endif %}
+              placeholder="{{ 'customer.login_page.email' | t }}"
+              class="cbl-input"
+            >
+          </div>
+          {%- if form.errors -%}
+            <small class="cbl-error">{{ form.errors.messages.form }}</small>
+          {%- endif -%}
+          <div class="cbl-actions">
+            <button type="submit" class="cbl-btn cbl-btn--primary">
+              {{ 'customer.login_page.submit' | t }}
+            </button>
+            <a href="#cbl-login" class="cbl-link cbl-recover-cancel">
+              {{ 'customer.login_page.cancel' | t }}
+            </a>
+          </div>
+        {%- endform -%}
       </div>
 
-      {%- if form.password_needed -%}
-        <div class="field">
-          <input
-            type="password"
-            value=""
-            name="customer[password]"
-            id="CustomerPassword"
-            autocomplete="current-password"
-            {% if form.errors contains 'form' %}
-              aria-invalid="true"
-            {% endif %}
-            placeholder="{{ 'customer.login_page.password' | t }}"
-          >
-          <label for="CustomerPassword">
-            {{ 'customer.login_page.password' | t }}
-          </label>
-        </div>
+      <!-- Login Form -->
+      <div id="cbl-login" class="cbl-login-form">
+        <h2 class="cbl-heading">{{ 'customer.login_page.title' | t }}</h2>
+        <p class="cbl-subtext">
+          {% if section.settings.login_subtext != blank %}
+            {{ section.settings.login_subtext }}
+          {% else %}
+            If you have an account, sign in with your email address.
+          {% endif %}
+        </p>
 
-        <a href="#recover">
-          {{ 'customer.login_page.forgot_password' | t }}
-        </a>
-      {%- endif -%}
+        {%- if recover_success == true -%}
+          <p class="cbl-success-msg">{{ 'customer.recover_password.success' | t }}</p>
+        {%- endif -%}
 
-      <button>
-        {{ 'customer.login_page.sign_in' | t }}
-      </button>
+        {%- form 'customer_login', novalidate: 'novalidate' -%}
+          {%- if form.errors -%}
+            <div class="cbl-error cbl-error--form">{{ form.errors | default_errors }}</div>
+          {%- endif -%}
 
-      <a href="{{ routes.account_register_url }}">
+          {%- if shop.features.login_with_shop_classic_customer_accounts? -%}
+            <section name="sign-in-with-shop-provider">
+              {{ shop | login_button: hide_button: hide_shop_login_button }}
+              {%- unless hide_shop_login_button -%}
+                <p class="cbl-divider-text">
+                  {{ 'customer.login_page.alternate_provider_separator' | t }}
+                </p>
+              {%- endunless -%}
+            </section>
+          {%- endif -%}
+
+          <!-- Email Field -->
+          <div class="cbl-field">
+            <input
+              type="email"
+              name="customer[email]"
+              id="CustomerEmail"
+              autocomplete="email"
+              autocorrect="off"
+              autocapitalize="off"
+              {% if form.errors contains 'form' %}
+                aria-invalid="true"
+              {% endif %}
+              placeholder="Enter your email"
+              class="cbl-input"
+            >
+          </div>
+
+          <!-- Password Field -->
+          {%- if form.password_needed -%}
+            <div class="cbl-field cbl-field--password">
+              <input
+                type="password"
+                value=""
+                name="customer[password]"
+                id="CustomerPassword"
+                autocomplete="current-password"
+                {% if form.errors contains 'form' %}
+                  aria-invalid="true"
+                {% endif %}
+                placeholder="Enter your password"
+                class="cbl-input"
+              >
+              <button
+                type="button"
+                class="cbl-eye-toggle"
+                aria-label="Toggle password visibility"
+                onclick="cblTogglePassword(this)"
+              >
+                <!-- Eye Open Icon -->
+                <svg
+                  class="cbl-eye-open"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
+                >
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                <!-- Eye Closed Icon -->
+                <svg
+                  class="cbl-eye-closed"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
+                  style="display:none;"
+                >
+                  <path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19m-6.72-1.07a3 3 0 11-4.24-4.24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  <line x1="1" y1="1" x2="23" y2="23" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+              </button>
+            </div>
+          {%- endif -%}
+
+          <!-- Actions -->
+          <div class="cbl-actions">
+            <button type="submit" class="cbl-btn cbl-btn--primary">
+              {{ 'customer.login_page.sign_in' | t }}
+            </button>
+            <a href="#cbl-recover" class="cbl-link cbl-forgot-link" onclick="cblShowRecover(event)">
+              {{ 'customer.login_page.forgot_password' | t }}
+            </a>
+          </div>
+        {%- endform -%}
+      </div>
+    </div>
+
+    <!-- ===== DIVIDER ===== -->
+    <div class="cbl-divider" aria-hidden="true"></div>
+
+    <!-- ===== RIGHT: New Customers ===== -->
+    <div class="cbl-col cbl-col--register">
+      <h2 class="cbl-heading">
+        {{ 'customer.login_page.guest_title' | t | default: 'New Customers' }}
+      </h2>
+      <p class="cbl-subtext">
+        {% if section.settings.register_subtext != blank %}
+          {{ section.settings.register_subtext }}
+        {% else %}
+          Creating an account has many benefits: check out faster, keep more than one address, track
+          orders and more.
+        {% endif %}
+      </p>
+      <a href="{{ routes.account_register_url }}" class="cbl-btn cbl-btn--primary">
         {{ 'customer.login_page.create_account' | t }}
       </a>
-    {%- endform -%}
+    </div>
   </div>
+  <!-- .cbl-grid -->
 
+  <!-- Guest Checkout -->
   {%- if shop.checkout.guest_login -%}
-    <div>
-      <hr>
-      <h2>{{ 'customer.login_page.guest_title' | t }}</h2>
-
+    <div class="cbl-guest">
+      <hr class="cbl-hr">
       {%- form 'guest_login' -%}
-        <button>
+        <button type="submit" class="cbl-btn cbl-btn--secondary">
           {{ 'customer.login_page.guest_continue' | t }}
         </button>
       {%- endform -%}
     </div>
   {%- endif -%}
 </div>
+
+<script>
+  function cblTogglePassword(btn) {
+    const field = btn.closest('.cbl-field--password');
+    const input = field.querySelector('input');
+    const eyeOpen = btn.querySelector('.cbl-eye-open');
+    const eyeClosed = btn.querySelector('.cbl-eye-closed');
+    if (input.type === 'password') {
+      input.type = 'text';
+      eyeOpen.style.display = 'none';
+      eyeClosed.style.display = 'block';
+    } else {
+      input.type = 'password';
+      eyeOpen.style.display = 'block';
+      eyeClosed.style.display = 'none';
+    }
+  }
+
+  function cblShowRecover(e) {
+    e.preventDefault();
+    document.getElementById('cbl-login').style.display = 'none';
+    document.getElementById('cbl-recover').style.display = 'block';
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    const cancelBtn = document.querySelector('.cbl-recover-cancel');
+    if (cancelBtn) {
+      cancelBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.getElementById('cbl-recover').style.display = 'none';
+        document.getElementById('cbl-login').style.display = 'block';
+      });
+    }
+
+    // If hash is #recover, show recover form
+    if (window.location.hash === '#recover') {
+      document.getElementById('cbl-login').style.display = 'none';
+      document.getElementById('cbl-recover').style.display = 'block';
+    }
+  });
+</script>
 
 {% schema %}
 {
@@ -178,6 +253,18 @@
       "id": "enable_shop_login_button",
       "label": "t:sections.main-login.shop_login_button.enable",
       "default": true
+    },
+    {
+      "type": "text",
+      "id": "login_subtext",
+      "label": "Registered Customers Subtext",
+      "default": "If you have an account, sign in with your email address."
+    },
+    {
+      "type": "textarea",
+      "id": "register_subtext",
+      "label": "New Customers Subtext",
+      "default": "Creating an account has many benefits: check out faster, keep more than one address, track orders and more."
     },
     {
       "type": "header",
