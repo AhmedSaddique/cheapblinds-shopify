@@ -7,14 +7,23 @@
  * made to this file may be overwritten.
  * ------------------------------------------------------------
  */
+
 {
   "sections": {
+    "breadcrumb": {
+      "type": "cb-breadcrumb",
+      "settings": {
+        "padding_top": 16,
+        "padding_bottom": 16
+      }
+    },
     "main": {
       "type": "custom-samples-page",
       "settings": {}
     }
   },
   "order": [
+    "breadcrumb",
     "main"
   ]
 }

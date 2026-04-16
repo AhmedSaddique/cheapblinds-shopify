@@ -3,42 +3,29 @@
 {{ 'cb-product-grid.css' | asset_url | stylesheet_tag }}
 {{ 'component-price.css' | asset_url | stylesheet_tag }}
 
-{%- liquid
-  assign page_type = section.settings.page_type
-  assign is_wishlist = false
-  if page_type == 'wishlist'
-    assign is_wishlist = true
-  endif
--%}
-
 <div
   class="cb-saved-items section-{{ section.id }}-padding"
   data-same-day-icon="{{ 'icon-same-day.svg' | asset_url }}"
 >
   <div class="page-width">
     <div class="cb-saved-items__header">
-      <p class="cb-saved-items__count" id="{% if is_wishlist %}WishlistPageCount{% else %}SamplesPageCount{% endif %}">
+      <p
+        class="cb-saved-items__count"
+        id="WishlistPageCount"
+      >
         0 Item(s)
       </p>
       <h1 class="cb-saved-items__title">
-        {% if is_wishlist %}
-          {{ section.settings.wishlist_heading }}
-        {% else %}
-          {{ section.settings.samples_heading }}
-        {% endif %}
+        {{ section.settings.wishlist_heading }}
       </h1>
     </div>
 
     <div
       class="cb-saved-items__empty"
-      id="{% if is_wishlist %}WishlistPageEmpty{% else %}SamplesPageEmpty{% endif %}"
+      id="WishlistPageEmpty"
     >
       <p class="cb-saved-items__empty-text">
-        {% if is_wishlist %}
-          {{ section.settings.wishlist_empty_text }}
-        {% else %}
-          {{ section.settings.samples_empty_text }}
-        {% endif %}
+        {{ section.settings.wishlist_empty_text }}
       </p>
       <a href="{{ routes.all_products_collection_url }}" class="cb-saved-items__continue">
         {{ section.settings.continue_label }}
@@ -46,8 +33,8 @@
     </div>
 
     <div
-      class="cb-saved-items__grid {% unless is_wishlist %}cb-saved-items__grid--samples{% endunless %}"
-      id="{% if is_wishlist %}WishlistPageGrid{% else %}SamplesPageGrid{% endif %}"
+      class="cb-saved-items__grid"
+      id="WishlistPageGrid"
     ></div>
   </div>
 </div>
@@ -68,20 +55,10 @@
 
 {% schema %}
 {
-  "name": "CB Wishlist Samples",
+  "name": "CB Wishlist",
   "tag": "section",
   "class": "section",
   "settings": [
-    {
-      "type": "select",
-      "id": "page_type",
-      "label": "Page type",
-      "default": "wishlist",
-      "options": [
-        { "value": "wishlist", "label": "Wishlist" },
-        { "value": "samples", "label": "Free Samples" }
-      ]
-    },
     {
       "type": "text",
       "id": "wishlist_heading",
@@ -90,21 +67,9 @@
     },
     {
       "type": "text",
-      "id": "samples_heading",
-      "label": "Free samples heading",
-      "default": "My Free Samples"
-    },
-    {
-      "type": "text",
       "id": "wishlist_empty_text",
       "label": "Wishlist empty text",
       "default": "Your wishlist is currently empty."
-    },
-    {
-      "type": "text",
-      "id": "samples_empty_text",
-      "label": "Free samples empty text",
-      "default": "You have no free samples selected yet."
     },
     {
       "type": "text",
@@ -140,9 +105,6 @@
   "presets": [
     {
       "name": "Wishlist Page"
-    },
-    {
-      "name": "Free Samples Page"
     }
   ]
 }

@@ -125,7 +125,9 @@ class FreeSamples {
         displayPrice: 'Rs. 0.00',
         originalPrice: btn.dataset.productPrice || '',
         url: btn.dataset.productUrl || '#',
-        image: btn.dataset.productImage || '',
+        image: this.normalizeImageUrl(btn.dataset.productImage || ''),
+        color: btn.dataset.productColor || '',
+        swatchImage: this.normalizeImageUrl(btn.dataset.productSwatchImage || '') || this.normalizeImageUrl(btn.dataset.productImage || ''),
       });
     }
 
@@ -201,6 +203,14 @@ class FreeSamples {
           const normalized = this.normalizeImageUrl(featured);
           if (normalized) {
             target.image = normalized;
+            changed = true;
+          }
+        }
+
+        if (!target.swatchImage && !target.color) {
+          const fallbackSwatch = this.normalizeImageUrl(target.image);
+          if (fallbackSwatch) {
+            target.swatchImage = fallbackSwatch;
             changed = true;
           }
         }
