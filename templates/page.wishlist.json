@@ -9,21 +9,24 @@
  */
 {
   "sections": {
+    "breadcrumb": {
+      "type": "cb-breadcrumb",
+      "settings": {
+        "padding_top": 16,
+        "padding_bottom": 16
+      }
+    },
+
     "main": {
       "type": "cb-saved-items-page",
       "settings": {
-        "page_type": "wishlist",
         "wishlist_heading": "My Wishlist",
-        "samples_heading": "My Free Samples",
         "wishlist_empty_text": "Your wishlist is currently empty.",
-        "samples_empty_text": "You have no free samples selected yet.",
         "continue_label": "Continue shopping",
         "padding_top": 36,
         "padding_bottom": 36
       }
     }
   },
-  "order": [
-    "main"
-  ]
+  "order": ["breadcrumb", "main"]
 }

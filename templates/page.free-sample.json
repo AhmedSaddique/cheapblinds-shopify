@@ -9,12 +9,17 @@
  */
 {
   "sections": {
+    "breadcrumb": {
+      "type": "cb-breadcrumb",
+      "settings": {
+        "padding_top": 16,
+        "padding_bottom": 16
+      }
+    },
     "main": {
       "type": "custom-samples-page",
       "settings": {}
     }
   },
-  "order": [
-    "main"
-  ]
+  "order": ["breadcrumb", "main"]
 }

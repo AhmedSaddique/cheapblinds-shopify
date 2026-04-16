@@ -1,52 +1,61 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
-      "type": "customer-service",
+      "type": "main-page",
+      "disabled": true,
       "settings": {
-        "heading": "Customer Service",
-        "sub_text": "Engage in seamless customer experience with us!",
-        "description": "For all your question and queries, We have compiled a list of those most frequently asked, divided into handy section below For further queries, call us.",
-        "phone_number": "+971 50 597 4531"
-      },
-      "blocks": {
-        "block_1": {
-          "type": "category",
-          "settings": {
-            "title": "Order Queries",
-            "content": "<p><strong>Placing an order</strong></p>\n<p>There are multiple ways to place an order for your made-to-measure curtains, blinds, and accessories.</p>\n<ul>\n<li>You can select your favourite product, fill in the measurements and add it to your cart. Your customized product will be delivered to you within 1-4 working days.</li>\n<li>Upon filling out the inquiry form available on the website.</li>\n</ul>\n<p><strong>What happens once you've placed an order?</strong></p>\n<p>Once you have placed an order with us, you will receive a confirmation email with all the important details such as your order number, the items and services you have purchased, and the total price. You will receive email updates on the progress of your order.</p>\n<p><strong>What happens once you have filled out an inquiry form?</strong></p>\n<p>If you have filled out the inquiry form, one of our experts will visit your home or office to take the right measurements for your customized blinds, curtains, and other accessories. Upon taking the measurements, the final quotation will be shared with you along with an online payment link.</p>\n<p><strong>Ways to pay</strong></p>\n<p>Debit/Credit card, Tabby &amp; Tamara.</p>"
-          }
-        },
-        "block_2": {
-          "type": "category",
-          "settings": {
-            "title": "Delivery",
-            "content": "<p>Information regarding delivery here.</p>"
-          }
-        },
-        "block_3": {
-          "type": "category",
-          "settings": {
-            "title": "My Account",
-            "content": "<p>Information regarding your account.</p>"
-          }
-        },
-        "block_4": {
-          "type": "category",
-          "settings": {
-            "title": "Returns and Refunds",
-            "content": "<p>Information regarding returns and refunds.</p>"
-          }
-        }
-      },
-      "block_order": [
-        "block_1",
-        "block_2",
-        "block_3",
-        "block_4"
-      ]
+        "padding_top": 28,
+        "padding_bottom": 28
+      }
+    },
+    "cb_breadcrumb_BXnTfx": {
+      "type": "cb-breadcrumb",
+      "name": "Custom Breadcrumbs",
+      "settings": {
+        "home_label": "Home",
+        "color_scheme": "",
+        "background_color": "rgba(0,0,0,0)",
+        "link_color": "#888888",
+        "link_hover_color": "#333333",
+        "current_color": "#333333",
+        "separator_color": "#000000",
+        "padding_top": 16,
+        "padding_bottom": 16
+      }
+    },
+    "cb_saved_items_page_x7WaKf": {
+      "type": "cb-saved-items-page",
+      "name": "Wishlist Page",
+      "settings": {
+        "wishlist_heading": "My Wishlist",
+        "wishlist_empty_text": "Your wishlist is currently empty.",
+        "continue_label": "Continue shopping",
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    },
+    "custom_samples_page_r4pwdR": {
+      "type": "custom-samples-page",
+      "name": "Samples Page",
+      "settings": {
+        "browse_link": "",
+        "success_redirect_url": ""
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "cb_breadcrumb_BXnTfx",
+    "cb_saved_items_page_x7WaKf",
+    "custom_samples_page_r4pwdR"
   ]
 }
