@@ -15,7 +15,7 @@
             href="{{ section.settings.browse_link | default: routes.all_products_collection_url }}"
             class="cb-samples-card cb-samples-card--addmore samples-page-add-card"
           >
-            <div class="cb-samples-card__plus" aria-hidden="true">
+            <div class="cb-samples-card__plus-serrated swatch-pinked" aria-hidden="true">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -25,7 +25,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
               </svg>
             </div>
-            <div class="cb-samples-card__title" style="margin-top: 12px;">Add more samples</div>
+            <div class="cb-samples-card__title">Add more samples</div>
           </a>
         </div>
 
@@ -148,29 +148,23 @@
 
     const isValidCssColor = (value) => {
       const v = String(value || '').trim();
-      if (!v) return false;
-      // Keep it simple: accept common functional colors and hex.
-      if (/^#([0-9a-f]{3}|[0-9a-f]{6}|[0-9a-f]{8})$/i.test(v)) return true;
-      if (/^(rgb|rgba|hsl|hsla)\(/i.test(v)) return true;
-      return false;
+      return !!v;
     };
 
     const buildFabricVisual = (item) => {
-      // Match wishlist behavior: prefer the color-code swatch; else fall back to swatch image / product image.
       const swatchImage = normalizeImageUrl(item.swatchImage || item.image);
       const colorValue = String(item.color || '').trim();
 
-      if (isValidCssColor(colorValue)) {
-        const safeColor = colorValue.replace(/"/g, '&quot;');
-        return `<div class="cb-color-swatch" style="background-color:${safeColor};"></div>`;
+      if (colorValue && colorValue !== 'null' && colorValue !== 'undefined') {
+        const safeColor = colorValue.includes('#') ? colorValue : `#${colorValue}`;
+        return `<div class="cb-color-swatch swatch-pinked" style="background-color:${safeColor};"></div>`;
       }
 
       if (swatchImage) {
-        const safeUrl = swatchImage.replace(/'/g, '%27');
-        return `<div class="cb-product-swatch-large cb-product-swatch-large--samples" style="background-image:url('${safeUrl}');"></div>`;
+        return `<div class="cb-product-swatch-large swatch-pinked" style="background-image:url('${swatchImage}');"></div>`;
       }
 
-      return `<div class="cb-product-swatch-large cb-product-swatch-large--samples"></div>`;
+      return `<div class="cb-product-swatch-large swatch-pinked"></div>`;
     };
 
     function renderPageSamples() {
@@ -187,14 +181,12 @@
         const card = document.createElement('div');
         card.className = 'sample-page-item cb-samples-card';
         card.innerHTML = `
-          <div>
-            <a href="${item.url}" class="cb-samples-card__visual" aria-label="${item.title}">
-              ${buildFabricVisual(item)}
-            </a>
-            <a href="${item.url}" class="cb-samples-card__title">
-              ${item.title}
-            </a>
-          </div>
+          <a href="${item.url}" class="cb-samples-card__visual" aria-label="${item.title}">
+            ${buildFabricVisual(item)}
+          </a>
+          <a href="${item.url}" class="cb-samples-card__title">
+            ${item.title}
+          </a>
           <button class="remove-btn cb-samples-card__remove" data-handle="${
             item.handle
           }" aria-label="Remove sample">
@@ -337,11 +329,6 @@
       "id": "success_redirect_url",
       "label": "Success Redirect URL",
       "info": "Where to redirect after clicking 'Order Free Sample'"
-    }
-  ],
-  "presets": [
-    {
-      "name": "Samples Page"
     }
   ]
 }

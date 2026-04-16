@@ -33,8 +33,5 @@
       }
     }
   },
-  "order": [
-    "main",
-    "cb_breadcrumb_BXnTfx"
-  ]
+  "order": ["main", "cb_breadcrumb_BXnTfx"]
 }

@@ -82,7 +82,7 @@
   padding: 24px 16px;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
   text-align: center;
   border-radius: 6px;
@@ -143,6 +143,32 @@
   height: 18px;
 }
 
+.cb-samples-card__visual .swatch-pinked {
+  width: 75px !important;
+  height: 75px !important;
+  margin: 0 auto !important;
+  display: block !important;
+}
+
+.swatch-pinked {
+  clip-path: polygon(
+    6% 0%, 10% 4%, 14% 0%, 18% 4%, 22% 0%, 26% 4%, 30% 0%, 34% 4%, 38% 0%, 42% 4%, 46% 0%, 50% 4%, 54% 0%, 58% 4%, 62% 0%, 66% 4%, 70% 0%, 74% 4%, 78% 0%, 82% 4%, 86% 0%, 90% 4%, 94% 0%, 100% 6%, 96% 10%, 100% 14%, 96% 18%, 100% 22%, 96% 26%, 100% 30%, 96% 34%, 100% 38%, 96% 42%, 100% 46%, 96% 50%, 100% 54%, 96% 58%, 100% 62%, 96% 66%, 100% 70%, 96% 74%, 100% 78%, 96% 82%, 100% 86%, 96% 90%, 100% 100%, 94% 100%, 90% 96%, 86% 100%, 82% 96%, 78% 100%, 74% 96%, 70% 100%, 66% 96%, 62% 100%, 58% 96%, 54% 100%, 50% 96%, 46% 100%, 42% 96%, 38% 100%, 34% 96%, 30% 100%, 26% 96%, 22% 100%, 18% 96%, 14% 100%, 10% 96%, 6% 100%, 0% 94%, 4% 90%, 0% 86%, 4% 82%, 0% 78%, 4% 74%, 0% 70%, 4% 66%, 0% 62%, 4% 58%, 0% 54%, 4% 50%, 0% 46%, 4% 42%, 0% 38%, 4% 34%, 0% 30%, 4% 26%, 0% 22%, 4% 18%, 0% 14%, 4% 10%, 0% 6%
+  );
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  flex-shrink: 0;
+}
+
+.cb-color-swatch {
+  background-color: #e8e0d8; /* Fallback */
+}
+
+.cb-product-swatch-large {
+  background-color: #e8e0d8;
+}
+
 .cb-samples-card--addmore {
   border-style: dashed;
   border-color: #cccccc;
@@ -157,14 +183,25 @@
 }
 
 .cb-samples-card__plus {
-  width: 68px;
-  height: 68px;
-  border: 2.5px solid #ffb800;
-  border-radius: 10px;
+  width: 75px;
+  height: 75px;
+  border: 1.5px solid #ffb800;
   display: flex;
   align-items: center;
   justify-content: center;
   background: #ffffff;
+}
+
+.cb-samples-card__plus-serrated {
+  width: 75px;
+  height: 75px;
+  border: 1.5px solid #ffb800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 .cb-samples-card__plus svg {
@@ -343,220 +380,12 @@
   transform: translateY(0);
 }
 
-.cb-product-swatch-large--samples {
-  width: 74px;
-  height: 74px;
-  background: #e8e0d8;
-  border-radius: 6px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  clip-path: polygon(
-    6% 0%,
-    10% 4%,
-    14% 0%,
-    18% 4%,
-    22% 0%,
-    26% 4%,
-    30% 0%,
-    34% 4%,
-    38% 0%,
-    42% 4%,
-    46% 0%,
-    50% 4%,
-    54% 0%,
-    58% 4%,
-    62% 0%,
-    66% 4%,
-    70% 0%,
-    74% 4%,
-    78% 0%,
-    82% 4%,
-    86% 0%,
-    90% 4%,
-    94% 0%,
-    100% 6%,
-    96% 10%,
-    100% 14%,
-    96% 18%,
-    100% 22%,
-    96% 26%,
-    100% 30%,
-    96% 34%,
-    100% 38%,
-    96% 42%,
-    100% 46%,
-    96% 50%,
-    100% 54%,
-    96% 58%,
-    100% 62%,
-    96% 66%,
-    100% 70%,
-    96% 74%,
-    100% 78%,
-    96% 82%,
-    100% 86%,
-    96% 90%,
-    100% 100%,
-    94% 100%,
-    90% 96%,
-    86% 100%,
-    82% 96%,
-    78% 100%,
-    74% 96%,
-    70% 100%,
-    66% 96%,
-    62% 100%,
-    58% 96%,
-    54% 100%,
-    50% 96%,
-    46% 100%,
-    42% 96%,
-    38% 100%,
-    34% 96%,
-    30% 100%,
-    26% 96%,
-    22% 100%,
-    18% 96%,
-    14% 100%,
-    10% 96%,
-    6% 100%,
-    0% 94%,
-    4% 90%,
-    0% 86%,
-    4% 82%,
-    0% 78%,
-    4% 74%,
-    0% 70%,
-    4% 66%,
-    0% 62%,
-    4% 58%,
-    0% 54%,
-    4% 50%,
-    0% 46%,
-    4% 42%,
-    0% 38%,
-    4% 34%,
-    0% 30%,
-    4% 26%,
-    0% 22%,
-    4% 18%,
-    0% 14%,
-    4% 10%,
-    0% 6%
-  );
-}
-
-.cb-color-swatch {
-  width: 74px;
-  height: 74px;
-  display: block;
-  border-radius: 6px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  clip-path: polygon(
-    6% 0%,
-    10% 4%,
-    14% 0%,
-    18% 4%,
-    22% 0%,
-    26% 4%,
-    30% 0%,
-    34% 4%,
-    38% 0%,
-    42% 4%,
-    46% 0%,
-    50% 4%,
-    54% 0%,
-    58% 4%,
-    62% 0%,
-    66% 4%,
-    70% 0%,
-    74% 4%,
-    78% 0%,
-    82% 4%,
-    86% 0%,
-    90% 4%,
-    94% 0%,
-    100% 6%,
-    96% 10%,
-    100% 14%,
-    96% 18%,
-    100% 22%,
-    96% 26%,
-    100% 30%,
-    96% 34%,
-    100% 38%,
-    96% 42%,
-    100% 46%,
-    96% 50%,
-    100% 54%,
-    96% 58%,
-    100% 62%,
-    96% 66%,
-    100% 70%,
-    96% 74%,
-    100% 78%,
-    96% 82%,
-    100% 86%,
-    96% 90%,
-    100% 100%,
-    94% 100%,
-    90% 96%,
-    86% 100%,
-    82% 96%,
-    78% 100%,
-    74% 96%,
-    70% 100%,
-    66% 96%,
-    62% 100%,
-    58% 96%,
-    54% 100%,
-    50% 96%,
-    46% 100%,
-    42% 96%,
-    38% 100%,
-    34% 96%,
-    30% 100%,
-    26% 96%,
-    22% 100%,
-    18% 96%,
-    14% 100%,
-    10% 96%,
-    6% 100%,
-    0% 94%,
-    4% 90%,
-    0% 86%,
-    4% 82%,
-    0% 78%,
-    4% 74%,
-    0% 70%,
-    4% 66%,
-    0% 62%,
-    4% 58%,
-    0% 54%,
-    4% 50%,
-    0% 46%,
-    4% 42%,
-    0% 38%,
-    4% 34%,
-    0% 30%,
-    4% 26%,
-    0% 22%,
-    4% 18%,
-    0% 14%,
-    4% 10%,
-    0% 6%
-  );
-}
+/* Removed old definitions to avoid conflict */
 
 @media (max-width: 749px) {
-  .cb-product-swatch-large--samples,
-  .cb-color-swatch {
-    width: 68px;
-    height: 68px;
+  .cb-samples-card__visual .swatch-pinked,
+  .cb-samples-card__plus-serrated.swatch-pinked {
+    width: 68px !important;
+    height: 68px !important;
   }
 }

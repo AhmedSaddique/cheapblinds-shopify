@@ -128,6 +128,7 @@ class FreeSamples {
         image: this.normalizeImageUrl(btn.dataset.productImage || ''),
         color: btn.dataset.productColor || '',
         swatchImage: this.normalizeImageUrl(btn.dataset.productSwatchImage || '') || this.normalizeImageUrl(btn.dataset.productImage || ''),
+        variantId: btn.dataset.variantId || '',
       });
     }
 
