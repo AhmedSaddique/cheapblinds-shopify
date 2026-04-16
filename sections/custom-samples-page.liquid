@@ -1,158 +1,94 @@
-<div class="bg-white min-h-screen py-8 md:py-16">
-  <div class="max-w-[1240px] mx-auto px-4 md:px-6">
-    <div class="flex flex-col lg:flex-row gap-8 lg:gap-12">
-      <!-- Left Column: Basket (Section 1) -->
-      <div class="flex-1">
-        <h1 class="text-[24px] md:text-[36px] font-bold mb-6 font-rubik">Your Samples Basket</h1>
+{{ 'custom-samples-page.css' | asset_url | stylesheet_tag }}
 
-        <div class="bg-[#FFF9E7] py-3 px-4 text-center rounded-sm mb-8">
-          <span class="text-[20px] font-semibold font-rubik"
-            >Unlimited Samples - Free of Charge</span
-          >
+<section class="cb-samples-page">
+  <div class="page-width">
+    <h1 class="cb-samples-page__title">Your Samples Basket</h1>
+
+    <div class="cb-samples-page__layout">
+      <div>
+        <div class="cb-samples-page__banner">
+          <span class="cb-samples-page__banner-text">Unlimited Samples - Free of Charge</span>
         </div>
 
-        <div id="SamplesPageList" class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8">
-          <!-- Add more samples card (always visible) -->
+        <div id="SamplesPageList" class="cb-samples-page__grid">
           <a
             href="{{ section.settings.browse_link | default: routes.all_products_collection_url }}"
-            class="border-2 border-dashed border-gray-300 rounded-sm p-4 flex flex-col items-center justify-center text-center group hover:border-primary transition cursor-pointer h-full min-h-[180px]"
+            class="cb-samples-card cb-samples-card--addmore samples-page-add-card"
           >
-            <div class="w-12 h-12 md:w-16 md:h-16 flex items-center justify-center border-2 border-primary rounded-sm mb-3 group-hover:bg-primary/5 transition">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="h-8 w-8 text-primary"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
+            <div class="cb-samples-card__plus" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
               </svg>
             </div>
-            <span class="text-[16px] font-sans">Add more samples</span>
+            <div class="cb-samples-card__title" style="margin-top: 12px;">Add more samples</div>
           </a>
         </div>
 
-        <div class="text-center md:text-left text-16 text-gray-700 font-sans">
-          <p class="mb-1">Please enter your shipping details below</p>
-          <p class="mb-1">
-            All sample orders received before 4:00 pm Mon-Fri will be dispatched the same day by
-          </p>
-          <p class="text-primary font-semibold">First Class Post free of charge.</p>
+        <div id="SamplesPageEmpty" class="cb-samples-page__empty hidden">
+          <p class="cb-samples-page__empty-text">No free samples selected yet.</p>
+          <a href="{{ section.settings.browse_link | default: routes.all_products_collection_url }}" class="cb-samples-page__cta">
+            Browse products
+          </a>
+        </div>
+
+        <div class="cb-samples-page__note">
+          All sample orders received before 4:00 pm Mon-Fri will be dispatched the same day by
+          <strong>First Class Post free of charge.</strong>
         </div>
       </div>
 
-      <!-- Right Column: Shipping (Section 2) -->
-      <div class="w-full lg:w-[400px]">
-        <div class="bg-[#FFF9E7] p-6 rounded-sm shadow-sm">
-          <h2 class="text-lg font-bold mb-6 font-rubik">Shipping address</h2>
+      <aside class="cb-samples-sidebar">
+        <h2 class="cb-samples-sidebar__heading">Shipping address</h2>
 
-          <form id="SamplesShippingForm" class="space-y-4">
-            <!-- Full Name -->
-            <div>
-              <input
-                type="text"
-                name="full_name"
-                placeholder="Full name*"
-                class="w-full p-3 border border-gray-200 rounded-sm bg-white focus:outline-none focus:ring-1 focus:ring-primary text-sm"
-                data-required
-              >
-              <p class="error-msg text-red-600 text-[12px] mt-1 hidden">
-                First name and last name required
-              </p>
-            </div>
+        <form id="SamplesShippingForm" class="cb-samples-form">
+          <div>
+            <input type="text" name="full_name" placeholder="Full name*" class="cb-samples-input" data-required>
+            <p class="error-msg cb-samples-error">First name and last name required</p>
+          </div>
 
-            <!-- Country/Region -->
-            <div>
-              <select
-                name="country"
-                class="w-full p-3 border border-gray-200 rounded-sm bg-white focus:outline-none focus:ring-1 focus:ring-primary text-sm appearance-none"
-                data-required
-              >
-                <option value="">Country / Region*</option>
-                <option value="UAE">United Arab Emirates</option>
-                <option value="UK">United Kingdom</option>
-              </select>
-              <p class="error-msg text-red-600 text-[12px] mt-1 hidden">Please select a country</p>
-            </div>
+          <div>
+            <select name="country" class="cb-samples-select" data-required>
+              <option value="">Country / Region*</option>
+              <option value="UAE">United Arab Emirates</option>
+              <option value="UK">United Kingdom</option>
+            </select>
+            <p class="error-msg cb-samples-error">Please select a country</p>
+          </div>
 
-            <!-- Full Address -->
-            <div>
-              <input
-                type="text"
-                name="address"
-                placeholder="Full address*"
-                class="w-full p-3 border border-gray-200 rounded-sm bg-white focus:outline-none focus:ring-1 focus:ring-primary text-sm"
-                data-required
-              >
-              <p class="error-msg text-red-600 text-[12px] mt-1 hidden">Address is required</p>
-            </div>
+          <div>
+            <input type="text" name="address" placeholder="Full address*" class="cb-samples-input" data-required>
+            <p class="error-msg cb-samples-error">Address is required</p>
+          </div>
 
-            <!-- City/Emirate -->
-            <div>
-              <input
-                type="text"
-                name="city"
-                placeholder="Emirate*"
-                class="w-full p-3 border border-gray-200 rounded-sm bg-white focus:outline-none focus:ring-1 focus:ring-primary text-sm"
-                data-required
-              >
-              <p class="error-msg text-red-600 text-[12px] mt-1 hidden">City/Emirate is required</p>
-            </div>
+          <div>
+            <input type="text" name="city" placeholder="Emirate" class="cb-samples-input" data-required>
+            <p class="error-msg cb-samples-error">City/Emirate is required</p>
+          </div>
 
-            <!-- Phone -->
-            <div>
-              <input
-                type="tel"
-                name="phone"
-                placeholder="Phone*"
-                class="w-full p-3 border border-gray-200 rounded-sm bg-white focus:outline-none focus:ring-1 focus:ring-primary text-sm"
-                data-required
-              >
-              <p class="error-msg text-red-600 text-[12px] mt-1 hidden">Phone number is required</p>
-            </div>
+          <div>
+            <input type="tel" name="phone" placeholder="Phone*" class="cb-samples-input" data-required>
+            <p class="error-msg cb-samples-error">Phone number is required</p>
+          </div>
 
-            <!-- Email -->
-            <div>
-              <input
-                type="email"
-                name="email"
-                placeholder="Email address*"
-                class="w-full p-3 border border-gray-200 rounded-sm bg-white focus:outline-none focus:ring-1 focus:ring-primary text-sm"
-                data-required
-              >
-              <p class="error-msg text-red-600 text-[12px] mt-1 hidden">Valid email is required</p>
-            </div>
+          <div>
+            <input type="email" name="email" placeholder="Email address*" class="cb-samples-input" data-required>
+            <p class="error-msg cb-samples-error">Valid email is required</p>
+          </div>
 
-            <div class="py-4">
-              <p class="text-[12px] leading-relaxed text-gray-700 mb-4">
-                We'd love to send you money-off vouchers, special offers and the very latest in
-                fashion and interior design tips. We will always respect your privacy and we will
-                never sell your details to any other company
-              </p>
-              <label class="flex items-start gap-3 cursor-pointer select-none">
-                <input
-                  type="checkbox"
-                  name="no_marketing"
-                  class="mt-1 w-4 h-4 rounded border-gray-300 text-primary focus:ring-primary"
-                >
-                <span class="text-sm text-gray-800"
-                  >No thanks, I don't want to hear about offers or services</span
-                >
-              </label>
-            </div>
+          <div class="cb-samples-marketing">
+            We'd love to send you money-off vouchers, special offers and the very latest in fashion and interior design tips. We will always respect your privacy and we will never sell your details to any other company
+            <label class="cb-samples-checkbox">
+              <input type="checkbox" name="no_marketing">
+              <span>No thanks, I don't want to hear about offers or services</span>
+            </label>
+          </div>
 
-            <button
-              type="submit"
-              class="w-full bg-primary text-black font-bold py-4 rounded-md shadow-md hover:opacity-90 transition uppercase tracking-wide"
-            >
-              Order Free Sample
-            </button>
-          </form>
-        </div>
-      </div>
+          <button type="submit" class="cb-samples-submit">Order Free Sample</button>
+        </form>
+      </aside>
     </div>
   </div>
-</div>
+</section>
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
@@ -161,59 +97,82 @@
     const form = document.getElementById('SamplesShippingForm');
     const storageKey = 'cb-samples';
     const redirectUrl = "{{ section.settings.success_redirect_url | default: '/' }}";
+    const maxSamples = 5;
 
-    // Function to render items on page
+    const normalizeImageUrl = (url) => {
+      const value = String(url || '').trim();
+      if (!value) return '';
+      if (value.startsWith('//')) return `https:${value}`;
+      return value;
+    };
+
+    const buildFabricVisual = (item) => {
+      // Intentionally prefer swatch/color visuals; do not fall back to poster image.
+      const swatchImage = normalizeImageUrl(item.swatchImage);
+
+      if (item.color) {
+        const safeColor = String(item.color).replace(/"/g, '&quot;');
+        return `<div class="cb-swatch-clip" style="background-color:${safeColor};"></div>`;
+      }
+
+      if (swatchImage) {
+        const safeUrl = swatchImage.replace(/'/g, "%27");
+        return `<div class="cb-swatch-clip" style="background-image:url('${safeUrl}');"></div>`;
+      }
+
+      return `<div class="cb-swatch-clip"></div>`;
+    };
+
     function renderPageSamples() {
       if (!listContainer) return;
 
-      // Remove existing items
       listContainer.querySelectorAll('.sample-page-item').forEach((el) => el.remove());
 
       const data = localStorage.getItem(storageKey);
       const items = data ? JSON.parse(data) : [];
 
-      if (items.length === 0) {
-        emptyState.classList.remove('hidden');
-      } else {
-        emptyState.classList.add('hidden');
+      emptyState.classList.toggle('hidden', items.length > 0);
 
-        items.forEach((item) => {
-          const card = document.createElement('div');
-          card.className =
-            'sample-page-item border border-gray-200 rounded-sm p-4 relative group hover:border-primary transition h-full flex flex-col';
-          card.innerHTML = `
-            <div class="mb-3 flex-1 flex flex-col items-center">
-               <a href="${item.url}" class="block mb-3 overflow-hidden rounded-sm">
-                  <img src="${item.image}" alt="${item.title}" class="w-full h-auto object-cover transform group-hover:scale-105 transition duration-300 max-h-[120px]">
-               </a>
-               <a href="${item.url}" class="block text-center text-xs md:text-sm font-medium hover:text-primary transition line-clamp-2">
-                  ${item.title}
-               </a>
-            </div>
-            <div class="flex justify-center mt-auto">
-              <button class="remove-btn bg-[#FFF9E7] p-2 rounded-full hover:bg-primary transition" data-handle="${item.handle}">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M3 6H5H21M19 6V20C19 20.5304 18.7893 21.0391 18.4142 21.4142C18.0391 21.7893 17.5304 22 17 22H7C6.46957 22 5.96086 21.7893 5.58579 21.4142C5.21071 21.0391 5 20.5304 5 20V6M8 6V4C8 3.46957 8.21071 2.96086 8.58579 2.58579C8.96086 2.21071 9.46957 2 10 2H14C14.5304 2 15.0391 2.21071 15.4142 2.58579C15.7893 2.96086 16 3.46957 16 4V6" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                </svg>
-              </button>
-            </div>
-          `;
-          listContainer.insertBefore(card, listContainer.lastElementChild);
-        });
+      items.forEach((item) => {
+        const card = document.createElement('div');
+        card.className = 'sample-page-item cb-samples-card';
+        card.innerHTML = `
+          <div>
+            <a href="${item.url}" class="cb-samples-card__visual" aria-label="${item.title}">
+              ${buildFabricVisual(item)}
+            </a>
+            <a href="${item.url}" class="cb-samples-card__title">
+              ${item.title}
+            </a>
+          </div>
+          <button class="remove-btn cb-samples-card__remove" data-handle="${item.handle}" aria-label="Remove sample">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M8 9V18" stroke="#AA9157" stroke-width="1.7" stroke-linecap="round"/>
+                <path d="M16 9V18" stroke="#AA9157" stroke-width="1.7" stroke-linecap="round"/>
+                <path d="M5 6H19" stroke="#AA9157" stroke-width="1.7" stroke-linecap="round"/>
+                <path d="M10 4H14" stroke="#AA9157" stroke-width="1.7" stroke-linecap="round"/>
+                <path d="M7 6L8 20H16L17 6" stroke="#AA9157" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+          </button>
+        `;
+        listContainer.insertBefore(card, listContainer.lastElementChild);
+      });
+
+      const addMoreCard = listContainer.querySelector('.samples-page-add-card');
+      if (addMoreCard) {
+        addMoreCard.classList.toggle('hidden', items.length >= maxSamples);
       }
     }
 
-    // Handle removals
     document.addEventListener('click', (e) => {
       const removeBtn = e.target.closest('.remove-btn');
       if (removeBtn) {
         const handle = removeBtn.dataset.handle;
         const data = localStorage.getItem(storageKey);
         let items = data ? JSON.parse(data) : [];
-        items = items.filter((i) => i.handle !== handle);
+        items = items.filter((entry) => entry.handle !== handle);
         localStorage.setItem(storageKey, JSON.stringify(items));
 
-        // Update both page and service
         renderPageSamples();
         if (window.FreeSamplesService) {
           window.FreeSamplesService.items = items;
@@ -222,14 +181,12 @@
       }
     });
 
-    // Form Validation (Formik-like experience)
     const validateField = (input) => {
       const parent = input.closest('div');
       const error = parent.querySelector('.error-msg');
       let isValid = true;
 
-      // Reset
-      error.classList.add('hidden');
+      if (error) error.classList.remove('is-visible');
       input.classList.remove('border-red-600', 'bg-red-50');
 
       if (input.hasAttribute('data-required') || input.type === 'email') {
@@ -237,26 +194,20 @@
           isValid = false;
         } else if (input.type === 'email') {
           const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-          if (!re.test(input.value)) {
-            isValid = false;
-          }
-        } else if (input.name === 'full_name') {
-          // Basic check for two names if requested, but label is "Full Name"
-          if (input.value.trim().split(' ').length < 2) {
-            isValid = false;
-          }
+          if (!re.test(input.value)) isValid = false;
+        } else if (input.name === 'full_name' && input.value.trim().split(' ').length < 2) {
+          isValid = false;
         }
       }
 
       if (!isValid) {
-        error.classList.remove('hidden');
+        if (error) error.classList.add('is-visible');
         input.classList.add('border-red-600', 'bg-red-50');
       }
 
       return isValid;
     };
 
-    // Real-time validation
     form
       .querySelectorAll('input[data-required], select[data-required], input[type="email"]')
       .forEach((field) => {
@@ -264,7 +215,6 @@
         field.addEventListener('blur', () => validateField(field));
       });
 
-    // Form Submission
     form.addEventListener('submit', (e) => {
       e.preventDefault();
       let isFormValid = true;
@@ -282,14 +232,10 @@
       }
 
       if (isFormValid) {
-        console.log('Form validated successfully. Redirecting...');
-        // Clear samples after order? Usually yes.
-        // localStorage.setItem(storageKey, '[]');
         window.location.href = redirectUrl;
       }
     });
 
-    // Initial render
     renderPageSamples();
   });
 </script>
