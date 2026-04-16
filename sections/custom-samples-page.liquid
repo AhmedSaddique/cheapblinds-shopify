@@ -16,7 +16,12 @@
             class="cb-samples-card cb-samples-card--addmore samples-page-add-card"
           >
             <div class="cb-samples-card__plus" aria-hidden="true">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
               </svg>
             </div>
@@ -26,7 +31,10 @@
 
         <div id="SamplesPageEmpty" class="cb-samples-page__empty hidden">
           <p class="cb-samples-page__empty-text">No free samples selected yet.</p>
-          <a href="{{ section.settings.browse_link | default: routes.all_products_collection_url }}" class="cb-samples-page__cta">
+          <a
+            href="{{ section.settings.browse_link | default: routes.all_products_collection_url }}"
+            class="cb-samples-page__cta"
+          >
             Browse products
           </a>
         </div>
@@ -42,7 +50,13 @@
 
         <form id="SamplesShippingForm" class="cb-samples-form">
           <div>
-            <input type="text" name="full_name" placeholder="Full name*" class="cb-samples-input" data-required>
+            <input
+              type="text"
+              name="full_name"
+              placeholder="Full name*"
+              class="cb-samples-input"
+              data-required
+            >
             <p class="error-msg cb-samples-error">First name and last name required</p>
           </div>
 
@@ -56,27 +70,53 @@
           </div>
 
           <div>
-            <input type="text" name="address" placeholder="Full address*" class="cb-samples-input" data-required>
+            <input
+              type="text"
+              name="address"
+              placeholder="Full address*"
+              class="cb-samples-input"
+              data-required
+            >
             <p class="error-msg cb-samples-error">Address is required</p>
           </div>
 
           <div>
-            <input type="text" name="city" placeholder="Emirate" class="cb-samples-input" data-required>
+            <input
+              type="text"
+              name="city"
+              placeholder="Emirate"
+              class="cb-samples-input"
+              data-required
+            >
             <p class="error-msg cb-samples-error">City/Emirate is required</p>
           </div>
 
           <div>
-            <input type="tel" name="phone" placeholder="Phone*" class="cb-samples-input" data-required>
+            <input
+              type="tel"
+              name="phone"
+              placeholder="Phone*"
+              class="cb-samples-input"
+              data-required
+            >
             <p class="error-msg cb-samples-error">Phone number is required</p>
           </div>
 
           <div>
-            <input type="email" name="email" placeholder="Email address*" class="cb-samples-input" data-required>
+            <input
+              type="email"
+              name="email"
+              placeholder="Email address*"
+              class="cb-samples-input"
+              data-required
+            >
             <p class="error-msg cb-samples-error">Valid email is required</p>
           </div>
 
           <div class="cb-samples-marketing">
-            We'd love to send you money-off vouchers, special offers and the very latest in fashion and interior design tips. We will always respect your privacy and we will never sell your details to any other company
+            We'd love to send you money-off vouchers, special offers and the very latest in fashion
+            and interior design tips. We will always respect your privacy and we will never sell
+            your details to any other company
             <label class="cb-samples-checkbox">
               <input type="checkbox" name="no_marketing">
               <span>No thanks, I don't want to hear about offers or services</span>
@@ -106,21 +146,31 @@
       return value;
     };
 
-    const buildFabricVisual = (item) => {
-      // Intentionally prefer swatch/color visuals; do not fall back to poster image.
-      const swatchImage = normalizeImageUrl(item.swatchImage);
+    const isValidCssColor = (value) => {
+      const v = String(value || '').trim();
+      if (!v) return false;
+      // Keep it simple: accept common functional colors and hex.
+      if (/^#([0-9a-f]{3}|[0-9a-f]{6}|[0-9a-f]{8})$/i.test(v)) return true;
+      if (/^(rgb|rgba|hsl|hsla)\(/i.test(v)) return true;
+      return false;
+    };
 
-      if (item.color) {
-        const safeColor = String(item.color).replace(/"/g, '&quot;');
-        return `<div class="cb-swatch-clip" style="background-color:${safeColor};"></div>`;
+    const buildFabricVisual = (item) => {
+      // Match wishlist behavior: prefer the color-code swatch; else fall back to swatch image / product image.
+      const swatchImage = normalizeImageUrl(item.swatchImage || item.image);
+      const colorValue = String(item.color || '').trim();
+
+      if (isValidCssColor(colorValue)) {
+        const safeColor = colorValue.replace(/"/g, '&quot;');
+        return `<div class="cb-color-swatch" style="background-color:${safeColor};"></div>`;
       }
 
       if (swatchImage) {
-        const safeUrl = swatchImage.replace(/'/g, "%27");
-        return `<div class="cb-swatch-clip" style="background-image:url('${safeUrl}');"></div>`;
+        const safeUrl = swatchImage.replace(/'/g, '%27');
+        return `<div class="cb-product-swatch-large cb-product-swatch-large--samples" style="background-image:url('${safeUrl}');"></div>`;
       }
 
-      return `<div class="cb-swatch-clip"></div>`;
+      return `<div class="cb-product-swatch-large cb-product-swatch-large--samples"></div>`;
     };
 
     function renderPageSamples() {
@@ -145,7 +195,9 @@
               ${item.title}
             </a>
           </div>
-          <button class="remove-btn cb-samples-card__remove" data-handle="${item.handle}" aria-label="Remove sample">
+          <button class="remove-btn cb-samples-card__remove" data-handle="${
+            item.handle
+          }" aria-label="Remove sample">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M8 9V18" stroke="#AA9157" stroke-width="1.7" stroke-linecap="round"/>
                 <path d="M16 9V18" stroke="#AA9157" stroke-width="1.7" stroke-linecap="round"/>
@@ -237,6 +289,36 @@
     });
 
     renderPageSamples();
+
+    // `samples.js` initializes `window.FreeSamplesService` on `DOMContentLoaded` too and may
+    // hydrate older saved entries (adding missing `image/url/title`). Re-render once that
+    // hydration has had a chance to complete so swatches/images show correctly.
+    const rerenderAfterSamplesHydration = async () => {
+      const service = window.FreeSamplesService;
+      if (!service) return;
+
+      try {
+        const maybePromise = service?.hydrateMissingItemFields?.();
+        if (maybePromise && typeof maybePromise.then === 'function') {
+          await maybePromise;
+        } else if (service.isHydrating) {
+          const start = Date.now();
+          while (service.isHydrating && Date.now() - start < 1500) {
+            // Wait briefly for hydration to finish.
+            // eslint-disable-next-line no-await-in-loop
+            await new Promise((resolve) => setTimeout(resolve, 50));
+          }
+        }
+      } catch (e) {
+        // No-op: the page can still render from whatever data is available.
+      }
+
+      renderPageSamples();
+    };
+
+    setTimeout(() => {
+      rerenderAfterSamplesHydration();
+    }, 0);
   });
 </script>
 
