@@ -38,7 +38,7 @@
 .cbl-heading {
   font-size: 1.5rem;
   font-weight: 800;
-  color: #111;
+  color: #000;
   margin: 0 0 10px;
   line-height: 1.2;
 }
@@ -46,7 +46,7 @@
 /* ---- Subtext ---- */
 .cbl-subtext {
   font-size: 14px;
-  color: #333;
+  color: #000;
   line-height: 1.6;
   margin: 0 0 22px;
 }
@@ -64,7 +64,7 @@
   border: 1px solid #d1d5db;
   border-radius: 6px;
   font-size: 14px;
-  color: #111;
+  color: #000;
   background: #fff;
   outline: none;
   transition: border-color 0.2s;
@@ -109,7 +109,7 @@
 }
 
 .cbl-eye-toggle:hover {
-  color: #111;
+  color: #000;
 }
 
 /* ---- Actions Row ---- */
@@ -151,7 +151,7 @@
 .cbl-btn--secondary {
   background-color: transparent;
   border: 1.5px solid #d1d5db;
-  color: #333;
+  color: #000;
 }
 
 .cbl-btn--secondary:hover {
@@ -161,7 +161,7 @@
 /* ---- Links ---- */
 .cbl-link {
   font-size: 14px;
-  color: #111;
+  color: #000;
   text-decoration: underline;
   cursor: pointer;
   background: none;
