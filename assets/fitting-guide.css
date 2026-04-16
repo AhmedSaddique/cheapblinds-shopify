@@ -1,0 +1,174 @@
+/* ============================================================
+   Fitting Guide Section — fitting-guide.css
+   ============================================================ */
+
+
+/* Two-column grid */
+.fg-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px 48px;
+}
+
+/* Individual card — no box/border in desktop, just white space */
+.fg-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+/* Card header: badge + title inline */
+.fg-card-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.fg-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  min-width: 36px;
+  background-color: #f5a623;
+  color: #000;
+  font-size: 14px;
+  font-weight: 700;
+  border-radius: 50%;
+  line-height: 1;
+}
+
+.fg-card-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #111;
+  margin: 0;
+  line-height: 1.2;
+}
+
+/* Description */
+.fg-description {
+  font-size: 16px;
+  color: #000;
+  line-height: 1.7;
+  margin-bottom: 18px;
+}
+
+.fg-description p {
+  margin: 0;
+}
+
+.fg-description strong {
+  font-weight: 700;
+  color: #111;
+}
+
+/* Checklist */
+.fg-checklist {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.fg-check-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 300;
+  color: #000;
+  line-height: 1.55;
+}
+
+.fg-check-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  margin-top: 1px;
+  background-color: #FEB90714;
+  border-radius: 50%;
+}
+
+.fg-check-icon svg {
+  width: 12px;
+  height: 12px;
+}
+
+/* Diagram Image */
+.fg-image-wrapper {
+  margin-top: auto;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.fg-diagram-img {
+  max-width: 100%;
+  max-height: 360px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  display: block;
+}
+
+/* ============================================================
+   Mobile: two rows (stacked), 2 items per row
+   ============================================================ */
+@media (max-width: 767px) {
+
+  /* On mobile: exactly 2 columns so each fitting = 1 column (if 4 blocks = 2 rows) */
+  .fg-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 28px 20px;
+    padding: 0 12px;
+  }
+
+  .fg-card-title {
+    font-size: 1rem;
+  }
+
+  .fg-badge {
+    width: 28px;
+    height: 28px;
+    min-width: 28px;
+    font-size: 12px;
+  }
+
+  .fg-card-header {
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+
+  .fg-description {
+    font-size: 12.5px;
+    margin-bottom: 12px;
+  }
+
+  .fg-check-item {
+    font-size: 12px;
+  }
+
+  .fg-diagram-img {
+    max-height: 220px;
+  }
+}
+
+/* Very small screens: single column */
+@media (max-width: 480px) {
+  .fg-grid {
+    grid-template-columns: 1fr;
+    padding: 0;
+  }
+
+  .fg-header {
+    margin-bottom: 20px !important;
+  }
+}

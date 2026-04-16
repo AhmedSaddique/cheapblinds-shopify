@@ -1,0 +1,318 @@
+<style>
+  /* Scroll Snap Utilities */
+  .mt-slider-container {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+  }
+  .mt-slider-container::-webkit-scrollbar {
+    display: none;
+  }
+  .mt-slider-item {
+    scroll-snap-align: center;
+  }
+
+  /* Pagination Dots */
+  .mt-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #a1a1aa; /* Tailwind zinc-400 */
+    transition: background-color 0.3s;
+    cursor: pointer;
+    padding: 0;
+    border: none;
+  }
+  .mt-dot.active {
+    background-color: #facc15; /* Tailwind yellow-400 */
+  }
+</style>
+
+<div class="page-width text-black" style="padding-bottom: 30px;">
+  <div class="text-center mb-8 max-w-2xl mx-auto">
+    {% if section.settings.title != blank %}
+      <h2 class="text-3xl md:text-4xl font-bold text-black mb-3">
+        {{ section.settings.title }}
+      </h2>
+    {% endif %}
+    {% if section.settings.subtitle != blank %}
+      <p class="text-[15px] md:text-base text-black">{{ section.settings.subtitle }}</p>
+    {% endif %}
+  </div>
+
+  <!-- Slider -->
+  <div class="relative w-full">
+    <div
+      id="mt-slider-{{ section.id }}"
+      class="mt-slider-container flex overflow-x-auto gap-4 md:gap-5 pb-6"
+    >
+      {% for block in section.blocks %}
+        <div
+          class="mt-slider-item flex-shrink-0 w-[286px] md:flex-1 md:min-w-[286px] md:max-w-none border border-[#e5e7eb] rounded-[12px] py-4 px-2 text-center bg-white shadow-sm"
+          {{ block.shopify_attributes }}
+        >
+          <div class="flex items-center justify-center gap-2 mb-3">
+            {% if block.settings.icon != blank %}
+              <img
+                src="{{ block.settings.icon | image_url: width: 32 }}"
+                alt="{{ block.settings.title | escape }}"
+                class="w-6 h-6 object-contain"
+                loading="lazy"
+                width="auto"
+                height="auto"
+              >
+            {% endif %}
+            {% if block.settings.title != blank %}
+              <h3 class="text-lg font-semibold text-black m-0">
+                {{ block.settings.title }}
+              </h3>
+            {% endif %}
+          </div>
+          {% if block.settings.text != blank %}
+            <div class="text-sm text-black leading-relaxed">
+              {{ block.settings.text | replace: '<p>', '<p class="m-0">' }}
+            </div>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+
+    <!-- Dots Container -->
+    <div class="mt-dots-container flex justify-center items-center gap-2 mt-2">
+      <button
+        type="button"
+        aria-label="Go to slide 1"
+        class="mt-dot active"
+        data-index="0"
+      ></button>
+      <button type="button" aria-label="Go to slide 2" class="mt-dot" data-index="1"></button>
+      <button type="button" aria-label="Go to slide 3" class="mt-dot" data-index="2"></button>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const container = document.getElementById('mt-slider-{{ section.id }}');
+    if (!container) return;
+
+    const items = container.querySelectorAll('.mt-slider-item');
+    const dotsContainer = container.nextElementSibling;
+    if (!items.length || !dotsContainer) return;
+
+    let dotElements = [];
+    let dotPositions = [];
+
+    function initDots() {
+      // Clear existing dots
+      dotsContainer.innerHTML = '';
+      dotElements = [];
+      dotPositions = [];
+
+      // Check if scrollable
+      if (container.scrollWidth <= container.clientWidth + 5) {
+        dotsContainer.style.display = 'none';
+        return;
+      }
+      dotsContainer.style.display = 'flex';
+
+      // Calculate max possible scroll and record dot scroll thresholds
+      const maxScrollLeft = container.scrollWidth - container.clientWidth;
+      const baseOffset = items[0].offsetLeft;
+
+      for (let i = 0; i < items.length; i++) {
+        let pos = items[i].offsetLeft - baseOffset;
+        if (pos >= maxScrollLeft) {
+          // If this item starts at or past max scroll, cap it and stop generating dots
+          dotPositions.push(maxScrollLeft);
+          break;
+        }
+        dotPositions.push(pos);
+      }
+
+      // Create dots based on positions
+      dotPositions.forEach((pos, index) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'mt-dot' + (index === 0 ? ' active' : '');
+        btn.setAttribute('aria-label', `Go to slide ${index + 1}`);
+
+        btn.addEventListener('click', () => {
+          container.scrollTo({ left: pos, behavior: 'smooth' });
+        });
+
+        dotsContainer.appendChild(btn);
+        dotElements.push(btn);
+      });
+
+      updateActiveDot();
+    }
+
+    function updateActiveDot() {
+      if (dotElements.length === 0) return;
+      const currentScroll = container.scrollLeft;
+
+      let closestIndex = 0;
+      let minDiff = Infinity;
+      dotPositions.forEach((pos, i) => {
+        let diff = Math.abs(pos - currentScroll);
+        if (diff < minDiff) {
+          minDiff = diff;
+          closestIndex = i;
+        }
+      });
+
+      dotElements.forEach((dot, i) => {
+        dot.classList.toggle('active', i === closestIndex);
+      });
+    }
+
+    // Initialize dots on load and rebuild on resize
+    initDots();
+    window.addEventListener('resize', initDots);
+
+    container.addEventListener('scroll', () => {
+      if (!isDown) {
+        updateActiveDot();
+      }
+    });
+
+    // --- Mouse Drag to Scroll Logic ---
+    let isDown = false;
+    let startX;
+    let scrollLeft;
+
+    container.addEventListener('mousedown', (e) => {
+      isDown = true;
+      container.classList.add('cursor-grabbing', 'select-none');
+      container.style.scrollSnapType = 'none';
+      container.style.scrollBehavior = 'auto'; // allow instant sync dragging
+      startX = e.pageX - container.offsetLeft;
+      scrollLeft = container.scrollLeft;
+    });
+
+    const stopDragging = () => {
+      if (!isDown) return;
+      isDown = false;
+      container.classList.remove('cursor-grabbing', 'select-none');
+
+      // Snap to nearest dot position when drag ends
+      container.style.scrollSnapType = 'x mandatory';
+      container.style.scrollBehavior = 'smooth';
+
+      const currentScroll = container.scrollLeft;
+      let closestPos = dotPositions[0] || 0;
+      let minDiff = Infinity;
+      dotPositions.forEach((pos) => {
+        let diff = Math.abs(pos - currentScroll);
+        if (diff < minDiff) {
+          minDiff = diff;
+          closestPos = pos;
+        }
+      });
+
+      container.scrollTo({ left: closestPos, behavior: 'smooth' });
+      updateActiveDot();
+    };
+
+    container.addEventListener('mouseleave', stopDragging);
+    container.addEventListener('mouseup', stopDragging);
+
+    container.addEventListener('mousemove', (e) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - container.offsetLeft;
+      const walk = (startX - x) * 1.5; // Custom drag velocity multiplier
+      container.scrollLeft = scrollLeft + walk;
+    });
+
+    // Prevent image dragging disrupting the mouse scroll
+    const images = container.querySelectorAll('img');
+    images.forEach((img) => {
+      img.addEventListener('dragstart', (e) => e.preventDefault());
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Measuring Tools",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "What You'll Need"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subheading",
+      "default": "Just two simple tools to get started with measuring your windows."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "tool",
+      "name": "Tool",
+      "limit": 6,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Tool Title",
+          "default": "Metal Tape Only"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Description",
+          "default": "<p>Always use a metal measuring tape and record your measurements in mm, cm, and ft.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Measuring Tools",
+      "blocks": [
+        {
+          "type": "tool",
+          "settings": {
+            "title": "Metal Tape Only",
+            "text": "<p>Always use a metal measuring tape and record your measurements in mm, cm, and ft.</p>"
+          }
+        },
+        {
+          "type": "tool",
+          "settings": {
+            "title": "Accuracy Counts",
+            "text": "<p>Precise measurements are essential for a perfect fit. We'll make the necessary allowances.</p>"
+          }
+        },
+        {
+          "type": "tool",
+          "settings": {
+            "title": "Fitting Style",
+            "text": "<p>Select Inside Recess for fitting within the frame, or Outside Recess Exact Size for outside mounting.</p>"
+          }
+        },
+        {
+          "type": "tool",
+          "settings": {
+            "title": "Fitting Style",
+            "text": "<p>Measure the window width across the frame first, then the drop from top to bottom.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

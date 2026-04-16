@@ -1,0 +1,165 @@
+{{ 'fitting-guide.css' | asset_url | stylesheet_tag }}
+
+<div class="page-width" id="fitting-guide-{{ section.id }}" style="padding-bottom: 30px">
+  <!-- Section Header -->
+  {% if section.settings.title != blank or section.settings.subtitle != blank %}
+    <div class="fg-header max-w-[540px] mx-auto text-center mb-20">
+      {% if section.settings.title != blank %}
+        <h2 class="text-3xl md:text-4xl font-bold text-black mb-3">{{ section.settings.title }}</h2>
+      {% endif %}
+      {% if section.settings.subtitle != blank %}
+        <p class="text-[15px] md:text-base text-black">{{ section.settings.subtitle }}</p>
+      {% endif %}
+    </div>
+  {% endif %}
+
+  <!-- Two Column Grid -->
+  <div class="fg-grid">
+    {% for block in section.blocks %}
+      <div class="fg-card" {{ block.shopify_attributes }}>
+        <!-- Card Header: Number Badge + Title -->
+        <div class="fg-card-header">
+          <span class="fg-badge">{{ forloop.index }}</span>
+          <h3 class="text-2xl font-bold text-black">{{ block.settings.title }}</h3>
+        </div>
+
+        <!-- Description -->
+        {% if block.settings.description != blank %}
+          <div class="fg-description">
+            {{ block.settings.description }}
+          </div>
+        {% endif %}
+
+        <!-- Checklist -->
+        {% if block.settings.checklist != blank %}
+          <ul class="fg-checklist">
+            {% assign items = block.settings.checklist | split: '|' %}
+            {% for item in items %}
+              {% unless item == blank %}
+                <li class="fg-check-item">
+                  <span class="fg-check-icon">
+                    <svg
+                      viewBox="0 0 16 16"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      aria-hidden="true"
+                    >
+                      <path d="M2.5 8.5L6 12L13.5 4" stroke="#f5a623" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                  </span>
+                  <span>{{ item | strip }}</span>
+                </li>
+              {% endunless %}
+            {% endfor %}
+          </ul>
+        {% endif %}
+
+        <!-- Diagram Image -->
+        <div class="fg-image-wrapper">
+          {% if block.settings.diagram != blank %}
+            <img
+              src="{{ block.settings.diagram | image_url: width: 500 }}"
+              alt="{{ block.settings.title | escape }}"
+              class="fg-diagram-img"
+              loading="lazy"
+              width="auto"
+              height="auto"
+            >
+          {% elsif block.settings.diagram_fallback != blank %}
+            <img
+              src="{{ block.settings.diagram_fallback | asset_url }}"
+              alt="{{ block.settings.title | escape }}"
+              class="fg-diagram-img"
+              loading="lazy"
+              width="auto"
+              height="auto"
+            >
+          {% endif %}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Fitting Guide",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Heading",
+      "default": "How to Measure"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Section Subtitle",
+      "default": "Choose your fitting type and follow the guide below. Always measure the width first, then the drop."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "fitting",
+      "name": "Fitting Type",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Fitting Title",
+          "default": "Inside Recess"
+        },
+        {
+          "type": "richtext",
+          "id": "description",
+          "label": "Description",
+          "default": "<p>For blinds fitted within the window frame. Measure at the positions shown — horizontally and vertically — and record the <strong>smallest dimension</strong> as your recess size.</p>"
+        },
+        {
+          "type": "textarea",
+          "id": "checklist",
+          "label": "Checklist Items (separate with |)",
+          "default": "Measure width at top, middle, and bottom of the recess | Measure drop at left, middle, and right | Use the smallest measurement — we'll make allowances for a perfect fit"
+        },
+        {
+          "type": "image_picker",
+          "id": "diagram",
+          "label": "Diagram Image"
+        },
+        {
+          "type": "text",
+          "id": "diagram_fallback",
+          "label": "Fallback Asset Filename (e.g. inside.jpeg)",
+          "default": "inside.jpeg"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Fitting Guide",
+      "blocks": [
+        {
+          "type": "fitting",
+          "settings": {
+            "title": "Inside Recess",
+            "description": "<p>For blinds fitted within the window frame. Measure at the positions shown — horizontally and vertically — and record the <strong>smallest dimension</strong> as your recess size.</p>",
+            "checklist": "Measure width at top, middle, and bottom of the recess | Measure drop at left, middle, and right | Use the smallest measurement — we'll make allowances for a perfect fit",
+            "diagram_fallback": "inside.jpeg"
+          }
+        },
+        {
+          "type": "fitting",
+          "settings": {
+            "title": "Outside Recess",
+            "description": "<p>For blinds fitted outside the window frame for better coverage. Take your inside recess measurement and add <strong>100mm overlap</strong> on each side.</p>",
+            "checklist": "Add 100mm (10cm) to both width and drop measurements | Select \"Outside Recess\" as your fitting type when ordering | Ensures full window coverage with no light gaps",
+            "diagram_fallback": "outside.jpeg"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
