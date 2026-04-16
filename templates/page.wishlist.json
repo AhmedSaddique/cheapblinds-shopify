@@ -16,6 +16,7 @@
         "padding_bottom": 16
       }
     },
+
     "main": {
       "type": "cb-saved-items-page",
       "settings": {

@@ -7,7 +7,6 @@
  * made to this file may be overwritten.
  * ------------------------------------------------------------
  */
-
 {
   "sections": {
     "breadcrumb": {
@@ -22,8 +21,5 @@
       "settings": {}
     }
   },
-  "order": [
-    "breadcrumb",
-    "main"
-  ]
+  "order": ["breadcrumb", "main"]
 }
