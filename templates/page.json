@@ -42,11 +42,20 @@
         "padding_top": 36,
         "padding_bottom": 36
       }
+    },
+    "custom_samples_page_r4pwdR": {
+      "type": "custom-samples-page",
+      "name": "Samples Page",
+      "settings": {
+        "browse_link": "",
+        "success_redirect_url": ""
+      }
     }
   },
   "order": [
     "main",
     "cb_breadcrumb_BXnTfx",
-    "cb_saved_items_page_x7WaKf"
+    "cb_saved_items_page_x7WaKf",
+    "custom_samples_page_r4pwdR"
   ]
 }
