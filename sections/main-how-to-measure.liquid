@@ -31,6 +31,16 @@
         {% endfor %}
       </div>
     </div>
+    <!-- Slider dots (Visible below 570px) -->
+    <div class="htm-tabs-dots">
+      {% for block in section.blocks %}
+        <span
+          class="htm-dot {% if forloop.first %}htm-dot-active{% endif %}"
+          data-index="{{ forloop.index0 }}"
+          onclick="htmSwitchTab({{ forloop.index0 }})"
+        ></span>
+      {% endfor %}
+    </div>
   </div>
 
   <div class="htm-content-area page-width">
@@ -168,6 +178,16 @@
         btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
       } else {
         btn.classList.remove('htm-tab-active');
+      }
+    });
+
+    // Update active dots
+    const dots = section.querySelectorAll('.htm-dot');
+    dots.forEach((dot) => {
+      if (parseInt(dot.getAttribute('data-index')) === index) {
+        dot.classList.add('htm-dot-active');
+      } else {
+        dot.classList.remove('htm-dot-active');
       }
     });
 

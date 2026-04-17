@@ -20,6 +20,7 @@
   margin-bottom: 50px;
   border-bottom: 2px solid #eaeaea;
   padding-bottom: 20px;
+  filter: drop-shadow(0px 4px 4px 0px #00000040);
 }
 
 .htm-tab-btn {
@@ -250,7 +251,6 @@
 
   .htm-tabs-scroll-area {
     width: 100%;
-    overflow-x: auto;
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
@@ -261,10 +261,9 @@
 
   .htm-tabs-mobile {
     display: flex;
+    flex-wrap: wrap;
     gap: 12px;
     justify-content: center;
-    width: max-content;
-    margin: 0 auto;
     padding: 0 5px 10px 5px;
   }
 
@@ -275,6 +274,27 @@
     flex-shrink: 0;
   }
 
+  .htm-tabs-dots {
+    display: none;
+    /* Hidden above 570px */
+    justify-content: center;
+    gap: 8px;
+    margin-top: 5px;
+  }
+
+  .htm-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #ccc;
+    transition: background 0.3s;
+    cursor: pointer;
+  }
+
+  .htm-dot-active {
+    background: #ffb803;
+  }
+
   .htm-heading-black,
   .htm-heading-yellow {
     font-size: 32px;
@@ -283,6 +303,31 @@
   .htm-description {
     max-width: 100%;
     font-size: 16px;
+  }
+}
+
+@media screen and (max-width: 570px) {
+  .htm-tabs-scroll-area {
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+  }
+
+  .htm-tabs-mobile {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    width: max-content;
+    padding: 0 20px 10px 20px;
+    margin: 0;
+    /* Reset auto margin */
+  }
+
+  .htm-tab-btn {
+    scroll-snap-align: center;
+  }
+
+  .htm-tabs-dots {
+    display: flex;
+    /* Show dots below 570px */
   }
 }
 
