@@ -31,10 +31,21 @@
         "padding_top": 16,
         "padding_bottom": 16
       }
+    },
+    "customer_service_tQ7GMX": {
+      "type": "customer-service",
+      "name": "Customer Service",
+      "settings": {
+        "heading": "Customer Service",
+        "sub_text": "Engage in seamless customer experience with us!",
+        "description": "For all your question and queries, We have compiled a list of those most frequently asked, divided into handy section below For further queries, call us.",
+        "phone_number": "+971 50 597 4531"
+      }
     }
   },
   "order": [
     "main",
-    "cb_breadcrumb_BXnTfx"
+    "cb_breadcrumb_BXnTfx",
+    "customer_service_tQ7GMX"
   ]
 }
