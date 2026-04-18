@@ -32,30 +32,56 @@
         "padding_bottom": 16
       }
     },
-    "cb_saved_items_page_x7WaKf": {
-      "type": "cb-saved-items-page",
-      "name": "Wishlist Page",
+    "customer_service_zUkgjr": {
+      "type": "customer-service",
+      "blocks": {
+        "category_XDjxUM": {
+          "type": "category",
+          "settings": {
+            "title": "Order Queries",
+            "content": "<p>Put your formatted text here.</p>"
+          }
+        },
+        "category_M4dfwD": {
+          "type": "category",
+          "settings": {
+            "title": "Order Queries",
+            "content": "<p>Put your formatted text here.</p>"
+          }
+        },
+        "category_JrwFWP": {
+          "type": "category",
+          "settings": {
+            "title": "Order Queries",
+            "content": "<p>Put your formatted text here.</p>"
+          }
+        },
+        "category_xdecKG": {
+          "type": "category",
+          "settings": {
+            "title": "Order Queries",
+            "content": "<p>Put your formatted text here.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "category_XDjxUM",
+        "category_M4dfwD",
+        "category_JrwFWP",
+        "category_xdecKG"
+      ],
+      "name": "Customer Service",
       "settings": {
-        "wishlist_heading": "My Wishlist",
-        "wishlist_empty_text": "Your wishlist is currently empty.",
-        "continue_label": "Continue shopping",
-        "padding_top": 36,
-        "padding_bottom": 36
-      }
-    },
-    "custom_samples_page_r4pwdR": {
-      "type": "custom-samples-page",
-      "name": "Samples Page",
-      "settings": {
-        "browse_link": "",
-        "success_redirect_url": ""
+        "heading": "Customer Service",
+        "sub_text": "Engage in seamless customer experience with us!",
+        "description": "For all your question and queries, We have compiled a list of those most frequently asked, divided into handy section below For further queries, call us.",
+        "phone_number": "+971 50 597 4531"
       }
     }
   },
   "order": [
     "main",
     "cb_breadcrumb_BXnTfx",
-    "cb_saved_items_page_x7WaKf",
-    "custom_samples_page_r4pwdR"
+    "customer_service_zUkgjr"
   ]
 }
