@@ -1,0 +1,205 @@
+{{ 'child-safety.css' | asset_url | stylesheet_tag }}
+
+<section
+  class="page-width lg:max-w-[768px]! lg:mx-auto lg:px-0!"
+  id="child-safety-{{ section.id }}"
+  style="padding-bottom: 30px; padding-top: 50px;"
+>
+  <!-- Section Header -->
+  {% if section.settings.title != blank or section.settings.subtitle != blank %}
+    <div class="max-w-[672px] mx-auto text-center mb-2">
+      {% if section.settings.title != blank %}
+        <h2 class="text-3xl md:text-4xl font-bold text-black mb-3">{{ section.settings.title }}</h2>
+      {% endif %}
+      {% if section.settings.subtitle != blank %}
+        <p class="text-base md:text-lg text-gray-600 leading-relaxed">
+          {{ section.settings.subtitle }}
+        </p>
+      {% endif %}
+    </div>
+  {% endif %}
+
+  <!-- Cards Grid Container -->
+  {% if section.blocks.size > 0 %}
+    {% assign guide_blocks = section.blocks | where: 'type', 'guideline' %}
+    {% if guide_blocks.size > 0 %}
+      <div class="cs-cards-wrapper">
+        <div class="cs-cards-grid">
+          {% for block in section.blocks %}
+            {% if block.type == 'guideline' %}
+              <div class="cs-card" {{ block.shopify_attributes }}>
+                <!-- Icon -->
+                <div class="cs-icon-wrap">
+                  {% if block.settings.icon != blank %}
+                    <img
+                      src="{{ block.settings.icon | image_url: width: 64 }}"
+                      alt="{{ block.settings.title | escape }}"
+                      class="cs-icon-img"
+                      loading="lazy"
+                      width="auto"
+                      height="auto"
+                    >
+                  {% else %}
+                    <!-- Default shield icon -->
+                    <svg
+                      viewBox="0 0 40 40"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                      class="cs-icon-svg"
+                      aria-hidden="true"
+                    >
+                      <path d="M20 4L6 10V20C6 27.2 12.2 33.8 20 36C27.8 33.8 34 27.2 34 20V10L20 4Z" stroke="#f5a623" stroke-width="2" stroke-linejoin="round"/>
+                    </svg>
+                  {% endif %}
+                </div>
+
+                <!-- Title -->
+                {% if block.settings.title != blank %}
+                  <h3 class="cs-card-title">{{ block.settings.title }}</h3>
+                {% endif %}
+
+                <!-- Description -->
+                {% if block.settings.description != blank %}
+                  <p class="cs-card-desc">{{ block.settings.description }}</p>
+                {% endif %}
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+    {% endif %}
+  {% endif %}
+
+  <!-- Warning Box -->
+  {% assign warning_block = section.blocks | where: 'type', 'warning' | first %}
+  {% if warning_block %}
+    <div class="cs-warning-box" {{ warning_block.shopify_attributes }}>
+      <!-- Warning Triangle Icon -->
+      <span class="cs-warning-icon-wrap" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" stroke="#f5a623" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <line x1="12" y1="9" x2="12" y2="13" stroke="#f5a623" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="12" cy="17" r="1" fill="#f5a623"/>
+        </svg>
+      </span>
+      <div>
+        <div class="cs-warning-header">
+          <span class="cs-warning-label">
+            <span class="cs-warning-emoji">⚠️</span>
+            {{ warning_block.settings.warning_title | default: 'Warning' }}
+          </span>
+        </div>
+        {% if warning_block.settings.warning_points != blank %}
+          <ul class="cs-warning-list">
+            {% assign points = warning_block.settings.warning_points | split: '|' %}
+            {% for point in points %}
+              {% unless point == blank %}
+                <li>{{ point | strip }}</li>
+              {% endunless %}
+            {% endfor %}
+          </ul>
+        {% endif %}
+      </div>
+    </div>
+  {% endif %}
+</section>
+
+{% schema %}
+{
+  "name": "Child Safety Guide",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Heading",
+      "default": "Child Safety & Control Guidelines"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Section Subtitle",
+      "default": "Safety is our top priority. Please follow these guidelines to ensure your blinds are safely installed."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "guideline",
+      "name": "Safety Guideline",
+      "limit": 6,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon Image (optional)"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Keep Out of Reach"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Keep all cords and chains out of the reach of children at all times."
+        }
+      ]
+    },
+    {
+      "type": "warning",
+      "name": "Warning Box",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "warning_title",
+          "label": "Warning Title",
+          "default": "Warning"
+        },
+        {
+          "type": "textarea",
+          "id": "warning_points",
+          "label": "Warning Points (separate with |)",
+          "default": "Young children can be strangled by loops in pull cords, chains, tapes, and inner cords that operate the product. | To avoid strangulation and entanglement, keep cords out of the reach of young children. | Cords may become wrapped around a child's neck. Move beds, cots, and furniture away from window covering cords. | Do not tie cords together. Make sure cords do not twist and create a loop."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Child Safety Guide",
+      "blocks": [
+        {
+          "type": "guideline",
+          "settings": {
+            "title": "Keep Out of Reach",
+            "description": "Keep all cords and chains out of the reach of children at all times."
+          }
+        },
+        {
+          "type": "guideline",
+          "settings": {
+            "title": "Use Safety Devices",
+            "description": "Use the provided safety hook to secure loose cords and chains safely."
+          }
+        },
+        {
+          "type": "guideline",
+          "settings": {
+            "title": "Never Tie Together",
+            "description": "Loose cords or chains should never be tied together."
+          }
+        },
+        {
+          "type": "warning",
+          "settings": {
+            "warning_title": "Warning",
+            "warning_points": "Young children can be strangled by loops in pull cords, chains, tapes, and inner cords that operate the product. | To avoid strangulation and entanglement, keep cords out of the reach of young children. | Cords may become wrapped around a child's neck. Move beds, cots, and furniture away from window covering cords. | Do not tie cords together. Make sure cords do not twist and create a loop."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

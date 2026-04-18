@@ -1,137 +1,270 @@
 {{ 'customer.css' | asset_url | stylesheet_tag }}
+{{ 'cb-login.css' | asset_url | stylesheet_tag }}
 
 {%- style -%}
   .section-{{ section.id }}-padding {
     padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
     padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
   }
-
   @media screen and (min-width: 750px) {
     .section-{{ section.id }}-padding {
       padding-top: {{ section.settings.padding_top }}px;
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
   }
+
+  /* Specific styles for Register page */
+  .cbr-wrapper {
+    max-width: 700px;
+    margin: 0 auto;
+    font-family: var(--font-body-family);
+  }
+  .cbr-title {
+    text-align: center;
+    font-size: 32px;
+    font-weight: 800;
+    color: #000;
+    margin-bottom: 30px;
+    letter-spacing: -0.5px;
+  }
+  .cbr-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .cbr-checkbox-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 4px 0 20px;
+  }
+  .cbr-checkbox-row input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    margin: 0;
+    accent-color: #000;
+  }
+  .cbr-checkbox-row label {
+    font-size: 14px;
+    color: #111;
+    cursor: pointer;
+    font-weight: 500;
+  }
+  @media (max-width: 749px) {
+    .cbr-row {
+       grid-template-columns: 1fr;
+    }
+  }
+  .cbr-btn-wrapper {
+    margin-top: 30px;
+    margin-bottom: 40px;
+  }
+  .cbr-btn-wrapper .cbl-btn {
+    padding: 0 40px;
+    height: 48px;
+    font-size: 15px;
+  }
+  .cbr-error-wrapper {
+     margin-bottom: 20px;
+  }
+  /* Payment Banner */
+  .cbr-payment-banner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    background: #f4f5f5;
+    border-radius: 8px;
+    padding: 16px 24px;
+    margin-top: 40px;
+    flex-wrap: wrap;
+  }
+  .cbr-payment-banner span {
+    font-size: 20px;
+    font-weight: 700;
+    color: #000;
+  }
+  .cbr-payment-logos {
+    display: flex;
+    gap: 12px;
+  }
+  .cbr-payment-logos img {
+    height: 32px;
+    width: auto;
+    object-fit: contain;
+    border-radius: 4px;
+  }
+  @media (max-width: 600px) {
+    .cbr-payment-banner span {
+      font-size: 16px;
+      text-align: center;
+    }
+    .cbr-payment-banner {
+      flex-direction: column;
+      gap: 12px;
+      padding: 16px;
+    }
+  }
+  .cbr-form .cbl-input {
+    background: #fff;
+    border: 1px solid #eaeaea;
+  }
+  .cbr-form .cbl-input::placeholder {
+    color: #9ca3af;
+  }
+  #password-error {
+     display: none;
+  }
 {%- endstyle -%}
 
-<div class="customer register section-{{ section.id }}-padding">
-  <h1>
-    {{ 'customer.register.title' | t }}
+<div class="cbr-wrapper section-{{ section.id }}-padding page-width">
+  <h1 class="cbr-title">
+    Create new account
   </h1>
-  {%- form 'create_customer', novalidate: 'novalidate' -%}
-    {%- if form.errors -%}
-      <h2 class="form__message" tabindex="-1" autofocus>
-        <span class="svg-wrapper">
-          {{- 'icon-error.svg' | inline_asset_content -}}
-        </span>
-        {{ 'templates.contact.form.error_heading' | t }}
-      </h2>
-      <ul>
-        {%- for field in form.errors -%}
-          <li>
-            {%- if field == 'form' -%}
-              {{ form.errors.messages[field] }}
-            {%- else -%}
-              <a href="#RegisterForm-{{ field }}">
-                {{ form.errors.translated_fields[field] | capitalize }}
-                {{ form.errors.messages[field] }}
-              </a>
-            {%- endif -%}
-          </li>
-        {%- endfor -%}
-      </ul>
-    {%- endif -%}
-    <div class="field">
-      <input
-        type="text"
-        name="customer[first_name]"
-        id="RegisterForm-FirstName"
-        {% if form.first_name %}
-          value="{{ form.first_name }}"
-        {% endif %}
-        autocomplete="given-name"
-        placeholder="{{ 'customer.register.first_name' | t }}"
-      >
-      <label for="RegisterForm-FirstName">
-        {{ 'customer.register.first_name' | t }}
-      </label>
+
+  <div class="cbr-form">
+    {%- form 'create_customer', novalidate: 'novalidate', id: 'RegisterForm' -%}
+      {%- if form.errors -%}
+        <div class="cbr-error-wrapper cbl-error cbl-error--form">
+          <ul style="margin: 0; padding-left: 20px;">
+            {%- for field in form.errors -%}
+              <li>
+                {%- if field == 'form' -%}
+                  {{ form.errors.messages[field] }}
+                {%- else -%}
+                  <a href="#RegisterForm-{{ field }}" style="color: inherit; text-decoration: none;">
+                    {{ form.errors.translated_fields[field] | capitalize }}
+                    {{ form.errors.messages[field] }}
+                  </a>
+                {%- endif -%}
+              </li>
+            {%- endfor -%}
+          </ul>
+        </div>
+      {%- endif -%}
+
+      <div class="cbr-row">
+        <div class="cbl-field">
+          <input
+            type="text"
+            name="customer[first_name]"
+            id="RegisterForm-FirstName"
+            class="cbl-input"
+            {% if form.first_name %}
+              value="{{ form.first_name }}"
+            {% endif %}
+            autocomplete="given-name"
+            placeholder="First name*"
+            required
+          >
+        </div>
+        <div class="cbl-field">
+          <input
+            type="text"
+            name="customer[last_name]"
+            id="RegisterForm-LastName"
+            class="cbl-input"
+            {% if form.last_name %}
+              value="{{ form.last_name }}"
+            {% endif %}
+            autocomplete="family-name"
+            placeholder="Last name*"
+            required
+          >
+        </div>
+      </div>
+
+      <div class="cbr-checkbox-row">
+        <input type="hidden" name="customer[accepts_marketing]" value="" />
+        <input type="checkbox" name="customer[accepts_marketing]" id="RegisterForm-Marketing" value="true" />
+        <label for="RegisterForm-Marketing">Sign Up for Newsletter</label>
+      </div>
+
+      <div class="cbl-field">
+        <input
+          type="email"
+          name="customer[email]"
+          id="RegisterForm-email"
+          class="cbl-input"
+          {% if form.email %}
+            value="{{ form.email }}"
+          {% endif %}
+          spellcheck="false"
+          autocapitalize="off"
+          autocomplete="email"
+          aria-required="true"
+          placeholder="Email address*"
+          required
+        >
+      </div>
+
+      <div class="cbl-field">
+        <input
+          type="password"
+          name="customer[password]"
+          id="RegisterForm-password"
+          class="cbl-input"
+          aria-required="true"
+          placeholder="Password"
+          required
+        >
+      </div>
+
+      <div class="cbl-field">
+        <input
+          type="password"
+          id="RegisterForm-password-confirm"
+          class="cbl-input"
+          aria-required="true"
+          placeholder="Confirm Password"
+          required
+        >
+      </div>
+      <div id="password-error" class="cbl-error cbl-error--form">Passwords do not match.</div>
+
+      <div class="cbr-btn-wrapper">
+        <button type="submit" class="cbl-btn cbl-btn--primary">
+          Create an Account
+        </button>
+      </div>
+    {%- endform -%}
+  </div>
+
+  <div class="cbr-payment-banner">
+    <span>Pay in 4 interest-free payments with</span>
+    <div class="cbr-payment-logos">
+      <img src="{{ 'tabby.png' | asset_url }}" alt="Tabby">
+      <img src="{{ 'tamara.png' | asset_url }}" alt="Tamara">
     </div>
-    <div class="field">
-      <input
-        type="text"
-        name="customer[last_name]"
-        id="RegisterForm-LastName"
-        {% if form.last_name %}
-          value="{{ form.last_name }}"
-        {% endif %}
-        autocomplete="family-name"
-        placeholder="{{ 'customer.register.last_name' | t }}"
-      >
-      <label for="RegisterForm-LastName">
-        {{ 'customer.register.last_name' | t }}
-      </label>
-    </div>
-    <div class="field">
-      <input
-        type="email"
-        name="customer[email]"
-        id="RegisterForm-email"
-        {% if form.email %}
-          value="{{ form.email }}"
-        {% endif %}
-        spellcheck="false"
-        autocapitalize="off"
-        autocomplete="email"
-        aria-required="true"
-        {% if form.errors contains 'email' %}
-          aria-invalid="true"
-          aria-describedby="RegisterForm-email-error"
-        {% endif %}
-        placeholder="{{ 'customer.register.email' | t }}"
-      >
-      <label for="RegisterForm-email">
-        {{ 'customer.register.email' | t }}
-      </label>
-    </div>
-    {%- if form.errors contains 'email' -%}
-      <span id="RegisterForm-email-error" class="form__message">
-        <span class="svg-wrapper">
-          {{- 'icon-error.svg' | inline_asset_content -}}
-        </span>
-        {{ form.errors.translated_fields.email | capitalize }}
-        {{ form.errors.messages.email }}.
-      </span>
-    {%- endif -%}
-    <div class="field">
-      <input
-        type="password"
-        name="customer[password]"
-        id="RegisterForm-password"
-        aria-required="true"
-        {% if form.errors contains 'password' %}
-          aria-invalid="true"
-          aria-describedby="RegisterForm-password-error"
-        {% endif %}
-        placeholder="{{ 'customer.register.password' | t }}"
-      >
-      <label for="RegisterForm-password">
-        {{ 'customer.register.password' | t }}
-      </label>
-    </div>
-    {%- if form.errors contains 'password' -%}
-      <span id="RegisterForm-password-error" class="form__message">
-        <span class="svg-wrapper">
-          {{- 'icon-error.svg' | inline_asset_content -}}
-        </span>
-        {{ form.errors.translated_fields.password | capitalize }}
-        {{ form.errors.messages.password }}.
-      </span>
-    {%- endif -%}
-    <button>
-      {{ 'customer.register.submit' | t }}
-    </button>
-  {%- endform -%}
+  </div>
 </div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const form = document.querySelector('#RegisterForm');
+    const pwd = document.getElementById('RegisterForm-password');
+    const pwdConfirm = document.getElementById('RegisterForm-password-confirm');
+    const err = document.getElementById('password-error');
+
+    if (form && pwd && pwdConfirm && err) {
+      form.addEventListener('submit', function(e) {
+        if (pwd.value !== pwdConfirm.value) {
+          e.preventDefault();
+          err.style.display = 'block';
+        } else {
+          err.style.display = 'none';
+        }
+      });
+
+      pwdConfirm.addEventListener('input', function() {
+        if (pwd.value === pwdConfirm.value) {
+          err.style.display = 'none';
+        }
+      });
+    }
+  });
+</script>
 
 {% schema %}
 {

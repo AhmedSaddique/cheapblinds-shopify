@@ -200,7 +200,7 @@
 
   <div class="cb-icons-container">
     {% if shop.customer_accounts_enabled %}
-      <a href="{{ routes.account_url }}" class="cb-icon-link">
+      <a href="/account/login" class="cb-icon-link">
         {% if section.settings.account_icon != blank %}
           <img
             src="{{ section.settings.account_icon | img_url: '40x' }}"

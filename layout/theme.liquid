@@ -416,9 +416,11 @@
       <script src="{{ 'cart-drawer.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
 
-    {% render 'wishlist-drawer' %}
-    <script src="{{ 'wishlist.js' | asset_url }}" defer="defer"></script>
-    {% render 'samples-drawer' %}
-    <script src="{{ 'samples.js' | asset_url }}" defer="defer"></script>
-  </body>
-</html>
+	    {% render 'wishlist-drawer' %}
+	    <script src="{{ 'wishlist.js' | asset_url }}" defer="defer"></script>
+	    {% render 'samples-drawer' %}
+	    <script src="{{ 'samples.js' | asset_url }}" defer="defer"></script>
+	    <script src="{{ 'samples-checkout-flow.js' | asset_url }}" defer="defer"></script>
+	    <script src="{{ 'cart-restore.js' | asset_url }}" defer="defer"></script>
+	  </body>
+	</html>

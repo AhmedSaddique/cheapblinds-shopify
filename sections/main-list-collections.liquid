@@ -6,6 +6,11 @@
     {{ section.settings.title }}
   </h1>
   {%- liquid
+    assign columns_for_card_sizes = section.settings.columns_desktop
+    if columns_for_card_sizes > 3
+      assign columns_for_card_sizes = 3
+    endif
+
     case section.settings.sort
       when 'products_high', 'products_low'
         assign collections = collections | sort: 'all_products_count'
@@ -25,7 +30,7 @@
   -%}
   {%- paginate collections by paginate_by -%}
     <ul
-      class="collection-list grid grid--{{ section.settings.columns_desktop }}-col-desktop grid--{{ section.settings.columns_mobile }}-col-tablet-down"
+      class="collection-list contains-card contains-card--collection{% if settings.card_style == 'standard' %} contains-card--standard{% endif %} grid grid--{{ section.settings.columns_desktop }}-col-desktop grid--{{ section.settings.columns_mobile }}-col-tablet-down"
       role="list"
     >
       {%- for collection in collections -%}
@@ -39,7 +44,7 @@
           {% render 'card-collection',
             card_collection: collection,
             media_aspect_ratio: section.settings.image_ratio,
-            columns: 3
+            columns: columns_for_card_sizes
           %}
         </li>
       {%- endfor -%}
@@ -50,7 +55,8 @@
 {% schema %}
 {
   "name": "t:sections.main-list-collections.name",
-  "class": "section",
+  "tag": "section",
+  "class": "section section-collection-list",
   "settings": [
     {
       "type": "inline_richtext",
