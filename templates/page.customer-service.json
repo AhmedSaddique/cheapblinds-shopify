@@ -77,11 +77,18 @@
         "description": "For all your question and queries, We have compiled a list of those most frequently asked, divided into handy section below For further queries, call us.",
         "phone_number": "+971 50 597 4531"
       }
+    },
+    "cb_terms_conditions": {
+      "type": "cb-terms-conditions",
+      "settings": {
+        "title": "Terms & Conditions"
+      }
     }
   },
   "order": [
     "main",
     "cb_breadcrumb_BXnTfx",
+    "cb_terms_conditions",
     "customer_service_zUkgjr"
   ]
 }

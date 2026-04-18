@@ -1,0 +1,182 @@
+{%- style -%}
+  .cb-terms-{{ section.id }} {
+    padding-top: {{ section.settings.padding_top_mobile }}px;
+    padding-bottom: {{ section.settings.padding_bottom_mobile }}px;
+  }
+
+  @media screen and (min-width: 768px) {
+    .cb-terms-{{ section.id }} {
+      padding-top: {{ section.settings.padding_top_desktop }}px;
+      padding-bottom: {{ section.settings.padding_bottom_desktop }}px;
+    }
+  }
+
+  .cb-terms-content p {
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+  }
+
+  .cb-terms-content ul {
+    list-style: disc;
+    padding-left: 2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .cb-terms-content li {
+    margin-bottom: 0.75rem;
+    line-height: 1.5;
+  }
+
+  .cb-terms-content strong {
+    font-weight: 700;
+  }
+{%- endstyle -%}
+
+<div class="page-width">
+  <div class="space-y-3">
+    {%- if section.settings.title != blank -%}
+      <div>
+        <h1 class="text-2xl font-bold text-black font-rubik leading-tight mt-8 flex justify-center items-center sm:items-start sm:justify-start">
+          {{ section.settings.title }}
+        </h1>
+      </div>
+    {%- endif -%}
+
+    <div class="cb-terms-sections space-y-8 sm:space-y-10">
+      {%- for block in section.blocks -%}
+        <div>
+          {%- if block.settings.heading != blank -%}
+            <h2 class="text-xl font-bold text-black mb-3 {% if block.settings.uppercase %}uppercase tracking-wide{% endif %} font-rubik">
+              {{ block.settings.heading }}
+            </h2>
+          {%- endif -%}
+
+          <div class="cb-terms-content text-sm font-normal">
+            {{ block.settings.content }}
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+
+    {%- if section.settings.note_content != blank -%}
+      <div class="mb-10">
+        <h3 class="text-xl underline font-bold text-black mb-6 uppercase font-rubik tracking-wide ">
+          NOTE:
+        </h3>
+        <div class="cb-terms-content text-sm md:text-base text-black">
+          {{ section.settings.note_content }}
+        </div>
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "CB Terms & Conditions",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Page Title",
+      "default": "Terms & Conditions"
+    },
+    {
+      "type": "richtext",
+      "id": "note_content",
+      "label": "Note Content",
+      "default": "<ul><li>There can be a minute difference in fabric color and wood finish between the images here and the actual product. This is caused by the difference in screen calibrations and resolutions across different displays.</li><li>Product color may slightly vary due to photographic lighting sources or your monitor settings.</li><li>It is acceptable to have a slight mismatch in dimensions.</li></ul>"
+    },
+    {
+      "type": "header",
+      "content": "Padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_desktop",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Top Desktop",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_desktop",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Bottom Desktop",
+      "default": 80
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Top Mobile",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mobile",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Bottom Mobile",
+      "default": 40
+    }
+  ],
+  "blocks": [
+    {
+      "type": "section",
+      "name": "Terms Section",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Section Heading"
+        },
+        {
+          "type": "checkbox",
+          "id": "uppercase",
+          "label": "Uppercase Heading",
+          "default": true
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Section Content"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "CB Terms & Conditions",
+      "blocks": [
+        {
+          "type": "section",
+          "settings": {
+            "heading": "Overview",
+            "uppercase": false,
+            "content": "<p>This website is operated by AGSONS Middle East Trading LLC. Throughout the site, the terms “we”, “us” and “our” refer to AGSONS Middle East Trading LLC. offers this website, including all information, tools and services available from this site to you, the user, conditioned upon your acceptance of all terms, conditions, policies and notices stated here.</p><p>By visiting our site and/ or purchasing something from us, you engage in our “Service” and agree to be bound by the following terms and conditions (“Terms of Service”, “Terms”), including those additional terms and conditions and policies referenced herein and/or available by hyperlink. These Terms of Service apply to all users of the site, including without limitation users who are browsers, vendors, customers, merchants, and/ or contributors of content.</p><p>Please read these Terms of Service carefully before accessing or using our website. By accessing or using any part of the site, you agree to be bound by these Terms of Service. If you do not agree to all the terms and conditions of this agreement, then you may not access the website or use any services. If these Terms of Service are considered an offer, acceptance is expressly limited to these Terms of Service.</p><p>Any new features or tools which are added to the current store shall also be subject to the Terms of Service. You can review the most current version of the Terms of Service at any time on this page. We reserve the right to update, change or replace any part of these Terms of Service by posting updates and/or changes to our website. It is your responsibility to check this page periodically for changes. Your continued use of or access to the website following the posting of any changes constitutes acceptance of those changes.</p><p>Our store is hosted on Shopify Inc. They provide us with the online e-commerce platform that allows us to sell our products and services to you.</p>"
+          }
+        },
+        {
+          "type": "section",
+          "settings": {
+            "heading": "SECTION 1 - ONLINE STORE TERMS",
+            "content": "<p>By agreeing to these Terms of Service, you represent that you are at least the age of majority in your state or province of residence, or that you are the age of majority in your state or province of residence and you have given us your consent to allow any of your minor dependents to use this site.</p><p>You may not use our products for any illegal or unauthorized purpose nor may you, in the use of the Service, violate any laws in your jurisdiction (including but not limited to copyright laws).</p><p>You must not transmit any worms or viruses or any code of a destructive nature. A breach or violation of any of the Terms will result in an immediate termination of your Services.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
