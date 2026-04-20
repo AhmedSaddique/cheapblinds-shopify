@@ -127,6 +127,7 @@
               data-product-same-day="{% if same_day == true or same_day == 'true' or same_day == 'True' %}true{% else %}false{% endif %}"
               data-product-color="{% if swatch_color != blank %}{{ swatch_color }}{% endif %}"
               data-product-swatch-image="{% if swatch_color == blank and card_product.featured_media %}{{ card_product.featured_media | image_url: width: 150 }}{% endif %}"
+              data-variant-id="{{ card_product.selected_or_first_available_variant.id }}"
             >
               {{ card_btn_text | default: 'Free Sample' }}
             </button>

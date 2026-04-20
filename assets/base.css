@@ -2738,6 +2738,78 @@ details-disclosure>details {
   border-right: none;
 }
 
+/* Grid */
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--grid-mobile-vertical-spacing) var(--grid-mobile-horizontal-spacing);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  --grid-mobile-columns: 1;
+  --grid-desktop-columns: 3;
+}
+
+.grid__item {
+  width: calc(
+    (100% - (var(--grid-mobile-columns) - 1) * var(--grid-mobile-horizontal-spacing)) / var(--grid-mobile-columns)
+  );
+  max-width: calc(
+    (100% - (var(--grid-mobile-columns) - 1) * var(--grid-mobile-horizontal-spacing)) / var(--grid-mobile-columns)
+  );
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+.grid--gapless {
+  gap: 0;
+}
+
+@media screen and (min-width: 990px) {
+  .grid__item {
+    width: calc(
+      (100% - (var(--grid-desktop-columns) - 1) * var(--grid-desktop-horizontal-spacing)) / var(--grid-desktop-columns)
+    );
+    max-width: calc(
+      (100% - (var(--grid-desktop-columns) - 1) * var(--grid-desktop-horizontal-spacing)) / var(--grid-desktop-columns)
+    );
+  }
+}
+
+.grid--1-col-tablet-down {
+  --grid-mobile-columns: 1;
+}
+
+.grid--2-col-tablet-down {
+  --grid-mobile-columns: 2;
+}
+
+@media screen and (min-width: 990px) {
+  .grid--1-col-desktop {
+    --grid-desktop-columns: 1;
+  }
+
+  .grid--2-col-desktop {
+    --grid-desktop-columns: 2;
+  }
+
+  .grid--3-col-desktop {
+    --grid-desktop-columns: 3;
+  }
+
+  .grid--4-col-desktop {
+    --grid-desktop-columns: 4;
+  }
+
+  .grid--5-col-desktop {
+    --grid-desktop-columns: 5;
+  }
+
+  .grid--6-col-desktop {
+    --grid-desktop-columns: 6;
+  }
+}
+
 /* check for flexbox gap in older Safari versions */
 @supports not (inset: 10px) {
   .grid {
