@@ -23,31 +23,10 @@
         "padding_top": 16,
         "padding_bottom": 16
       }
-    },
-    "cb_saved_items_page_x7WaKf": {
-      "type": "cb-saved-items-page",
-      "name": "Wishlist Page",
-      "settings": {
-        "wishlist_heading": "My Wishlist",
-        "wishlist_empty_text": "Your wishlist is currently empty.",
-        "continue_label": "Continue shopping",
-        "padding_top": 36,
-        "padding_bottom": 36
-      }
-    },
-    "custom_samples_page_r4pwdR": {
-      "type": "custom-samples-page",
-      "name": "Samples Page",
-      "settings": {
-        "browse_link": "",
-        "success_redirect_url": ""
-      }
     }
   },
   "order": [
     "main",
-    "cb_breadcrumb_BXnTfx",
-    "cb_saved_items_page_x7WaKf",
-    "custom_samples_page_r4pwdR"
+    "cb_breadcrumb_BXnTfx"
   ]
 }

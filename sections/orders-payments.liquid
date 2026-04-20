@@ -1,0 +1,133 @@
+{%- style -%}
+  .orders-payments__content a {
+    color: #fdb913;
+    text-decoration: underline;
+    transition: opacity 0.2s ease;
+  }
+  .orders-payments__content a:hover {
+    opacity: 0.8;
+  }
+  .orders-payments__content ul {
+    list-style-type: disc;
+    padding-left: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .orders-payments__content li {
+    margin-bottom: 0.5rem;
+  }
+  .orders-payments__content p {
+    margin-bottom: 1.25rem;
+  }
+{%- endstyle -%}
+
+<section class="pt-10 bg-white">
+  <div class="page-width">
+    <h1 class="text-2xl font-bold text-black pb-4">
+      {{ section.settings.title | default: 'Orders & Payments' }}
+    </h1>
+
+    <div class="space-y-10">
+      {% for block in section.blocks %}
+        <div {{ block.shopify_attributes }} class="orders-payments__block">
+          {% if block.settings.heading != blank %}
+            <h2 class="text-xl font-bold text-black mb-5">
+              {{ block.settings.heading }}
+            </h2>
+          {% endif %}
+
+          <div class="orders-payments__content text-sm text-gray-800 leading-relaxed font-normal">
+            {{ block.settings.content }}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Orders & Payments",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Orders & Payments"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "content_block",
+      "name": "Content Block",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Content"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Orders & Payments",
+      "blocks": [
+        {
+          "type": "content_block",
+          "settings": {
+            "heading": "Placing an order online",
+            "content": "<p>Browse our website and place your order using the following easy-to-follow instructions:</p><ul><li>Whatever device you are using, our site has been optimized to give you the best possible experience.</li><li>Use our handy navigation links to browse by product category, or if you know exactly what you're after search using the search box.</li><li>Once you have found an item, select its attributes and click on 'ADD TO BASKET'.</li><li>Click on your basket to review the products selected. Items can be removed from the basket by clicking the cross next to them. Or you can change the quantity by typing the correct quantity and clicking 'update basket'. To continue shopping just click on 'continue shopping'.</li><li>Click on 'Proceed to Checkout to proceed with your order and pay.</li></ul>"
+          }
+        },
+        {
+          "type": "content_block",
+          "settings": {
+            "heading": "Placing an order online",
+            "content": "<ul><li>We will send you an order confirmation via email and an SMS with your order number, and the items or services you have purchased. Please give this confirmation a check and contact customer services via our website if you have any questions.</li><li>Your made-to-measure curtains, blinds, and accessories will be produced, dispatched, and delivered within 4 working days.</li><li>For more information about our delivery services, please visit <a href=\"delivery\">our delivery page</a>.</li></ul><p>Payment options: We accept most major credit cards including Mastercard, Visa, Delta/Connect and Maestro.</p>"
+          }
+        },
+        {
+          "type": "content_block",
+          "settings": {
+            "heading": "Order delays and out of stock orders",
+            "content": "<p>We work hard to make sure our range is fully up to date and that there is stock of all our products always available.</p><p>Sometimes products are discontinued, either by the manufacturer or by us due to stock availability. Thankfully, this is rare! Even more rarely, an order for this product is placed before our systems are fully updated. If this happens with a product you've ordered from us, we'll ask you to re-select an alternative from our ranges, either online or in-store.</p><p>If this doesn't work for you, we're of course happy to refund you for your order.</p>"
+          }
+        },
+        {
+          "type": "content_block",
+          "settings": {
+            "heading": "Problems with an order",
+            "content": "<p><strong>Orders:</strong> If you placed your order on the cheapblinds.ae website, please contact our customer service team and one of our advisors will help you out.</p>"
+          }
+        },
+        {
+          "type": "content_block",
+          "settings": {
+            "heading": "Cancelling and amending orders",
+            "content": "<p><strong>Cancelling your Orders:</strong> As we customize the products for you, we do not offer cancellation services.</p><p><strong>Changing delivery information:</strong> Unfortunately, it is not possible to amend the delivery address of an order once it has been placed.</p><p><strong>Adding items to your order:</strong> Please place a new order for these items.</p>"
+          }
+        },
+        {
+          "type": "content_block",
+          "settings": {
+            "heading": "Returns and refunds",
+            "content": "<p>For full details of our returns and refunds policy please check our <a href=\"returns-and-refunds\">Returns & Refunds Policy</a>.</p>"
+          }
+        },
+        {
+          "type": "content_block",
+          "settings": {
+            "heading": "Order history",
+            "content": "<p>Simply log in to your <a href=\"account\">online account</a> to view your order history.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

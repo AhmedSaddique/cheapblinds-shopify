@@ -46,32 +46,52 @@
       </div>
 
       <aside class="cb-samples-sidebar">
-        <h2 class="cb-samples-sidebar__heading">Free sample checkout</h2>
+        <h2 class="cb-samples-sidebar__heading">Shipping address</h2>
 
         <div class="cb-samples-form" aria-live="polite">
-          <div class="cb-samples-summary">
-            <div class="cb-samples-summary__row">
-              <span>Items</span>
-              <strong id="SamplesSummaryCount">0</strong>
+          <form id="SamplesShippingForm" class="cb-samples-form-fields" novalidate>
+            <label for="SamplesFullName">Full name*</label>
+            <input id="SamplesFullName" name="fullName" type="text" class="cb-samples-input" placeholder="Full name" required />
+
+            <label for="SamplesCountry">Country / Region*</label>
+            <select id="SamplesCountry" name="country" class="cb-samples-select" required>
+              <option value="">Select country / region</option>
+              <option value="United Arab Emirates">United Arab Emirates</option>
+              <option value="Saudi Arabia">Saudi Arabia</option>
+              <option value="Kuwait">Kuwait</option>
+              <option value="Qatar">Qatar</option>
+              <option value="Bahrain">Bahrain</option>
+              <option value="Oman">Oman</option>
+              <option value="International">International</option>
+            </select>
+
+            <label for="SamplesAddress">Full address*</label>
+            <input id="SamplesAddress" name="address" type="text" class="cb-samples-input" placeholder="Full address" required />
+
+            <label for="SamplesEmirate">Emirate*</label>
+            <input id="SamplesEmirate" name="emirate" type="text" class="cb-samples-input" placeholder="Emirate" required />
+
+            <label for="SamplesPhone">Phone*</label>
+            <input id="SamplesPhone" name="phone" type="tel" class="cb-samples-input" placeholder="Phone" required />
+
+            <label for="SamplesEmail">Email address*</label>
+            <input id="SamplesEmail" name="email" type="email" class="cb-samples-input" placeholder="Email address" required />
+
+            <div class="cb-samples-checkbox">
+              <input id="SamplesMarketingOptOut" name="marketingOptOut" type="checkbox" />
+              <label for="SamplesMarketingOptOut">No thanks, I don't want to hear about offers or services</label>
             </div>
-            <div class="cb-samples-summary__row">
-              <span>Total</span>
-              <strong id="SamplesSummaryTotal">{{ 0 | money }}</strong>
-            </div>
-            <div class="cb-samples-summary__row">
-              <span>Shipping</span>
-              <strong>{{ 0 | money }}</strong>
-            </div>
-          </div>
+
+            <button type="submit" class="cb-samples-submit" id="SamplesSubmitButton">
+              Order Free Sample
+            </button>
+          </form>
 
           <p id="SamplesCheckoutError" class="cb-samples-error"></p>
+          <p id="SamplesCheckoutSuccess" class="cb-samples-success"></p>
 
-          <button type="button" class="cb-samples-submit" id="SamplesCheckoutBtn">
-            Checkout free samples
-          </button>
-
-          <p class="cb-samples-page__note" style="margin-top: 12px;">
-            Checkout will include only your free sample items. Your normal cart items are restored if you come back from checkout.
+          <p class="cb-samples-marketing">
+            We'd love to send you money-off vouchers, special offers and the very latest in fashion and interior design tips. We will always respect your privacy and we will never sell your details to any other company.
           </p>
         </div>
       </aside>
@@ -88,29 +108,12 @@
     const ZERO_MONEY = {{ 0 | money | json }};
     const DISCOUNT_CODES_RAW = {{ section.settings.checkout_discount_code | default: 'FREE100, SHIPFREE' | strip | json }};
 
-    const parseDiscountCodes = () => {
-      const raw = String(DISCOUNT_CODES_RAW || '');
-      if (!raw) return [];
-      return raw
-        .split(',')
-        .map((c) => c.trim())
-        .filter(Boolean);
-    };
-
-    const buildDiscountUrl = (code, redirectTo) => {
-      const root = window?.Shopify?.routes?.root || '/';
-      const rootWithSlash = root.endsWith('/') ? root : `${root}/`;
-      const redirectPath = String(redirectTo || '').startsWith('/')
-        ? `${rootWithSlash}${String(redirectTo || '').replace(/^\//, '')}`
-        : String(redirectTo || '');
-      // Shopify discount permalinks work most reliably with relative redirects (not absolute URLs).
-      return `${rootWithSlash}discount/${encodeURIComponent(String(code || '').trim())}?redirect=${encodeURIComponent(redirectPath)}`;
-    };
-
-    const checkoutBtn = document.getElementById('SamplesCheckoutBtn');
+    const form = document.getElementById('SamplesShippingForm');
     const summaryCount = document.getElementById('SamplesSummaryCount');
     const summaryTotal = document.getElementById('SamplesSummaryTotal');
     const checkoutError = document.getElementById('SamplesCheckoutError');
+    const checkoutSuccess = document.getElementById('SamplesCheckoutSuccess');
+    const submitButton = document.getElementById('SamplesSubmitButton');
 
     const normalizeImageUrl = (url) => {
       const value = String(url || '').trim();
@@ -236,61 +239,107 @@
       }
     };
 
-    const startSamplesCheckout = async () => {
-      const samples = getSampleItems();
-      if (samples.length === 0) {
-        setError('Your samples basket is empty. Please add at least 1 sample.');
-        return;
+    const showMessage = (message, type = 'error') => {
+      if (checkoutError) {
+        checkoutError.textContent = '';
+        checkoutError.classList.remove('is-visible');
+      }
+      if (checkoutSuccess) {
+        checkoutSuccess.textContent = '';
+        checkoutSuccess.classList.remove('is-visible');
       }
 
-      const checkoutItems = await buildCheckoutCartItems(samples);
-      if (checkoutItems.length === 0) {
-        setError('Could not prepare your samples for checkout. Please re-add the samples and try again.');
-        return;
+      const target = type === 'success' ? checkoutSuccess : checkoutError;
+      if (!target) return;
+      target.textContent = message || '';
+      target.classList.toggle('is-visible', !!message);
+    };
+
+    const getFormData = () => {
+      if (!form) return null;
+      const getValue = (selector) => String(form.querySelector(selector)?.value || '').trim();
+      const email = getValue('#SamplesEmail');
+
+      const data = {
+        fullName: getValue('#SamplesFullName'),
+        country: getValue('#SamplesCountry'),
+        address: getValue('#SamplesAddress'),
+        emirate: getValue('#SamplesEmirate'),
+        phone: getValue('#SamplesPhone'),
+        email,
+        marketingOptOut: Boolean(form.querySelector('#SamplesMarketingOptOut')?.checked),
+      };
+
+      if (!data.fullName) {
+        showMessage('Please enter your full name.');
+        return null;
+      }
+      if (!data.country) {
+        showMessage('Please select your country or region.');
+        return null;
+      }
+      if (!data.address) {
+        showMessage('Please enter your full address.');
+        return null;
+      }
+      if (!data.emirate) {
+        showMessage('Please enter your emirate.');
+        return null;
+      }
+      if (!data.phone) {
+        showMessage('Please enter your phone number.');
+        return null;
+      }
+      if (!data.email) {
+        showMessage('Please enter your email address.');
+        return null;
+      }
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailPattern.test(email)) {
+        showMessage('Please enter a valid email address.');
+        return null;
       }
 
-      let backup = null;
-      const discountCodes = parseDiscountCodes();
+      return data;
+    };
 
-      try {
-        backup = await backupCart();
-        localStorage.setItem('cb-cart-restore', '1');
+    if (form) {
+      form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        showMessage('');
 
-        // Prepare multi-step flow for discount application (done via storefront redirects).
-        if (discountCodes.length > 0) {
-          localStorage.setItem(
-            'cb-samples-checkout-flow',
-            JSON.stringify({ codes: discountCodes, step: 0, startedAt: Date.now() })
-          );
-        } else {
-          localStorage.removeItem('cb-samples-checkout-flow');
-        }
+        const values = getFormData();
+        if (!values) return;
 
-        await clearCart();
-        await addToCart(checkoutItems);
-
-        if (discountCodes.length === 0) {
-          window.location.href = '/checkout';
+        const samples = getSampleItems();
+        if (samples.length === 0) {
+          showMessage('Your samples basket is empty. Please add at least 1 sample.');
           return;
         }
 
-        // Apply the first code and redirect to cart, where samples-checkout-flow.js will apply remaining codes and go to checkout.
-        // This avoids unreliable multi-code query params and avoids nested /discount redirects that can bounce to home.
-        window.location.href = buildDiscountUrl(discountCodes[0], '/cart');
-      } catch (e) {
-        try {
-          if (backup) {
-            await restoreBackupCart(backup);
-          }
-        } catch (_) {
-          // ignore
+        if (submitButton) {
+          submitButton.disabled = true;
+          submitButton.textContent = 'Sending request...';
         }
 
-        localStorage.removeItem('cb-cart-restore');
-        localStorage.removeItem('cb-samples-checkout-flow');
-        setError('Something went wrong starting checkout. Please try again.');
-      }
-    };
+        try {
+          const payload = {
+            submittedAt: new Date().toISOString(),
+            shipping: values,
+            samples,
+          };
+          localStorage.setItem('cb-samples-shipping-request', JSON.stringify(payload));
+          showMessage('Thanks! We received your order request and will contact you soon.', 'success');
+        } catch (error) {
+          showMessage('Unable to save your request. Please try again.');
+        } finally {
+          if (submitButton) {
+            submitButton.disabled = false;
+            submitButton.textContent = 'Order Free Sample';
+          }
+        }
+      });
+    }
 
     function renderPageSamples() {
       if (!listContainer) return;
@@ -351,25 +400,6 @@
         }
       }
     });
-
-    if (checkoutBtn) {
-      checkoutBtn.addEventListener('click', async () => {
-        if (checkoutBtn.disabled) return;
-        setError('');
-
-        const originalText = checkoutBtn.textContent;
-        checkoutBtn.disabled = true;
-        checkoutBtn.textContent = 'Starting checkout...';
-
-        try {
-          await startSamplesCheckout();
-        } finally {
-          // If we navigated away, this won't matter. If not, restore UI.
-          checkoutBtn.disabled = false;
-          checkoutBtn.textContent = originalText;
-        }
-      });
-    }
 
     renderPageSamples();
 

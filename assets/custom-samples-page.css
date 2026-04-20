@@ -347,6 +347,28 @@
   display: block;
 }
 
+.cb-samples-success {
+  display: none;
+  color: #1a7f37;
+  font-size: 13px;
+  margin-top: 4px;
+  font-weight: 600;
+}
+
+.cb-samples-success.is-visible {
+  display: block;
+}
+
+.cb-samples-form-fields {
+  display: grid;
+  gap: 12px;
+}
+
+.cb-samples-form-fields label {
+  font-size: 13px;
+  color: #333;
+}
+
 .cb-samples-marketing {
   margin-top: 12px;
   font-size: 13px;

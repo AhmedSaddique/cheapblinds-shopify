@@ -1,0 +1,105 @@
+{%- style -%}
+  .returns-refunds__content a {
+    color: #fdb913;
+    text-decoration: underline;
+    transition: opacity 0.2s ease;
+  }
+  .returns-refunds__content a:hover {
+    opacity: 0.8;
+  }
+  .returns-refunds__content ul {
+    list-style-type: disc;
+    padding-left: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .returns-refunds__content li {
+    margin-bottom: 0.5rem;
+  }
+  .returns-refunds__content p {
+    margin-bottom: 1.25rem;
+  }
+{%- endstyle -%}
+
+<section class="pt-10 bg-white">
+  <div class="page-width">
+    <h1 class="text-2xl font-bold text-black pb-4">
+      {{ section.settings.title | default: 'Returns & Refunds' }}
+    </h1>
+
+    <div class="space-y-10">
+      {% for block in section.blocks %}
+        <div {{ block.shopify_attributes }} class="returns-refunds__block">
+          {% if block.settings.heading != blank %}
+            <h2 class="text-xl font-bold text-black mb-5">
+              {{ block.settings.heading }}
+            </h2>
+          {% endif %}
+
+          <div class="returns-refunds__content text-sm text-gray-800 leading-relaxed font-normal">
+            {{ block.settings.content }}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Returns & Refunds",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Returns & Refunds"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "content_block",
+      "name": "Content Block",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Content"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Returns & Refunds",
+      "blocks": [
+        {
+          "type": "content_block",
+          "settings": {
+            "heading": "Your cancellation rights.",
+            "content": "<p>All items are manufactured to your personal specific requirements and therefore cannot be returned. Refunds will not be offered unless the item received by the customer was damaged or incorrectly manufactured.</p><p>The only time we can accept a return on a made-to-measure product is if it has arrived damaged, has not been made to your specifications, or has a defect. Upon image confirmation of damage, mistake or defect, we will re-make your product free of charge to the original specifications provided and arrange collection of your unwanted item. Please note, no changes can be made to your original specifications at this stage & the order cannot be cancelled once it has been made.</p><ul><li><strong>Damaged on arrival</strong> - If your product is clearly damaged on arrival, do not open the package straight away. Please take clear images of the damaged box. Then open the box to check if the product is also damaged. If yes, please take a clear image of the damage and send this to our customer service team with your order number, within 7 days of delivery.</li><li><strong>Incorrectly made</strong> - If the blind or curtain hasn't arrived to the correct size then please first check the measurements were input correctly on your order form. Please note, selecting recess measurement for blinds will reduce a blinds width by 10mm, and curtain drop measurements have a tolerance of 20mm. If you think the product measurements are incorrect then please take a clear image of the incorrect measurement with a tape measure in shot against the product. We require a full image of the product and tape measure. Send this to our customer service team with your order number, within 7 days of delivery</li><li><strong>Defect</strong>- If your product has a defect then please take a clear image and send it to our customer service team within 7 days of delivery</li></ul>"
+          }
+        },
+        {
+          "type": "content_block",
+          "settings": {
+            "heading": "Order delays and out of stock orders",
+            "content": "<p>When returning or cancelling your order, we will refund the same card originally used to pay for the order. Refunds can take up to 7 to 10 days to process from the day it has been approved by our online customer care team.</p>"
+          }
+        },
+        {
+          "type": "content_block",
+          "settings": {
+            "heading": "Placing an order online",
+            "content": "<ul><li>There can be a minute difference in fabric colour between the images here and the actual product. This is caused by the difference in screen calibrations and resolutions across different displays.</li><li>Product colour may slightly vary due to photographic lighting sources or your monitor settings</li></ul>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
