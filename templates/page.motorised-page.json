@@ -322,6 +322,92 @@
       "settings": {
         "title": "Frequently Asked Questions"
       }
+    },
+    "google_reviews_3Uq8ez": {
+      "type": "google-reviews",
+      "blocks": {
+        "review_pTR3Rw": {
+          "type": "review",
+          "settings": {
+            "user_name": "Customer Name",
+            "date": "Jan 24, 2026",
+            "review_text": "I love this product because the support is great."
+          }
+        },
+        "review_RyXd77": {
+          "type": "review",
+          "settings": {
+            "user_name": "Customer Name",
+            "date": "Jan 24, 2026",
+            "review_text": "I love this product because the support is great."
+          }
+        },
+        "review_jWAHTa": {
+          "type": "review",
+          "settings": {
+            "user_name": "Customer Name",
+            "date": "Jan 24, 2026",
+            "review_text": "I love this product because the support is great."
+          }
+        }
+      },
+      "block_order": [
+        "review_pTR3Rw",
+        "review_RyXd77",
+        "review_jWAHTa"
+      ],
+      "name": "Google Reviews Slider",
+      "settings": {
+        "title": "Google Reviews from Our Customers",
+        "review_count": "84,290",
+        "write_link": "",
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    },
+    "brand_trust_slider_yki3pq": {
+      "type": "brand-trust-slider",
+      "blocks": {
+        "logo_h38hF9": {
+          "type": "logo",
+          "settings": {}
+        },
+        "logo_N7xqhn": {
+          "type": "logo",
+          "settings": {}
+        },
+        "logo_X8y8G4": {
+          "type": "logo",
+          "settings": {}
+        },
+        "logo_BKCzKt": {
+          "type": "logo",
+          "settings": {}
+        },
+        "logo_YT7TE9": {
+          "type": "logo",
+          "settings": {}
+        },
+        "logo_M3AVQ9": {
+          "type": "logo",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "logo_h38hF9",
+        "logo_N7xqhn",
+        "logo_X8y8G4",
+        "logo_BKCzKt",
+        "logo_YT7TE9",
+        "logo_M3AVQ9"
+      ],
+      "name": "Brand Trust Slider",
+      "settings": {
+        "title": "TRUSTED BY MANY INTERNATIONAL BRANDS",
+        "bg_color": "#FFF6E0",
+        "margin_top": 80,
+        "margin_bottom": 60
+      }
     }
   },
   "order": [
@@ -337,6 +423,8 @@
     "image_with_products_dQxqTx",
     "motorised_video_LbfF6L",
     "install_steps_PyPmBc",
-    "motorised_faq_A64eK8"
+    "motorised_faq_A64eK8",
+    "google_reviews_3Uq8ez",
+    "brand_trust_slider_yki3pq"
   ]
 }
