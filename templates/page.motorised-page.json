@@ -120,6 +120,97 @@
         "title": "Why Go Motorized?",
         "subtitle": "Upgrade your home with intelligent blinds that combine cutting-edge technology with timeless design."
       }
+    },
+    "smart_blinds_TJPNmF": {
+      "type": "smart-blinds",
+      "name": "Smart Blinds",
+      "settings": {
+        "bg_color": "#FDBB11",
+        "heading": "Your Smart Blinds",
+        "subheading": "Seamless Control Anywhere",
+        "text": "<p>Control your blinds using the Somfy smartphone app. You can give voice commands, use Somfy scenarios to set up scheduled blind movements, and even control your blinds remotely while away from home. Remote blind operation isn't just convenient, it also brings added home security by giving the appearance that your home is occupied even when you're away on holiday.</p>"
+      }
+    },
+    "effortless_living_gJLNEq": {
+      "type": "effortless-living",
+      "blocks": {
+        "feature_6Ca7Mz": {
+          "type": "feature",
+          "settings": {
+            "title": "Smarter Control",
+            "text": "<p>Automate schedules, group blinds by room, and adjust with a single swipe.</p>"
+          }
+        },
+        "feature_jTCUef": {
+          "type": "feature",
+          "settings": {
+            "title": "Rechargeable Motor",
+            "text": "<p>Long-lasting lithium battery — charge once and enjoy months of smooth operation.</p>"
+          }
+        },
+        "feature_izwyPr": {
+          "type": "feature",
+          "settings": {
+            "title": "Wireless Setup",
+            "text": "<p>No cables, no drilling into walls. Simply mount, pair, and start controlling.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "feature_6Ca7Mz",
+        "feature_jTCUef",
+        "feature_izwyPr"
+      ],
+      "name": "Effortless Living",
+      "settings": {
+        "bg_color": "#FDF8ED",
+        "title": "Built for Effortless Living"
+      }
+    },
+    "image_with_products_XMfDHg": {
+      "type": "image-with-products",
+      "name": "Image with Products",
+      "settings": {
+        "image_position": "right",
+        "title": "Motorized Roller Blinds",
+        "text": "<p>Our motorised roller blinds bring the latest Somfy technology to your windows, offering luxury and convenience at affordable prices. Inherently child safe given there are no cords, motorised blinds are a perfect solution for any room in the home or office. You can also explore options like our if you're looking for a softer, more traditional finish with the same smart control.</p>",
+        "button_label": "Shop Now",
+        "button_link": "",
+        "collection": "roller-blinds",
+        "products_to_show": 4,
+        "view_more_label": "View More",
+        "view_more_link": ""
+      }
+    },
+    "image_with_products_tfXdU3": {
+      "type": "image-with-products",
+      "name": "Image with Products",
+      "settings": {
+        "image_position": "left",
+        "title": "Motorized Roller Blinds",
+        "text": "<p>Our motorised roller blinds bring the latest Somfy technology to your windows, offering luxury and convenience at affordable prices. Inherently child safe given there are no cords, motorised blinds are a perfect solution for any room in the home or office. You can also explore options like our if you're looking for a softer, more traditional finish with the same smart control.</p>",
+        "button_label": "Shop Now",
+        "button_link": "",
+        "collection": "roller-blinds",
+        "products_to_show": 4,
+        "view_more_label": "View More",
+        "view_more_link": ""
+      }
+    },
+    "image_with_products_dQxqTx": {
+      "type": "image-with-products",
+      "name": "Image with Products",
+      "settings": {
+        "image_position": "right",
+        "title": "Motorized Roller Blinds",
+        "text": "<p>Our motorised roller blinds bring the latest Somfy technology to your windows, offering luxury and convenience at affordable prices. Inherently child safe given there are no cords, motorised blinds are a perfect solution for any room in the home or office. You can also explore options like our if you're looking for a softer, more traditional finish with the same smart control.</p>",
+        "button_label": "Shop Now",
+        "button_link": "",
+        "collection": "roller-blinds",
+        "products_to_show": 4,
+        "view_more_label": "View More",
+        "view_more_link": ""
+      }
     }
   },
   "order": [
@@ -127,6 +218,11 @@
     "cb_breadcrumb_BXnTfx",
     "motorised_banner_6zhdWN",
     "motorised_collections_Bq6pKf",
-    "go_motorised_iyh9zY"
+    "go_motorised_iyh9zY",
+    "smart_blinds_TJPNmF",
+    "effortless_living_gJLNEq",
+    "image_with_products_XMfDHg",
+    "image_with_products_tfXdU3",
+    "image_with_products_dQxqTx"
   ]
 }
