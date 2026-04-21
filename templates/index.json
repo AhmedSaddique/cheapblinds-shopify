@@ -363,6 +363,7 @@
         "step_BCBpkA": {
           "type": "step",
           "settings": {
+            "icon": "shopify://shop_images/measure.png",
             "step_label": "STEP 1",
             "title": "Measure ",
             "text": "Use our simple guide to measure your windows accurately."
@@ -371,6 +372,7 @@
         "step_8GJnG6": {
           "type": "step",
           "settings": {
+            "icon": "shopify://shop_images/basket.png",
             "step_label": "STEP 2",
             "title": "Order",
             "text": "Choose your style, colour and size — we'll make it to fit."
@@ -379,9 +381,10 @@
         "step_bdUzdN": {
           "type": "step",
           "settings": {
+            "icon": "shopify://shop_images/install.png",
             "step_label": "STEP 3",
             "title": "Install",
-            "text": "Fit your blinds easily with our step-by-step instructions."
+            "text": "Fit your blinds easily with our step- by-step instructions."
           }
         }
       },
@@ -418,9 +421,10 @@
         "row_yRKMaR": {
           "type": "row",
           "settings": {
+            "image": "shopify://shop_images/BlindsMeasure.jpg",
             "layout": "text_first",
-            "heading": "Row",
-            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>",
+            "heading": "Made-to-Measure Blinds",
+            "text": "<p>Finding the perfect blinds for windows should feel exciting, not overwhelming. At Cheap Blinds, every blind is made to measure for a precise fit with no compromises. Enjoy a balance of quality materials and affordable pricing, with delivery available across Dubai and the UAE.</p><p>From sun-filled living rooms to calm bedrooms and functional bathrooms, explore a wide range of colours, fabrics, and designs that elevate every space. Roller, Roman, Vertical, Zebra; whatever your style, you will find it here.</p>",
             "button_label": "Button label",
             "button_link": ""
           }
@@ -428,9 +432,10 @@
         "row_cWjFtP": {
           "type": "row",
           "settings": {
+            "image": "shopify://shop_images/qulityblinds.jpg",
             "layout": "text_first",
-            "heading": "Row",
-            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>",
+            "heading": "High Quality Blinds at Prices You’ll Love",
+            "text": "<p>Perfectly fitted blinds don’t just improve the look, they enhance comfort too. Our easy measuring guides help you get accurate results, so your blinds sit exactly as they should.</p><p>Quality is at the core of everything we do. By working online, we reduce extra costs and pass those savings on to you, giving you premium window blinds at genuinely affordable prices.</p><p>Stylish, durable, and budget-friendly, all in one place.</p>",
             "button_label": "Button label",
             "button_link": ""
           }
@@ -438,9 +443,10 @@
         "row_xfn4DD": {
           "type": "row",
           "settings": {
+            "image": "shopify://shop_images/Help.jpg",
             "layout": "text_first",
-            "heading": "Row",
-            "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>",
+            "heading": "Here to Help, Every Step of the Way",
+            "text": "<p>Questions, ideas, or need a second opinion? Our friendly team is always ready to assist. From choosing the right style to placing your order, support is just a call or message away.</p><p>Customer satisfaction is a priority, and every detail is handled with care to ensure a smooth and stress-free experience from start to finish.</p>",
             "button_label": "Button label",
             "button_link": ""
           }
@@ -464,28 +470,28 @@
           "type": "info_block",
           "settings": {
             "heading": "Premium Blinds for Windows Across the UAE",
-            "content": "<p>At Cheap Blinds, we specialise in providing high-quality, made-to-measure window blinds at prices that genuinely surprise in the best possible way. Every blind is custom-crafted to your exact measurements, delivering a flawless fit that off-the-shelf products simply cannot match, no gaps, no guesswork, no compromise.</p>"
+            "content": "<p>At Cheap Blinds, we specialise in providing high-quality, made-to-measure window blinds at prices that genuinely surprise in the best possible way. Every blind is custom-made to your exact measurements, ensuring a perfect fit that off-the-shelf products simply cannot match, no guesswork, no compromise.</p><p>Our commitment to quality runs through every thread and mechanism we use. From blackout roller blinds that block the fierce Gulf sun and protect your family's sleep, to light-filtering zebra blinds that frame your panoramic Burj Khalifa views without sacrificing privacy, every product in our range is built to enhance your UAE home while performing beautifully in our unique climate. We don't just sell blinds; we deliver a better way to live with light.<br/></p>"
           }
         },
         "info_block_yjFGp8": {
           "type": "info_block",
           "settings": {
-            "heading": "Premium Blinds for Windows Across the UAE",
-            "content": "<p>At Cheap Blinds, we specialise in providing high-quality, made-to-measure window blinds at prices that genuinely surprise in the best possible way. Every blind is custom-crafted to your exact measurements, delivering a flawless fit that off-the-shelf products simply cannot match, no gaps, no guesswork, no compromise.</p>"
+            "heading": "Blinds Made Easy — From Dubai to Fujairah, Every Step of the Way",
+            "content": "<p>Shopping for window blinds online has never been easier, and we've designed the entire <a href=\"https://cheapblinds.ae/\"><span style=\"text-decoration:underline\">cheapblinds.ae</span></a> experience with that in mind. Our intuitive website walks you through the full journey from browsing blind types and fabrics to entering your measurements and completing your order, all from the comfort of your sofa in Business Bay or your office in DIFC. No showroom visits, no pushy sales calls, no waiting around.</p><p>And because we know that choosing the right blind can feel daunting, especially with the wealth of fabric choices, colours, and configurations available, we offer a complimentary fabric sample service. Request up to 5samples completely free, and have them delivered to your UAE address so you can see exactly how each fabric responds to your natural light, your room's colour palette, and the unique quality of sunlight streaming through your windows. When you're ready, you can confidently buy window blinds online in just minutes.</p>"
           }
         },
         "info_block_BFDVeN": {
           "type": "info_block",
           "settings": {
-            "heading": "Blinds Made Easy — From Dubai to Fujairah",
-            "content": "<p>Shopping for window blinds online has never been easier, and we've designed the entire <a href='https://cheapblinds.ae'>cheapblinds.ae</a> experience with that in mind.</p>"
+            "heading": "Choosing the Right Colour for Your Home",
+            "content": "<p>Colour is one of the most powerful tools in interior design, and in the UAE, where interiors range from modern minimalist Downtown lofts to richly layered Arabian-inspired villas, getting it right is everything. Our palette spans the full spectrum: timeless neutrals like warm Sand White, Desert Cream, and Pearl Grey that complement the UAE's light-filled spaces beautifully, through to bolder statement shades like Midnight Teal, Terracotta Dune, and Deep Charcoal for those who want their windows to make an impression.</p><p>Our Shop by Colour feature makes browsing effortless. Simply select your preferred hue and explore every blind style available in that shade. Better still, our free samples service means you'll never have to guess how a colour performs in your specific light conditions. The afternoon light in a Palm  Jumeirah villa facing the Gulf is a world apart from a north-facing apartment in Al Hamra Village; our samples let you see the difference before you commit.<br/><br/></p>"
           }
         },
         "info_block_CqPRbk": {
           "type": "info_block",
           "settings": {
-            "heading": "Blinds Made Easy — From Dubai to Fujairah",
-            "content": "<p>Shopping for window blinds online has never been easier, and we've designed the entire <a href=\"https://cheapblinds.ae\">cheapblinds.ae</a> experience with that in mind.</p>"
+            "heading": " Fast UAE Delivery & Round-the-Clock Customer Support",
+            "content": "<p>We know that once you've found your perfect blinds, waiting is the last thing you want to do. That's why Cheap Blinds offers <strong>free next-day delivery on most orders</strong> across the UAE. Whether you're moving into a new apartment in Dubai, finishing the final touches on a villa, or simply ready to refresh a room today, our fast and reliable delivery network has you covered.</p><p>Our dedicated UAE customer support team is available <strong>seven days a week</strong> to assist you at every stage, from advice on how to measure your windows correctly, to guidance on which blind type suits your room best, to post-delivery fitting support. With thousands of 5-star reviews from customers across Dubai, Abu Dhabi, Sharjah, and beyond, you can shop with complete confidence knowing you're in exceptionally capable hands.</p>"
           }
         }
       },
