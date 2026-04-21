@@ -1,0 +1,143 @@
+{
+  "sections": {
+    "breadcrumb": {
+      "type": "cb-breadcrumb",
+      "settings": {}
+    },
+    "main_how_to_fit": {
+      "type": "main-how-to-fit",
+      "blocks": {
+        "top_tab_1": {
+          "type": "top_tab",
+          "settings": {
+            "title": "Roller Blinds",
+            "subtitle": "Fitting Instructions",
+            "heading_black": "How to Fit",
+            "heading_yellow": "Roller Blinds",
+            "description": "<p>Follow our easy step-by-step instructions to fit your Roller Blinds.</p>"
+          }
+        },
+        "sub_tab_1": {
+          "type": "sub_tab",
+          "settings": {
+            "title": "Standard Roller Blinds"
+          }
+        },
+        "parts_grid_1": {
+          "type": "parts_grid",
+          "settings": {
+            "title_left": "Cleaning Instructions",
+            "title_right": "Parts Identified",
+            "part_1_name": "Screws",
+            "part_2_name": "Brackets"
+          }
+        },
+        "tools_grid_1": {
+          "type": "tools_grid",
+          "settings": {
+            "title": "Tools Required",
+            "tool_1_name": "Pencil",
+            "tool_2_name": "Screwdriver",
+            "tool_3_name": "Drill",
+            "tool_4_name": "Tape Measure"
+          }
+        },
+        "step_card_1": {
+          "type": "step_card",
+          "settings": {
+            "step_number": "1",
+            "title": "Step 1 - Position Brackets",
+            "description": "<p>Position the brackets in the desired location.</p>",
+            "toggles": "Top Fix, Face Fix"
+          }
+        }
+      },
+      "block_order": [
+        "top_tab_1",
+        "sub_tab_1",
+        "parts_grid_1",
+        "tools_grid_1",
+        "step_card_1"
+      ],
+      "settings": {}
+    },
+    "google_reviews": {
+      "type": "google-reviews",
+      "blocks": {
+        "review_1": {
+          "type": "review",
+          "settings": {
+            "user_name": "Customer Name",
+            "date": "Jan 24, 2026",
+            "review_text": "Excellent guides and easy to follow!"
+          }
+        },
+        "review_2": {
+          "type": "review",
+          "settings": {
+            "user_name": "Customer Name",
+            "date": "Mar 05, 2026",
+            "review_text": "Highly recommend their measuring tips."
+          }
+        }
+      },
+      "block_order": [
+        "review_1",
+        "review_2"
+      ],
+      "settings": {
+        "title": "Google Reviews from Our Customers",
+        "review_count": "84,290"
+      }
+    },
+    "brand_trust_slider": {
+      "type": "brand-trust-slider",
+      "blocks": {
+        "logo_1": {
+          "type": "logo",
+          "settings": {}
+        },
+        "logo_2": {
+          "type": "logo",
+          "settings": {}
+        },
+        "logo_3": {
+          "type": "logo",
+          "settings": {}
+        },
+        "logo_4": {
+          "type": "logo",
+          "settings": {}
+        },
+        "logo_5": {
+          "type": "logo",
+          "settings": {}
+        },
+        "logo_6": {
+          "type": "logo",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "logo_1",
+        "logo_2",
+        "logo_3",
+        "logo_4",
+        "logo_5",
+        "logo_6"
+      ],
+      "settings": {
+        "title": "TRUSTED BY MANY INTERNATIONAL BRANDS",
+        "bg_color": "#fff6e0",
+        "margin_top": 80,
+        "margin_bottom": 60
+      }
+    }
+  },
+  "order": [
+    "breadcrumb",
+    "main_how_to_fit",
+    "google_reviews",
+    "brand_trust_slider"
+  ]
+}
