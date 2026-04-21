@@ -20,7 +20,9 @@
   margin-bottom: 50px;
   border-bottom: 2px solid #eaeaea;
   padding-bottom: 20px;
-  filter: drop-shadow(0px 4px 4px 0px #00000040);
+  padding-top: 10px;
+  filter: drop-shadow(0px 8px 4px #00000040);
+  background-color: white;
 }
 
 .htm-tab-btn {

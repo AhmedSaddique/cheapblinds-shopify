@@ -20,7 +20,8 @@
   margin-bottom: 50px;
   border-bottom: 2px solid #0000001F;
   padding-bottom: 20px;
-  filter: drop-shadow(0px 6px 4px #00000040);
+  padding-top: 10px;
+  filter: drop-shadow(0px 8px 4px #00000040);
   background-color: white;
 }
 
