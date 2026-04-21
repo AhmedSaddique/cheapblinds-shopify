@@ -48,9 +48,31 @@
           }
         }
       },
-      "block_order": ["block_1", "block_2", "block_3", "block_4"]
+      "block_order": [
+        "category_XDjxUM",
+        "category_M4dfwD",
+        "category_JrwFWP",
+        "category_xdecKG"
+      ],
+      "name": "Customer Service",
+      "settings": {
+        "heading": "Customer Service",
+        "sub_text": "Engage in seamless customer experience with us!",
+        "description": "For all your question and queries, We have compiled a list of those most frequently asked, divided into handy section below For further queries, call us.",
+        "phone_number": "+971 50 597 4531"
+      }
+    },
+    "cb_terms_conditions": {
+      "type": "cb-terms-conditions",
+      "settings": {
+        "title": "Terms & Conditions"
+      }
     }
   },
-  "order": ["main"]
+  "order": [
+    "main",
+    "cb_breadcrumb_BXnTfx",
+    "cb_terms_conditions",
+    "customer_service_zUkgjr"
+  ]
 }
-
