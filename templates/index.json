@@ -225,29 +225,33 @@
         "feature_Ja8m4U": {
           "type": "feature",
           "settings": {
+            "icon": "shopify://shop_images/warrenty.png",
             "title": "2 Years Warranty",
-            "description": "All our products are backed by a comprehensive warranty to ensure long-term performance."
+            "description": "All our products are backed by a comprehensive 2-year warranty, ensuring long-term performance, durability, and complete peace of mind with your investment."
           }
         },
         "feature_7TdEDk": {
           "type": "feature",
           "settings": {
-            "title": "Affordable",
-            "description": "All our products are backed by a comprehensive warranty to ensure long-term performance."
+            "icon": "shopify://shop_images/affordable.png",
+            "title": "Affordable Pricing",
+            "description": "Exceptional quality shouldn’t be expensive. We deliver stylish, long-lasting solutions at competitive prices, making premium interiors accessible to every budget."
           }
         },
         "feature_QHWqmR": {
           "type": "feature",
           "settings": {
+            "icon": "shopify://shop_images/freesample.png",
             "title": "Free Samples",
-            "description": "All our products are backed by a comprehensive warranty to ensure long-term performance."
+            "description": "Touch before you buy. We send you fabric samples fast, and fuss-free. Touch them, hold them against your walls, see how they look at 2 pm when the sun is at its strongest."
           }
         },
         "feature_N6iqWn": {
           "type": "feature",
           "settings": {
-            "title": "Free Next Day Delivery",
-            "description": "All our products are backed by a comprehensive warranty to ensure long-term performance."
+            "icon": "shopify://shop_images/delivery.png",
+            "title": "Fast Next Day Delivery",
+            "description": "Enjoy fast, reliable delivery across the UAE with free next-day delivery on most orders, so you can upgrade your space without unnecessary delays."
           }
         }
       },
@@ -272,7 +276,7 @@
       "name": "Fabric Samples Banner",
       "settings": {
         "title": "Free Fabric Samples",
-        "text": "<p>Picking the perfect blinds isn't just about looks. It's about how they feel in your space under the Gulf sun. We'll send a handpicked selection straight to your door.</p>",
+        "text": "<p>Picking the perfect blinds isn’t just about looks. It’s about how they feel in your space, under the Gulf sun. Colours shift, textures come alive, and what looks great online might hit different at home.</p><p>That’s where we step in. We’ll send a handpicked selection of fabric samples straight to your door, no guesswork, no regrets.</p>",
         "btn_text": "Order Up To 5 Free Samples",
         "btn_link": "",
         "btn_color": "#feb907",
@@ -347,7 +351,7 @@
       "name": "Beautiful Home Carousel",
       "settings": {
         "title": "Building a Beautiful Home - Starts at Your Windows",
-        "intro": "<p>Spice up your home with our window blinds that magically bring in brightness and dimension...</p>",
+        "intro": "<p>From the sun-drenched villas of Palm Jumeirah to the sleek apartments of Business Bay, the right blinds don't just dress your windows; they define how your entire home feels. Light, mood, privacy, and style all begin with what you hang.</p><p>At Cheap Blinds, we offer the UAE's widest range of made-to-measure window blinds, including Roller, Roman, Vertical, Zebra, and more, each available in dozens of fabrics, colours, and smart-home configurations. And our prices? Let's just say your wallet will be as happy as your home.</p><p>Why settle for ordinary when extraordinary is just a click away?</p>",
         "bg_color": "#fef9e7",
         "padding_top": 36,
         "padding_bottom": 36
@@ -360,7 +364,7 @@
           "type": "step",
           "settings": {
             "step_label": "STEP 1",
-            "title": "Measure",
+            "title": "Measure ",
             "text": "Use our simple guide to measure your windows accurately."
           }
         },
@@ -388,7 +392,7 @@
       ],
       "name": "How It Works",
       "settings": {
-        "title": "How It Works",
+        "title": "Getting Your Perfect Blinds is Easy",
         "padding_top": 60,
         "padding_bottom": 60
       }
