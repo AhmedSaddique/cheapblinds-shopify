@@ -214,48 +214,6 @@
         "title": "Child Safety & Control Guidelines",
         "subtitle": "Safety is our top priority. Please follow these guidelines to ensure your blinds are safely installed."
       }
-    },
-    "google_reviews_p7mnMP": {
-      "type": "google-reviews",
-      "blocks": {
-        "review_7V4EVd": {
-          "type": "review",
-          "settings": {
-            "user_name": "Customer Name",
-            "date": "Jan 24, 2026",
-            "review_text": "I love this product because the support is great."
-          }
-        },
-        "review_DQzVK8": {
-          "type": "review",
-          "settings": {
-            "user_name": "Customer Name",
-            "date": "Jan 24, 2026",
-            "review_text": "I love this product because the support is great."
-          }
-        },
-        "review_CyYkTk": {
-          "type": "review",
-          "settings": {
-            "user_name": "Customer Name",
-            "date": "Jan 24, 2026",
-            "review_text": "I love this product because the support is great."
-          }
-        }
-      },
-      "block_order": [
-        "review_7V4EVd",
-        "review_DQzVK8",
-        "review_CyYkTk"
-      ],
-      "name": "Google Reviews Slider",
-      "settings": {
-        "title": "Google Reviews from Our Customers",
-        "review_count": "84,290",
-        "write_link": "",
-        "padding_top": 60,
-        "padding_bottom": 60
-      }
     }
   },
   "order": [
@@ -264,7 +222,6 @@
     "main_how_to_measure_cwVVCU",
     "measuring_tools_jznJMc",
     "fitting_guide_YfyCC8",
-    "child_safety_MBNMqL",
-    "google_reviews_p7mnMP"
+    "child_safety_MBNMqL"
   ]
 }
