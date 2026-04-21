@@ -1,4 +1,12 @@
-
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "main": {
@@ -23,10 +31,197 @@
         "padding_top": 16,
         "padding_bottom": 16
       }
+    },
+    "main_how_to_measure_cwVVCU": {
+      "type": "main-how-to-measure",
+      "blocks": {
+        "tab_r4nLT3": {
+          "type": "tab",
+          "settings": {
+            "title": "Roller Blinds",
+            "subtitle": "Measuring Guide",
+            "heading_black": "How to Measure",
+            "heading_yellow": "Roller Blinds",
+            "description": "<p>Accurate measurements are essential for a perfect fit. Follow our step-by-step guide to measure your windows with confidence.</p>",
+            "pdf_url": "",
+            "video_url": ""
+          }
+        },
+        "tab_6LECKU": {
+          "type": "tab",
+          "settings": {
+            "title": "Roller Blinds",
+            "subtitle": "Measuring Guide",
+            "heading_black": "How to Measure",
+            "heading_yellow": "Roller Blinds",
+            "description": "<p>Accurate measurements are essential for a perfect fit. Follow our step-by-step guide to measure your windows with confidence.</p>",
+            "pdf_url": "",
+            "image": "shopify://shop_images/20d0a703f33f31dece3561e3680d1630d946f055.png",
+            "video_url": ""
+          }
+        },
+        "tab_gDrRfF": {
+          "type": "tab",
+          "settings": {
+            "title": "Roller Blinds",
+            "subtitle": "Measuring Guide",
+            "heading_black": "How to Measure",
+            "heading_yellow": "Roller Blinds",
+            "description": "<p>Accurate measurements are essential for a perfect fit. Follow our step-by-step guide to measure your windows with confidence.</p>",
+            "pdf_url": "",
+            "video_url": ""
+          }
+        },
+        "tab_gNp8Nf": {
+          "type": "tab",
+          "settings": {
+            "title": "Roller Blinds",
+            "subtitle": "Measuring Guide",
+            "heading_black": "How to Measure",
+            "heading_yellow": "Roller Blinds",
+            "description": "<p>Accurate measurements are essential for a perfect fit. Follow our step-by-step guide to measure your windows with confidence.</p>",
+            "pdf_url": "",
+            "video_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "tab_r4nLT3",
+        "tab_6LECKU",
+        "tab_gDrRfF",
+        "tab_gNp8Nf"
+      ],
+      "name": "How to Measure Guide",
+      "settings": {}
+    },
+    "measuring_tools_jznJMc": {
+      "type": "measuring-tools",
+      "blocks": {
+        "tool_tLwXwH": {
+          "type": "tool",
+          "settings": {
+            "icon": "shopify://shop_images/Frame_1707486706.png",
+            "title": "Metal Tape Only",
+            "text": "<p>Always use a metal measuring tape and record your measurements in mm, cm, and ft.</p>"
+          }
+        },
+        "tool_HjMeCH": {
+          "type": "tool",
+          "settings": {
+            "title": "Accuracy Counts",
+            "text": "<p>Precise measurements are essential for a perfect fit. We'll make the necessary allowances.</p>"
+          }
+        },
+        "tool_G7XteE": {
+          "type": "tool",
+          "settings": {
+            "title": "Fitting Style",
+            "text": "<p>Select Inside Recess for fitting within the frame, or Outside Recess Exact Size for outside mounting.</p>"
+          }
+        },
+        "tool_zRRxNN": {
+          "type": "tool",
+          "settings": {
+            "title": "Fitting Style",
+            "text": "<p>Measure the window width across the frame first, then the drop from top to bottom.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "tool_tLwXwH",
+        "tool_HjMeCH",
+        "tool_G7XteE",
+        "tool_zRRxNN"
+      ],
+      "name": "Measuring Tools",
+      "settings": {
+        "title": "What You'll Need",
+        "subtitle": "Just two simple tools to get started with measuring your windows."
+      }
+    },
+    "fitting_guide_YfyCC8": {
+      "type": "fitting-guide",
+      "blocks": {
+        "fitting_8wcWJL": {
+          "type": "fitting",
+          "settings": {
+            "title": "Inside Recess",
+            "description": "<p>For blinds fitted within the window frame. Measure at the positions shown — horizontally and vertically — and record the <strong>smallest dimension</strong> as your recess size.</p>",
+            "checklist": "Measure width at top, middle, and bottom of the recess | Measure drop at left, middle, and right | Use the smallest measurement — we'll make allowances for a perfect fit",
+            "diagram_fallback": "inside.jpeg"
+          }
+        },
+        "fitting_L664ja": {
+          "type": "fitting",
+          "settings": {
+            "title": "Outside Recess",
+            "description": "<p>For blinds fitted outside the window frame for better coverage. Take your inside recess measurement and add <strong>100mm overlap</strong> on each side.</p>",
+            "checklist": "Add 100mm (10cm) to both width and drop measurements | Select \"Outside Recess\" as your fitting type when ordering | Ensures full window coverage with no light gaps",
+            "diagram_fallback": "outside.jpeg"
+          }
+        }
+      },
+      "block_order": [
+        "fitting_8wcWJL",
+        "fitting_L664ja"
+      ],
+      "name": "Fitting Guide",
+      "settings": {
+        "title": "How to Measure",
+        "subtitle": "Choose your fitting type and follow the guide below. Always measure the width first, then the drop."
+      }
+    },
+    "child_safety_MBNMqL": {
+      "type": "child-safety",
+      "blocks": {
+        "guideline_pxHK3w": {
+          "type": "guideline",
+          "settings": {
+            "title": "Keep Out of Reach",
+            "description": "Keep all cords and chains out of the reach of children at all times."
+          }
+        },
+        "guideline_zC7QbH": {
+          "type": "guideline",
+          "settings": {
+            "title": "Use Safety Devices",
+            "description": "Use the provided safety hook to secure loose cords and chains safely."
+          }
+        },
+        "guideline_VXKnrY": {
+          "type": "guideline",
+          "settings": {
+            "title": "Never Tie Together",
+            "description": "Loose cords or chains should never be tied together."
+          }
+        },
+        "warning_EJNrF8": {
+          "type": "warning",
+          "settings": {
+            "warning_title": "Warning",
+            "warning_points": "Young children can be strangled by loops in pull cords, chains, tapes, and inner cords that operate the product. | To avoid strangulation and entanglement, keep cords out of the reach of young children. | Cords may become wrapped around a child's neck. Move beds, cots, and furniture away from window covering cords. | Do not tie cords together. Make sure cords do not twist and create a loop."
+          }
+        }
+      },
+      "block_order": [
+        "guideline_pxHK3w",
+        "guideline_zC7QbH",
+        "guideline_VXKnrY",
+        "warning_EJNrF8"
+      ],
+      "name": "Child Safety Guide",
+      "settings": {
+        "title": "Child Safety & Control Guidelines",
+        "subtitle": "Safety is our top priority. Please follow these guidelines to ensure your blinds are safely installed."
+      }
     }
   },
   "order": [
     "main",
-    "cb_breadcrumb_BXnTfx"
+    "cb_breadcrumb_BXnTfx",
+    "main_how_to_measure_cwVVCU",
+    "measuring_tools_jznJMc",
+    "fitting_guide_YfyCC8",
+    "child_safety_MBNMqL"
   ]
 }
