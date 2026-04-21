@@ -211,6 +211,117 @@
         "view_more_label": "View More",
         "view_more_link": ""
       }
+    },
+    "motorised_video_LbfF6L": {
+      "type": "motorised-video",
+      "name": "Motorised Video",
+      "settings": {}
+    },
+    "install_steps_PyPmBc": {
+      "type": "install-steps",
+      "blocks": {
+        "step_nkBPeR": {
+          "type": "step",
+          "settings": {
+            "number": "01",
+            "title": "Measure",
+            "text": "<p>Measure your window using our simple guide</p>"
+          }
+        },
+        "step_dFQLyV": {
+          "type": "step",
+          "settings": {
+            "number": "02",
+            "title": "Mount",
+            "text": "<p>Attach the brackets — no drilling required</p>"
+          }
+        },
+        "step_4he6hH": {
+          "type": "step",
+          "settings": {
+            "number": "03",
+            "title": "Connect",
+            "text": "<p>Pair with app and start controlling instantly</p>"
+          }
+        }
+      },
+      "block_order": [
+        "step_nkBPeR",
+        "step_dFQLyV",
+        "step_4he6hH"
+      ],
+      "name": "Install Steps",
+      "settings": {
+        "title": "Install in 3 Steps",
+        "subtitle": "No electrician needed. DIY in under 15 minutes."
+      }
+    },
+    "motorised_faq_A64eK8": {
+      "type": "motorised-faq",
+      "blocks": {
+        "faq_Xz6wRU": {
+          "type": "faq",
+          "settings": {
+            "question": "How does it work?",
+            "answer": "<p>It connects to your smartphone or smart home device, allowing you to easily control your blinds from anywhere.</p>"
+          }
+        },
+        "faq_377Var": {
+          "type": "faq",
+          "settings": {
+            "question": "How does it work?",
+            "answer": "<p>It connects to your smartphone or smart home device, allowing you to easily control your blinds from anywhere.</p>"
+          }
+        },
+        "faq_JVKBcB": {
+          "type": "faq",
+          "settings": {
+            "question": "How does it work?",
+            "answer": "<p>It connects to your smartphone or smart home device, allowing you to easily control your blinds from anywhere.</p>"
+          }
+        },
+        "faq_Vzw4mW": {
+          "type": "faq",
+          "settings": {
+            "question": "How does it work?",
+            "answer": "<p>It connects to your smartphone or smart home device, allowing you to easily control your blinds from anywhere.</p>"
+          }
+        },
+        "faq_ACUa73": {
+          "type": "faq",
+          "settings": {
+            "question": "Do I need an electrician to install them?",
+            "answer": "<p>No, our motorised blinds are completely wire-free and use a rechargeable lithium battery, meaning you can easily install them yourself in under 15 minutes.</p>"
+          }
+        },
+        "faq_MDUWW6": {
+          "type": "faq",
+          "settings": {
+            "question": "How often do I need to charge the battery?",
+            "answer": "<p>With average use, a single charge typically lasts between 6 to 12 months. Charging them is as simple as plugging in your mobile phone.</p>"
+          }
+        },
+        "faq_RAGKXM": {
+          "type": "faq",
+          "settings": {
+            "question": "Can I integrate them with Alexa or Google Home?",
+            "answer": "<p>Yes! By using the Somfy Tahoma Switch (sold separately), you can easily integrate your blinds with Amazon Alexa, Google Assistant, and Apple HomeKit for full voice control.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "faq_Xz6wRU",
+        "faq_377Var",
+        "faq_JVKBcB",
+        "faq_Vzw4mW",
+        "faq_ACUa73",
+        "faq_MDUWW6",
+        "faq_RAGKXM"
+      ],
+      "name": "Motorised FAQ",
+      "settings": {
+        "title": "Frequently Asked Questions"
+      }
     }
   },
   "order": [
@@ -223,6 +334,9 @@
     "effortless_living_gJLNEq",
     "image_with_products_XMfDHg",
     "image_with_products_tfXdU3",
-    "image_with_products_dQxqTx"
+    "image_with_products_dQxqTx",
+    "motorised_video_LbfF6L",
+    "install_steps_PyPmBc",
+    "motorised_faq_A64eK8"
   ]
 }
