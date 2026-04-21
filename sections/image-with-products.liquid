@@ -1,0 +1,175 @@
+{{ 'component-card.css' | asset_url | stylesheet_tag }}
+
+<div class="page-width py-12! md:py-20! mb-8">
+  <!-- Top Section: Image & Text -->
+  <div class="flex flex-col md:flex-row items-center gap-6 mb-16 {% if section.settings.image_position == 'right' %}md:flex-row-reverse{% endif %}">
+    <!-- Text Content -->
+    <div class="w-full md:w-1/2 text-center flex flex-col items-center justify-center px-2">
+      {% if section.settings.title != blank %}
+        <h2 class="text-2xl md:text-[32px] font-bold text-black mb-4">
+          {{ section.settings.title }}
+        </h2>
+      {% endif %}
+
+      {% if section.settings.text != blank %}
+        <div class="text-black text-[15px] md:text-base leading-relaxed mb-6">
+          {{ section.settings.text | replace: '<p>', '<p class="mb-4 last:mb-0">' }}
+        </div>
+      {% endif %}
+
+      {% if section.settings.button_label != blank %}
+        <a
+          href="{{ section.settings.button_link | default: '#' }}"
+          class="inline-block bg-[#FDBA21] hover:bg-[#e5a61d] text-black font-bold py-3 px-8 rounded-full transition-colors text-sm md:text-[15px]"
+        >
+          {{ section.settings.button_label }}
+        </a>
+      {% endif %}
+    </div>
+
+    <!-- Image -->
+    <div class="w-full md:w-1/2">
+      {% if section.settings.image != blank %}
+        <div class="relative w-full aspect-[4/3] md:aspect-[16/10] overflow-hidden">
+          <img
+            src="{{ section.settings.image | image_url: width: 900 }}"
+            alt="{{ section.settings.title | escape }}"
+            class="w-full h-full object-cover"
+            loading="lazy"
+            width="auto"
+            height="auto"
+          >
+        </div>
+      {% else %}
+        <div class="w-full aspect-[4/3] md:aspect-[16/10] bg-gray-200 flex items-center justify-center text-gray-500">
+          Image Placeholder
+        </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- Bottom Section: Products -->
+  <div class="mt-12 md:mt-16">
+    {% if section.settings.collection != blank %}
+      <div class="grid! grid-cols-2! md:grid-cols-4! gap-4 md:gap-6">
+        {% for product in section.settings.collection.products
+          limit: section.settings.products_to_show
+        %}
+          <div class="w-full">
+            {% render 'card-product',
+              card_product: product,
+              show_secondary_image: true,
+              show_vendor: false,
+              show_rating: false
+            %}
+          </div>
+        {% endfor %}
+      </div>
+
+      {% if section.settings.view_more_label != blank %}
+        <div class="mt-12 text-center">
+          <a
+            href="{{ section.settings.collection.url | default: section.settings.view_more_link | default: '#' }}"
+            class="inline-block bg-[#FDBA21] hover:bg-[#e5a61d] text-black font-bold py-3 px-8 rounded-full transition-colors text-sm md:text-[15px]"
+          >
+            {{ section.settings.view_more_label }}
+          </a>
+        </div>
+      {% endif %}
+    {% else %}
+      <div class="text-center py-12 bg-gray-50 border border-dashed border-gray-300">
+        <p class="text-gray-500">Please select a collection to display products.</p>
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Image with Products",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Image & Text Section"
+    },
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "Desktop Image Position",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        }
+      ],
+      "default": "right"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Motorized Roller Blinds"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "<p>Our motorised roller blinds bring the latest Somfy technology to your windows, offering luxury and convenience at affordable prices. Inherently child safe given there are no cords, motorised blinds are a perfect solution for any room in the home or office. You can also explore options like our if you're looking for a softer, more traditional finish with the same smart control.</p>"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Top Button Label",
+      "default": "Shop Now"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Top Button Link"
+    },
+    {
+      "type": "header",
+      "content": "Products Grid"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 2,
+      "max": 12,
+      "step": 2,
+      "default": 4,
+      "label": "Maximum products to show"
+    },
+    {
+      "type": "text",
+      "id": "view_more_label",
+      "label": "View More Button Label",
+      "default": "View More"
+    },
+    {
+      "type": "url",
+      "id": "view_more_link",
+      "label": "View More Link (optional, defaults to collection)"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Image with Products"
+    }
+  ]
+}
+{% endschema %}

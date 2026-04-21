@@ -1,0 +1,303 @@
+<style>
+  /* Scroll Snap Utilities */
+  .mc-slider-container {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+  }
+  .mc-slider-container::-webkit-scrollbar {
+    display: none;
+  }
+  .mc-slider-item {
+    scroll-snap-align: start; /* better for cards */
+  }
+
+  /* Pagination Dots */
+  .mc-dot {
+    width: 28px;
+    height: 8px;
+    border-radius: 4px;
+    border: 1px solid #6b7280; /* gray-500 */
+    background-color: transparent;
+    transition: background-color 0.3s, border-color 0.3s;
+    cursor: pointer;
+    padding: 0;
+  }
+  .mc-dot.active {
+    background-color: #facc15; /* Tailwind yellow-400 */
+    border-color: #facc15;
+  }
+</style>
+
+<div class="page-width my-16! text-center">
+  <div>
+    {% if section.settings.title != blank %}
+      <h2 class="text-3xl md:text-[40px] font-bold text-black mb-4">
+        {{ section.settings.title }}
+      </h2>
+    {% endif %}
+    {% if section.settings.subtitle != blank %}
+      <p class="text-gray-600 text-base md:text-lg">
+        {{ section.settings.subtitle }}
+      </p>
+    {% endif %}
+  </div>
+
+  <div class="relative w-full mt-10">
+    <div
+      id="mc-slider-{{ section.id }}"
+      class="mc-slider-container flex overflow-x-auto gap-4 md:gap-6 pb-6 text-left px-4 md:px-0"
+    >
+      {% for block in section.blocks %}
+        <div
+          class="mc-slider-item shrink-0 w-[85vw] md:w-auto md:flex-1 md:min-w-[300px] rounded-[12px] bg-[#F8F8F8] overflow-hidden flex flex-col"
+          {{ block.shopify_attributes }}
+        >
+          {% if block.settings.image != blank %}
+            <div class="w-full aspect-[4/3] md:aspect-square overflow-hidden relative">
+              <img
+                src="{{ block.settings.image | image_url: width: 800 }}"
+                alt="{{ block.settings.title | escape }}"
+                class="w-full h-full object-cover"
+                loading="lazy"
+                width="auto"
+                height="auto"
+              >
+            </div>
+          {% else %}
+            <div class="w-full aspect-[4/3] md:aspect-square bg-gray-200 flex items-center justify-center text-gray-400">
+              Image placeholder
+            </div>
+          {% endif %}
+          <div class="p-6 bg-gray-50 flex-grow">
+            {% if block.settings.title != blank %}
+              <h3 class="text-xl font-bold text-black mb-2">{{ block.settings.title }}</h3>
+            {% endif %}
+            {% if block.settings.text != blank %}
+              <div class="text-gray-500 text-[15px] leading-relaxed">
+                {{ block.settings.text | replace: '<p>', '<p class="m-0">' }}
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+    <!-- Dots Container (Mobile Only) -->
+    <div class="mc-dots-container flex md:hidden justify-center items-center gap-2 mt-2">
+      <!-- Dots will be injected here by JS -->
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const container = document.getElementById('mc-slider-{{ section.id }}');
+    if (!container) return;
+
+    const items = container.querySelectorAll('.mc-slider-item');
+    const dotsContainer = container.nextElementSibling;
+    if (!items.length || !dotsContainer) return;
+
+    let dotElements = [];
+    let dotPositions = [];
+
+    function initDots() {
+      dotsContainer.innerHTML = '';
+      dotElements = [];
+      dotPositions = [];
+
+      // Only show dots on mobile where it's actually scrollable
+      if (window.innerWidth >= 768 || container.scrollWidth <= container.clientWidth + 5) {
+        dotsContainer.style.display = 'none';
+        return;
+      }
+
+      dotsContainer.style.display = 'flex';
+
+      const maxScrollLeft = container.scrollWidth - container.clientWidth;
+      // Adjust baseOffset to account for padding
+      const baseOffset = items[0].offsetLeft;
+
+      for (let i = 0; i < items.length; i++) {
+        let pos = items[i].offsetLeft - baseOffset;
+        if (pos >= maxScrollLeft) {
+          dotPositions.push(maxScrollLeft);
+          break;
+        }
+        dotPositions.push(pos);
+      }
+
+      dotPositions.forEach((pos, index) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'mc-dot' + (index === 0 ? ' active' : '');
+        btn.setAttribute('aria-label', `Go to slide ${index + 1}`);
+
+        btn.addEventListener('click', () => {
+          container.scrollTo({ left: pos, behavior: 'smooth' });
+        });
+
+        dotsContainer.appendChild(btn);
+        dotElements.push(btn);
+      });
+
+      updateActiveDot();
+    }
+
+    function updateActiveDot() {
+      if (dotElements.length === 0) return;
+      const currentScroll = container.scrollLeft;
+
+      let closestIndex = 0;
+      let minDiff = Infinity;
+      dotPositions.forEach((pos, i) => {
+        let diff = Math.abs(pos - currentScroll);
+        if (diff < minDiff) {
+          minDiff = diff;
+          closestIndex = i;
+        }
+      });
+
+      dotElements.forEach((dot, i) => {
+        dot.classList.toggle('active', i === closestIndex);
+      });
+    }
+
+    initDots();
+    window.addEventListener('resize', initDots);
+
+    let isDown = false;
+    container.addEventListener('scroll', () => {
+      if (!isDown) {
+        updateActiveDot();
+      }
+    });
+
+    let startX;
+    let scrollLeft;
+
+    container.addEventListener('mousedown', (e) => {
+      isDown = true;
+      container.classList.add('cursor-grabbing', 'select-none');
+      container.style.scrollSnapType = 'none';
+      container.style.scrollBehavior = 'auto';
+      startX = e.pageX - container.offsetLeft;
+      scrollLeft = container.scrollLeft;
+    });
+
+    const stopDragging = () => {
+      if (!isDown) return;
+      isDown = false;
+      container.classList.remove('cursor-grabbing', 'select-none');
+      container.style.scrollSnapType = 'x mandatory';
+      container.style.scrollBehavior = 'smooth';
+
+      const currentScroll = container.scrollLeft;
+      let closestPos = dotPositions[0] || 0;
+      let minDiff = Infinity;
+      dotPositions.forEach((pos) => {
+        let diff = Math.abs(pos - currentScroll);
+        if (diff < minDiff) {
+          minDiff = diff;
+          closestPos = pos;
+        }
+      });
+
+      container.scrollTo({ left: closestPos, behavior: 'smooth' });
+      updateActiveDot();
+    };
+
+    container.addEventListener('mouseleave', stopDragging);
+    container.addEventListener('mouseup', stopDragging);
+
+    container.addEventListener('mousemove', (e) => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - container.offsetLeft;
+      const walk = (startX - x) * 1.5;
+      container.scrollLeft = scrollLeft + walk;
+    });
+
+    const images = container.querySelectorAll('img');
+    images.forEach((img) => {
+      img.addEventListener('dragstart', (e) => e.preventDefault());
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Motorised Collections",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Explore Our Collections"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subheading",
+      "default": "Discover the perfect motorized blinds tailored to your lifestyle"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "collection",
+      "name": "Collection",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Collection Name"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Description",
+          "default": "<p>Collection description goes here.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Motorised Collections",
+      "blocks": [
+        {
+          "type": "collection",
+          "settings": {
+            "title": "Roller Blinds",
+            "text": "<p>Sleek, minimal coverage for every room.</p>"
+          }
+        },
+        {
+          "type": "collection",
+          "settings": {
+            "title": "Roman Blinds",
+            "text": "<p>Elegant folds that add warmth and texture.</p>"
+          }
+        },
+        {
+          "type": "collection",
+          "settings": {
+            "title": "Zebra Blinds",
+            "text": "<p>Dual-layer light control with modern flair.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

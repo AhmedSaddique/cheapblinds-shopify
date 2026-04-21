@@ -1,0 +1,91 @@
+<div class="page-width">
+  <div
+    class="relative w-full rounded-md my-20"
+    style="background-color: #FFB803;"
+  >
+    <div class="flex flex-col lg:flex-row items-center">
+      <!-- Left: Image -->
+      <div class="w-full lg:w-1/2 flex justify-center px-4 lg:px-0 lg:pr-10 z-20">
+        {% if section.settings.image != blank %}
+          <!-- Phone mockup overlap effect -->
+          <img
+            src="{{ section.settings.image | image_url: width: 800 }}"
+            alt="{{ section.settings.heading | escape }}"
+            class="max-w-full h-auto object-contain lg:-mt-16 lg:-mb-16 relative z-20 drop-shadow-2xl"
+            loading="lazy"
+            width="auto"
+            height="auto"
+          >
+        {% else %}
+          <div class="w-full max-w-[320px] aspect-[9/19] bg-white rounded-[40px] flex items-center justify-center text-gray-400 border-[8px] border-gray-200 shadow-xl lg:-mt-16 lg:-mb-16 relative z-20">
+            Select Phone Image
+          </div>
+        {% endif %}
+      </div>
+
+      <!-- Right: Text -->
+      <div class="w-full lg:w-1/2 text-center py-10 lg:py-16 px-6 lg:px-12 lg:pr-20 xl:pr-32">
+        {% if section.settings.heading != blank %}
+          <h2 class="text-3xl md:text-[42px] font-bold text-black mb-4">
+            {{ section.settings.heading }}
+          </h2>
+        {% endif %}
+
+        {% if section.settings.subheading != blank %}
+          <h3 class="text-lg md:text-[22px] font-semibold text-black mb-6">
+            {{ section.settings.subheading }}
+          </h3>
+        {% endif %}
+
+        {% if section.settings.text != blank %}
+          <div class="text-black text-[15px] md:text-[16px] leading-relaxed mx-auto">
+            {{ section.settings.text | replace: '<p>', '<p class="mb-4 last:mb-0">' }}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Smart Blinds",
+  "settings": [
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#FDBB11"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "App Image",
+      "info": "Upload a phone mockup image with a transparent background. It will automatically overlap the edges of this section on desktop."
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Your Smart Blinds"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Seamless Control Anywhere"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "<p>Control your blinds using the Somfy smartphone app. You can give voice commands, use Somfy scenarios to set up scheduled blind movements, and even control your blinds remotely while away from home. Remote blind operation isn't just convenient, it also brings added home security by giving the appearance that your home is occupied even when you're away on holiday.</p>"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Smart Blinds"
+    }
+  ]
+}
+{% endschema %}
