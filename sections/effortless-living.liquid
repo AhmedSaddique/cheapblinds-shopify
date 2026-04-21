@@ -1,0 +1,124 @@
+<div class="page-width my-12 md:my-20">
+  <div
+    class="py-12 md:py-20 px-4 md:px-8 bg-primary-light rounded-md"
+    style="background-color: {{ section.settings.bg_color }};"
+  >
+    {% if section.settings.title != blank %}
+      <h2 class="text-3xl md:text-4xl font-bold text-center text-black mb-10 md:mb-14">
+        {{ section.settings.title }}
+      </h2>
+    {% endif %}
+
+    <div class="flex flex-col sm:flex-row gap-6 md:gap-8">
+      {% for block in section.blocks %}
+        <div
+          class="flex-1 border border-gray-300 rounded-lg p-6 md:p-8 text-center flex flex-col items-center w-full! sm:w-6/12! md:w-4/12!"
+          {{ block.shopify_attributes }}
+        >
+          <div class="w-16 h-16 md:w-[72px] md:h-[72px] p-3 rounded-full bg-primary flex items-center justify-center mb-6 overflow-hidden">
+            {% if block.settings.image != blank %}
+              <img
+                src="{{ block.settings.image | image_url: width: 55 }}"
+                alt="{{ block.settings.title | escape }}"
+                class="w-full h-full object-contain"
+                loading="lazy"
+                width="auto"
+                height="auto"
+              >
+            {% else %}
+              <!-- Placeholder -->
+              <div class="w-8 h-8 bg-white/30 rounded-full"></div>
+            {% endif %}
+          </div>
+
+          {% if block.settings.title != blank %}
+            <h3 class="text-lg md:text-[20px] font-bold text-black mb-3">
+              {{ block.settings.title }}
+            </h3>
+          {% endif %}
+
+          {% if block.settings.text != blank %}
+            <div class="text-gray-600 text-sm md:text-[15px] leading-relaxed">
+              {{ block.settings.text | replace: '<p>', '<p class="m-0">' }}
+            </div>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Effortless Living",
+  "settings": [
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#FDF8ED"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Built for Effortless Living"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image",
+          "info": "Upload an image. It will be displayed inside a circular yellow container."
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Feature Title"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>Feature description goes here.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Effortless Living",
+      "blocks": [
+        {
+          "type": "feature",
+          "settings": {
+            "title": "Smarter Control",
+            "text": "<p>Automate schedules, group blinds by room, and adjust with a single swipe.</p>"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "title": "Rechargeable Motor",
+            "text": "<p>Long-lasting lithium battery — charge once and enjoy months of smooth operation.</p>"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "title": "Wireless Setup",
+            "text": "<p>No cables, no drilling into walls. Simply mount, pair, and start controlling.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

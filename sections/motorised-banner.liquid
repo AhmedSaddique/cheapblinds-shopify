@@ -1,0 +1,64 @@
+<div class="relative w-full overflow-hidden min-h-[400px] md:min-h-[500px] lg:min-h-[600px] flex items-center">
+  {% if section.settings.background_image %}
+    {{
+      section.settings.background_image
+      | image_url: width: 2000
+      | image_tag: class: 'absolute inset-0 w-full h-full object-cover z-0'
+    }}
+  {% else %}
+    <div class="absolute inset-0 w-full h-full bg-[#1c1c1c] z-0 flex items-center justify-center text-white/50">
+      Please select a background image in theme settings
+    </div>
+  {% endif %}
+
+  <!-- Overlay to ensure text readability -->
+  <div
+    class="absolute inset-0 bg-linear-to-r from-black/90 via-black/50 to-transparent z-10"
+  ></div>
+
+  <div class="page-width relative z-20 w-full px-4 md:px-8 py-16">
+    <div class="max-w-xl md:max-w-[650px]">
+      {% if section.settings.heading != blank %}
+        <h1 class="text-4xl md:text-5xl lg:text-[60px] font-extrabold text-white mb-4 leading-tight tracking-tight">
+          {{ section.settings.heading }}
+        </h1>
+      {% endif %}
+
+      {% if section.settings.subheading != blank %}
+        <p class="text-base md:text-[20px] text-white font-light">
+          {{ section.settings.subheading }}
+        </p>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Motorised Banner",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background Image"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Smart Motorized Blinds for Modern Living"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Experience effortless convenience with our premium automated window solutions. Control light, privacy, and ambiance with a single tap."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Motorised Banner"
+    }
+  ]
+}
+{% endschema %}

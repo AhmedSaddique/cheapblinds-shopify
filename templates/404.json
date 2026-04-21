@@ -11,10 +11,9 @@
   "sections": {
     "main": {
       "type": "main-404",
+      "disabled": false,
       "settings": {}
     }
   },
-  "order": [
-    "main"
-  ]
+  "order": ["main"]
 }

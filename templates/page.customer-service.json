@@ -13,49 +13,44 @@
       "type": "main-page",
       "disabled": true,
       "settings": {
-        "padding_top": 28,
-        "padding_bottom": 28
-      }
-    },
-    "cb_breadcrumb_BXnTfx": {
-      "type": "cb-breadcrumb",
-      "name": "Custom Breadcrumbs",
-      "settings": {
-        "home_label": "Home",
-        "color_scheme": "",
-        "background_color": "rgba(0,0,0,0)",
-        "link_color": "#888888",
-        "link_hover_color": "#333333",
-        "current_color": "#333333",
-        "separator_color": "#000000",
-        "padding_top": 16,
-        "padding_bottom": 16
-      }
-    },
-    "cb_saved_items_page_x7WaKf": {
-      "type": "cb-saved-items-page",
-      "name": "Wishlist Page",
-      "settings": {
-        "wishlist_heading": "My Wishlist",
-        "wishlist_empty_text": "Your wishlist is currently empty.",
-        "continue_label": "Continue shopping",
-        "padding_top": 36,
-        "padding_bottom": 36
-      }
-    },
-    "custom_samples_page_r4pwdR": {
-      "type": "custom-samples-page",
-      "name": "Samples Page",
-      "settings": {
-        "browse_link": "",
-        "success_redirect_url": ""
-      }
+        "heading": "Customer Service",
+        "sub_text": "Engage in seamless customer experience with us!",
+        "description": "For all your question and queries, We have compiled a list of those most frequently asked, divided into handy section below For further queries, call us.",
+        "phone_number": "+971 50 597 4531"
+      },
+      "blocks": {
+        "block_1": {
+          "type": "category",
+          "settings": {
+            "title": "Order Queries",
+            "content": "<p>There are multiple ways to place an order for your made-to-measure curtains, blinds, and accessories.</p>"
+          }
+        },
+        "block_2": {
+          "type": "category",
+          "settings": {
+            "title": "Delivery",
+            "content": "<p>Your customized product will be delivered to you within 1-4 working days.</p>"
+          }
+        },
+        "block_3": {
+          "type": "category",
+          "settings": {
+            "title": "My Account",
+            "content": "<p>Manage your account details and order history easily.</p>"
+          }
+        },
+        "block_4": {
+          "type": "category",
+          "settings": {
+            "title": "Returns and Refunds",
+            "content": "<p>Details about our returns and refunds policy.</p>"
+          }
+        }
+      },
+      "block_order": ["block_1", "block_2", "block_3", "block_4"]
     }
   },
-  "order": [
-    "main",
-    "cb_breadcrumb_BXnTfx",
-    "cb_saved_items_page_x7WaKf",
-    "custom_samples_page_r4pwdR"
-  ]
+  "order": ["main"]
 }
+

@@ -1,0 +1,102 @@
+<div class="page-width py-16 md:py-24">
+  {% if section.settings.title != blank %}
+    <h2 class="text-3xl md:text-[40px] font-bold text-center text-black mb-12">
+      {{ section.settings.title }}
+    </h2>
+  {% endif %}
+
+  <div class="flex flex-wrap gap-y-4 -mx-2 lg:-mx-4">
+    {% for block in section.blocks %}
+      <div class="w-full md:w-1/2 px-2 lg:px-4">
+        <details class="group bg-[#F8F8F8] mb-1" {{ block.shopify_attributes }}>
+          <summary class="flex justify-between items-center cursor-pointer list-none p-4 md:p-5 text-black md:text-[15px] [&::-webkit-details-marker]:hidden">
+            <span>{{ block.settings.question }}</span>
+            <span class="w-5 h-5 rounded-full bg-[#FFB803] flex items-center justify-center text-white shrink-0 ml-4 relative">
+              <span class="absolute inset-0 flex items-center justify-center transition-opacity duration-200 group-open:opacity-0">
+                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"></path></svg>
+              </span>
+              <span class="absolute inset-0 flex items-center justify-center opacity-0 transition-opacity duration-200 group-open:opacity-100">
+                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M20 12H4"></path></svg>
+              </span>
+            </span>
+          </summary>
+          <div class="text-gray-700 px-4 md:px-5 py-4 bg-[#EDEDED] text-[14px] md:text-[15px] leading-relaxed border-t border-white">
+            {{ block.settings.answer | replace: '<p>', '<p class="m-0 mb-4 last:mb-0">' }}
+          </div>
+        </details>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+<style>
+  /* Fallback for browsers that don't fully support the Tailwind details marker hiding utility */
+  details > summary {
+    list-style: none;
+  }
+  details > summary::-webkit-details-marker {
+    display: none;
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Motorised FAQ",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Frequently Asked Questions"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq",
+      "name": "FAQ Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question",
+          "default": "How does it work?"
+        },
+        {
+          "type": "richtext",
+          "id": "answer",
+          "label": "Answer",
+          "default": "<p>It connects to your smartphone or smart home device, allowing you to easily control your blinds from anywhere.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Motorised FAQ",
+      "blocks": [
+        {
+          "type": "faq",
+          "settings": {
+            "question": "Do I need an electrician to install them?",
+            "answer": "<p>No, our motorised blinds are completely wire-free and use a rechargeable lithium battery, meaning you can easily install them yourself in under 15 minutes.</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "How often do I need to charge the battery?",
+            "answer": "<p>With average use, a single charge typically lasts between 6 to 12 months. Charging them is as simple as plugging in your mobile phone.</p>"
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "Can I integrate them with Alexa or Google Home?",
+            "answer": "<p>Yes! By using the Somfy Tahoma Switch (sold separately), you can easily integrate your blinds with Amazon Alexa, Google Assistant, and Apple HomeKit for full voice control.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
