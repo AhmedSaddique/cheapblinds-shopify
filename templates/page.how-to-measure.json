@@ -1,8 +1,27 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "breadcrumb": {
       "type": "cb-breadcrumb",
-      "settings": {}
+      "settings": {
+        "home_label": "Home",
+        "color_scheme": "",
+        "background_color": "rgba(0,0,0,0)",
+        "link_color": "#888888",
+        "link_hover_color": "#333333",
+        "current_color": "#333333",
+        "separator_color": "#000000",
+        "padding_top": 16,
+        "padding_bottom": 16
+      }
     },
     "main_how_to_measure": {
       "type": "main-how-to-measure",
@@ -14,7 +33,22 @@
             "subtitle": "Measuring Guide",
             "heading_black": "How to Measure",
             "heading_yellow": "Roller Blinds",
-            "description": "<p>Accurate measurements are essential for a perfect fit. Follow our step-by-step guide to measure your windows with confidence.</p>"
+            "description": "<p>Accurate measurements are essential for a perfect fit. Follow our step-by-step guide to measure your windows with confidence.</p>",
+            "pdf_url": "",
+            "image": "shopify://shop_images/20d0a703f33f31dece3561e3680d1630d946f055.png",
+            "video_url": ""
+          }
+        },
+        "tab_FpYw6P": {
+          "type": "tab",
+          "settings": {
+            "title": "Roman Blinds",
+            "subtitle": "Measuring Guide",
+            "heading_black": "How to Measure",
+            "heading_yellow": "Roman Blinds",
+            "description": "<p>Accurate measurements are essential for a perfect fit. Follow our step-by-step guide to measure your windows with confidence.</p>",
+            "pdf_url": "",
+            "video_url": ""
           }
         },
         "tab_2": {
@@ -24,7 +58,9 @@
             "subtitle": "Measuring Guide",
             "heading_black": "How to Measure",
             "heading_yellow": "Wooden Blinds",
-            "description": "<p>Accurate measurements are essential for a perfect fit. Follow our step-by-step guide to measure your windows with confidence.</p>"
+            "description": "<p>Accurate measurements are essential for a perfect fit. Follow our step-by-step guide to measure your windows with confidence.</p>",
+            "pdf_url": "",
+            "video_url": ""
           }
         },
         "tab_3": {
@@ -34,12 +70,15 @@
             "subtitle": "Measuring Guide",
             "heading_black": "How to Measure",
             "heading_yellow": "Vertical Blinds",
-            "description": "<p>Accurate measurements are essential for a perfect fit. Follow our step-by-step guide to measure your windows with confidence.</p>"
+            "description": "<p>Accurate measurements are essential for a perfect fit. Follow our step-by-step guide to measure your windows with confidence.</p>",
+            "pdf_url": "",
+            "video_url": ""
           }
         }
       },
       "block_order": [
         "tab_1",
+        "tab_FpYw6P",
         "tab_2",
         "tab_3"
       ],
@@ -48,6 +87,21 @@
     "measuring_tools": {
       "type": "measuring-tools",
       "blocks": {
+        "tool_mJGJPt": {
+          "type": "tool",
+          "settings": {
+            "icon": "shopify://shop_images/Frame_1707486706.png",
+            "title": "Metal Tape Only",
+            "text": "<p>Always use a metal measuring tape and record your measurements in mm, cm, and ft.</p>"
+          }
+        },
+        "tool_G4zi9k": {
+          "type": "tool",
+          "settings": {
+            "title": "Metal Tape Only",
+            "text": "<p>Always use a metal measuring tape and record your measurements in mm, cm, and ft.</p>"
+          }
+        },
         "tool_1": {
           "type": "tool",
           "settings": {
@@ -71,6 +125,8 @@
         }
       },
       "block_order": [
+        "tool_mJGJPt",
+        "tool_G4zi9k",
         "tool_1",
         "tool_2",
         "tool_3"
@@ -114,6 +170,13 @@
     "child_safety": {
       "type": "child-safety",
       "blocks": {
+        "guideline_fXkGQV": {
+          "type": "guideline",
+          "settings": {
+            "title": "Keep Out of Reach",
+            "description": "Keep all cords and chains out of the reach of children at all times."
+          }
+        },
         "guide_1": {
           "type": "guideline",
           "settings": {
@@ -137,6 +200,7 @@
         }
       },
       "block_order": [
+        "guideline_fXkGQV",
         "guide_1",
         "guide_2",
         "warning_1"
@@ -149,6 +213,22 @@
     "google_reviews": {
       "type": "google-reviews",
       "blocks": {
+        "review_PTh9rh": {
+          "type": "review",
+          "settings": {
+            "user_name": "Customer Name",
+            "date": "Jan 24, 2026",
+            "review_text": "I love this product because the support is great."
+          }
+        },
+        "review_ba3QHa": {
+          "type": "review",
+          "settings": {
+            "user_name": "Customer Name",
+            "date": "Jan 24, 2026",
+            "review_text": "I love this product because the support is great."
+          }
+        },
         "review_1": {
           "type": "review",
           "settings": {
@@ -167,12 +247,17 @@
         }
       },
       "block_order": [
+        "review_PTh9rh",
+        "review_ba3QHa",
         "review_1",
         "review_2"
       ],
       "settings": {
         "title": "Google Reviews from Our Customers",
-        "review_count": "84,290"
+        "review_count": "84,290",
+        "write_link": "",
+        "padding_top": 60,
+        "padding_bottom": 60
       }
     },
     "brand_trust_slider": {
