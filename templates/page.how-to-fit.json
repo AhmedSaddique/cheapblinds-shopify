@@ -11,68 +11,144 @@
   "sections": {
     "breadcrumb": {
       "type": "cb-breadcrumb",
-      "settings": {}
+      "settings": {
+        "home_label": "Home",
+        "color_scheme": "",
+        "background_color": "rgba(0,0,0,0)",
+        "link_color": "#888888",
+        "link_hover_color": "#333333",
+        "current_color": "#333333",
+        "separator_color": "#000000",
+        "padding_top": 16,
+        "padding_bottom": 16
+      }
     },
     "main_how_to_fit": {
       "type": "main-how-to-fit",
       "blocks": {
-        "top_tab_1": {
+        "top_tab_rLUdf8": {
           "type": "top_tab",
           "settings": {
             "title": "Roller Blinds",
             "subtitle": "Fitting Instructions",
-            "heading_black": "How to Fit",
-            "heading_yellow": "Roller Blinds",
-            "description": "<p>Follow our easy step-by-step instructions to fit your Roller Blinds.</p>"
+            "heading_black": "Day and Night Blind Fitting Instructions Classic Headrail",
+            "heading_yellow": "",
+            "description": "",
+            "pdf_url": "/",
+            "image": "shopify://shop_images/20d0a703f33f31dece3561e3680d1630d946f055.png"
           }
         },
-        "sub_tab_1": {
+        "sub_tab_ibLGiA": {
           "type": "sub_tab",
           "settings": {
-            "title": "Standard Roller Blinds"
+            "title": "Roman Blinds Classic"
           }
         },
-        "parts_grid_1": {
+        "parts_grid_A4irpa": {
           "type": "parts_grid",
           "settings": {
             "title_left": "Cleaning Instructions",
+            "image_left": "shopify://shop_images/Frame_1707486786.png",
             "title_right": "Parts Identified",
             "part_1_name": "Screws",
-            "part_2_name": "Brackets"
+            "part_1_image": "shopify://shop_images/Background.png",
+            "part_2_name": "Brackets",
+            "part_2_image": "shopify://shop_images/Background.png",
+            "part_3_name": "",
+            "part_4_name": ""
           }
         },
-        "tools_grid_1": {
+        "tools_grid_hYqe37": {
           "type": "tools_grid",
           "settings": {
             "title": "Tools Required",
             "tool_1_name": "Pencil",
+            "tool_1_icon": "shopify://shop_images/Group_1707485887.png",
             "tool_2_name": "Screwdriver",
             "tool_3_name": "Drill",
-            "tool_4_name": "Tape Measure"
+            "tool_4_name": "Tape Measure",
+            "tool_5_name": "",
+            "tool_6_name": "",
+            "tool_7_name": "",
+            "tool_8_name": ""
           }
         },
-        "step_card_1": {
+        "step_card_qHcHq9": {
           "type": "step_card",
           "settings": {
+            "reverse_layout": false,
             "step_number": "1",
-            "title": "Step 1 - Position Brackets",
-            "description": "<p>Position the brackets in the desired location.</p>",
-            "toggles": "Top Fix, Face Fix"
+            "title": "Step 1 - Measure",
+            "description": "",
+            "toggles": "",
+            "image": "shopify://shop_images/image_680.png"
+          }
+        },
+        "step_card_gYc69z": {
+          "type": "step_card",
+          "settings": {
+            "reverse_layout": true,
+            "step_number": "2",
+            "title": "Step 2 – Fix Brackets",
+            "description": "<p>Choose whether you need to fit your brackets via top fix or face fix. Hold the brackets up to the pencil marks made in Step 1. Mark the relevant hole with a pencil. Drill holes and use suitable screws to fix the brackets. With a spirit level, check the brackets are level.</p>",
+            "toggles": "Top Fix,Face Fix",
+            "image": "shopify://shop_images/image_680_1.png"
+          }
+        },
+        "child_safety_Lx6ecw": {
+          "type": "child_safety",
+          "settings": {
+            "main_title": "Child Safety",
+            "heading": "Tensioning Device",
+            "description": "To ensure your blind is child safe, ensure chains and cords are taut as you fit the safety clip to the wall.",
+            "alert_title": "BLINDS CHILD SAFETY AWARENESS",
+            "alert_description": "Keep all cords and chains out of the reach of children. Loose cords or chains should never be tied together.",
+            "image": "shopify://shop_images/image_685.png"
+          }
+        },
+        "removing_blind_d9mwgC": {
+          "type": "removing_blind",
+          "settings": {
+            "title": "Removing the Blind",
+            "step_title": "Unclip from Brackets",
+            "description": "<p>Press the release tab on all brackets. Tilt cassette backwards and ease out of brackets.</p>",
+            "image": "shopify://shop_images/image_680_2.png"
+          }
+        },
+        "bottom_warnings_VYAU7P": {
+          "type": "bottom_warnings",
+          "settings": {
+            "main_title": "Cleaning Instructions",
+            "warning_text_left": "Use a dry lint free cloth to wipe over the fabric of the blind.",
+            "warning_title_right": "WARNING",
+            "warning_text_right": "*Before you start fitting your blind make sure the screws are suitable for the surface you are fitting into."
           }
         }
       },
       "block_order": [
-        "top_tab_1",
-        "sub_tab_1",
-        "parts_grid_1",
-        "tools_grid_1",
-        "step_card_1"
+        "top_tab_rLUdf8",
+        "sub_tab_ibLGiA",
+        "parts_grid_A4irpa",
+        "tools_grid_hYqe37",
+        "step_card_qHcHq9",
+        "step_card_gYc69z",
+        "child_safety_Lx6ecw",
+        "removing_blind_d9mwgC",
+        "bottom_warnings_VYAU7P"
       ],
       "settings": {}
     },
     "google_reviews": {
       "type": "google-reviews",
       "blocks": {
+        "review_XDnKgY": {
+          "type": "review",
+          "settings": {
+            "user_name": "Customer Name",
+            "date": "Jan 24, 2026",
+            "review_text": "I love this product because the support is great."
+          }
+        },
         "review_1": {
           "type": "review",
           "settings": {
@@ -91,12 +167,16 @@
         }
       },
       "block_order": [
+        "review_XDnKgY",
         "review_1",
         "review_2"
       ],
       "settings": {
         "title": "Google Reviews from Our Customers",
-        "review_count": "84,290"
+        "review_count": "84,290",
+        "write_link": "",
+        "padding_top": 60,
+        "padding_bottom": 60
       }
     },
     "brand_trust_slider": {
