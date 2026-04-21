@@ -1,0 +1,123 @@
+<div class="page-width my-10! text-center">
+  <div class="mb-12 md:mb-16">
+    {% if section.settings.title != blank %}
+      <h2 class="text-3xl md:text-[40px] font-bold text-black mb-4">
+        {{
+          section.settings.title
+          | replace: '3 Steps', '<span class="text-[#FFB803]">3 Steps</span>'
+        }}
+      </h2>
+    {% endif %}
+
+    {% if section.settings.subtitle != blank %}
+      <p class="text-gray-500 text-sm md:text-base">
+        {{ section.settings.subtitle }}
+      </p>
+    {% endif %}
+  </div>
+
+  <div class="flex flex-wrap justify-center -mx-4 gap-y-10">
+    {% for block in section.blocks %}
+      <!-- Item: w-full (mobile 1), sm:w-1/2 (sm/md 2), lg:w-1/3 (above 3) -->
+      <div
+        class="w-full sm:w-1/2 lg:w-1/3 px-4 flex flex-col items-center"
+        {{ block.shopify_attributes }}
+      >
+        <div class="text-[#FFF1C6] text-6xl md:text-[80px] font-bold leading-none mb-4 md:mb-6">
+          {{ block.settings.number }}
+        </div>
+
+        {% if block.settings.title != blank %}
+          <h3 class="text-lg md:text-[22px] font-bold text-black mb-3">
+            {{ block.settings.title }}
+          </h3>
+        {% endif %}
+
+        {% if block.settings.text != blank %}
+          <div class="text-gray-500 text-sm md:text-[15px] leading-relaxed max-w-[280px] mx-auto">
+            {{ block.settings.text | replace: '<p>', '<p class="m-0">' }}
+          </div>
+        {% endif %}
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Install Steps",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Install in 3 Steps",
+      "info": "The phrase '3 Steps' will automatically be highlighted in yellow."
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subheading",
+      "default": "No electrician needed. DIY in under 15 minutes."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Step",
+      "limit": 6,
+      "settings": [
+        {
+          "type": "text",
+          "id": "number",
+          "label": "Number",
+          "default": "01"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Measure"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text",
+          "default": "<p>Measure your window using our simple guide</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Install Steps",
+      "blocks": [
+        {
+          "type": "step",
+          "settings": {
+            "number": "01",
+            "title": "Measure",
+            "text": "<p>Measure your window using our simple guide</p>"
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "number": "02",
+            "title": "Mount",
+            "text": "<p>Attach the brackets — no drilling required</p>"
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "number": "03",
+            "title": "Connect",
+            "text": "<p>Pair with app and start controlling instantly</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

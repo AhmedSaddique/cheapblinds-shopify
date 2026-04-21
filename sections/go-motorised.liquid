@@ -1,0 +1,163 @@
+<div class="page-width">
+  <div class="py-10! bg-[#FEB9071F] px-4">
+    <div class="flex flex-col lg:flex-row items-center lg:items-start gap-12 lg:gap-20">
+      <!-- Left Content -->
+      <div class="w-full lg:w-1/2 lg:pt-8">
+        {% if section.settings.title != blank %}
+          <h2 class="text-3xl md:text-[40px] font-bold text-black mb-4">
+            {{ section.settings.title }}
+          </h2>
+        {% endif %}
+
+        {% if section.settings.subtitle != blank %}
+          <p class="text-black text-base md:text-[18px] mb-10 md:mb-14">
+            {{ section.settings.subtitle }}
+          </p>
+        {% endif %}
+
+        <div class="flex flex-col gap-8 md:gap-10">
+          {% for block in section.blocks %}
+            <div class="flex items-start gap-5 md:gap-6" {{ block.shopify_attributes }}>
+              <!-- Icon Image -->
+              <div class="shrink-0 w-[50px] h-[50px] md:w-[60px] md:h-[60px] flex items-center justify-center bg-primary rounded-full p-3">
+                {% if block.settings.icon_image != blank %}
+                  <img
+                    src="{{ block.settings.icon_image | image_url: width: 100 }}"
+                    alt="{{ block.settings.title | escape }}"
+                    class="w-full h-full object-cover"
+                    loading="lazy"
+                    width="auto"
+                    height="auto"
+                  >
+                {% else %}
+                  <div class="w-full h-full rounded-full bg-[#f5bc33]"></div>
+                {% endif %}
+              </div>
+
+              <!-- Text -->
+              <div class="pt-1">
+                {% if block.settings.title != blank %}
+                  <h3 class="text-lg md:text-[20px] font-bold text-black mb-1.5">
+                    {{ block.settings.title }}
+                  </h3>
+                {% endif %}
+                {% if block.settings.text != blank %}
+                  <div class="text-black text-[15px] md:text-base leading-relaxed">
+                    {{ block.settings.text | replace: '<p>', '<p class="m-0">' }}
+                  </div>
+                {% endif %}
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+
+      <!-- Right Image -->
+      <div class="w-full lg:w-1/2">
+        <div class="w-full relative overflow-hidden">
+          {% if section.settings.main_image != blank %}
+            <img
+              src="{{ section.settings.main_image | image_url: width: 1200 }}"
+              alt="Why Go Motorized"
+              class="w-full h-auto object-cover"
+              loading="lazy"
+              width="auto"
+              height="auto"
+            >
+          {% else %}
+            <div class="w-full aspect-[4/3] bg-gray-300 flex items-center justify-center text-gray-500">
+              Main Image Placeholder
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Why Go Motorised",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Why Go Motorized?"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subheading",
+      "default": "Upgrade your home with intelligent blinds that combine cutting-edge technology with timeless design."
+    },
+    {
+      "type": "image_picker",
+      "id": "main_image",
+      "label": "Main Image"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature",
+      "limit": 4,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon_image",
+          "label": "Icon Image",
+          "info": "Upload an image to use as the icon."
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Feature Title"
+        },
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Description",
+          "default": "<p>Feature description goes here.</p>"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Why Go Motorised",
+      "blocks": [
+        {
+          "type": "feature",
+          "settings": {
+            "title": "Remote & App Control",
+            "text": "<p>Operate your blinds from anywhere via our intuitive mobile application.</p>"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "title": "WiFi Connected",
+            "text": "<p>Integrates seamlessly with Alexa, Google Home, and Apple HomeKit.</p>"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "title": "Whisper-Quiet Motor",
+            "text": "<p>Ultra-silent operation that won't disturb your peace — day or night.</p>"
+          }
+        },
+        {
+          "type": "feature",
+          "settings": {
+            "title": "Smart Schedules",
+            "text": "<p>Set automated routines based on time or sunrise/sunset.</p>"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

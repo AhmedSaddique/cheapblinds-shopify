@@ -1,0 +1,70 @@
+{
+  "sections": {
+    "banner": {
+      "type": "motorised-banner",
+      "settings": {}
+    },
+    "collections": {
+      "type": "motorised-collections",
+      "settings": {}
+    },
+    "go_motorised": {
+      "type": "go-motorised",
+      "settings": {}
+    },
+    "smart_blinds": {
+      "type": "smart-blinds",
+      "settings": {}
+    },
+    "effortless_living": {
+      "type": "effortless-living",
+      "settings": {}
+    },
+    "image_with_products_1": {
+      "type": "image-with-products",
+      "settings": {
+        "title": "Motorized Roller Blinds",
+        "image_position": "right"
+      }
+    },
+    "image_with_products_2": {
+      "type": "image-with-products",
+      "settings": {
+        "title": "Motorized Roman Blinds",
+        "image_position": "left"
+      }
+    },
+    "image_with_products_3": {
+      "type": "image-with-products",
+      "settings": {
+        "title": "Motorized Zebra Blinds",
+        "image_position": "right"
+      }
+    },
+    "motorised_video": {
+      "type": "motorised-video",
+      "settings": {}
+    },
+    "install_steps": {
+      "type": "install-steps",
+      "settings": {}
+    },
+    "motorised_faq": {
+      "type": "motorised-faq",
+      "settings": {}
+    }
+  },
+  "order": [
+    "banner",
+    "collections",
+    "go_motorised",
+    "smart_blinds",
+    "effortless_living",
+    "image_with_products_1",
+    "image_with_products_2",
+    "image_with_products_3",
+    "motorised_video",
+    "install_steps",
+    "motorised_faq"
+  ]
+}
