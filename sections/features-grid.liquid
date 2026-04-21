@@ -1,11 +1,6 @@
 <!-- sections/features-grid.liquid -->
 
 <style>
-  .features-grid {
-    padding-top: {{ section.settings.padding_top }}px;
-    padding-bottom: {{ section.settings.padding_bottom }}px;
-  }
-
   .features-grid__wrapper {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -90,7 +85,7 @@
   }
 </style>
 
-<div class="features-grid">
+<div class="py-8 md:py-16">
   <div class="page-width">
     <div class="features-grid__wrapper">
       {% for block in section.blocks %}

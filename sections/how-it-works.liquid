@@ -26,9 +26,9 @@
   }
 
   .how-it-works__item {
-    border: 1px solid #EAEAEA;
+    border: 1px solid #AAAAAA;
     border-radius: 10px;
-    padding: 40px 20px;
+    padding: 15px 15px;
     text-align: center;
     background-color: #fff;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -47,7 +47,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 0 auto 25px;
+    margin: 0 auto 15px;
   }
 
   .how-it-works__icon-wrapper svg,
@@ -62,20 +62,18 @@
     font-weight: 700;
     color: #FEB907;
     text-transform: uppercase;
-    margin-bottom: 10px;
     display: block;
     letter-spacing: 1px;
   }
 
   .how-it-works__item-title {
-    font-size: 24px;
+    font-size: 18px;
     font-weight: 700;
     color: #151515;
-    margin: 0 0 15px;
   }
 
   .how-it-works__item-text {
-    font-size: 16px;
+    font-size: 14px;
     line-height: 1.6;
     color: #666;
     margin: 0;
@@ -88,15 +86,44 @@
     .how-it-works__grid {
       grid-template-columns: 1fr;
     }
-    
+
+    .how-it-works__header {
+    margin-bottom: 25px;
+  }
     .how-it-works__title {
-      font-size: 28px;
+      font-size: 24px;
     }
   }
 </style>
 
 <div class="how-it-works">
-  <div class="page-width">
+  <div class="md:hidden">
+    {%- if section.settings.title != blank -%}
+      <div class="how-it-works__header">
+        <h2 class="how-it-works__title">{{ section.settings.title | escape }}</h2>
+      </div>
+    {%- endif -%}
+
+    <div class="how-it-works__grid">
+      {%- for block in section.blocks -%}
+        <div class="how-it-works__item" {{ block.shopify_attributes }}>
+          <div class="how-it-works__icon-wrapper">
+            {%- if block.settings.icon != blank -%}
+              {{ block.settings.icon | image_url: width: 100 | image_tag: loading: 'lazy' }}
+            {%- else -%}
+              {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+            {%- endif -%}
+          </div>
+
+          <span class="how-it-works__step-label">{{ block.settings.step_label | escape }}</span>
+          <h3 class="how-it-works__item-title">{{ block.settings.title | escape }}</h3>
+          <p class="how-it-works__item-text">{{ block.settings.text | escape }}</p>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+
+  <div class="page-width md:block">
     {%- if section.settings.title != blank -%}
       <div class="how-it-works__header">
         <h2 class="how-it-works__title">{{ section.settings.title | escape }}</h2>

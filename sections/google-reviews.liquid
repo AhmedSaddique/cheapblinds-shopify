@@ -38,8 +38,8 @@
   }
 
   .google-reviews__title {
-    font-size: 20px;
-    font-weight: 800;
+    font-size: 16px;
+    font-weight: 700;
     line-height: 1.1;
     margin: 0;
     color: #000;
@@ -60,6 +60,7 @@
 
   .google-reviews__count {
     margin-bottom: 15px;
+    font-size: 14px;
   }
 
   .google-reviews__btn {
@@ -79,6 +80,7 @@
   /* --- SLIDER AREA --- */
   .google-reviews__slider-wrapper {
     flex: 1;
+    font-size: 14px;
     position: relative;
     min-width: 0;
   }
@@ -129,7 +131,7 @@
 
   .google-reviews__user-name {
     font-size: 16px;
-    font-weight: 700;
+    font-weight: 500;
     color: #000;
     display: block;
     line-height: 1.2;
@@ -279,8 +281,14 @@
             <h2 class="google-reviews__title">{{ section.settings.title }}</h2>
             <div class="google-reviews__rating-stack">
               <div class="google-reviews__stars-large">★★★★★</div>
-              <span class="google-reviews__count">({{ section.settings.review_count }} reviews)</span>
-              <a href="{{ section.settings.write_link | default: '#' }}" target="_blank" class="google-reviews__btn">
+              <span class="google-reviews__count"
+                >({{ section.settings.review_count }} reviews)</span
+              >
+              <a
+                href="{{ section.settings.write_link | default: '#' }}"
+                target="_blank"
+                class="google-reviews__btn"
+              >
                 Write a reviews
               </a>
             </div>
@@ -310,7 +318,11 @@
                   <div class="google-reviews__user-row">
                     <div class="google-reviews__avatar">
                       {% if block.settings.avatar != blank %}
-                        {{ block.settings.avatar | image_url: width: 110 | image_tag: loading: 'lazy' }}
+                        {{
+                          block.settings.avatar
+                          | image_url: width: 110
+                          | image_tag: loading: 'lazy'
+                        }}
                       {% else %}
                         <div style="width:100%;height:100%;background:#eee;"></div>
                       {% endif %}
@@ -332,7 +344,9 @@
             {% endfor %}
           </div>
           <!-- Pagination dots visible in your mobile screenshot -->
-          <div class="swiper-pagination google-reviews__pagination swiper-pagination-{{ section.id }}"></div>
+          <div
+            class="swiper-pagination google-reviews__pagination swiper-pagination-{{ section.id }}"
+          ></div>
         </div>
       </div>
     </div>
@@ -370,7 +384,12 @@
   "name": "Google Reviews Slider",
   "settings": [
     { "type": "image_picker", "id": "logo", "label": "Logo" },
-    { "type": "text", "id": "title", "label": "Title", "default": "Google Reviews from Our Customers" },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Google Reviews from Our Customers"
+    },
     { "type": "text", "id": "review_count", "label": "Review Count", "default": "84,290" },
     { "type": "url", "id": "write_link", "label": "Review Link" },
     {
@@ -412,7 +431,10 @@
     }
   ],
   "presets": [
-    { "name": "Google Reviews Slider", "blocks": [{ "type": "review" }, { "type": "review" }, { "type": "review" }] }
+    {
+      "name": "Google Reviews Slider",
+      "blocks": [{ "type": "review" }, { "type": "review" }, { "type": "review" }]
+    }
   ]
 }
 {% endschema %}
