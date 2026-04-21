@@ -40,11 +40,93 @@
         "heading": "Smart Motorized Blinds for Modern Living",
         "subheading": "Experience effortless convenience with our premium automated window solutions. Control light, privacy, and ambiance with a single tap."
       }
+    },
+    "motorised_collections_Bq6pKf": {
+      "type": "motorised-collections",
+      "blocks": {
+        "collection_7HKnJn": {
+          "type": "collection",
+          "settings": {
+            "title": "Roller Blinds",
+            "text": "<p>Sleek, minimal coverage for every room.</p>"
+          }
+        },
+        "collection_WgL3w9": {
+          "type": "collection",
+          "settings": {
+            "title": "Roman Blinds",
+            "text": "<p>Elegant folds that add warmth and texture.</p>"
+          }
+        },
+        "collection_byttDt": {
+          "type": "collection",
+          "settings": {
+            "title": "Zebra Blinds",
+            "text": "<p>Dual-layer light control with modern flair.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "collection_7HKnJn",
+        "collection_WgL3w9",
+        "collection_byttDt"
+      ],
+      "name": "Motorised Collections",
+      "settings": {
+        "title": "Explore Our Collections",
+        "subtitle": "Discover the perfect motorized blinds tailored to your lifestyle"
+      }
+    },
+    "go_motorised_iyh9zY": {
+      "type": "go-motorised",
+      "blocks": {
+        "feature_hhARCi": {
+          "type": "feature",
+          "settings": {
+            "title": "Remote & App Control",
+            "text": "<p>Operate your blinds from anywhere via our intuitive mobile application.</p>"
+          }
+        },
+        "feature_fhNKY3": {
+          "type": "feature",
+          "settings": {
+            "title": "WiFi Connected",
+            "text": "<p>Integrates seamlessly with Alexa, Google Home, and Apple HomeKit.</p>"
+          }
+        },
+        "feature_yFN6bz": {
+          "type": "feature",
+          "settings": {
+            "title": "Whisper-Quiet Motor",
+            "text": "<p>Ultra-silent operation that won't disturb your peace — day or night.</p>"
+          }
+        },
+        "feature_6CJAYd": {
+          "type": "feature",
+          "settings": {
+            "title": "Smart Schedules",
+            "text": "<p>Set automated routines based on time or sunrise/sunset.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "feature_hhARCi",
+        "feature_fhNKY3",
+        "feature_yFN6bz",
+        "feature_6CJAYd"
+      ],
+      "name": "Why Go Motorised",
+      "settings": {
+        "title": "Why Go Motorized?",
+        "subtitle": "Upgrade your home with intelligent blinds that combine cutting-edge technology with timeless design."
+      }
     }
   },
   "order": [
     "main",
     "cb_breadcrumb_BXnTfx",
-    "motorised_banner_6zhdWN"
+    "motorised_banner_6zhdWN",
+    "motorised_collections_Bq6pKf",
+    "go_motorised_iyh9zY"
   ]
 }
