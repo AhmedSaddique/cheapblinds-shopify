@@ -14,7 +14,7 @@
       "name": "Custom Full Width Banner",
       "settings": {
         "desktop_image": "shopify://shop_images/7437603701490e7c722faa041d59a303b264e819.png",
-        "mobile_image": "shopify://shop_images/Frame_1707486780.png",
+        "mobile_image": "shopify://shop_images/mobilebanner.jpg",
         "banner_link": ""
       }
     },
@@ -280,6 +280,7 @@
         "btn_text": "Order Up To 5 Free Samples",
         "btn_link": "",
         "btn_color": "#feb907",
+        "image": "shopify://shop_images/freeSample.jpg",
         "aspect_ratio": "1 / 1",
         "bg_color_left": "#ffffff",
         "bg_color_right": "#fef9e7",
@@ -350,8 +351,8 @@
       ],
       "name": "Beautiful Home Carousel",
       "settings": {
-        "title": "Building a Beautiful Home - Starts at Your Windows",
-        "intro": "<p>From the sun-drenched villas of Palm Jumeirah to the sleek apartments of Business Bay, the right blinds don't just dress your windows; they define how your entire home feels. Light, mood, privacy, and style all begin with what you hang.</p><p>At Cheap Blinds, we offer the UAE's widest range of made-to-measure window blinds, including Roller, Roman, Vertical, Zebra, and more, each available in dozens of fabrics, colours, and smart-home configurations. And our prices? Let's just say your wallet will be as happy as your home.</p><p>Why settle for ordinary when extraordinary is just a click away?</p>",
+        "title": "Premium Made-to-Measure Blinds at Dubai's Lowest Prices",
+        "intro": "<p>From the sun-drenched villas of Palm Jumeirah to the sleek apartments of Business Bay, the right blinds don't just dress your windows; they define how your entire home feels. Light, mood, privacy, and style all begin with what you hang.</p><p>At Cheap Blinds, we offer the UAE's widest range of made-to-measure window blinds, including Roller, Roman, Vertical, Zebra, and more, each available in dozens of fabrics, colours, and smart-home configurations. And our prices? Let's just say your wallet will be as happy as your home. Why settle for ordinary when extraordinary is just a click away?<br/><br/></p>",
         "bg_color": "#fef9e7",
         "padding_top": 36,
         "padding_bottom": 36
@@ -490,8 +491,15 @@
         "info_block_CqPRbk": {
           "type": "info_block",
           "settings": {
-            "heading": " Fast UAE Delivery & Round-the-Clock Customer Support",
+            "heading": "Fast UAE Delivery & Round-the-Clock Customer Support",
             "content": "<p>We know that once you've found your perfect blinds, waiting is the last thing you want to do. That's why Cheap Blinds offers <strong>free next-day delivery on most orders</strong> across the UAE. Whether you're moving into a new apartment in Dubai, finishing the final touches on a villa, or simply ready to refresh a room today, our fast and reliable delivery network has you covered.</p><p>Our dedicated UAE customer support team is available <strong>seven days a week</strong> to assist you at every stage, from advice on how to measure your windows correctly, to guidance on which blind type suits your room best, to post-delivery fitting support. With thousands of 5-star reviews from customers across Dubai, Abu Dhabi, Sharjah, and beyond, you can shop with complete confidence knowing you're in exceptionally capable hands.</p>"
+          }
+        },
+        "info_block_3ct8Jb": {
+          "type": "info_block",
+          "settings": {
+            "heading": "Why Choose Cheap Blinds?",
+            "content": "<p>With years of dedicated experience serving UAE homeowners, Cheap Blinds has become the trusted name for made-to-measure window blinds across the Emirates. We combine the unbeatable convenience of 24/7 online ordering with the quality and precision of true bespoke craftsmanship, giving you the best of both worlds at prices that reflect our online-first model. No showroom overheads means every dirham of savings goes directly back to you.</p><p>Add our 2-year quality guarantee, UAE climate–tested fabrics, free samples, and smart motorised options compatible with Google Home and Alexa, and Cheap Blinds is simply the most complete, most confident blind-buying experience in the UAE. If you're planning to buy window blinds online, this is where style, value, and reliability come together.</p>"
           }
         }
       },
@@ -499,7 +507,8 @@
         "info_block_NxP7Hh",
         "info_block_yjFGp8",
         "info_block_BFDVeN",
-        "info_block_CqPRbk"
+        "info_block_CqPRbk",
+        "info_block_3ct8Jb"
       ],
       "name": "SEO & Info Text",
       "settings": {
