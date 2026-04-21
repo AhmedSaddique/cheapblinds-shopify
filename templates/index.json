@@ -194,6 +194,7 @@
       "type": "installment-banner",
       "name": "Installment Banner",
       "settings": {
+        "image": "shopify://shop_images/installment.jpg",
         "link": "",
         "aspect_ratio": "2.5 / 1",
         "mobile_aspect_ratio": "2 / 1",
@@ -413,7 +414,7 @@
         "row_yRKMaR": {
           "type": "row",
           "settings": {
-            "caption": "",
+            "layout": "text_first",
             "heading": "Row",
             "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>",
             "button_label": "Button label",
@@ -423,7 +424,7 @@
         "row_cWjFtP": {
           "type": "row",
           "settings": {
-            "caption": "",
+            "layout": "text_first",
             "heading": "Row",
             "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>",
             "button_label": "Button label",
@@ -433,7 +434,7 @@
         "row_xfn4DD": {
           "type": "row",
           "settings": {
-            "caption": "",
+            "layout": "text_first",
             "heading": "Row",
             "text": "<p>Pair text with an image to focus on your chosen product, collection, or blog post. Add details on availability, style, or even provide a review.</p>",
             "button_label": "Button label",
@@ -448,17 +449,6 @@
       ],
       "name": "t:sections.multirow.presets.name",
       "settings": {
-        "image_height": "medium",
-        "desktop_image_width": "medium",
-        "image_layout": "align-right",
-        "heading_size": "h1",
-        "text_style": "body",
-        "button_style": "secondary",
-        "desktop_content_position": "middle",
-        "desktop_content_alignment": "left",
-        "mobile_content_alignment": "left",
-        "section_color_scheme": "",
-        "row_color_scheme": "",
         "padding_top": 36,
         "padding_bottom": 36
       }
