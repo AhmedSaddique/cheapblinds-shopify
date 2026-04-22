@@ -35,6 +35,14 @@
     assign money_price_max = price_max | money_with_currency
   endif
 
+  capture dirham_icon
+    render 'icon-dirham', class: 'inline-block w-[1em] h-auto align-middle mr-1'
+  endcapture
+
+  assign money_price = price | money_without_currency | prepend: dirham_icon
+  assign money_price_min = price_min | money_without_currency | prepend: dirham_icon
+  assign money_price_max = price_max | money_without_currency | prepend: dirham_icon
+
   if target == product and product.price_varies
     assign money_price = 'products.product.price.from_price_html' | t: price: money_price
   endif
@@ -67,10 +75,9 @@
               </span>
               <span>
                 <s class="price-item price-item--regular variant-item__old-price">
-                  {% if settings.currency_code_enabled %}
-                    {{ compare_at_price | money_with_currency }}
+                    {{ dirham_icon }}{{ compare_at_price | money_without_currency }}
                   {% else %}
-                    {{ compare_at_price | money }}
+                    {{ dirham_icon }}{{ compare_at_price | money_without_currency }}
                   {% endif %}
                 </s>
               </span>
@@ -96,9 +103,9 @@
           <span>
             <s class="price-item price-item--regular">
               {% if settings.currency_code_enabled %}
-                {{ compare_at_price | money_with_currency }}
+                {{ dirham_icon }}{{ compare_at_price | money_without_currency }}
               {% else %}
-                {{ compare_at_price | money }}
+                {{ dirham_icon }}{{ compare_at_price | money_without_currency }}
               {% endif %}
             </s>
           </span>

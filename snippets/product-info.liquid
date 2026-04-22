@@ -1,4 +1,5 @@
-<div class="cpm-info">
+{%- capture icon_dirham -%}{% render 'icon-dirham', class: 'cpm-dirham-icon' %}{%- endcapture -%}
+<div class="cpm-info text-black!">
   <div
     id="cpm-price-results"
     class="cpm-results-container border-2! border-primary! rounded-xl! p-5! mb-6! bg-white! shadow-sm! text-center!"
@@ -7,9 +8,17 @@
     <div class="cpm-results-summary">
       <h3 id="cpm-result-dims" class="text-[20px]! text-black! mb-4!"></h3>
 
+      <!-- Dynamic Options Placeholder -->
+      <div id="cpm-dynamic-options" class="text-left mb-6 space-y-6"></div>
+
       <div class="flex! text-[18px]! gap-1! justify-center! items-center! mb-4!">
         <span class="text-[18px]! font-medium!">The Price You Pay</span>
-        <span id="cpm-final-price-val" class="text-[22px]! font-medium! text-black!"></span>
+        <div class="flex items-center gap-1">
+          <span class="w-[20px] h-auto text-black">
+            {%- render 'icon-dirham', class: 'cpm-total-dirham' -%}
+          </span>
+          <span id="cpm-final-price-val" class="text-[22px]! font-medium! text-black!"></span>
+        </div>
       </div>
 
       <button
@@ -21,9 +30,14 @@
     </div>
   </div>
 
-  <div class="cpm-price-row">
+  <div class="cpm-price-row flex items-center gap-1">
     <span class="cpm-price-label">From:</span>
-    <span class="cpm-price-amount">{{ product.price | money }}</span>
+    <span class="w-[16px] h-auto text-black flex items-center">
+      {%- render 'icon-dirham', class: 'cpm-base-dirham' -%}
+    </span>
+    <span class="cpm-price-amount font-bold text-black">
+      {{- product.price | money_without_currency -}}
+    </span>
   </div>
 
   <p class="cpm-instruction-text">
@@ -520,6 +534,7 @@
 <!-- Basic Script for Unit Change -->
 <script>
   document.addEventListener('DOMContentLoaded', function () {
+    const ICON_DIRHAM = `{{ icon_dirham | strip_newlines | replace: '"', "'" }}`;
     const unitRadios = document.querySelectorAll('input[name="measurement_unit"]');
     const unitDisplays = document.querySelectorAll('.cpm-unit-display');
     const unitSmallDisplays = document.querySelectorAll('.cpm-unit-display-small');
@@ -612,6 +627,64 @@
     // Set initial unit on load matching checked radio
     updateUnits();
 
+    const CATEGORY_OPTION_CONFIG = {
+      'Roller Blinds': {
+        Finish: ['CLASSIC', 'EVO'],
+        'Control Side': ['LHC', 'RHC'],
+      },
+      'Roman Blinds': {
+        System: ['DLXSYS', 'EVOSYS'],
+        Type: ['CASCADE', 'STACKED'],
+        'Control Side': ['LHC', 'RHC'],
+        'Lining Type': ['LINI-0000', 'LINI-0003', 'LINI-0001'],
+      },
+      'Zebra Blinds': {
+        'Control Side': ['LHC', 'RHC'],
+      },
+      'Vertical Blinds': {
+        'Control Side': ['LHC', 'RHC'],
+      },
+    };
+
+    const OPTION_IMAGE_MAP = {
+      EVO: "{{ 'icon/cassette.png' | asset_url }}",
+      CLASSIC: "{{ 'icon/without-cassette.png' | asset_url }}",
+      EVOSYS: "{{ 'icon/cassette.png' | asset_url }}",
+      DLXSYS: "{{ 'icon/without-cassette.png' | asset_url }}",
+      LHC: "{{ 'icon/left.png' | asset_url }}",
+      RHC: "{{ 'icon/right.png' | asset_url }}",
+      'LINI-0000': "{{ 'icon/no-lining.png' | asset_url }}",
+      'LINI-0001': "{{ 'icon/poly.png' | asset_url }}",
+      'LINI-0003': "{{ 'icon/blackout.png' | asset_url }}",
+      CASCADE: "{{ 'icon/cascade.png' | asset_url }}",
+      STACKED: "{{ 'icon/stacked.png' | asset_url }}",
+    };
+
+    const CHAIN_LABEL_MAP = {
+      LHC: 'Left',
+      RHC: 'Right',
+      EVO: 'Cassette',
+      CLASSIC: 'Without Cassette',
+      EVOSYS: 'Cassette',
+      DLXSYS: 'Without Cassette',
+      'LINI-0000': 'No Lining',
+      'LINI-0001': 'Standard Poly/Cotton Lining',
+      'LINI-0003': 'Blackout Lining',
+    };
+
+    const SECTION_LABEL_MAP = {
+      Finish: 'Headrail Type / Colour',
+      System: 'Headrail Type / Colour',
+      Type: 'Stacking Style',
+      'Control Side': 'Chain Side',
+      'Lining Type': 'Lining Type',
+    };
+
+    let selectedOptions = {};
+    let basePrice = 0;
+    let motorPrice = parseFloat('{{ product.metafields.custom.motorPrice.value | default: 0 }}');
+    let isMotorized = false;
+
     // API Price Fetching
     const getPriceBtn = document.querySelector('.cpm-btn-primary');
     const widthInput = document.getElementById('cpm-width');
@@ -639,6 +712,303 @@
       if (unit === 'inches') return Math.round(numeric * 25.4);
       if (unit === 'cm') return Math.round(numeric * 10);
       return Math.round(numeric);
+    }
+
+    function getSectionLabel(title) {
+      return SECTION_LABEL_MAP[title] || title;
+    }
+
+    function getOptionLabel(sectionTitle, opt) {
+      if (['Chain', 'Control Side', 'Finish', 'System', 'Lining Type'].includes(sectionTitle)) {
+        return CHAIN_LABEL_MAP[opt.code] || opt.label;
+      }
+      return opt.label;
+    }
+
+    function updateFinalDisplay() {
+      const finalPriceVal = document.getElementById('cpm-final-price-val');
+      if (!finalPriceVal) return;
+
+      let optionsTotal = 0;
+      // Sum selected options
+      Object.values(selectedOptions).forEach((opt) => {
+        optionsTotal += parseFloat(opt.SalesPrice || 0);
+      });
+
+      let total = basePrice + optionsTotal;
+      if (isMotorized) {
+        total += motorPrice;
+      }
+
+      finalPriceVal.textContent = `${total.toFixed(2)}`;
+    }
+
+    const HeadrailType = [
+      {
+        title: 'Cassette',
+        image: "{{ 'detail-page/cassette.png' | asset_url }}",
+        content: [
+          'A Cassette headrail is a sleek aluminum cover that encloses the roller tube and fabric at the top of the blind. It protects the fabric from dust, sunlight, and wear while creating a clean, modern appearance. Cassette roller blinds are ideal for living rooms, offices, and premium interiors where a polished, built-in look is desired. The cassette also helps hide the mechanism, making the installation look more refined and professional.',
+        ],
+      },
+      {
+        title: 'Without Cassette',
+        image: "{{ 'detail-page/without-cassette.png' | asset_url }}",
+        content: [
+          'A Without Cassette roller blind features an exposed roller tube without a top cover. This option offers a minimalist, lightweight appearance while remaining fully functional and stylish. It is a popular choice for spaces where simplicity and practicality are preferred. Without cassette blinds are often more budget-friendly and easier to install, making them ideal for bedrooms, rental properties, and everyday window coverings.',
+        ],
+      },
+    ];
+
+    const ControlChain = [
+      {
+        title: 'Left Chain Side',
+        image: "{{ 'detail-page/left.png' | asset_url }}",
+        content: [
+          'The Left Chain Side option positions the control chain for raising or lowering the roller blind on the left side when facing the window from inside the room. This option is useful when furniture, walls, or other obstacles make the left side more accessible. Choosing the correct chain side ensures comfortable operation and prevents the chain from interfering with nearby objects.',
+        ],
+      },
+      {
+        title: 'Right Chain Side',
+        image: "{{ 'detail-page/right.png' | asset_url }}",
+        content: [
+          'The Right Chain Side option places the operating chain on the right side of the roller blind when you are facing the window from inside the room. This is the most common configuration and works well when the right side of the window has more open space for easy access. Selecting the right chain side allows smooth daily use and ensures the blind can be raised or lowered conveniently.',
+        ],
+      },
+    ];
+
+    const Stacking_Style = [
+      {
+        title: 'Cascade',
+        image: "{{ 'detail-page/cascade.png' | asset_url }}",
+        content: [
+          'The Cascade stacking style creates soft, flowing folds that gently cascade down the front of the Roman blind as it is lowered. The fabric layers overlap in a waterfall-like effect, producing a luxurious and decorative appearance. This style highlights the texture and pattern of the fabric beautifully, making it a popular choice for living rooms, dining areas, and spaces where you want a more elegant and stylish window treatment.',
+        ],
+      },
+      {
+        title: 'Stacked',
+        image: "{{ 'detail-page/stacked.png' | asset_url }}",
+        content: [
+          'The Stacked stacking style forms neat, structured folds that stack evenly on top of each other when the blind is raised. This creates a clean and tailored appearance with a more modern and organised look. Stacked Roman blinds are ideal for minimalist interiors or spaces where a tidy, uniform finish is preferred while still maintaining the soft fabric aesthetic of Roman window treatments.',
+        ],
+      },
+    ];
+
+    const Lining_Type = [
+      {
+        title: 'No Lining',
+        image: "{{ 'detail-page/nolining.png' | asset_url }}",
+        content: [
+          'No Lining means the Roman blind is made using a single layer of decorative fabric without any additional backing. This option allows more natural light to pass through the fabric, creating a softer and brighter atmosphere in the room. It also highlights the texture and pattern of the fabric beautifully. No lining is ideal for spaces where privacy is less important, and you want a light, airy window treatment.',
+        ],
+      },
+      {
+        title: 'Blackout Lining',
+        image: "{{ 'detail-page/blackout.png' | asset_url }}",
+        content: [
+          'Blackout Lining is a special backing fabric designed to block most outside light from entering the room. It improves privacy and helps create a darker environment, making it ideal for bedrooms, nurseries, or media rooms. In addition to light control, blackout lining can also help with insulation by reducing heat and sunlight entering through the window, while protecting the main fabric from fading.',
+        ],
+      },
+      {
+        title: 'Standard Poly/Cotton Lining ',
+        image: "{{ 'detail-page/poly.png' | asset_url }}",
+        content: [
+          'Standard Poly/Cotton Lining is a versatile and commonly used backing that adds structure and durability to Roman blinds. It improves the way the fabric folds and drapes while providing moderate light filtering and privacy. This lining also helps protect the front fabric from sun damage and enhances the overall appearance of the blind, making it a great all-purpose option for most living spaces.',
+        ],
+      },
+    ];
+
+    const MODAL_CONTENTS = {
+      'Headrail Type / Colour': HeadrailType,
+      'Stacking Style': Stacking_Style,
+      'Lining Type': Lining_Type,
+      'Chain Side': ControlChain,
+    };
+
+    const MODAL_TITLES = {
+      'Headrail Type / Colour': 'Headrail Type / Colour',
+      'Stacking Style': 'Stacking Style',
+      'Lining Type': 'Lining Type',
+      'Chain Side': 'Control Chain Side',
+    };
+
+    window.openHelpModal = function (sectionTitle) {
+      const modal = document.getElementById('cpm-help-modal');
+      const titleEl = document.getElementById('cpm-help-modal-title');
+      const contentEl = document.getElementById('cpm-help-modal-content');
+      const label = getSectionLabel(sectionTitle);
+
+      if (!modal || !titleEl || !contentEl) return;
+
+      const items = MODAL_CONTENTS[label];
+      const modalTitle = MODAL_TITLES[label] || label;
+
+      titleEl.textContent = modalTitle;
+      contentEl.innerHTML = '';
+
+      if (items && items.length > 0) {
+        items.forEach((item) => {
+          const itemDiv = document.createElement('div');
+          itemDiv.className =
+            'flex flex-col md:flex-row gap-8 items-start border-b border-gray-100 pb-8 last:border-0';
+          itemDiv.innerHTML = `
+            <div class="w-full md:w-[20%] aspect-square flex-shrink-0 bg-gray-50 rounded-lg overflow-hidden border border-gray-100">
+              <img src="${
+                item.image
+              }" class="w-full h-full object-cover" style="image-rendering: -webkit-optimize-contrast;" alt="${
+            item.title
+          }">
+            </div>
+            <div class="flex-1 space-y-4">
+              <h4 class="text-2xl font-bold text-black">${item.title}</h4>
+              ${item.content
+                .map((p) => `<p class="text-[16px] text-gray-700 leading-[1.6]">${p}</p>`)
+                .join('')}
+            </div>
+          `;
+          contentEl.appendChild(itemDiv);
+        });
+      } else {
+        contentEl.innerHTML =
+          '<p class="text-gray-500">No information available for this option.</p>';
+      }
+
+      openCpmModal('cpm-help-modal');
+    };
+
+    function renderDynamicOptions(optionsData) {
+      const container = document.getElementById('cpm-dynamic-options');
+      if (!container) return;
+      container.innerHTML = '';
+
+      const config = CATEGORY_OPTION_CONFIG[categoryName];
+      if (!config) return;
+
+      // Filter and render configured sections
+      Object.keys(config).forEach((sectionTitle) => {
+        const allowedCodes = config[sectionTitle];
+        const sectionOptions = optionsData.filter(
+          (opt) => opt.OptionGroup === sectionTitle && allowedCodes.includes(opt.ChoiceCode)
+        );
+
+        if (sectionOptions.length === 0) return;
+
+        // Default selection if not already selected
+        if (!selectedOptions[sectionTitle]) {
+          selectedOptions[sectionTitle] =
+            sectionOptions.find((o) => ['DLXSYS', 'CLASSIC'].includes(o.ChoiceCode)) ||
+            sectionOptions[0];
+        }
+
+        const sectionDiv = document.createElement('div');
+        sectionDiv.className = 'space-y-3';
+
+        const header = `
+          <div class="flex items-center gap-2">
+            <h3 class="font-semibold text-lg">${getSectionLabel(sectionTitle)}</h3>
+            <button type="button" class="flex items-center gap-1 text-primary cursor-pointer text-sm" onclick="openHelpModal('${sectionTitle}')">
+              help <span class="border border-primary rounded-full w-4 h-4 flex items-center justify-center text-[10px]">?</span>
+            </button>
+          </div>
+        `;
+
+        const optionsGrid = document.createElement('div');
+        optionsGrid.className = 'grid! grid-cols-2! gap-2';
+
+        sectionOptions.forEach((opt) => {
+          const optLabel = getOptionLabel(sectionTitle, {
+            code: opt.ChoiceCode,
+            label: opt.ChoiceDescription,
+          });
+          const optImg =
+            OPTION_IMAGE_MAP[opt.ChoiceCode] || "{{ 'icon/cassette.png' | asset_url }}";
+          const isSelected = selectedOptions[sectionTitle].ChoiceCode === opt.ChoiceCode;
+          const priceAdd = opt.SalesPrice > 0 ? `${parseFloat(opt.SalesPrice).toFixed(1)}` : '';
+
+          const optEl = document.createElement('div');
+          optEl.innerHTML = `
+            <div class="cpm-opt-card border ${
+              isSelected ? 'border-primary bg-primary/5' : 'border-gray-200'
+            } rounded-lg p-2 cursor-pointer flex items-center gap-2 transition-all h-full relative" data-section="${sectionTitle}" data-code="${
+            opt.ChoiceCode
+          }">
+              ${
+                isSelected
+                  ? `
+                <div class="absolute -top-2 -left-2 w-5 h-5 rounded-full bg-primary border-2 border-white shadow-sm flex items-center justify-center z-10">
+                  <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                </div>
+              `
+                  : ''
+              }
+              <div class="w-7 h-7 flex-shrink-0">
+                <img src="${optImg}" class="w-full h-full object-contain" style="image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges;" alt="${optLabel}">
+              </div>
+              <div class="flex-1 flex items-center justify-between">
+                <div class="text-[16px]! leading-tight font-normal!">${optLabel}</div>
+                ${
+                  priceAdd
+                    ? `<div class="text-[16px]! font-normal! flex items-center gap-1"><span class="w-[18px] h-auto flex items-center">${ICON_DIRHAM}</span> ${priceAdd}</div>`
+                    : ''
+                }
+              </div>
+            </div>
+          `;
+
+          optEl.querySelector('.cpm-opt-card').addEventListener('click', () => {
+            selectedOptions[sectionTitle] = opt;
+            renderDynamicOptions(optionsData); // Re-render to update UI
+            updateFinalDisplay();
+          });
+
+          optionsGrid.appendChild(optEl);
+        });
+
+        sectionDiv.innerHTML = header;
+        sectionDiv.appendChild(optionsGrid);
+        container.appendChild(sectionDiv);
+      });
+
+      // Handle Motorized Option (if category is not vertical-blinds and motorPrice > 0)
+      if (categoryName !== 'Vertical Blinds' && motorPrice > 0) {
+        const motorDiv = document.createElement('div');
+        motorDiv.className = 'space-y-3 pt-4 border-t border-gray-100';
+        motorDiv.innerHTML = `
+          <div class="flex items-center justify-between p-4 border ${
+            isMotorized ? 'border-primary bg-primary/5' : 'border-gray-200'
+          } rounded-lg cursor-pointer" id="cpm-motor-toggle">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 bg-yellow-100 rounded flex items-center justify-center">
+                <svg class="w-6 h-6 text-yellow-600" fill="currentColor" viewBox="0 0 24 24"><path d="M7 2v11h3v9l7-12h-4l4-8z"></path></svg>
+              </div>
+              <div>
+                <div class="text-[16px]! font-normal!">Motorised, (with remote)</div>
+                <div class="text-[12px]! text-gray-500!">Includes remote control and motor</div>
+              </div>
+            </div>
+            <div class="text-right">
+              <div class="text-[16px]! font-normal!">+ ${motorPrice.toFixed(2)}</div>
+              <div class="w-6 h-6 rounded border-2 ${
+                isMotorized
+                  ? 'border-primary bg-primary flex items-center justify-center'
+                  : 'border-gray-300'
+              }">
+                ${
+                  isMotorized
+                    ? '<svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>'
+                    : ''
+                }
+              </div>
+            </div>
+          </div>
+        `;
+        motorDiv.querySelector('#cpm-motor-toggle').addEventListener('click', () => {
+          isMotorized = !isMotorized;
+          renderDynamicOptions(optionsData);
+          updateFinalDisplay();
+        });
+        container.appendChild(motorDiv);
+      }
     }
 
     if (getPriceBtn) {
@@ -677,15 +1047,16 @@
           console.log('API Price Response Data:', data);
 
           // Fetch Options API
+          let optionsData = [];
           try {
-            const originalOptionsUrl = `${ILLUMIN8S_BASE_URL}${ILLUMIN8S_OPTIONS_PRICE_ENDPOINT}?key=${ILLUMIN8S_API_KEY}&blindtypeid=${fabricId}&width=${widthMM}&drop=${dropMM}&fabricid=${blindTypeId}&retailerId=${ILLUMIN8S_MEASURE_ID}&retailermasterid=${ILLUMIN8S_RETAILER_MASTER_ID}`;
+            const originalOptionsUrl = `${ILLUMIN8S_BASE_URL}${ILLUMIN8S_OPTIONS_PRICE_ENDPOINT}?key=${ILLUMIN8S_API_KEY}&blindtypeid=${fabricId}&width=${widthMM}&drop=${dropMM}&fabricid=${blindTypeId}&retailerId=${ILLUMIN8S_RETAILER_ID}&retailermasterid=${ILLUMIN8S_RETAILER_MASTER_ID}`;
 
             console.log('Fetching options from:', originalOptionsUrl);
             const optionsRes = await fetch(originalOptionsUrl);
             console.log('Options Response Status:', optionsRes.status);
 
             if (optionsRes.ok) {
-              const optionsData = await optionsRes.json();
+              optionsData = await optionsRes.json();
               console.log('Category Name:', categoryName);
               console.log('API Options Data:', optionsData);
             } else {
@@ -700,15 +1071,20 @@
             const priceData = data[0];
             const resultsContainer = document.getElementById('cpm-price-results');
             const dimsDisp = document.getElementById('cpm-result-dims');
-            const finalPriceVal = document.getElementById('cpm-final-price-val');
             const fittingType = document.querySelector('input[name="fitting_type"]:checked').value;
 
-            if (resultsContainer && dimsDisp && finalPriceVal) {
-              // Update dimensions text e.g. 300cm width x 300cm drop (Inside Recess)
+            if (resultsContainer && dimsDisp) {
+              // Update dimensions text
               dimsDisp.textContent = `${widthInput.value}${unit} width x ${heightInput.value}${unit} drop (${fittingType})`;
 
-              // Update final price using TotalSalesAmt
-              finalPriceVal.textContent = priceData.TotalSalesAmt.toFixed(2);
+              // Set global base price
+              basePrice = parseFloat(priceData.TotalSalesAmt);
+
+              // Render options
+              renderDynamicOptions(optionsData);
+
+              // Initial update of final display
+              updateFinalDisplay();
 
               // Show the results section
               resultsContainer.style.display = 'block';
@@ -771,3 +1147,27 @@
     item.classList.toggle('cpm-accordion-active');
   };
 </script>
+
+<!-- Help Modal -->
+<div
+  id="cpm-help-modal"
+  class="cpm-modal-overlay cpm-modal-hidden fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/50"
+>
+  <div class="bg-white rounded-xl max-w-[1200px]! w-full max-h-[90vh] overflow-hidden flex flex-col shadow-2xl">
+    <div class="p-4 border-b flex items-center justify-between">
+      <h2 id="cpm-help-modal-title" class="text-xl font-bold"></h2>
+      <button
+        type="button"
+        onclick="closeCpmModal('cpm-help-modal')"
+        class="p-2 hover:bg-gray-200 rounded-full transition-colors"
+      >
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+    </div>
+    <div id="cpm-help-modal-content" class="p-6 overflow-y-auto space-y-6">
+      <!-- Content will be injected here -->
+    </div>
+  </div>
+</div>
