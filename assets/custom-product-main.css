@@ -442,6 +442,15 @@
   align-items: flex-start;
 }
 
+@media screen and (max-width: 768px) {
+  .cpm-fitting-info-row {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 15px;
+  }
+}
+
 .cpm-fitting-info-row:last-child {
   margin-bottom: 0;
 }
@@ -467,14 +476,21 @@
   color: #000;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 768px) {
   .cpm-fitting-info-row {
     flex-direction: column;
+    align-items: center;
+    text-align: center;
   }
 
   .cpm-fitting-info-img {
     width: 100%;
-    max-width: 250px;
+    max-width: 280px;
+    margin: 0 auto;
+  }
+
+  .cpm-fitting-info-text {
+    font-size: 15px;
   }
 
   .cpm-fitting-options {
@@ -528,10 +544,6 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 18px;
-  height: 18px;
-  background: #ffb803;
-  color: #fff;
   border-radius: 4px;
   font-size: 14px;
   font-weight: bold;

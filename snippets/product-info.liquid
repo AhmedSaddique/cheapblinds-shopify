@@ -1,11 +1,43 @@
-<div class="cpm-info">
-  <!--
-    Desktop Title is usually handled by theme, but we can also add it if not present. Let's start with Price
-  -->
+{%- capture icon_dirham -%}{% render 'icon-dirham', class: 'cpm-dirham-icon' %}{%- endcapture -%}
+<div class="cpm-info text-black!">
+  <div
+    id="cpm-price-results"
+    class="cpm-results-container border-2! border-primary! rounded-xl! p-5! mb-6! bg-white! shadow-sm! text-center!"
+    style="display: none;"
+  >
+    <div class="cpm-results-summary">
+      <h3 id="cpm-result-dims" class="text-[20px]! text-black! mb-4!"></h3>
 
-  <div class="cpm-price-row">
+      <!-- Dynamic Options Placeholder -->
+      <div id="cpm-dynamic-options" class="text-left mb-6 space-y-6"></div>
+
+      <div class="flex! text-[18px]! gap-1! justify-center! items-center! mb-4!">
+        <span class="text-[18px]! font-medium!">The Price You Pay</span>
+        <div class="flex items-center gap-1">
+          <span class="w-[20px] h-auto text-black">
+            {%- render 'icon-dirham', class: 'cpm-total-dirham' -%}
+          </span>
+          <span id="cpm-final-price-val" class="text-[22px]! font-medium! text-black!"></span>
+        </div>
+      </div>
+
+      <button
+        type="button"
+        class="cpm-btn cpm-btn-basket w-full! bg-primary! text-black! py-3! px-5! rounded-lg! font-bold! text-[18px]! transition-colors! hover:bg-primary/80!"
+      >
+        Add to basket
+      </button>
+    </div>
+  </div>
+
+  <div class="cpm-price-row flex items-center gap-1">
     <span class="cpm-price-label">From:</span>
-    <span class="cpm-price-amount">{{ product.price | money }}</span>
+    <span class="w-[16px] h-auto text-black flex items-center">
+      {%- render 'icon-dirham', class: 'cpm-base-dirham' -%}
+    </span>
+    <span class="cpm-price-amount font-bold text-black">
+      {{- product.price | money_without_currency -}}
+    </span>
   </div>
 
   <p class="cpm-instruction-text">
@@ -15,13 +47,13 @@
   <!-- Unit selection -->
   <div class="cpm-unit-selector">
     <label class="cpm-radio-label">
-      <input type="radio" name="measurement_unit" value="mm" class="cpm-visually-hidden" checked>
+      <input type="radio" name="measurement_unit" value="mm" class="cpm-visually-hidden">
       <span class="cpm-custom-radio"></span>
       <span class="cpm-radio-text">mm</span>
     </label>
 
     <label class="cpm-radio-label">
-      <input type="radio" name="measurement_unit" value="cm" class="cpm-visually-hidden">
+      <input type="radio" name="measurement_unit" value="cm" class="cpm-visually-hidden" checked>
       <span class="cpm-custom-radio"></span>
       <span class="cpm-radio-text">cm</span>
     </label>
@@ -38,8 +70,8 @@
     <!-- Width Box -->
     <div
       class="cpm-measure-item"
-      data-base-min="{{ product.metafields.custom['min-width'] | default: 300 }}"
-      data-base-max="{{ product.metafields.custom['max-width'] | default: 2600 }}"
+      data-base-min="{{ product.metafields.custom.minWidth.value | default: product.metafields.custom.min_width.value | default: 300 }}"
+      data-base-max="{{ product.metafields.custom.maxWidth.value | default: product.metafields.custom.max_width.value | default: 2600 }}"
     >
       <label for="cpm-width" class="cpm-measure-label"
         >Width (<span class="cpm-unit-display">mm</span>)</label
@@ -50,28 +82,40 @@
         class="cpm-measure-input cpm-input-width"
         value=""
         step="any"
-        min="{{ product.metafields.custom['min-width'] | default: 300 }}"
-        max="{{ product.metafields.custom['max-width'] | default: 2600 }}"
+        min="{{ product.metafields.custom.minWidth.value | default: product.metafields.custom.min_width.value | default: 300 }}"
+        max="{{ product.metafields.custom.maxWidth.value | default: product.metafields.custom.max_width.value | default: 2600 }}"
       >
 
       <div class="cpm-measure-hints">
         Min:
         <span class="cpm-min-val-disp">
-          {{- product.metafields.custom['min-width'] | default: '300' -}}
+          {{-
+            product.metafields.custom.minWidth.value
+            | default: product.metafields.custom.min_width.value
+            | default: '300'
+          -}}
         </span>
         <span class="cpm-unit-display-small">mm</span> Max:
         <span class="cpm-max-val-disp">
-          {{- product.metafields.custom['max-width'] | default: '2600' -}}
+          {{-
+            product.metafields.custom.maxWidth.value
+            | default: product.metafields.custom.max_width.value
+            | default: '2600'
+          -}}
         </span>
         <span class="cpm-unit-display-small">mm</span>
       </div>
+      <div
+        class="cpm-error-message"
+        style="display: none; color: #d9534f; font-size: 13px; margin-top: 6px;"
+      ></div>
     </div>
 
     <!-- Height Box -->
     <div
       class="cpm-measure-item"
-      data-base-min="{{ product.metafields.custom['min-height'] | default: 300 }}"
-      data-base-max="{{ product.metafields.custom['max-height'] | default: 3000 }}"
+      data-base-min="{{ product.metafields.custom.minHeight.value | default: product.metafields.custom.min_height.value | default: 300 }}"
+      data-base-max="{{ product.metafields.custom.maxHeight.value | default: product.metafields.custom.max_height.value | default: 3000 }}"
     >
       <label for="cpm-height" class="cpm-measure-label"
         >Height (<span class="cpm-unit-display">mm</span>)</label
@@ -82,74 +126,105 @@
         class="cpm-measure-input cpm-input-height"
         value=""
         step="any"
-        min="{{ product.metafields.custom['min-height'] | default: 300 }}"
-        max="{{ product.metafields.custom['max-height'] | default: 3000 }}"
+        min="{{ product.metafields.custom.minHeight.value | default: product.metafields.custom.min_height.value | default: 300 }}"
+        max="{{ product.metafields.custom.maxHeight.value | default: product.metafields.custom.max_height.value | default: 3000 }}"
       >
 
       <div class="cpm-measure-hints">
         Min:
         <span class="cpm-min-val-disp">
-          {{- product.metafields.custom['min-height'] | default: '300' -}}
+          {{-
+            product.metafields.custom.minHeight.value
+            | default: product.metafields.custom.min_height.value
+            | default: '300'
+          -}}
         </span>
         <span class="cpm-unit-display-small">mm</span> | Max:
         <span class="cpm-max-val-disp">
-          {{- product.metafields.custom['max-height'] | default: '3000' -}}
+          {{-
+            product.metafields.custom.maxHeight.value
+            | default: product.metafields.custom.max_height.value
+            | default: '3000'
+          -}}
         </span>
         <span class="cpm-unit-display-small">mm</span>
       </div>
+      <div
+        class="cpm-error-message"
+        style="display: none; color: #d9534f; font-size: 13px; margin-top: 6px;"
+      ></div>
     </div>
   </div>
 
   <!-- Fitting Type -->
-  <div class="cpm-fitting-section">
-    <div class="cpm-fitting-header">
-      <span class="cpm-fitting-title">Choose Fitting Type</span>
-      <button type="button" class="cpm-help-link" onclick="openCpmModal('fittingModal')">
-        Help <span class="cpm-help-icon">?</span>
+  <div class="cpm-fitting-section mb-6">
+    <div class="flex items-center gap-2 mb-3">
+      <h3 class="font-semibold text-lg">Choose Fitting Type</h3>
+      <button
+        type="button"
+        class="flex items-center gap-1 text-primary cursor-pointer text-sm"
+        onclick="openCpmModal('fittingModal')"
+      >
+        help
+        <span class="border border-primary rounded-full w-4 h-4 flex items-center justify-center text-[10px]"
+          >?</span
+        >
       </button>
     </div>
 
-    <div class="cpm-fitting-options">
+    <div class="grid! grid-cols-1! sm:grid-cols-2! gap-2">
       <!-- Outside Recess -->
-      <label class="cpm-fitting-label">
+      <label class="relative cursor-pointer h-full">
         <input
           type="radio"
           name="fitting_type"
           value="Outside Recess"
-          class="cpm-visually-hidden cpm-fitting-radio"
+          class="peer hidden"
           checked
         >
-        <div class="cpm-fitting-box">
-          <span class="cpm-fitting-text">Outside Recess</span>
-          <svg
-            class="cpm-fitting-check"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <circle cx="12" cy="12" r="10" fill="#fff"/><path d="M8 12.5L10.5 15L16 9" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
+        <div class="flex items-center gap-3 p-3 border border-gray-200 rounded-lg transition-all peer-checked:bg-black peer-checked:border-black peer-checked:text-white h-full relative">
+          <div class="w-8 h-8 flex-shrink-0">
+            <img
+              src="{{ 'detail-page/outside.png' | asset_url }}"
+              class="w-full h-full object-contain brightness-100 peer-checked:brightness-0 peer-checked:invert"
+              alt="Outside"
+            >
+          </div>
+          <span class="text-[16px]! font-normal!">Outside Recess</span>
+
+          <!-- Checkmark Icon -->
+          <div class="hidden peer-checked:flex absolute right-2 top-1/2 -translate-y-1/2 w-5 h-5 rounded-full bg-white items-center justify-center">
+            <svg class="w-3 h-3 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M5 13l4 4L19 7"></path>
+            </svg>
+          </div>
         </div>
       </label>
 
       <!-- Inside Recess -->
-      <label class="cpm-fitting-label">
+      <label class="relative cursor-pointer h-full">
         <input
           type="radio"
           name="fitting_type"
           value="Inside Recess"
-          class="cpm-visually-hidden cpm-fitting-radio"
+          class="peer hidden"
         >
-        <div class="cpm-fitting-box">
-          <span class="cpm-fitting-text">Inside Recess</span>
-          <svg
-            class="cpm-fitting-check"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <circle cx="12" cy="12" r="10" fill="#fff"/><path d="M8 12.5L10.5 15L16 9" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
+        <div class="flex items-center gap-3 p-3 border border-gray-200 rounded-lg transition-all peer-checked:bg-black peer-checked:border-black peer-checked:text-white h-full relative">
+          <div class="w-8 h-8 flex-shrink-0">
+            <img
+              src="{{ 'detail-page/inside.png' | asset_url }}"
+              class="w-full h-full object-contain brightness-100 peer-checked:brightness-0 peer-checked:invert"
+              alt="Inside"
+            >
+          </div>
+          <span class="text-[16px]! font-normal!">Inside Recess</span>
+
+          <!-- Checkmark Icon -->
+          <div class="hidden peer-checked:flex absolute right-2 top-1/2 -translate-y-1/2 w-5 h-5 rounded-full bg-white items-center justify-center">
+            <svg class="w-3 h-3 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M5 13l4 4L19 7"></path>
+            </svg>
+          </div>
         </div>
       </label>
     </div>
@@ -186,6 +261,34 @@
     content: fitting_modal_content
   %}
 
+  {% capture installation_video_content %}
+    <div class="p-2">
+      <div class="aspect-video bg-gray-100 rounded-lg overflow-hidden flex items-center justify-center relative group cursor-pointer">
+        <div class="text-center">
+          <svg class="w-16 h-16 text-primary mb-2 mx-auto" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"/></svg>
+          <p class="font-medium text-black!">No-Drill Installation Guide Video</p>
+          <p class="text-sm text-gray-500">Coming soon</p>
+        </div>
+      </div>
+      <div class="mt-6 space-y-4 text-black!">
+        <h4 class="font-bold text-lg">Why choose Twist&Fit?</h4>
+        <p>Our Twist&Fit system allows you to install your blinds in seconds without any tools or mess. It is the perfect solution for anyone who wants a professional result without the stress of drilling.</p>
+        <ul class="list-disc pl-5 space-y-2">
+          <li><strong>No Tools Required:</strong> Simply twist the mechanism to lock the blind in place.</li>
+          <li><strong>Perfect for Rentals:</strong> Leaves no marks or holes in the walls or window frames.</li>
+          <li><strong>Ultra-Secure:</strong> Tested to hold even our largest and heaviest blinds.</li>
+        </ul>
+      </div>
+    </div>
+  {% endcapture %}
+
+  {% render 'modal-dialog',
+    id: 'installationVideoModal',
+    title: 'Installation Guide',
+    max_width: '800px',
+    content: installation_video_content
+  %}
+
   <!-- Info Badges -->
   <div class="cpm-badges-wrapper">
     <!-- BNPL Payments -->
@@ -203,9 +306,13 @@
         <div class="cb-cart__installment-logo">
           <img src="{{ 'tabby.png' | asset_url }}" alt="Tabby">
         </div>
-        <p class="cb-cart__installment-text">
+        <p class="cb-cart__installment-text text-black!">
           Pay 4 interest-free payments of
-          <span onclick="openCpmModal('tabbyModal')" style="cursor:pointer">Learn more...</span>
+          <span
+            class="text-primary! cursor-pointer hover:underline"
+            onclick="openCpmModal('tabbyModal')"
+            >Learn more...</span
+          >
         </p>
         <div class="cb-cart__installment-table" style="justify-content: start; gap: 16px">
           {% assign installment_price = product.price | divided_by: 4 %}
@@ -213,7 +320,9 @@
             <b
               ><span class="cb-price-with-icon">
                 {{- 'icon-currency.svg' | inline_asset_content -}}
-                <span>{{ installment_price | money_without_currency }}</span>
+                <span class="cpm-installment-val text-black!">
+                  {{- installment_price | money_without_currency -}}
+                </span>
               </span></b
             >Today
           </div>
@@ -221,7 +330,9 @@
             <b
               ><span class="cb-price-with-icon">
                 {{- 'icon-currency.svg' | inline_asset_content -}}
-                <span>{{ installment_price | money_without_currency }}</span>
+                <span class="cpm-installment-val text-black!">
+                  {{- installment_price | money_without_currency -}}
+                </span>
               </span></b
             >In 1 month
           </div>
@@ -229,7 +340,9 @@
             <b
               ><span class="cb-price-with-icon">
                 {{- 'icon-currency.svg' | inline_asset_content -}}
-                <span>{{ installment_price | money_without_currency }}</span>
+                <span class="cpm-installment-val text-black!">
+                  {{- installment_price | money_without_currency -}}
+                </span>
               </span></b
             >In 2 month
           </div>
@@ -237,7 +350,9 @@
             <b
               ><span class="cb-price-with-icon">
                 {{- 'icon-currency.svg' | inline_asset_content -}}
-                <span>{{ installment_price | money_without_currency }}</span>
+                <span class="cpm-installment-val text-black!">
+                  {{- installment_price | money_without_currency -}}
+                </span>
               </span></b
             >In 3 month
           </div>
@@ -249,16 +364,22 @@
         <div class="cb-cart__installment-logo">
           <img src="{{ 'tamara.png' | asset_url }}" alt="Tamara">
         </div>
-        <p class="cb-cart__installment-text">
+        <p class="cb-cart__installment-text text-black!">
           Pay 4 interest-free payments of
-          <span onclick="openCpmModal('tamaraModal')" style="cursor:pointer">Learn more...</span>
+          <span
+            class="text-primary! cursor-pointer hover:underline"
+            onclick="openCpmModal('tamaraModal')"
+            >Learn more...</span
+          >
         </p>
         <div class="cb-cart__installment-table" style="justify-content: start; gap: 16px">
           <div class="cb-cart__installment-step">
             <b
               ><span class="cb-price-with-icon">
                 {{- 'icon-currency.svg' | inline_asset_content -}}
-                <span>{{ installment_price | money_without_currency }}</span>
+                <span class="cpm-installment-val text-black!">
+                  {{- installment_price | money_without_currency -}}
+                </span>
               </span></b
             >Today
           </div>
@@ -266,7 +387,9 @@
             <b
               ><span class="cb-price-with-icon">
                 {{- 'icon-currency.svg' | inline_asset_content -}}
-                <span>{{ installment_price | money_without_currency }}</span>
+                <span class="cpm-installment-val text-black!">
+                  {{- installment_price | money_without_currency -}}
+                </span>
               </span></b
             >In 1 month
           </div>
@@ -274,7 +397,9 @@
             <b
               ><span class="cb-price-with-icon">
                 {{- 'icon-currency.svg' | inline_asset_content -}}
-                <span>{{ installment_price | money_without_currency }}</span>
+                <span class="cpm-installment-val text-black!">
+                  {{- installment_price | money_without_currency -}}
+                </span>
               </span></b
             >In 2 month
           </div>
@@ -282,7 +407,9 @@
             <b
               ><span class="cb-price-with-icon">
                 {{- 'icon-currency.svg' | inline_asset_content -}}
-                <span>{{ installment_price | money_without_currency }}</span>
+                <span class="cpm-installment-val text-black!">
+                  {{- installment_price | money_without_currency -}}
+                </span>
               </span></b
             >In 3 month
           </div>
@@ -335,16 +462,17 @@
       <h4 class="cpm-free-sample-title">Not sure? Order a free sample</h4>
       <p class="cpm-free-sample-sub">Dispatched the same day by first class post</p>
     </div>
-    <button type="button" class="cpm-sample-btn">
+    {% assign sample_image = product.images[1] | default: product.featured_image %}
+    <button
+      type="button"
+      class="cpm-sample-btn cb-free-sample-btn"
+      data-product-handle="{{ product.handle }}"
+      data-product-title="{{ product.title }}"
+      data-product-url="{{ product.url }}"
+      data-product-image="{{ sample_image | image_url: width: 300 }}"
+    >
       <span class="cpm-plus-icon">
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          style="width: 14px; height: 14px;"
-        >
-          <path d="M12 5V19M5 12H19" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
+        <img width="30" height="30" src="{{ 'icon/sampleIcon.png' | asset_url }}" alt="sampleIcon">
       </span>
       Free Sample
     </button>
@@ -478,6 +606,7 @@
 <!-- Basic Script for Unit Change -->
 <script>
   document.addEventListener('DOMContentLoaded', function () {
+    const ICON_DIRHAM = `{{ icon_dirham | strip_newlines | replace: '"', "'" }}`;
     const unitRadios = document.querySelectorAll('input[name="measurement_unit"]');
     const unitDisplays = document.querySelectorAll('.cpm-unit-display');
     const unitSmallDisplays = document.querySelectorAll('.cpm-unit-display-small');
@@ -524,15 +653,881 @@
         }
         if (minDisp) minDisp.textContent = newMin;
         if (maxDisp) maxDisp.textContent = newMax;
+
+        if (input && input.value) {
+          validateInput(input);
+        }
       });
     }
+
+    function validateInput(input) {
+      const min = parseFloat(input.min);
+      const max = parseFloat(input.max);
+      const val = parseFloat(input.value);
+      const errorDiv = input.closest('.cpm-measure-item').querySelector('.cpm-error-message');
+      const unit = document.querySelector('input[name="measurement_unit"]:checked').value;
+      const displayLabel = unit === 'inches' ? 'Inches' : unit;
+
+      if (!input.value) {
+        errorDiv.style.display = 'none';
+        input.style.borderColor = '';
+        return true;
+      }
+
+      if (val < min || val > max) {
+        errorDiv.textContent = `Value must be between ${min} and ${max} ${displayLabel}.`;
+        errorDiv.style.display = 'block';
+        input.style.borderColor = '#d9534f';
+        return false;
+      } else {
+        errorDiv.style.display = 'none';
+        input.style.borderColor = '';
+        return true;
+      }
+    }
+
+    const inputs = document.querySelectorAll('.cpm-measure-input');
+    inputs.forEach((input) => {
+      input.addEventListener('input', () => validateInput(input));
+      input.addEventListener('blur', () => validateInput(input));
+    });
 
     unitRadios.forEach((radio) => {
       radio.addEventListener('change', updateUnits);
     });
 
+    // Re-render dynamic options when fitting type changes (to show/hide Installation Type)
+    document.querySelectorAll('input[name="fitting_type"]').forEach((radio) => {
+      radio.addEventListener('change', (e) => {
+        const selectedVal = e.target.value.trim();
+
+        // If switching to Outside Recess, reset to Standard Brackets
+        if (selectedVal === 'Outside Recess') {
+          isTwistAndFit = false;
+        }
+
+        const resultsContainer = document.getElementById('cpm-price-results');
+        if (resultsContainer && resultsContainer.style.display !== 'none') {
+          if (window.lastOptionsData) {
+            renderDynamicOptions(window.lastOptionsData);
+          }
+          updateFinalDisplay();
+        }
+      });
+    });
+
     // Set initial unit on load matching checked radio
     updateUnits();
+
+    const CATEGORY_OPTION_CONFIG = {
+      'Roller Blinds': {
+        Finish: ['CLASSIC', 'EVO'],
+        'Control Side': ['LHC', 'RHC'],
+      },
+      'Roman Blinds': {
+        System: ['DLXSYS', 'EVOSYS'],
+        Type: ['CASCADE', 'STACKED'],
+        'Control Side': ['LHC', 'RHC'],
+        'Lining Type': ['LINI-0000', 'LINI-0003', 'LINI-0001'],
+      },
+      'Zebra Blinds': {
+        'Control Side': ['LHC', 'RHC'],
+      },
+      'Vertical Blinds': {
+        'Control Side': ['LHC', 'RHC'],
+      },
+    };
+
+    const OPTION_IMAGE_MAP = {
+      EVO: "{{ 'icon/cassette.png' | asset_url }}",
+      CLASSIC: "{{ 'icon/without-cassette.png' | asset_url }}",
+      EVOSYS: "{{ 'icon/cassette.png' | asset_url }}",
+      DLXSYS: "{{ 'icon/without-cassette.png' | asset_url }}",
+      LHC: "{{ 'icon/left.png' | asset_url }}",
+      RHC: "{{ 'icon/right.png' | asset_url }}",
+      'LINI-0000': "{{ 'icon/no-lining.png' | asset_url }}",
+      'LINI-0001': "{{ 'icon/poly.png' | asset_url }}",
+      'LINI-0003': "{{ 'icon/blackout.png' | asset_url }}",
+      CASCADE: "{{ 'icon/cascade.png' | asset_url }}",
+      STACKED: "{{ 'icon/stacked.png' | asset_url }}",
+    };
+
+    const CHAIN_LABEL_MAP = {
+      LHC: 'Left',
+      RHC: 'Right',
+      EVO: 'Cassette',
+      CLASSIC: 'Without Cassette',
+      EVOSYS: 'Cassette',
+      DLXSYS: 'Without Cassette',
+      'LINI-0000': 'No Lining',
+      'LINI-0001': 'Standard Poly/Cotton Lining',
+      'LINI-0003': 'Blackout Lining',
+    };
+
+    const SECTION_LABEL_MAP = {
+      Finish: 'Headrail Type / Colour',
+      System: 'Headrail Type / Colour',
+      Type: 'Stacking Style',
+      'Control Side': 'Chain Side',
+      'Lining Type': 'Lining Type',
+    };
+
+    let selectedOptions = {};
+    let basePrice = 0;
+    let motorPrice =
+      parseFloat(
+        '{{ product.metafields.custom.motorPrice.value | default: product.metafields.custom.motorPrice | default: product.metafields.custom.motor_price.value | default: product.metafields.custom.motor_price | default: product.metafields.custom.motorprice.value | default: product.metafields.custom.motorprice | default: 0 }}'
+      ) || 0;
+    let isMotorized = false;
+    let installationPrice = 99;
+    let isTwistAndFit = false;
+    let hasFetchedPrice = false;
+
+    // Price Multiplier from Metafields
+    const priceMultiplier =
+      parseFloat(
+        '{{ product.metafields.custom.percentage.value | default: product.metafields.custom.percentage | default: 1.0 }}'
+      ) || 1.0;
+
+    // API Price Fetching
+    const getPriceBtn = document.querySelector('.cpm-btn-primary');
+    const widthInput = document.getElementById('cpm-width');
+    const heightInput = document.getElementById('cpm-height');
+    const priceAmountDisp = document.querySelector('.cpm-price-amount');
+
+    const ILLUMIN8S_API_KEY = 'pk.5bb50868ead0d6385b902321aa3ec294';
+    const ILLUMIN8S_BASE_URL = 'https://apigateway.illumin8global.com:4200';
+    const ILLUMIN8S_FABRIC_PRICE_ENDPOINT = '/api/fabricprice';
+    const ILLUMIN8S_OPTIONS_PRICE_ENDPOINT = '/api/optionprice';
+    const ILLUMIN8S_RETAILER_ID = '4967';
+    const ILLUMIN8S_RETAILER_MASTER_ID = '444';
+    const ILLUMIN8S_MEASURE_ID = '83';
+
+    // Metafields - Trying multiple common naming conventions
+    const fabricId =
+      '{{ product.metafields.custom.fabricId.value | default: product.metafields.custom.fabricId | default: product.metafields.custom.fabricid.value | default: product.metafields.custom.fabricid | default: product.metafields.custom.fabric_id.value | default: product.metafields.custom.fabric_id }}';
+    const blindTypeId =
+      '{{ product.metafields.custom.blindTypeId.value | default: product.metafields.custom.blindTypeId | default: product.metafields.custom.blindtypeid.value | default: product.metafields.custom.blindtypeid | default: product.metafields.custom.blind_type_id.value | default: product.metafields.custom.blind_type_id }}';
+    const categoryName =
+      '{{ product.metafields.custom.categoryName.value | default: product.metafields.custom.categoryName | default: product.metafields.custom.category_name.value | default: product.metafields.custom.category_name | default: product.type | default: "" }}';
+
+    function getMeasurementInMM(val, unit) {
+      let numeric = parseFloat(val);
+      if (unit === 'inches') return Math.round(numeric * 25.4);
+      if (unit === 'cm') return Math.round(numeric * 10);
+      return Math.round(numeric);
+    }
+
+    function getSectionLabel(title) {
+      return SECTION_LABEL_MAP[title] || title;
+    }
+
+    function getOptionLabel(sectionTitle, opt) {
+      if (['Chain', 'Control Side', 'Finish', 'System', 'Lining Type'].includes(sectionTitle)) {
+        return CHAIN_LABEL_MAP[opt.code] || opt.label;
+      }
+      return opt.label;
+    }
+
+    function updateFinalDisplay() {
+      const finalPriceVal = document.getElementById('cpm-final-price-val');
+      if (!finalPriceVal) return;
+
+      let optionsTotal = 0;
+      // Sum selected options
+      Object.values(selectedOptions).forEach((opt) => {
+        optionsTotal += parseFloat(opt.SalesPrice || 0);
+      });
+
+      let total = basePrice + optionsTotal;
+      if (isMotorized) {
+        total += motorPrice;
+      }
+      if (isTwistAndFit) {
+        total += installationPrice;
+      }
+
+      const totalStr = total.toFixed(2);
+      finalPriceVal.textContent = totalStr;
+
+      // Update Installments
+      const installmentAmt = (total / 4).toFixed(2);
+      document.querySelectorAll('.cpm-installment-val, .cpm-installment-text-val').forEach((el) => {
+        el.textContent = installmentAmt;
+      });
+    }
+
+    const HeadrailType = [
+      {
+        title: 'Cassette',
+        image: "{{ 'detail-page/cassette.png' | asset_url }}",
+        content: [
+          'A Cassette headrail is a sleek aluminum cover that encloses the roller tube and fabric at the top of the blind. It protects the fabric from dust, sunlight, and wear while creating a clean, modern appearance. Cassette roller blinds are ideal for living rooms, offices, and premium interiors where a polished, built-in look is desired. The cassette also helps hide the mechanism, making the installation look more refined and professional.',
+        ],
+      },
+      {
+        title: 'Without Cassette',
+        image: "{{ 'detail-page/without-cassette.png' | asset_url }}",
+        content: [
+          'A Without Cassette roller blind features an exposed roller tube without a top cover. This option offers a minimalist, lightweight appearance while remaining fully functional and stylish. It is a popular choice for spaces where simplicity and practicality are preferred. Without cassette blinds are often more budget-friendly and easier to install, making them ideal for bedrooms, rental properties, and everyday window coverings.',
+        ],
+      },
+    ];
+
+    const ControlChain = [
+      {
+        title: 'Left Chain Side',
+        image: "{{ 'detail-page/left.png' | asset_url }}",
+        content: [
+          'The Left Chain Side option positions the control chain for raising or lowering the roller blind on the left side when facing the window from inside the room. This option is useful when furniture, walls, or other obstacles make the left side more accessible. Choosing the correct chain side ensures comfortable operation and prevents the chain from interfering with nearby objects.',
+        ],
+      },
+      {
+        title: 'Right Chain Side',
+        image: "{{ 'detail-page/right.png' | asset_url }}",
+        content: [
+          'The Right Chain Side option places the operating chain on the right side of the roller blind when you are facing the window from inside the room. This is the most common configuration and works well when the right side of the window has more open space for easy access. Selecting the right chain side allows smooth daily use and ensures the blind can be raised or lowered conveniently.',
+        ],
+      },
+    ];
+
+    const Stacking_Style = [
+      {
+        title: 'Cascade',
+        image: "{{ 'detail-page/cascade.png' | asset_url }}",
+        content: [
+          'The Cascade stacking style creates soft, flowing folds that gently cascade down the front of the Roman blind as it is lowered. The fabric layers overlap in a waterfall-like effect, producing a luxurious and decorative appearance. This style highlights the texture and pattern of the fabric beautifully, making it a popular choice for living rooms, dining areas, and spaces where you want a more elegant and stylish window treatment.',
+        ],
+      },
+      {
+        title: 'Stacked',
+        image: "{{ 'detail-page/stacked.png' | asset_url }}",
+        content: [
+          'The Stacked stacking style forms neat, structured folds that stack evenly on top of each other when the blind is raised. This creates a clean and tailored appearance with a more modern and organised look. Stacked Roman blinds are ideal for minimalist interiors or spaces where a tidy, uniform finish is preferred while still maintaining the soft fabric aesthetic of Roman window treatments.',
+        ],
+      },
+    ];
+
+    const Lining_Type = [
+      {
+        title: 'No Lining',
+        image: "{{ 'detail-page/nolining.png' | asset_url }}",
+        content: [
+          'No Lining means the Roman blind is made using a single layer of decorative fabric without any additional backing. This option allows more natural light to pass through the fabric, creating a softer and brighter atmosphere in the room. It also highlights the texture and pattern of the fabric beautifully. No lining is ideal for spaces where privacy is less important, and you want a light, airy window treatment.',
+        ],
+      },
+      {
+        title: 'Blackout Lining',
+        image: "{{ 'detail-page/blackout.png' | asset_url }}",
+        content: [
+          'Blackout Lining is a special backing fabric designed to block most outside light from entering the room. It improves privacy and helps create a darker environment, making it ideal for bedrooms, nurseries, or media rooms. In addition to light control, blackout lining can also help with insulation by reducing heat and sunlight entering through the window, while protecting the main fabric from fading.',
+        ],
+      },
+      {
+        title: 'Standard Poly/Cotton Lining ',
+        image: "{{ 'detail-page/poly.png' | asset_url }}",
+        content: [
+          'Standard Poly/Cotton Lining is a versatile and commonly used backing that adds structure and durability to Roman blinds. It improves the way the fabric folds and drapes while providing moderate light filtering and privacy. This lining also helps protect the front fabric from sun damage and enhances the overall appearance of the blind, making it a great all-purpose option for most living spaces.',
+        ],
+      },
+    ];
+
+    const Operation_Type = [
+      {
+        title: 'Manual – no extra cost',
+        image: "{{ 'detail-page/manual.png' | asset_url }}",
+        content: [
+          "is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
+        ],
+      },
+      {
+        title: 'Motorised (with remote)',
+        image: "{{ 'detail-page/automotorised.png' | asset_url }}",
+        content: [
+          "is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
+        ],
+      },
+    ];
+
+    const Installation_Type = [
+      {
+        title: 'Standard Brackets',
+        image: "{{ 'icon/drill.png' | asset_url }}",
+        content: [
+          'Standard brackets are the traditional way to install your blinds, requiring a drill to secure the brackets into your window frame or wall. They are sturdy, reliable, and suitable for all types of installations.',
+        ],
+      },
+      {
+        title: 'No Drill - Twist&Fit',
+        image: "{{ 'icon/noDrill.png' | asset_url }}",
+        content: [
+          'Twist&Fit is our revolutionary no-drill installation system. It uses a clever tension mechanism to secure the blind firmly inside the window recess without the need for tools or drilling. Perfect for tiles, uPVC frames, or rental properties where you want to avoid permanent marks.',
+        ],
+      },
+    ];
+
+    const MODAL_CONTENTS = {
+      'Headrail Type / Colour': HeadrailType,
+      'Stacking Style': Stacking_Style,
+      'Lining Type': Lining_Type,
+      'Chain Side': ControlChain,
+      'Operation Type': Operation_Type,
+      'Installation Type': Installation_Type,
+    };
+
+    const MODAL_TITLES = {
+      'Headrail Type / Colour': 'Headrail Type / Colour',
+      'Stacking Style': 'Stacking Style',
+      'Lining Type': 'Lining Type',
+      'Chain Side': 'Control Chain Side',
+      'Operation Type': 'Operation Type',
+      'Installation Type': 'Installation Type',
+    };
+
+    window.openHelpModal = function (sectionTitle) {
+      const modal = document.getElementById('cpm-help-modal');
+      const titleEl = document.getElementById('cpm-help-modal-title');
+      const contentEl = document.getElementById('cpm-help-modal-content');
+      const label = getSectionLabel(sectionTitle);
+
+      if (!modal || !titleEl || !contentEl) return;
+
+      const items = MODAL_CONTENTS[label];
+      const modalTitle = MODAL_TITLES[label] || label;
+
+      titleEl.textContent = modalTitle;
+      contentEl.innerHTML = '';
+
+      if (items && items.length > 0) {
+        items.forEach((item) => {
+          const itemDiv = document.createElement('div');
+          itemDiv.className =
+            'flex flex-col sm:flex-row gap-6 md:gap-8 items-center sm:items-start border-b border-gray-100 pb-8 last:border-0 text-center sm:text-left';
+          itemDiv.innerHTML = `
+            <div class="w-full sm:w-[25%] md:w-[20%] aspect-square flex-shrink-0 bg-gray-50 rounded-lg overflow-hidden border border-gray-100 mx-auto sm:mx-0">
+              <img src="${
+                item.image
+              }" class="w-full h-full object-cover" style="image-rendering: -webkit-optimize-contrast;" alt="${
+            item.title
+          }">
+            </div>
+            <div class="flex-1 space-y-4 w-full">
+              <h4 class="text-xl md:text-2xl font-bold text-black">${item.title}</h4>
+              ${item.content
+                .map(
+                  (p) =>
+                    `<p class="text-[15px] md:text-[16px] text-gray-700 leading-[1.6]">${p}</p>`
+                )
+                .join('')}
+            </div>
+          `;
+          contentEl.appendChild(itemDiv);
+        });
+      } else {
+        contentEl.innerHTML =
+          '<p class="text-gray-500">No information available for this option.</p>';
+      }
+
+      openCpmModal('cpm-help-modal');
+    };
+
+    function renderDynamicOptions(optionsData) {
+      const container = document.getElementById('cpm-dynamic-options');
+      if (!container) return;
+      container.innerHTML = '';
+
+      // Store globally for re-rendering on fitting type change
+      window.lastOptionsData = optionsData;
+
+      const trimmedCat = (categoryName || '').trim();
+      const normalizedCategory = trimmedCat.toLowerCase();
+      const fittingTypeEl = document.querySelector('input[name="fitting_type"]:checked');
+      const fittingType = fittingTypeEl ? fittingTypeEl.value.trim() : '';
+
+      console.log('--- DEBUG INSTALLATION TYPE ---');
+      console.log('Category Name:', trimmedCat);
+      console.log('Normalized Category:', normalizedCategory);
+      console.log('Fitting Type:', fittingType);
+      console.log('priceMultiplier:', priceMultiplier);
+
+      // Find the config key that matches (case-insensitive)
+      const configKey = Object.keys(CATEGORY_OPTION_CONFIG).find(
+        (key) => key.trim().toLowerCase() === normalizedCategory
+      );
+      const config = CATEGORY_OPTION_CONFIG[configKey || trimmedCat];
+
+      const isEligible =
+        normalizedCategory.includes('roller') || normalizedCategory.includes('roman');
+
+      console.log('Is Eligible for Installation Type:', isEligible);
+      console.log('Is Inside Recess:', fittingType === 'Inside Recess');
+
+      if (isEligible && fittingType === 'Inside Recess') {
+        const installDiv = document.createElement('div');
+        installDiv.className = 'space-y-3 mb-6';
+        installDiv.innerHTML = `
+          <div class="flex items-center gap-2">
+            <h3 class="font-semibold text-lg">Installation Type</h3>
+            <button type="button" class="flex items-center gap-1 text-primary cursor-pointer text-sm" onclick="openHelpModal('Installation Type')">
+              help <span class="border border-primary rounded-full w-4 h-4 flex items-center justify-center text-[10px]">?</span>
+            </button>
+          </div>
+          <div class="grid! grid-cols-1! sm:grid-cols-2! gap-x-2 gap-y-1.5 items-stretch">
+            <!-- Standard Card -->
+            <div class="cpm-opt-card border ${
+              !isTwistAndFit ? 'border-primary bg-primary/5' : 'border-gray-200'
+            } rounded-lg p-2 cursor-pointer flex items-center gap-2 transition-all h-full min-h-[60px] relative" id="cpm-install-standard">
+              ${
+                !isTwistAndFit
+                  ? `
+                <div class="absolute -top-2 -left-2 w-5 h-5 rounded-full bg-primary border-2 border-white shadow-sm flex items-center justify-center z-10">
+                  <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                </div>
+              `
+                  : ''
+              }
+              <div class="w-7 h-7 flex-shrink-0">
+                <img src="{{ 'icon/drill.png' | asset_url }}" class="w-full h-full object-contain" alt="Standard">
+              </div>
+              <div class="flex-1">
+                <div class="text-[16px]! leading-tight font-normal!">Standard Brackets</div>
+              </div>
+            </div>
+            
+            <!-- No Drill Card -->
+            <div class="cpm-opt-card border ${
+              isTwistAndFit ? 'border-primary bg-primary/5' : 'border-gray-200'
+            } rounded-lg p-2 cursor-pointer flex items-center gap-2 transition-all h-full min-h-[60px] relative" id="cpm-install-twist">
+              ${
+                isTwistAndFit
+                  ? `
+                <div class="absolute -top-2 -left-2 w-5 h-5 rounded-full bg-primary border-2 border-white shadow-sm flex items-center justify-center z-10">
+                  <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                </div>
+              `
+                  : ''
+              }
+              <div class="w-7 h-7 flex-shrink-0">
+                <img src="{{ 'icon/noDrill.png' | asset_url }}" class="w-full h-full object-contain" alt="No Drill">
+              </div>
+              <div class="flex-1 flex flex-col justify-center">
+                <div class="text-[16px]! leading-tight font-normal!">No Drill - Twist&Fit</div>
+                <div class="text-[15px]! font-normal! flex items-center gap-1 mt-0.5"><span class="w-[17px] h-auto flex items-center">${ICON_DIRHAM}</span> +${installationPrice.toFixed(
+          0
+        )}</div>
+              </div>
+            </div>
+
+            <!-- Helper Text Row -->
+            <div class="hidden sm:block"></div> <!-- Spacer -->
+            <div class="text-[13px]! leading-tight text-black!">
+              No drilling required to install 
+              <span class="text-primary cursor-pointer hover:underline font-medium" onclick="openCpmModal('installationVideoModal')">Learn More</span>
+            </div>
+          </div>
+        `;
+        container.appendChild(installDiv);
+
+        installDiv.querySelector('#cpm-install-standard').addEventListener('click', () => {
+          isTwistAndFit = false;
+          renderDynamicOptions(optionsData);
+          updateFinalDisplay();
+        });
+        installDiv.querySelector('#cpm-install-twist').addEventListener('click', () => {
+          isTwistAndFit = true;
+          renderDynamicOptions(optionsData);
+          updateFinalDisplay();
+        });
+      }
+
+      if (!config) return;
+
+      // Filter and render configured sections
+      Object.keys(config).forEach((sectionTitle) => {
+        const allowedCodes = config[sectionTitle];
+        const sectionOptions = optionsData.filter(
+          (opt) => opt.OptionGroup === sectionTitle && allowedCodes.includes(opt.ChoiceCode)
+        );
+
+        if (sectionOptions.length === 0) return;
+
+        // Default selection if not already selected
+        if (!selectedOptions[sectionTitle]) {
+          selectedOptions[sectionTitle] =
+            sectionOptions.find((o) => ['DLXSYS', 'CLASSIC'].includes(o.ChoiceCode)) ||
+            sectionOptions[0];
+        }
+
+        const sectionDiv = document.createElement('div');
+        sectionDiv.className = 'space-y-3';
+
+        const header = `
+          <div class="flex items-center gap-2">
+            <h3 class="font-semibold text-lg">${getSectionLabel(sectionTitle)}</h3>
+            <button type="button" class="flex items-center gap-1 text-primary cursor-pointer text-sm" onclick="openHelpModal('${sectionTitle}')">
+              help <span class="border border-primary rounded-full w-4 h-4 flex items-center justify-center text-[10px]">?</span>
+            </button>
+          </div>
+        `;
+
+        const optionsGrid = document.createElement('div');
+        optionsGrid.className = 'grid! grid-cols-1! sm:grid-cols-2! gap-2';
+
+        sectionOptions.forEach((opt) => {
+          const optLabel = getOptionLabel(sectionTitle, {
+            code: opt.ChoiceCode,
+            label: opt.ChoiceDescription,
+          });
+          const optImg =
+            OPTION_IMAGE_MAP[opt.ChoiceCode] || "{{ 'icon/cassette.png' | asset_url }}";
+          const isSelected = selectedOptions[sectionTitle].ChoiceCode === opt.ChoiceCode;
+          const priceAdd = opt.SalesPrice > 0 ? `${parseFloat(opt.SalesPrice).toFixed(1)}` : '';
+
+          const optEl = document.createElement('div');
+          optEl.innerHTML = `
+            <div class="cpm-opt-card border ${
+              isSelected ? 'border-primary bg-primary/5' : 'border-gray-200'
+            } rounded-lg p-2 cursor-pointer flex items-center gap-2 transition-all h-full relative" data-section="${sectionTitle}" data-code="${
+            opt.ChoiceCode
+          }">
+              ${
+                isSelected
+                  ? `
+                <div class="absolute -top-2 -left-2 w-5 h-5 rounded-full bg-primary border-2 border-white shadow-sm flex items-center justify-center z-10">
+                  <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                </div>
+              `
+                  : ''
+              }
+              <div class="w-7 h-7 flex-shrink-0">
+                <img src="${optImg}" class="w-full h-full object-contain" style="image-rendering: -webkit-optimize-contrast; image-rendering: crisp-edges;" alt="${optLabel}">
+              </div>
+              <div class="flex-1 flex items-center justify-between">
+                <div class="text-[16px]! leading-tight font-normal!">${optLabel}</div>
+                ${
+                  priceAdd
+                    ? `<div class="text-[16px]! font-normal! flex items-center gap-1"><span class="w-[18px] h-auto flex items-center">${ICON_DIRHAM}</span> ${priceAdd}</div>`
+                    : ''
+                }
+              </div>
+            </div>
+          `;
+
+          optEl.querySelector('.cpm-opt-card').addEventListener('click', () => {
+            selectedOptions[sectionTitle] = opt;
+            renderDynamicOptions(optionsData); // Re-render to update UI
+            updateFinalDisplay();
+          });
+
+          optionsGrid.appendChild(optEl);
+        });
+
+        sectionDiv.innerHTML = header;
+        sectionDiv.appendChild(optionsGrid);
+        container.appendChild(sectionDiv);
+      });
+
+      // 2. Operation Type (Manual / Motorised) - Now at the end
+      if (normalizedCategory !== 'vertical blinds' && motorPrice > 0) {
+        const opDiv = document.createElement('div');
+        opDiv.className = 'space-y-3 mt-6 pt-4 border-t border-gray-100';
+        opDiv.innerHTML = `
+          <div class="flex items-center gap-2">
+            <h3 class="font-semibold text-lg">Operation Type</h3>
+            <button type="button" class="flex items-center gap-1 text-primary cursor-pointer text-sm" onclick="openHelpModal('Operation Type')">
+              help <span class="border border-primary rounded-full w-4 h-4 flex items-center justify-center text-[10px]">?</span>
+            </button>
+          </div>
+          <div class="grid! grid-cols-1! sm:grid-cols-2! gap-2 items-stretch">
+            <!-- Manual Card -->
+            <div class="cpm-opt-card border ${
+              !isMotorized ? 'border-primary bg-primary/5' : 'border-gray-200'
+            } rounded-lg p-2 cursor-pointer flex items-center gap-2 transition-all h-full min-h-[60px] relative" id="cpm-op-manual">
+              ${
+                !isMotorized
+                  ? `
+                <div class="absolute -top-2 -left-2 w-5 h-5 rounded-full bg-primary border-2 border-white shadow-sm flex items-center justify-center z-10">
+                  <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                </div>
+              `
+                  : ''
+              }
+              <div class="w-7 h-7 flex-shrink-0">
+                <img src="{{ 'icon/noMotor.png' | asset_url }}" class="w-full h-full object-contain" alt="Manual">
+              </div>
+              <div class="flex-1">
+                <div class="text-[16px]! leading-tight font-normal!">Manual – no extra cost</div>
+              </div>
+            </div>
+            <!-- Motorised Card -->
+            <div class="cpm-opt-card border ${
+              isMotorized ? 'border-primary bg-primary/5' : 'border-gray-200'
+            } rounded-lg p-2 cursor-pointer flex items-center gap-2 transition-all h-full min-h-[60px] relative" id="cpm-op-motor">
+              ${
+                isMotorized
+                  ? `
+                <div class="absolute -top-2 -left-2 w-5 h-5 rounded-full bg-primary border-2 border-white shadow-sm flex items-center justify-center z-10">
+                  <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                </div>
+              `
+                  : ''
+              }
+              <div class="w-7 h-7 flex-shrink-0">
+                <img src="{{ 'icon/Motor.png' | asset_url }}" class="w-full h-full object-contain" alt="Motorised">
+              </div>
+              <div class="flex-1 flex flex-col justify-center">
+                <div class="text-[16px]! leading-tight font-normal!">Motorised, (with remote)</div>
+                <div class="text-[15px]! font-normal! flex items-center gap-1 mt-0.5"><span class="w-[17px] h-auto flex items-center">${ICON_DIRHAM}</span> +${motorPrice.toFixed(
+          0
+        )}</div>
+              </div>
+            </div>
+          </div>
+        `;
+        container.appendChild(opDiv);
+
+        opDiv.querySelector('#cpm-op-manual').addEventListener('click', () => {
+          isMotorized = false;
+          renderDynamicOptions(optionsData);
+          updateFinalDisplay();
+        });
+        opDiv.querySelector('#cpm-op-motor').addEventListener('click', () => {
+          isMotorized = true;
+          renderDynamicOptions(optionsData);
+          updateFinalDisplay();
+        });
+      }
+    }
+
+    if (getPriceBtn) {
+      getPriceBtn.addEventListener('click', async function () {
+        console.log('Get Price Clicked');
+        try {
+          if (!validateInput(widthInput) || !validateInput(heightInput)) {
+            alert('Please enter valid width and height measurements.');
+            return;
+          }
+
+          if (!widthInput.value || !heightInput.value) {
+            alert('Please enter both width and height.');
+            return;
+          }
+
+          if (!fabricId || !blindTypeId) {
+            console.error('Missing fabricId or blindTypeId in product metafields.');
+            alert('Configuration error: Missing fabric or blind type IDs.');
+            return;
+          }
+
+          const unit = document.querySelector('input[name="measurement_unit"]:checked').value;
+          const widthMM = getMeasurementInMM(widthInput.value, unit);
+          const dropMM = getMeasurementInMM(heightInput.value, unit);
+
+          getPriceBtn.textContent = 'Calculating...';
+          getPriceBtn.disabled = true;
+
+          const originalUrl = `${ILLUMIN8S_BASE_URL}${ILLUMIN8S_FABRIC_PRICE_ENDPOINT}?key=${ILLUMIN8S_API_KEY}&userid=${ILLUMIN8S_RETAILER_ID}&blindtypeid=${fabricId}&fabricid=${blindTypeId}&width=${widthMM}&drop=${dropMM}&retailermasterid=${ILLUMIN8S_RETAILER_MASTER_ID}&measureid=${ILLUMIN8S_MEASURE_ID}`;
+
+          console.log('Fetching price from:', originalUrl);
+          const response = await fetch(originalUrl);
+          if (!response.ok) throw new Error(`Price API failed with status: ${response.status}`);
+
+          const data = await response.json();
+          console.log('API Price Response Data:', data);
+
+          // Fetch Options API
+          let optionsData = [];
+          try {
+            const originalOptionsUrl = `${ILLUMIN8S_BASE_URL}${ILLUMIN8S_OPTIONS_PRICE_ENDPOINT}?key=${ILLUMIN8S_API_KEY}&blindtypeid=${fabricId}&width=${widthMM}&drop=${dropMM}&fabricid=${blindTypeId}&retailerId=${ILLUMIN8S_RETAILER_ID}&retailermasterid=${ILLUMIN8S_RETAILER_MASTER_ID}`;
+
+            console.log('Fetching options from:', originalOptionsUrl);
+            const optionsRes = await fetch(originalOptionsUrl);
+            console.log('Options Response Status:', optionsRes.status);
+
+            if (optionsRes.ok) {
+              optionsData = await optionsRes.json();
+              console.log('Category Name:', categoryName);
+              console.log('API Options Data:', optionsData);
+            } else {
+              const errText = await optionsRes.text();
+              console.error('Options API Error Response:', errText);
+            }
+          } catch (optErr) {
+            console.error('Error in Options fetch process:', optErr);
+          }
+
+          if (data && data.length > 0) {
+            const priceData = data[0];
+            const resultsContainer = document.getElementById('cpm-price-results');
+            const dimsDisp = document.getElementById('cpm-result-dims');
+            const fittingType = document.querySelector('input[name="fitting_type"]:checked').value;
+
+            if (resultsContainer && dimsDisp) {
+              // Update dimensions text
+              dimsDisp.textContent = `${widthInput.value}${unit} width x ${heightInput.value}${unit} drop (${fittingType})`;
+
+              // Set global base price
+              basePrice = parseFloat(priceData.TotalSalesAmt) * priceMultiplier;
+
+              // Render options
+              renderDynamicOptions(optionsData);
+
+              // initial update of final display
+              updateFinalDisplay();
+
+              hasFetchedPrice = true;
+              getPriceBtn.textContent = 'Update Price';
+
+              // Show the results section
+              resultsContainer.style.display = 'block';
+
+              // Smooth scroll to the results section
+              resultsContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+          } else {
+            console.warn('API returned no results for these parameters.');
+            alert('Could not calculate price for these measurements.');
+          }
+        } catch (error) {
+          console.error('Error fetching price:', error);
+          alert('An error occurred while calculating the price. Please try again.');
+        } finally {
+          if (!hasFetchedPrice) {
+            getPriceBtn.textContent = 'Get Price';
+          } else {
+            getPriceBtn.textContent = 'Update Price';
+          }
+          getPriceBtn.disabled = false;
+        }
+      });
+    }
+    // Add to Basket logic
+    const addToBasketBtn = document.querySelector('.cpm-btn-basket');
+    if (addToBasketBtn) {
+      addToBasketBtn.addEventListener('click', () => {
+        // Calculate non-motorised options total
+        let nonMotorisedOptionsTotal = 0;
+        Object.entries(selectedOptions).forEach(([group, opt]) => {
+          nonMotorisedOptionsTotal += parseFloat(opt.SalesPrice || 0);
+        });
+
+        // Combined Price: Base (API+Markup) + Non-motorised options + Installation
+        const combinedPrice =
+          basePrice + nonMotorisedOptionsTotal + (isTwistAndFit ? installationPrice : 0);
+
+        // Motorised Price (Separate)
+        const currentMotorPrice = isMotorized ? motorPrice : 0;
+
+        // Construct UI-friendly selected options
+        const uiSelectedOptions = {};
+        Object.entries(selectedOptions).forEach(([sectionTitle, opt]) => {
+          const sectionLabel = getSectionLabel(sectionTitle);
+          const optionLabel = getOptionLabel(sectionTitle, {
+            code: opt.ChoiceCode,
+            label: opt.ChoiceDescription,
+          });
+          uiSelectedOptions[sectionLabel] = optionLabel;
+        });
+
+        // Add Operation Type to selected options
+        uiSelectedOptions['Operation Type'] = isMotorized ? 'Motorised, (with remote)' : 'Manual – no extra cost';
+
+        // Add Installation Type to selected options
+        uiSelectedOptions['Installation Type'] = isTwistAndFit
+          ? 'No Drill - Twist&Fit'
+          : 'Standard Brackets';
+
+        const cartData = {
+          product_title: '{{ product.title }}',
+          product_handle: '{{ product.handle }}',
+          product_image: '{{ product.featured_image | img_url: "200x200" }}',
+          category_name: categoryName,
+          isMotorised: isMotorized,
+          combined_price_total: combinedPrice.toFixed(2),
+          motorised_price: motorPrice.toFixed(2),
+          selected_options: uiSelectedOptions,
+          dimensions: {
+            width: widthInput.value,
+            height: heightInput.value,
+            unit: document.querySelector('input[name="measurement_unit"]:checked').value,
+          },
+          fitting_type: document.querySelector('input[name="fitting_type"]:checked').value,
+        };
+
+        const unit = document.querySelector('input[name="measurement_unit"]:checked').value;
+        // Construct Line Item Properties for Shopify
+        const properties = {
+          'Width': `${widthInput.value}${unit}`,
+          'Height': `${heightInput.value}${unit}`,
+          'Fitting Type': cartData.fitting_type,
+          'Operation Type': cartData.operation_type,
+          'Category': cartData.category_name,
+          'Motorised Surcharge': cartData.motorised_price,
+          'Options Total': cartData.selectedMotor, // as per user request naming
+          '_combined_price': cartData.combined_price_total, // hidden property
+        };
+
+        // Add all selected options as individual properties
+        Object.entries(cartData.selected_options).forEach(([label, value]) => {
+          properties[label] = value;
+        });
+
+        console.log('cartDatacartDatacartData', cartData);
+
+        const formData = {
+          items: [{
+            id: {{ product.selected_or_first_available_variant.id }},
+            quantity: 1,
+            properties: properties
+          }]
+        };
+
+        // --- PERSISTENT VIRTUAL CART LOGIC ---
+        // Load from localStorage or initialize
+        let localCart = JSON.parse(localStorage.getItem('cpm_virtual_cart')) || [];
+
+        // Generate a unique key for this configuration to check for matches
+        const configKey = JSON.stringify({
+          dims: cartData.dimensions,
+          fitting: cartData.fitting_type,
+          options: cartData.selected_options
+        });
+
+        const existingItem = localCart.find(item => item.configKey === configKey);
+        const unitPrice = parseFloat(cartData.combined_price_total);
+
+        if (existingItem) {
+          existingItem.quantity += 1;
+          existingItem.total_price = (unitPrice * existingItem.quantity).toFixed(2);
+          console.log('--- QUANTITY INCREASED (SAVING TO LOCALSTORAGE) ---');
+        } else {
+          localCart.push({
+            ...cartData,
+            configKey: configKey,
+            quantity: 1,
+            total_price: unitPrice.toFixed(2)
+          });
+          console.log('--- NEW ITEM ADDED (SAVING TO LOCALSTORAGE) ---');
+        }
+
+        // Save back to localStorage
+        localStorage.setItem('cpm_virtual_cart', JSON.stringify(localCart));
+        window.virtualCart = localCart; // also update global window variable
+
+        console.log('VIRTUAL CART PERSISTED:', localCart);
+
+        addToBasketBtn.textContent = 'Added to Basket!';
+        
+        // Open the virtual drawer
+        if (window.openVirtualDrawer) {
+          window.openVirtualDrawer();
+        }
+
+        setTimeout(() => {
+          addToBasketBtn.textContent = 'Add to basket';
+        }, 1500);
+      });
+    }
   });
 
   // Global Modal Functions
@@ -575,3 +1570,28 @@
     item.classList.toggle('cpm-accordion-active');
   };
 </script>
+
+<!-- Help Modal -->
+<div
+  id="cpm-help-modal"
+  class="cpm-modal-overlay cpm-modal-hidden fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/50"
+>
+  <div class="bg-white rounded-xl max-w-[1200px]! w-full max-h-[90vh] overflow-hidden flex flex-col shadow-2xl">
+    <div class="p-4 border-b flex items-center justify-between">
+      <h2 id="cpm-help-modal-title" class="text-xl font-bold"></h2>
+      <button
+        type="button"
+        onclick="closeCpmModal('cpm-help-modal')"
+        class="p-2 hover:bg-gray-200 rounded-full transition-colors"
+      >
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+    </div>
+    <div id="cpm-help-modal-content" class="p-6 overflow-y-auto space-y-6">
+      <!-- Content will be injected here -->
+    </div>
+  </div>
+</div>
+<!-- Virtual Cart logic is now global (in cb-virtual-cart.liquid) -->
