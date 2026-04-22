@@ -2,10 +2,9 @@
 
 <section class="cb-samples-page">
   <div class="page-width">
-    <h1 class="cb-samples-page__title">Your Samples Basket</h1>
-
     <div class="cb-samples-page__layout">
       <div>
+        <h1 class="cb-samples-page__title">Your Samples Basket</h1>
         <div class="cb-samples-page__banner">
           <span class="cb-samples-page__banner-text">Unlimited Samples - Free of Charge</span>
         </div>
@@ -15,17 +14,17 @@
             href="{{ section.settings.browse_link | default: routes.all_products_collection_url }}"
             class="cb-samples-card cb-samples-card--addmore samples-page-add-card"
           >
-            <div class="cb-samples-card__plus-serrated swatch-pinked" aria-hidden="true">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-              </svg>
+            <div class="cb-samples-card__plus-serrated-wrapper">
+              <div class="cb-samples-card__plus-serrated swatch-pinked" aria-hidden="true">
+                <img
+                  src="{{ 'icon-add-more-samples.svg' | asset_url }}"
+                  alt="Add more samples"
+                  width="auto"
+                  height="auto"
+                >
+              </div>
+              <div class="cb-samples-card__title">Add more samples</div>
             </div>
-            <div class="cb-samples-card__title">Add more samples</div>
           </a>
         </div>
 
@@ -50,12 +49,17 @@
 
         <div class="cb-samples-form" aria-live="polite">
           <form id="SamplesShippingForm" class="cb-samples-form-fields" novalidate>
-            <label for="SamplesFullName">Full name*</label>
-            <input id="SamplesFullName" name="fullName" type="text" class="cb-samples-input" placeholder="Full name" required />
+            <input
+              id="SamplesFullName"
+              name="fullName"
+              type="text"
+              class="cb-samples-input"
+              placeholder="Full name*"
+              required
+            >
 
-            <label for="SamplesCountry">Country / Region*</label>
             <select id="SamplesCountry" name="country" class="cb-samples-select" required>
-              <option value="">Select country / region</option>
+              <option value="" style="color: #A9A9A9">Select country / region*</option>
               <option value="United Arab Emirates">United Arab Emirates</option>
               <option value="Saudi Arabia">Saudi Arabia</option>
               <option value="Kuwait">Kuwait</option>
@@ -65,21 +69,53 @@
               <option value="International">International</option>
             </select>
 
-            <label for="SamplesAddress">Full address*</label>
-            <input id="SamplesAddress" name="address" type="text" class="cb-samples-input" placeholder="Full address" required />
+            <input
+              id="SamplesAddress"
+              name="address"
+              type="text"
+              class="cb-samples-input"
+              placeholder="Full address*"
+              required
+            >
 
-            <label for="SamplesEmirate">Emirate*</label>
-            <input id="SamplesEmirate" name="emirate" type="text" class="cb-samples-input" placeholder="Emirate" required />
+            <input
+              id="SamplesEmirate"
+              name="emirate"
+              type="text"
+              class="cb-samples-input"
+              placeholder="Emirate*"
+              required
+            >
 
-            <label for="SamplesPhone">Phone*</label>
-            <input id="SamplesPhone" name="phone" type="tel" class="cb-samples-input" placeholder="Phone" required />
+            <input
+              id="SamplesPhone"
+              name="phone"
+              type="tel"
+              class="cb-samples-input"
+              placeholder="Phone*"
+              required
+            >
 
-            <label for="SamplesEmail">Email address*</label>
-            <input id="SamplesEmail" name="email" type="email" class="cb-samples-input" placeholder="Email address" required />
-
-            <div class="cb-samples-checkbox">
-              <input id="SamplesMarketingOptOut" name="marketingOptOut" type="checkbox" />
-              <label for="SamplesMarketingOptOut">No thanks, I don't want to hear about offers or services</label>
+            <input
+              id="SamplesEmail"
+              name="email"
+              type="email"
+              class="cb-samples-input"
+              placeholder="Email address*"
+              required
+            >
+            <div class="cb-samples-marketing-wrapper">
+              <p class="cb-samples-marketing">
+                We'd love to send you money-off vouchers, special offers and the very latest in
+                fashion and interior design tips. We will always respect your privacy and we will
+                never sell your details to any other company.
+              </p>
+              <div class="cb-samples-checkbox">
+                <input id="SamplesMarketingOptOut" name="marketingOptOut" type="checkbox">
+                <label for="SamplesMarketingOptOut"
+                  >No thanks, I don't want to hear about offers or services</label
+                >
+              </div>
             </div>
 
             <button type="submit" class="cb-samples-submit" id="SamplesSubmitButton">
@@ -89,10 +125,6 @@
 
           <p id="SamplesCheckoutError" class="cb-samples-error"></p>
           <p id="SamplesCheckoutSuccess" class="cb-samples-success"></p>
-
-          <p class="cb-samples-marketing">
-            We'd love to send you money-off vouchers, special offers and the very latest in fashion and interior design tips. We will always respect your privacy and we will never sell your details to any other company.
-          </p>
         </div>
       </aside>
     </div>
@@ -328,6 +360,9 @@
             shipping: values,
             samples,
           };
+
+          console.log('Free Sample Request Data:', payload);
+
           localStorage.setItem('cb-samples-shipping-request', JSON.stringify(payload));
           showMessage('Thanks! We received your order request and will contact you soon.', 'success');
         } catch (error) {
