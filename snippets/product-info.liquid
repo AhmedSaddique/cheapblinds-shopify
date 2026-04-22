@@ -621,6 +621,7 @@
     const ILLUMIN8S_API_KEY = 'pk.5bb50868ead0d6385b902321aa3ec294';
     const ILLUMIN8S_BASE_URL = 'https://apigateway.illumin8global.com:4200';
     const ILLUMIN8S_FABRIC_PRICE_ENDPOINT = '/api/fabricprice';
+    const ILLUMIN8S_OPTIONS_PRICE_ENDPOINT = '/api/optionprice';
     ILLUMIN8S_RETAILER_ID = '4967';
     ILLUMIN8S_RETAILER_MASTER_ID = '444';
     ILLUMIN8S_MEASURE_ID = '83';
@@ -630,6 +631,8 @@
       '{{ product.metafields.custom.fabricId.value | default: product.metafields.custom.fabricid.value | default: product.metafields.custom.fabric_id.value }}';
     const blindTypeId =
       '{{ product.metafields.custom.blindTypeId.value | default: product.metafields.custom.blindtypeid.value | default: product.metafields.custom.blind_type_id.value }}';
+    const categoryName =
+      '{{ product.metafields.custom.categoryName.value | default: product.metafields.custom.category_name.value }}';
 
     function getMeasurementInMM(val, unit) {
       let numeric = parseFloat(val);
@@ -665,13 +668,33 @@
 
         try {
           const originalUrl = `${ILLUMIN8S_BASE_URL}${ILLUMIN8S_FABRIC_PRICE_ENDPOINT}?key=${ILLUMIN8S_API_KEY}&userid=${ILLUMIN8S_RETAILER_ID}&blindtypeid=${fabricId}&fabricid=${blindTypeId}&width=${widthMM}&drop=${dropMM}&retailermasterid=${ILLUMIN8S_RETAILER_MASTER_ID}&measureid=${ILLUMIN8S_MEASURE_ID}`;
+
           console.log('Fetching price from:', originalUrl);
           const response = await fetch(originalUrl);
-          if (!response.ok) throw new Error('API request failed');
+          if (!response.ok) throw new Error(`Price API failed with status: ${response.status}`);
 
           const data = await response.json();
+          console.log('API Price Response Data:', data);
 
-          console.log('API Response Data:', data);
+          // Fetch Options API
+          try {
+            const originalOptionsUrl = `${ILLUMIN8S_BASE_URL}${ILLUMIN8S_OPTIONS_PRICE_ENDPOINT}?key=${ILLUMIN8S_API_KEY}&blindtypeid=${fabricId}&width=${widthMM}&drop=${dropMM}&fabricid=${blindTypeId}&retailerId=${ILLUMIN8S_MEASURE_ID}&retailermasterid=${ILLUMIN8S_RETAILER_MASTER_ID}`;
+
+            console.log('Fetching options from:', originalOptionsUrl);
+            const optionsRes = await fetch(originalOptionsUrl);
+            console.log('Options Response Status:', optionsRes.status);
+
+            if (optionsRes.ok) {
+              const optionsData = await optionsRes.json();
+              console.log('Category Name:', categoryName);
+              console.log('API Options Data:', optionsData);
+            } else {
+              const errText = await optionsRes.text();
+              console.error('Options API Error Response:', errText);
+            }
+          } catch (optErr) {
+            console.error('Error in Options fetch process:', optErr);
+          }
 
           if (data && data.length > 0) {
             const priceData = data[0];
