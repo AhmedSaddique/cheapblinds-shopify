@@ -2751,12 +2751,8 @@ details-disclosure>details {
 }
 
 .grid__item {
-  width: calc(
-    (100% - (var(--grid-mobile-columns) - 1) * var(--grid-mobile-horizontal-spacing)) / var(--grid-mobile-columns)
-  );
-  max-width: calc(
-    (100% - (var(--grid-mobile-columns) - 1) * var(--grid-mobile-horizontal-spacing)) / var(--grid-mobile-columns)
-  );
+  width: calc((100% - (var(--grid-mobile-columns) - 1) * var(--grid-mobile-horizontal-spacing)) / var(--grid-mobile-columns));
+  max-width: calc((100% - (var(--grid-mobile-columns) - 1) * var(--grid-mobile-horizontal-spacing)) / var(--grid-mobile-columns));
   flex-grow: 0;
   flex-shrink: 0;
 }
@@ -2767,12 +2763,8 @@ details-disclosure>details {
 
 @media screen and (min-width: 990px) {
   .grid__item {
-    width: calc(
-      (100% - (var(--grid-desktop-columns) - 1) * var(--grid-desktop-horizontal-spacing)) / var(--grid-desktop-columns)
-    );
-    max-width: calc(
-      (100% - (var(--grid-desktop-columns) - 1) * var(--grid-desktop-horizontal-spacing)) / var(--grid-desktop-columns)
-    );
+    width: calc((100% - (var(--grid-desktop-columns) - 1) * var(--grid-desktop-horizontal-spacing)) / var(--grid-desktop-columns));
+    max-width: calc((100% - (var(--grid-desktop-columns) - 1) * var(--grid-desktop-horizontal-spacing)) / var(--grid-desktop-columns));
   }
 }
 
@@ -3381,6 +3373,14 @@ details-disclosure>details {
   100% {
     transform: translateX(100%) scaleX(0);
   }
+}
+
+.swatch-pinked {
+  clip-path: polygon(6% 0%, 10% 4%, 14% 0%, 18% 4%, 22% 0%, 26% 4%, 30% 0%, 34% 4%, 38% 0%, 42% 4%, 46% 0%, 50% 4%, 54% 0%, 58% 4%, 62% 0%, 66% 4%, 70% 0%, 74% 4%, 78% 0%, 82% 4%, 86% 0%, 90% 4%, 94% 0%, 100% 6%, 96% 10%, 100% 14%, 96% 18%, 100% 22%, 96% 26%, 100% 30%, 96% 34%, 100% 38%, 96% 42%, 100% 46%, 96% 50%, 100% 54%, 96% 58%, 100% 62%, 96% 66%, 100% 70%, 96% 74%, 100% 78%, 96% 82%, 100% 86%, 96% 90%, 100% 100%, 94% 100%, 90% 96%, 86% 100%, 82% 96%, 78% 100%, 74% 96%, 70% 100%, 66% 96%, 62% 100%, 58% 96%, 54% 100%, 50% 96%, 46% 100%, 42% 96%, 38% 100%, 34% 96%, 30% 100%, 26% 96%, 22% 100%, 18% 96%, 14% 100%, 10% 96%, 6% 100%, 0% 94%, 4% 90%, 0% 86%, 4% 82%, 0% 78%, 4% 74%, 0% 70%, 4% 66%, 0% 62%, 4% 58%, 0% 54%, 4% 50%, 0% 46%, 4% 42%, 0% 38%, 4% 34%, 0% 30%, 4% 26%, 0% 22%, 4% 18%, 0% 14%, 4% 10%, 0% 6%);
+  box-shadow: 0 4px 12px #00000026;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 /*

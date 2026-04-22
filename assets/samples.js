@@ -298,9 +298,9 @@ class FreeSamples {
     [...this.items].reverse().forEach((item) => {
       const div = document.createElement('div');
       div.className = 'samples-item';
-      const imageUrl = this.normalizeImageUrl(item.image);
+      const imageUrl = this.normalizeImageUrl(item.swatchImage || item.image);
       div.innerHTML = `
-        <img src="${imageUrl}" alt="${this.escapeHtml(item.title)}" class="samples-item__image" loading="lazy">
+        <div class="samples-item__image swatch-pinked" style="background-image: url('${imageUrl}'); display: block;" role="img" aria-label="${this.escapeHtml(item.title)}"></div>
         <div class="samples-item__info">
           <a href="${item.url}" class="samples-item__title">${this.escapeHtml(item.title)}</a>
           <div class="samples-item__price">${item.displayPrice || 'Rs. 0.00'}</div>
