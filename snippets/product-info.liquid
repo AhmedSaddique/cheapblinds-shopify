@@ -47,13 +47,13 @@
   <!-- Unit selection -->
   <div class="cpm-unit-selector">
     <label class="cpm-radio-label">
-      <input type="radio" name="measurement_unit" value="mm" class="cpm-visually-hidden" checked>
+      <input type="radio" name="measurement_unit" value="mm" class="cpm-visually-hidden">
       <span class="cpm-custom-radio"></span>
       <span class="cpm-radio-text">mm</span>
     </label>
 
     <label class="cpm-radio-label">
-      <input type="radio" name="measurement_unit" value="cm" class="cpm-visually-hidden">
+      <input type="radio" name="measurement_unit" value="cm" class="cpm-visually-hidden" checked>
       <span class="cpm-custom-radio"></span>
       <span class="cpm-radio-text">cm</span>
     </label>
@@ -462,16 +462,17 @@
       <h4 class="cpm-free-sample-title">Not sure? Order a free sample</h4>
       <p class="cpm-free-sample-sub">Dispatched the same day by first class post</p>
     </div>
-    <button type="button" class="cpm-sample-btn">
+    {% assign sample_image = product.images[1] | default: product.featured_image %}
+    <button
+      type="button"
+      class="cpm-sample-btn cb-free-sample-btn"
+      data-product-handle="{{ product.handle }}"
+      data-product-title="{{ product.title }}"
+      data-product-url="{{ product.url }}"
+      data-product-image="{{ sample_image | image_url: width: 300 }}"
+    >
       <span class="cpm-plus-icon">
-        <svg
-          viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          style="width: 14px; height: 14px;"
-        >
-          <path d="M12 5V19M5 12H19" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
+        <img width="30" height="30" src="{{ 'icon/sampleIcon.png' | asset_url }}" alt="sampleIcon">
       </span>
       Free Sample
     </button>
@@ -697,13 +698,16 @@
 
     // Re-render dynamic options when fitting type changes (to show/hide Installation Type)
     document.querySelectorAll('input[name="fitting_type"]').forEach((radio) => {
-      radio.addEventListener('change', () => {
-        // If we want it to ONLY update on button click, we should skip this if price is already fetched
-        if (hasFetchedPrice) return;
+      radio.addEventListener('change', (e) => {
+        const selectedVal = e.target.value.trim();
+
+        // If switching to Outside Recess, reset to Standard Brackets
+        if (selectedVal === 'Outside Recess') {
+          isTwistAndFit = false;
+        }
 
         const resultsContainer = document.getElementById('cpm-price-results');
         if (resultsContainer && resultsContainer.style.display !== 'none') {
-          // If we already have options data stored globally, use it
           if (window.lastOptionsData) {
             renderDynamicOptions(window.lastOptionsData);
           }
@@ -778,6 +782,12 @@
     let installationPrice = 99;
     let isTwistAndFit = false;
     let hasFetchedPrice = false;
+
+    // Price Multiplier from Metafields
+    const priceMultiplier =
+      parseFloat(
+        '{{ product.metafields.custom.percentage.value | default: product.metafields.custom.percentage | default: 1.0 }}'
+      ) || 1.0;
 
     // API Price Fetching
     const getPriceBtn = document.querySelector('.cpm-btn-primary');
@@ -992,19 +1002,22 @@
         items.forEach((item) => {
           const itemDiv = document.createElement('div');
           itemDiv.className =
-            'flex flex-col md:flex-row gap-8 items-start border-b border-gray-100 pb-8 last:border-0';
+            'flex flex-col sm:flex-row gap-6 md:gap-8 items-center sm:items-start border-b border-gray-100 pb-8 last:border-0 text-center sm:text-left';
           itemDiv.innerHTML = `
-            <div class="w-full md:w-[20%] aspect-square flex-shrink-0 bg-gray-50 rounded-lg overflow-hidden border border-gray-100">
+            <div class="w-full sm:w-[25%] md:w-[20%] aspect-square flex-shrink-0 bg-gray-50 rounded-lg overflow-hidden border border-gray-100 mx-auto sm:mx-0">
               <img src="${
                 item.image
               }" class="w-full h-full object-cover" style="image-rendering: -webkit-optimize-contrast;" alt="${
             item.title
           }">
             </div>
-            <div class="flex-1 space-y-4">
-              <h4 class="text-2xl font-bold text-black">${item.title}</h4>
+            <div class="flex-1 space-y-4 w-full">
+              <h4 class="text-xl md:text-2xl font-bold text-black">${item.title}</h4>
               ${item.content
-                .map((p) => `<p class="text-[16px] text-gray-700 leading-[1.6]">${p}</p>`)
+                .map(
+                  (p) =>
+                    `<p class="text-[15px] md:text-[16px] text-gray-700 leading-[1.6]">${p}</p>`
+                )
                 .join('')}
             </div>
           `;
@@ -1035,6 +1048,7 @@
       console.log('Category Name:', trimmedCat);
       console.log('Normalized Category:', normalizedCategory);
       console.log('Fitting Type:', fittingType);
+      console.log('priceMultiplier:', priceMultiplier);
 
       // Find the config key that matches (case-insensitive)
       const configKey = Object.keys(CATEGORY_OPTION_CONFIG).find(
@@ -1042,14 +1056,8 @@
       );
       const config = CATEGORY_OPTION_CONFIG[configKey || trimmedCat];
 
-      // 1. Installation Type (NEW)
-      // Only for Roller, Vertical, Zebra, Roman, and only for Inside Recess
       const isEligible =
-        normalizedCategory.includes('roller') ||
-        normalizedCategory.includes('vertical') ||
-        normalizedCategory.includes('roman') ||
-        normalizedCategory.includes('zebra') ||
-        normalizedCategory.includes('vision');
+        normalizedCategory.includes('roller') || normalizedCategory.includes('roman');
 
       console.log('Is Eligible for Installation Type:', isEligible);
       console.log('Is Inside Recess:', fittingType === 'Inside Recess');
@@ -1359,7 +1367,7 @@
               dimsDisp.textContent = `${widthInput.value}${unit} width x ${heightInput.value}${unit} drop (${fittingType})`;
 
               // Set global base price
-              basePrice = parseFloat(priceData.TotalSalesAmt);
+              basePrice = parseFloat(priceData.TotalSalesAmt) * priceMultiplier;
 
               // Render options
               renderDynamicOptions(optionsData);
@@ -1391,6 +1399,133 @@
           }
           getPriceBtn.disabled = false;
         }
+      });
+    }
+    // Add to Basket logic
+    const addToBasketBtn = document.querySelector('.cpm-btn-basket');
+    if (addToBasketBtn) {
+      addToBasketBtn.addEventListener('click', () => {
+        // Calculate non-motorised options total
+        let nonMotorisedOptionsTotal = 0;
+        Object.entries(selectedOptions).forEach(([group, opt]) => {
+          nonMotorisedOptionsTotal += parseFloat(opt.SalesPrice || 0);
+        });
+
+        // Combined Price: Base (API+Markup) + Non-motorised options + Installation
+        const combinedPrice =
+          basePrice + nonMotorisedOptionsTotal + (isTwistAndFit ? installationPrice : 0);
+
+        // Motorised Price (Separate)
+        const currentMotorPrice = isMotorized ? motorPrice : 0;
+
+        // Construct UI-friendly selected options
+        const uiSelectedOptions = {};
+        Object.entries(selectedOptions).forEach(([sectionTitle, opt]) => {
+          const sectionLabel = getSectionLabel(sectionTitle);
+          const optionLabel = getOptionLabel(sectionTitle, {
+            code: opt.ChoiceCode,
+            label: opt.ChoiceDescription,
+          });
+          uiSelectedOptions[sectionLabel] = optionLabel;
+        });
+
+        // Add Operation Type to selected options
+        uiSelectedOptions['Operation Type'] = isMotorized ? 'Motorised, (with remote)' : 'Manual – no extra cost';
+
+        // Add Installation Type to selected options
+        uiSelectedOptions['Installation Type'] = isTwistAndFit
+          ? 'No Drill - Twist&Fit'
+          : 'Standard Brackets';
+
+        const cartData = {
+          product_title: '{{ product.title }}',
+          product_handle: '{{ product.handle }}',
+          product_image: '{{ product.featured_image | img_url: "200x200" }}',
+          category_name: categoryName,
+          isMotorised: isMotorized,
+          combined_price_total: combinedPrice.toFixed(2),
+          motorised_price: motorPrice.toFixed(2),
+          selected_options: uiSelectedOptions,
+          dimensions: {
+            width: widthInput.value,
+            height: heightInput.value,
+            unit: document.querySelector('input[name="measurement_unit"]:checked').value,
+          },
+          fitting_type: document.querySelector('input[name="fitting_type"]:checked').value,
+        };
+
+        const unit = document.querySelector('input[name="measurement_unit"]:checked').value;
+        // Construct Line Item Properties for Shopify
+        const properties = {
+          'Width': `${widthInput.value}${unit}`,
+          'Height': `${heightInput.value}${unit}`,
+          'Fitting Type': cartData.fitting_type,
+          'Operation Type': cartData.operation_type,
+          'Category': cartData.category_name,
+          'Motorised Surcharge': cartData.motorised_price,
+          'Options Total': cartData.selectedMotor, // as per user request naming
+          '_combined_price': cartData.combined_price_total, // hidden property
+        };
+
+        // Add all selected options as individual properties
+        Object.entries(cartData.selected_options).forEach(([label, value]) => {
+          properties[label] = value;
+        });
+
+        console.log('cartDatacartDatacartData', cartData);
+
+        const formData = {
+          items: [{
+            id: {{ product.selected_or_first_available_variant.id }},
+            quantity: 1,
+            properties: properties
+          }]
+        };
+
+        // --- PERSISTENT VIRTUAL CART LOGIC ---
+        // Load from localStorage or initialize
+        let localCart = JSON.parse(localStorage.getItem('cpm_virtual_cart')) || [];
+
+        // Generate a unique key for this configuration to check for matches
+        const configKey = JSON.stringify({
+          dims: cartData.dimensions,
+          fitting: cartData.fitting_type,
+          options: cartData.selected_options
+        });
+
+        const existingItem = localCart.find(item => item.configKey === configKey);
+        const unitPrice = parseFloat(cartData.combined_price_total);
+
+        if (existingItem) {
+          existingItem.quantity += 1;
+          existingItem.total_price = (unitPrice * existingItem.quantity).toFixed(2);
+          console.log('--- QUANTITY INCREASED (SAVING TO LOCALSTORAGE) ---');
+        } else {
+          localCart.push({
+            ...cartData,
+            configKey: configKey,
+            quantity: 1,
+            total_price: unitPrice.toFixed(2)
+          });
+          console.log('--- NEW ITEM ADDED (SAVING TO LOCALSTORAGE) ---');
+        }
+
+        // Save back to localStorage
+        localStorage.setItem('cpm_virtual_cart', JSON.stringify(localCart));
+        window.virtualCart = localCart; // also update global window variable
+
+        console.log('VIRTUAL CART PERSISTED:', localCart);
+
+        addToBasketBtn.textContent = 'Added to Basket!';
+        
+        // Open the virtual drawer
+        if (window.openVirtualDrawer) {
+          window.openVirtualDrawer();
+        }
+
+        setTimeout(() => {
+          addToBasketBtn.textContent = 'Add to basket';
+        }, 1500);
       });
     }
   });
@@ -1459,3 +1594,4 @@
     </div>
   </div>
 </div>
+<!-- Virtual Cart logic is now global (in cb-virtual-cart.liquid) -->

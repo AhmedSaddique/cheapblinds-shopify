@@ -1,0 +1,241 @@
+<!-- Virtual Cart Drawer -->
+<div
+  class="samples-drawer-wrapper"
+  id="VirtualCartDrawer"
+  aria-modal="true"
+  role="dialog"
+  tabindex="-1"
+>
+  <div class="samples-drawer__overlay" id="VirtualCartOverlay" onclick="closeVirtualDrawer()"></div>
+  <div class="samples-drawer__inner">
+    <div class="samples-drawer__header">
+      <h2 class="samples-drawer__heading">Shopping Basket</h2>
+      <button
+        class="samples-drawer__close"
+        onclick="closeVirtualDrawer()"
+        aria-label="Close basket"
+      >
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+    <div class="samples-drawer__body" id="VirtualCartBody">
+      <div id="cpm-drawer-items" class="space-y-4">
+        <!-- Items will be injected here -->
+      </div>
+      <div id="cpm-drawer-empty" class="samples-drawer__empty hide">
+        <p>Your basket is empty.</p>
+        <button class="button button--primary" onclick="closeVirtualDrawer()">
+          Continue Shopping
+        </button>
+      </div>
+    </div>
+    <div class="samples-drawer__footer bg-gray-50 p-4 border-t">
+      <a
+        href="/cart"
+        class="block w-full bg-primary text-black text-center py-4 rounded-lg font-bold text-lg hover:bg-primary-dark transition-colors mb-2"
+      >
+        View Cart
+      </a>
+      <button
+        type="button"
+        onclick="closeVirtualDrawer()"
+        class="block w-full text-center text-gray-500 hover:text-black py-2"
+      >
+        Continue Shopping
+      </button>
+    </div>
+  </div>
+</div>
+
+<style>
+  #VirtualCartDrawer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000;
+    visibility: hidden;
+    transition: visibility 0.3s;
+  }
+  #VirtualCartDrawer.active {
+    visibility: visible;
+  }
+
+  #VirtualCartDrawer .samples-drawer__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  #VirtualCartDrawer.active .samples-drawer__overlay {
+    opacity: 1;
+  }
+
+  #VirtualCartDrawer .samples-drawer__inner {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 400px;
+    max-width: 90%;
+    height: 100%;
+    background: #fff;
+    transform: translateX(100%);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+  }
+  #VirtualCartDrawer.active .samples-drawer__inner {
+    transform: translateX(0);
+  }
+
+  .cpm-drawer-item {
+    display: flex;
+    gap: 12px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 12px;
+  }
+  .cpm-drawer-img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid #eee;
+  }
+  .cpm-drawer-info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .samples-drawer__header {
+    padding: 20px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .samples-drawer__heading {
+    margin: 0;
+    font-size: 20px;
+    font-weight: bold;
+  }
+  .samples-drawer__body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px;
+  }
+  .hide {
+    display: none !important;
+  }
+</style>
+
+<script>
+  window.openVirtualDrawer = function (e) {
+    if (e) e.preventDefault();
+    if (typeof updateVirtualDrawer === 'function') updateVirtualDrawer();
+    const drawer = document.getElementById('VirtualCartDrawer');
+    if (drawer) {
+      drawer.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+  };
+
+  window.closeVirtualDrawer = function () {
+    const drawer = document.getElementById('VirtualCartDrawer');
+    if (drawer) {
+      drawer.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+  };
+
+  window.updateVirtualDrawer = function () {
+    const cart = JSON.parse(localStorage.getItem('cpm_virtual_cart')) || [];
+    const container = document.getElementById('cpm-drawer-items');
+    const emptyEl = document.getElementById('cpm-drawer-empty');
+
+    if (!container) return;
+
+    container.innerHTML = '';
+    let totalItems = 0;
+
+    if (cart.length === 0) {
+      container.classList.add('hide');
+      if (emptyEl) emptyEl.classList.remove('hide');
+    } else {
+      container.classList.remove('hide');
+      if (emptyEl) emptyEl.classList.add('hide');
+
+      cart.forEach((item) => {
+        totalItems += parseInt(item.quantity || 0);
+        const itemHTML = `
+          <div class="cpm-drawer-item">
+            <img src="${item.product_image}" class="cpm-drawer-img" alt="${item.product_title}">
+            <div class="cpm-drawer-info">
+              <h4 class="font-bold text-[15px] leading-tight mb-1">${item.product_title}</h4>
+              <div class="text-sm text-gray-500">${item.dimensions.width}${item.dimensions.unit} x ${item.dimensions.height}${item.dimensions.unit} (${item.fitting_type})</div>
+                <span class="text-primary text-sm">${item.quantity}X</span>
+           
+            </div>
+          </div>
+        `;
+        container.insertAdjacentHTML('beforeend', itemHTML);
+      });
+    }
+
+    if (typeof window.updateHeaderCartCount === 'function') {
+      window.updateHeaderCartCount(totalItems);
+    }
+  };
+
+  window.updateHeaderCartCount = function (virtualCount) {
+    const realCartBadge = document.getElementById('cb-cart-count-badge');
+    const mobileCartBadge = document.querySelector('.cb-mob-cart-badge');
+
+    const baseCount = parseInt(document.body.dataset.realCartCount || 0);
+    const totalDisplay = baseCount + (virtualCount || 0);
+
+    [realCartBadge, mobileCartBadge].forEach((badge) => {
+      if (badge) {
+        badge.textContent = totalDisplay;
+        if (totalDisplay > 0) {
+          badge.classList.remove('hidden');
+          badge.style.display = 'flex';
+        } else {
+          badge.classList.add('hidden');
+          badge.style.display = 'none';
+        }
+      }
+    });
+  };
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const cart = JSON.parse(localStorage.getItem('cpm_virtual_cart')) || [];
+    let totalItems = 0;
+    cart.forEach((item) => (totalItems += parseInt(item.quantity || 0)));
+    window.updateHeaderCartCount(totalItems);
+
+    const cartLinks = document.querySelectorAll(
+      'a[href="/cart"], #cb-cart-icon-bubble, .cb-mob-icon-item[href="/cart"]'
+    );
+    cartLinks.forEach((link) => {
+      if (!link.closest('.samples-drawer__footer')) {
+        link.addEventListener('click', function (e) {
+          e.preventDefault();
+          window.openVirtualDrawer();
+        });
+      }
+    });
+  });
+</script>

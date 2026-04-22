@@ -334,7 +334,7 @@
     >
   </head>
 
-  <body class="gradient{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}">
+  <body class="gradient{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}" data-real-cart-count="{{ cart.item_count }}">
     {% comment %}
       <a class="skip-to-content-link button hidden" href="#MainContent">
         {{ 'accessibility.skip_to_text' | t }}
@@ -421,6 +421,7 @@
 	    {% render 'samples-drawer' %}
 	    <script src="{{ 'samples.js' | asset_url }}" defer="defer"></script>
 	    <script src="{{ 'samples-checkout-flow.js' | asset_url }}" defer="defer"></script>
+	    {% render 'cb-virtual-cart' %}
 	    <script src="{{ 'cart-restore.js' | asset_url }}" defer="defer"></script>
 	  </body>
 	</html>
