@@ -1,7 +1,25 @@
 <div class="cpm-info">
-  <!--
-    Desktop Title is usually handled by theme, but we can also add it if not present. Let's start with Price
-  -->
+  <div
+    id="cpm-price-results"
+    class="cpm-results-container border-2! border-primary! rounded-xl! p-5! mb-6! bg-white! shadow-sm! text-center!"
+    style="display: none;"
+  >
+    <div class="cpm-results-summary">
+      <h3 id="cpm-result-dims" class="text-[20px]! text-black! mb-4!"></h3>
+
+      <div class="flex! text-[18px]! gap-1! justify-center! items-center! mb-4!">
+        <span class="text-[18px]! font-medium!">The Price You Pay</span>
+        <span id="cpm-final-price-val" class="text-[22px]! font-medium! text-black!"></span>
+      </div>
+
+      <button
+        type="button"
+        class="cpm-btn cpm-btn-basket w-full! bg-primary! text-black! py-3! px-5! rounded-lg! font-bold! text-[18px]! transition-colors! hover:bg-primary/80!"
+      >
+        Add to basket
+      </button>
+    </div>
+  </div>
 
   <div class="cpm-price-row">
     <span class="cpm-price-label">From:</span>
@@ -38,8 +56,8 @@
     <!-- Width Box -->
     <div
       class="cpm-measure-item"
-      data-base-min="{{ product.metafields.custom['min-width'] | default: 300 }}"
-      data-base-max="{{ product.metafields.custom['max-width'] | default: 2600 }}"
+      data-base-min="{{ product.metafields.custom.minWidth.value | default: product.metafields.custom.min_width.value | default: 300 }}"
+      data-base-max="{{ product.metafields.custom.maxWidth.value | default: product.metafields.custom.max_width.value | default: 2600 }}"
     >
       <label for="cpm-width" class="cpm-measure-label"
         >Width (<span class="cpm-unit-display">mm</span>)</label
@@ -50,28 +68,40 @@
         class="cpm-measure-input cpm-input-width"
         value=""
         step="any"
-        min="{{ product.metafields.custom['min-width'] | default: 300 }}"
-        max="{{ product.metafields.custom['max-width'] | default: 2600 }}"
+        min="{{ product.metafields.custom.minWidth.value | default: product.metafields.custom.min_width.value | default: 300 }}"
+        max="{{ product.metafields.custom.maxWidth.value | default: product.metafields.custom.max_width.value | default: 2600 }}"
       >
 
       <div class="cpm-measure-hints">
         Min:
         <span class="cpm-min-val-disp">
-          {{- product.metafields.custom['min-width'] | default: '300' -}}
+          {{-
+            product.metafields.custom.minWidth.value
+            | default: product.metafields.custom.min_width.value
+            | default: '300'
+          -}}
         </span>
         <span class="cpm-unit-display-small">mm</span> Max:
         <span class="cpm-max-val-disp">
-          {{- product.metafields.custom['max-width'] | default: '2600' -}}
+          {{-
+            product.metafields.custom.maxWidth.value
+            | default: product.metafields.custom.max_width.value
+            | default: '2600'
+          -}}
         </span>
         <span class="cpm-unit-display-small">mm</span>
       </div>
+      <div
+        class="cpm-error-message"
+        style="display: none; color: #d9534f; font-size: 13px; margin-top: 6px;"
+      ></div>
     </div>
 
     <!-- Height Box -->
     <div
       class="cpm-measure-item"
-      data-base-min="{{ product.metafields.custom['min-height'] | default: 300 }}"
-      data-base-max="{{ product.metafields.custom['max-height'] | default: 3000 }}"
+      data-base-min="{{ product.metafields.custom.minHeight.value | default: product.metafields.custom.min_height.value | default: 300 }}"
+      data-base-max="{{ product.metafields.custom.maxHeight.value | default: product.metafields.custom.max_height.value | default: 3000 }}"
     >
       <label for="cpm-height" class="cpm-measure-label"
         >Height (<span class="cpm-unit-display">mm</span>)</label
@@ -82,21 +112,33 @@
         class="cpm-measure-input cpm-input-height"
         value=""
         step="any"
-        min="{{ product.metafields.custom['min-height'] | default: 300 }}"
-        max="{{ product.metafields.custom['max-height'] | default: 3000 }}"
+        min="{{ product.metafields.custom.minHeight.value | default: product.metafields.custom.min_height.value | default: 300 }}"
+        max="{{ product.metafields.custom.maxHeight.value | default: product.metafields.custom.max_height.value | default: 3000 }}"
       >
 
       <div class="cpm-measure-hints">
         Min:
         <span class="cpm-min-val-disp">
-          {{- product.metafields.custom['min-height'] | default: '300' -}}
+          {{-
+            product.metafields.custom.minHeight.value
+            | default: product.metafields.custom.min_height.value
+            | default: '300'
+          -}}
         </span>
         <span class="cpm-unit-display-small">mm</span> | Max:
         <span class="cpm-max-val-disp">
-          {{- product.metafields.custom['max-height'] | default: '3000' -}}
+          {{-
+            product.metafields.custom.maxHeight.value
+            | default: product.metafields.custom.max_height.value
+            | default: '3000'
+          -}}
         </span>
         <span class="cpm-unit-display-small">mm</span>
       </div>
+      <div
+        class="cpm-error-message"
+        style="display: none; color: #d9534f; font-size: 13px; margin-top: 6px;"
+      ></div>
     </div>
   </div>
 
@@ -524,8 +566,44 @@
         }
         if (minDisp) minDisp.textContent = newMin;
         if (maxDisp) maxDisp.textContent = newMax;
+
+        if (input && input.value) {
+          validateInput(input);
+        }
       });
     }
+
+    function validateInput(input) {
+      const min = parseFloat(input.min);
+      const max = parseFloat(input.max);
+      const val = parseFloat(input.value);
+      const errorDiv = input.closest('.cpm-measure-item').querySelector('.cpm-error-message');
+      const unit = document.querySelector('input[name="measurement_unit"]:checked').value;
+      const displayLabel = unit === 'inches' ? 'Inches' : unit;
+
+      if (!input.value) {
+        errorDiv.style.display = 'none';
+        input.style.borderColor = '';
+        return true;
+      }
+
+      if (val < min || val > max) {
+        errorDiv.textContent = `Value must be between ${min} and ${max} ${displayLabel}.`;
+        errorDiv.style.display = 'block';
+        input.style.borderColor = '#d9534f';
+        return false;
+      } else {
+        errorDiv.style.display = 'none';
+        input.style.borderColor = '';
+        return true;
+      }
+    }
+
+    const inputs = document.querySelectorAll('.cpm-measure-input');
+    inputs.forEach((input) => {
+      input.addEventListener('input', () => validateInput(input));
+      input.addEventListener('blur', () => validateInput(input));
+    });
 
     unitRadios.forEach((radio) => {
       radio.addEventListener('change', updateUnits);
@@ -533,6 +611,101 @@
 
     // Set initial unit on load matching checked radio
     updateUnits();
+
+    // API Price Fetching
+    const getPriceBtn = document.querySelector('.cpm-btn-primary');
+    const widthInput = document.getElementById('cpm-width');
+    const heightInput = document.getElementById('cpm-height');
+    const priceAmountDisp = document.querySelector('.cpm-price-amount');
+
+    const ILLUMIN8S_API_KEY = 'pk.5bb50868ead0d6385b902321aa3ec294';
+    const ILLUMIN8S_BASE_URL = 'https://apigateway.illumin8global.com:4200';
+    const ILLUMIN8S_FABRIC_PRICE_ENDPOINT = '/api/fabricprice';
+    ILLUMIN8S_RETAILER_ID = '4967';
+    ILLUMIN8S_RETAILER_MASTER_ID = '444';
+    ILLUMIN8S_MEASURE_ID = '83';
+
+    // Metafields - Trying multiple common naming conventions
+    const fabricId =
+      '{{ product.metafields.custom.fabricId.value | default: product.metafields.custom.fabricid.value | default: product.metafields.custom.fabric_id.value }}';
+    const blindTypeId =
+      '{{ product.metafields.custom.blindTypeId.value | default: product.metafields.custom.blindtypeid.value | default: product.metafields.custom.blind_type_id.value }}';
+
+    function getMeasurementInMM(val, unit) {
+      let numeric = parseFloat(val);
+      if (unit === 'inches') return Math.round(numeric * 25.4);
+      if (unit === 'cm') return Math.round(numeric * 10);
+      return Math.round(numeric);
+    }
+
+    if (getPriceBtn) {
+      getPriceBtn.addEventListener('click', async function () {
+        if (!validateInput(widthInput) || !validateInput(heightInput)) {
+          alert('Please enter valid width and height measurements.');
+          return;
+        }
+
+        if (!widthInput.value || !heightInput.value) {
+          alert('Please enter both width and height.');
+          return;
+        }
+
+        if (!fabricId || !blindTypeId) {
+          console.error('Missing fabricId or blindTypeId in product metafields.');
+          alert('Configuration error: Missing fabric or blind type IDs.');
+          return;
+        }
+
+        const unit = document.querySelector('input[name="measurement_unit"]:checked').value;
+        const widthMM = getMeasurementInMM(widthInput.value, unit);
+        const dropMM = getMeasurementInMM(heightInput.value, unit);
+
+        getPriceBtn.textContent = 'Calculating...';
+        getPriceBtn.disabled = true;
+
+        try {
+          const originalUrl = `${ILLUMIN8S_BASE_URL}${ILLUMIN8S_FABRIC_PRICE_ENDPOINT}?key=${ILLUMIN8S_API_KEY}&userid=${ILLUMIN8S_RETAILER_ID}&blindtypeid=${fabricId}&fabricid=${blindTypeId}&width=${widthMM}&drop=${dropMM}&retailermasterid=${ILLUMIN8S_RETAILER_MASTER_ID}&measureid=${ILLUMIN8S_MEASURE_ID}`;
+          console.log('Fetching price from:', originalUrl);
+          const response = await fetch(originalUrl);
+          if (!response.ok) throw new Error('API request failed');
+
+          const data = await response.json();
+
+          console.log('API Response Data:', data);
+
+          if (data && data.length > 0) {
+            const priceData = data[0];
+            const resultsContainer = document.getElementById('cpm-price-results');
+            const dimsDisp = document.getElementById('cpm-result-dims');
+            const finalPriceVal = document.getElementById('cpm-final-price-val');
+            const fittingType = document.querySelector('input[name="fitting_type"]:checked').value;
+
+            if (resultsContainer && dimsDisp && finalPriceVal) {
+              // Update dimensions text e.g. 300cm width x 300cm drop (Inside Recess)
+              dimsDisp.textContent = `${widthInput.value}${unit} width x ${heightInput.value}${unit} drop (${fittingType})`;
+
+              // Update final price using TotalSalesAmt
+              finalPriceVal.textContent = priceData.TotalSalesAmt.toFixed(2);
+
+              // Show the results section
+              resultsContainer.style.display = 'block';
+
+              // Smooth scroll to the results section
+              resultsContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+          } else {
+            console.warn('API returned no results for these parameters.');
+            alert('Could not calculate price for these measurements.');
+          }
+        } catch (error) {
+          console.error('Error fetching price:', error);
+          alert('An error occurred while calculating the price. Please try again.');
+        } finally {
+          getPriceBtn.textContent = 'Get Price';
+          getPriceBtn.disabled = false;
+        }
+      });
+    }
   });
 
   // Global Modal Functions
