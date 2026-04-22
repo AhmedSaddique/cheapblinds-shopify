@@ -43,6 +43,7 @@
   .fabric-samples__title {
     font-size: 32px;
     font-weight: 700;
+    color: #000;
     margin-bottom: 25px;
   }
 
@@ -55,12 +56,15 @@
 
   .fabric-samples__button {
     background-color: {{ section.settings.btn_color }};
-    padding: 12px 30px;
+    padding: 12px 20px;
     border-radius: 50px;
     font-weight: 700;
     text-decoration: none;
     transition: transform 0.3s ease, opacity 0.3s ease;
     display: inline-block;
+     align-items: center;
+    text-align: center;
+    justify-content: center;
     font-size: 14px;
     text-transform: capitalize;
     color: #000;
@@ -77,15 +81,15 @@
       grid-template-columns: 1fr;
     }
     .fabric-samples__content {
-      padding: 40px 20px;
-      text-align: center;
-      align-items: center;
+      padding: 20px 0px;
+      text-align: start;
+      align-items: start;
     }
     .fabric-samples__title {
       font-size: 24px;
     }
     .fabric-samples__media {
-      grid-row: 1; /* Match the "Image/Video First" pattern */
+     /* Match the "Image/Video First" pattern */
     }
   }
 </style>
@@ -113,9 +117,13 @@
       </div>
 
       <!-- Media Side -->
-      <div class="fabric-samples__media">
+      <div class="fabric-samples__media bg-[#FFF6E0] lg:bg-[#fff]">
         {%- if section.settings.image != blank -%}
-          {{ section.settings.image | image_url: width: 1200 | image_tag: loading: 'lazy', class: 'fabric-img' }}
+          {{
+            section.settings.image
+            | image_url: width: 1200
+            | image_tag: loading: 'lazy', class: 'fabric-img'
+          }}
         {%- else -%}
           {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
         {%- endif -%}

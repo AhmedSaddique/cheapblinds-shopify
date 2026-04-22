@@ -77,8 +77,8 @@
    }
 
    .brand-trust__title {
-     font-size: 26px;
-     font-weight: 900;
+     font-size: 28px;
+     font-weight: 600;
      color: #000;
      text-transform: uppercase;
      margin: 0 auto;
@@ -237,22 +237,39 @@
         <div class="brand-trust__love-label">Love By</div>
       </div>
 
-      <h2 class="brand-trust__title">{{ section.settings.title }}</h2>
+      <h2 class="brand-trust__title lg:text-3xl">{{ section.settings.title }}</h2>
     </div>
 
     <!-- Swiper Area -->
     <div class="brand-trust__slider-area">
       <!-- Custom Pagination (Pills) -->
-      <div class="swiper-pagination brand-trust__pagination swiper-pagination-{{ section.id }}"></div>
+      <div
+        class="swiper-pagination brand-trust__pagination swiper-pagination-{{ section.id }}"
+      ></div>
 
       <!-- Navigation Arrows -->
-      <button class="brand-trust__arrow prev swiper-button-prev-{{ section.id }}" aria-label="Previous">
-        <svg width="20" height="14" viewBox="0 0 20 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <button
+        class="brand-trust__arrow prev swiper-button-prev-{{ section.id }}"
+        aria-label="Previous"
+      >
+        <svg
+          width="20"
+          height="14"
+          viewBox="0 0 20 14"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
           <path d="M7.60251 0.0554848C7.84961 0.137402 8.11801 0.436396 8.1734 0.690336C8.22452 0.919702 8.19896 1.09582 8.08819 1.30471C8.04559 1.38253 6.92939 2.4884 5.60443 3.7622L3.1931 6.07633L11.2749 6.09681L19.361 6.11729L19.5527 6.21969C19.6549 6.27703 19.7998 6.404 19.8722 6.4982C19.9872 6.66203 20 6.70709 20 6.99789C20 7.28869 19.9872 7.33375 19.8722 7.49758C19.7998 7.59178 19.6549 7.71875 19.5527 7.7761L19.361 7.87849L11.2749 7.89897L3.1931 7.91945L5.62573 10.2541C7.26595 11.831 8.08393 12.6419 8.13931 12.7525C8.34807 13.1785 8.15209 13.6986 7.7005 13.9239C7.50453 14.0181 7.12962 14.0263 6.90808 13.9403C6.69081 13.8502 0.202366 7.62045 0.0830765 7.3829C-0.0276909 7.16582 -0.0276909 6.82996 0.0830765 6.61288C0.13846 6.4982 1.2504 5.40462 3.47854 3.2666C6.34999 0.514216 6.81862 0.084156 6.96773 0.0431976C7.19779 -0.01824 7.3895 -0.0141439 7.60251 0.0554848Z" fill="#151515"/>
         </svg>
       </button>
       <button class="brand-trust__arrow next swiper-button-next-{{ section.id }}" aria-label="Next">
-        <svg width="20" height="14" viewBox="0 0 20 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg
+          width="20"
+          height="14"
+          viewBox="0 0 20 14"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
           <path d="M12.3975 0.0554848C12.1504 0.137402 11.882 0.436396 11.8266 0.690336C11.7755 0.919702 11.801 1.09582 11.9118 1.30471C11.9544 1.38253 13.0706 2.4884 14.3956 3.7622L16.8069 6.07633L8.7251 6.09681L0.639046 6.11729L0.447332 6.21969C0.345085 6.27703 0.200234 6.404 0.127809 6.4982C0.0127809 6.66203 0 6.70709 0 6.99789C0 7.28869 0.0127809 7.33375 0.127809 7.49758C0.200234 7.59178 0.345085 7.71875 0.447332 7.7761L0.639046 7.87849L8.7251 7.89897L16.8069 7.91945L14.3743 10.2541C12.734 11.831 11.9161 12.6419 11.8607 12.7525C11.6519 13.1785 11.8479 13.6986 12.2995 13.9239C12.4955 14.0181 12.8704 14.0263 13.0919 13.9403C13.3092 13.8502 19.7976 7.62045 19.9169 7.3829C20.0277 7.16582 20.0277 6.82996 19.9169 6.61288C19.8615 6.4982 18.7496 5.40462 16.5215 3.2666C13.65 0.514216 13.1814 0.084156 13.0323 0.0431976C12.8022 -0.01824 12.6105 -0.0141439 12.3975 0.0554848Z" fill="#151515"/>
         </svg>
       </button>
