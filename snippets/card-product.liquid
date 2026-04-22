@@ -34,7 +34,10 @@
 
   <div class="card-wrapper product-card-wrapper">
     <div class="card card--product">
-      <div class="card__inner ratio" style="--ratio-percent: {{ 1 | divided_by: ratio | times: 100 }}%;">
+      <div
+        class="card__inner ratio"
+        style="--ratio-percent: {{ 1 | divided_by: ratio | times: 100 }}%;"
+      >
         {%- if card_product.featured_media -%}
           <div class="card__media">
             <a href="{{ card_product.url }}" class="full-unstyled-link">
@@ -87,20 +90,18 @@
           <div class="cb-product-details">
             <div class="cb-product-title-wrapper">
               <h3 class="cb-product-title">
-                <a href="{{ card_product.url }}" class="full-unstyled-link">{{ card_product.title | escape }}</a>
+                <a href="{{ card_product.url }}" class="full-unstyled-link">
+                  {{- card_product.title | escape -}}
+                </a>
               </h3>
-              {%- assign color_code = card_product.metafields.custom.color_code.value -%}
-              {%- if color_code != blank -%}
-                {%- if color_code contains '#' -%}
-                  {%- assign swatch_color = color_code -%}
-                {%- else -%}
-                  {%- assign swatch_color = '#' | append: color_code -%}
-                {%- endif -%}
-                <div class="cb-color-swatch" style="background-color: {{ swatch_color }};"></div>
-              {%- elsif card_product.featured_media -%}
+              {%- assign swatch_image = blank -%}
+              {%- if card_product.media[1] != blank -%}
+                {%- assign swatch_image = card_product.media[1] | image_url: width: 150 -%}
+              {%- endif -%}
+              {%- if swatch_image != blank -%}
                 <div
-                  class="cb-product-swatch-large"
-                  style="background-image: url({{ card_product.featured_media | image_url: width: 150 }});"
+                  class="cb-product-swatch-large swatch-pinked"
+                  style="background-image: url({{ swatch_image }}); display: block;"
                 ></div>
               {%- endif -%}
             </div>
@@ -125,8 +126,8 @@
               data-product-compare-price="{{ card_product.compare_at_price | money | escape }}"
               data-product-discount="{{ discount }}"
               data-product-same-day="{% if same_day == true or same_day == 'true' or same_day == 'True' %}true{% else %}false{% endif %}"
-              data-product-color="{% if swatch_color != blank %}{{ swatch_color }}{% endif %}"
-              data-product-swatch-image="{% if swatch_color == blank and card_product.featured_media %}{{ card_product.featured_media | image_url: width: 150 }}{% endif %}"
+              data-product-color=""
+              data-product-swatch-image="{{ swatch_image }}"
               data-variant-id="{{ card_product.selected_or_first_available_variant.id }}"
             >
               {{ card_btn_text | default: 'Free Sample' }}
@@ -142,11 +143,17 @@
               data-product-compare-price="{{ card_product.compare_at_price | money | escape }}"
               data-product-discount="{{ discount }}"
               data-product-same-day="{% if same_day == true or same_day == 'true' or same_day == 'True' %}true{% else %}false{% endif %}"
-              data-product-color="{% if swatch_color != blank %}{{ swatch_color }}{% endif %}"
-              data-product-swatch-image="{% if swatch_color == blank and card_product.featured_media %}{{ card_product.featured_media | image_url: width: 150 }}{% endif %}"
+              data-product-color=""
+              data-product-swatch-image="{{ swatch_image }}"
               data-variant-id="{{ card_product.selected_or_first_available_variant.id }}"
             >
-              <svg width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg
+                width="30"
+                height="30"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
                 <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" stroke="#ffb800" stroke-width="1.5"/>
               </svg>
             </button>
@@ -168,7 +175,9 @@
       <div class="cb-product-card-body">
         <div class="cb-product-details">
           <h3 class="cb-product-title">
-            <a role="link" aria-disabled="true" class="full-unstyled-link">{{ 'onboarding.product_title' | t }}</a>
+            <a role="link" aria-disabled="true" class="full-unstyled-link">
+              {{- 'onboarding.product_title' | t -}}
+            </a>
           </h3>
           <div class="cb-product-price">
             {{ 1999 | money }}
