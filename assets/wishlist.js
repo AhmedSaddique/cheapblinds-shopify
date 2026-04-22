@@ -112,7 +112,7 @@ class Wishlist {
   }
 
 
-  
+
   toggleItem(btn) {
     const handle = btn.dataset.productHandle;
     const exists = this.items.some((item) => item.handle === handle);
@@ -410,14 +410,12 @@ class Wishlist {
                 </div>
               </a>
             </div>
-            ${
-              Number(item.discount) > 0
-                ? `<div class="cb-discount-badge">${item.discount}%<span>OFF</span></div>`
-                : ''
-            }
-            ${
-              item.sameDay && this.sameDayIcon
-                ? `<div class="cb-same-day-badge">
+            ${Number(item.discount) > 0
+          ? `<div class="cb-discount-badge">${item.discount}%<span>OFF</span></div>`
+          : ''
+        }
+            ${item.sameDay && this.sameDayIcon
+          ? `<div class="cb-same-day-badge">
                     <img
                       src="${this.sameDayIcon}"
                       alt="Same Day Delivery"
@@ -427,8 +425,8 @@ class Wishlist {
                       loading="lazy"
                     >
                   </div>`
-                : ''
-            }
+          : ''
+        }
           </div>
           <div class="cb-product-card-body-wrapper">
             <div class="cb-product-card-body">
@@ -437,13 +435,12 @@ class Wishlist {
                   <h3 class="cb-product-title">
                     <a href="${item.url}" class="full-unstyled-link">${this.escapeHtml(item.title)}</a>
                   </h3>
-                  ${
-                    item.color
-                      ? `<div class="cb-color-swatch" style="background-color: ${item.color};"></div>`
-                      : swatchImage
-                        ? `<div class="cb-product-swatch-large" style="background-image: url(${swatchImage});"></div>`
-                        : ''
-                  }
+                  ${item.color
+          ? `<div class="cb-color-swatch" style="background-color: ${item.color};"></div>`
+          : swatchImage
+            ? `<div class="cb-product-swatch-large" style="background-image: url(${swatchImage});"></div>`
+            : ''
+        }
                 </div>
               </div>
             </div>
