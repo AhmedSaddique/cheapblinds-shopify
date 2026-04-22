@@ -157,55 +157,74 @@
   </div>
 
   <!-- Fitting Type -->
-  <div class="cpm-fitting-section">
-    <div class="cpm-fitting-header">
-      <span class="cpm-fitting-title">Choose Fitting Type</span>
-      <button type="button" class="cpm-help-link" onclick="openCpmModal('fittingModal')">
-        Help <span class="cpm-help-icon">?</span>
+  <div class="cpm-fitting-section mb-6">
+    <div class="flex items-center gap-2 mb-3">
+      <h3 class="font-semibold text-lg">Choose Fitting Type</h3>
+      <button
+        type="button"
+        class="flex items-center gap-1 text-primary cursor-pointer text-sm"
+        onclick="openCpmModal('fittingModal')"
+      >
+        help
+        <span class="border border-primary rounded-full w-4 h-4 flex items-center justify-center text-[10px]"
+          >?</span
+        >
       </button>
     </div>
 
-    <div class="cpm-fitting-options">
+    <div class="grid! grid-cols-1! sm:grid-cols-2! gap-2">
       <!-- Outside Recess -->
-      <label class="cpm-fitting-label">
+      <label class="relative cursor-pointer h-full">
         <input
           type="radio"
           name="fitting_type"
           value="Outside Recess"
-          class="cpm-visually-hidden cpm-fitting-radio"
+          class="peer hidden"
           checked
         >
-        <div class="cpm-fitting-box">
-          <span class="cpm-fitting-text">Outside Recess</span>
-          <svg
-            class="cpm-fitting-check"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <circle cx="12" cy="12" r="10" fill="#fff"/><path d="M8 12.5L10.5 15L16 9" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
+        <div class="flex items-center gap-3 p-3 border border-gray-200 rounded-lg transition-all peer-checked:bg-black peer-checked:border-black peer-checked:text-white h-full relative">
+          <div class="w-8 h-8 flex-shrink-0">
+            <img
+              src="{{ 'detail-page/outside.png' | asset_url }}"
+              class="w-full h-full object-contain brightness-100 peer-checked:brightness-0 peer-checked:invert"
+              alt="Outside"
+            >
+          </div>
+          <span class="text-[16px]! font-normal!">Outside Recess</span>
+
+          <!-- Checkmark Icon -->
+          <div class="hidden peer-checked:flex absolute right-2 top-1/2 -translate-y-1/2 w-5 h-5 rounded-full bg-white items-center justify-center">
+            <svg class="w-3 h-3 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M5 13l4 4L19 7"></path>
+            </svg>
+          </div>
         </div>
       </label>
 
       <!-- Inside Recess -->
-      <label class="cpm-fitting-label">
+      <label class="relative cursor-pointer h-full">
         <input
           type="radio"
           name="fitting_type"
           value="Inside Recess"
-          class="cpm-visually-hidden cpm-fitting-radio"
+          class="peer hidden"
         >
-        <div class="cpm-fitting-box">
-          <span class="cpm-fitting-text">Inside Recess</span>
-          <svg
-            class="cpm-fitting-check"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <circle cx="12" cy="12" r="10" fill="#fff"/><path d="M8 12.5L10.5 15L16 9" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
+        <div class="flex items-center gap-3 p-3 border border-gray-200 rounded-lg transition-all peer-checked:bg-black peer-checked:border-black peer-checked:text-white h-full relative">
+          <div class="w-8 h-8 flex-shrink-0">
+            <img
+              src="{{ 'detail-page/inside.png' | asset_url }}"
+              class="w-full h-full object-contain brightness-100 peer-checked:brightness-0 peer-checked:invert"
+              alt="Inside"
+            >
+          </div>
+          <span class="text-[16px]! font-normal!">Inside Recess</span>
+
+          <!-- Checkmark Icon -->
+          <div class="hidden peer-checked:flex absolute right-2 top-1/2 -translate-y-1/2 w-5 h-5 rounded-full bg-white items-center justify-center">
+            <svg class="w-3 h-3 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M5 13l4 4L19 7"></path>
+            </svg>
+          </div>
         </div>
       </label>
     </div>
@@ -242,6 +261,34 @@
     content: fitting_modal_content
   %}
 
+  {% capture installation_video_content %}
+    <div class="p-2">
+      <div class="aspect-video bg-gray-100 rounded-lg overflow-hidden flex items-center justify-center relative group cursor-pointer">
+        <div class="text-center">
+          <svg class="w-16 h-16 text-primary mb-2 mx-auto" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"/></svg>
+          <p class="font-medium text-black!">No-Drill Installation Guide Video</p>
+          <p class="text-sm text-gray-500">Coming soon</p>
+        </div>
+      </div>
+      <div class="mt-6 space-y-4 text-black!">
+        <h4 class="font-bold text-lg">Why choose Twist&Fit?</h4>
+        <p>Our Twist&Fit system allows you to install your blinds in seconds without any tools or mess. It is the perfect solution for anyone who wants a professional result without the stress of drilling.</p>
+        <ul class="list-disc pl-5 space-y-2">
+          <li><strong>No Tools Required:</strong> Simply twist the mechanism to lock the blind in place.</li>
+          <li><strong>Perfect for Rentals:</strong> Leaves no marks or holes in the walls or window frames.</li>
+          <li><strong>Ultra-Secure:</strong> Tested to hold even our largest and heaviest blinds.</li>
+        </ul>
+      </div>
+    </div>
+  {% endcapture %}
+
+  {% render 'modal-dialog',
+    id: 'installationVideoModal',
+    title: 'Installation Guide',
+    max_width: '800px',
+    content: installation_video_content
+  %}
+
   <!-- Info Badges -->
   <div class="cpm-badges-wrapper">
     <!-- BNPL Payments -->
@@ -259,9 +306,13 @@
         <div class="cb-cart__installment-logo">
           <img src="{{ 'tabby.png' | asset_url }}" alt="Tabby">
         </div>
-        <p class="cb-cart__installment-text">
+        <p class="cb-cart__installment-text text-black!">
           Pay 4 interest-free payments of
-          <span onclick="openCpmModal('tabbyModal')" style="cursor:pointer">Learn more...</span>
+          <span
+            class="text-primary! cursor-pointer hover:underline"
+            onclick="openCpmModal('tabbyModal')"
+            >Learn more...</span
+          >
         </p>
         <div class="cb-cart__installment-table" style="justify-content: start; gap: 16px">
           {% assign installment_price = product.price | divided_by: 4 %}
@@ -269,7 +320,9 @@
             <b
               ><span class="cb-price-with-icon">
                 {{- 'icon-currency.svg' | inline_asset_content -}}
-                <span>{{ installment_price | money_without_currency }}</span>
+                <span class="cpm-installment-val text-black!">
+                  {{- installment_price | money_without_currency -}}
+                </span>
               </span></b
             >Today
           </div>
@@ -277,7 +330,9 @@
             <b
               ><span class="cb-price-with-icon">
                 {{- 'icon-currency.svg' | inline_asset_content -}}
-                <span>{{ installment_price | money_without_currency }}</span>
+                <span class="cpm-installment-val text-black!">
+                  {{- installment_price | money_without_currency -}}
+                </span>
               </span></b
             >In 1 month
           </div>
@@ -285,7 +340,9 @@
             <b
               ><span class="cb-price-with-icon">
                 {{- 'icon-currency.svg' | inline_asset_content -}}
-                <span>{{ installment_price | money_without_currency }}</span>
+                <span class="cpm-installment-val text-black!">
+                  {{- installment_price | money_without_currency -}}
+                </span>
               </span></b
             >In 2 month
           </div>
@@ -293,7 +350,9 @@
             <b
               ><span class="cb-price-with-icon">
                 {{- 'icon-currency.svg' | inline_asset_content -}}
-                <span>{{ installment_price | money_without_currency }}</span>
+                <span class="cpm-installment-val text-black!">
+                  {{- installment_price | money_without_currency -}}
+                </span>
               </span></b
             >In 3 month
           </div>
@@ -305,16 +364,22 @@
         <div class="cb-cart__installment-logo">
           <img src="{{ 'tamara.png' | asset_url }}" alt="Tamara">
         </div>
-        <p class="cb-cart__installment-text">
+        <p class="cb-cart__installment-text text-black!">
           Pay 4 interest-free payments of
-          <span onclick="openCpmModal('tamaraModal')" style="cursor:pointer">Learn more...</span>
+          <span
+            class="text-primary! cursor-pointer hover:underline"
+            onclick="openCpmModal('tamaraModal')"
+            >Learn more...</span
+          >
         </p>
         <div class="cb-cart__installment-table" style="justify-content: start; gap: 16px">
           <div class="cb-cart__installment-step">
             <b
               ><span class="cb-price-with-icon">
                 {{- 'icon-currency.svg' | inline_asset_content -}}
-                <span>{{ installment_price | money_without_currency }}</span>
+                <span class="cpm-installment-val text-black!">
+                  {{- installment_price | money_without_currency -}}
+                </span>
               </span></b
             >Today
           </div>
@@ -322,7 +387,9 @@
             <b
               ><span class="cb-price-with-icon">
                 {{- 'icon-currency.svg' | inline_asset_content -}}
-                <span>{{ installment_price | money_without_currency }}</span>
+                <span class="cpm-installment-val text-black!">
+                  {{- installment_price | money_without_currency -}}
+                </span>
               </span></b
             >In 1 month
           </div>
@@ -330,7 +397,9 @@
             <b
               ><span class="cb-price-with-icon">
                 {{- 'icon-currency.svg' | inline_asset_content -}}
-                <span>{{ installment_price | money_without_currency }}</span>
+                <span class="cpm-installment-val text-black!">
+                  {{- installment_price | money_without_currency -}}
+                </span>
               </span></b
             >In 2 month
           </div>
@@ -338,7 +407,9 @@
             <b
               ><span class="cb-price-with-icon">
                 {{- 'icon-currency.svg' | inline_asset_content -}}
-                <span>{{ installment_price | money_without_currency }}</span>
+                <span class="cpm-installment-val text-black!">
+                  {{- installment_price | money_without_currency -}}
+                </span>
               </span></b
             >In 3 month
           </div>
@@ -624,6 +695,23 @@
       radio.addEventListener('change', updateUnits);
     });
 
+    // Re-render dynamic options when fitting type changes (to show/hide Installation Type)
+    document.querySelectorAll('input[name="fitting_type"]').forEach((radio) => {
+      radio.addEventListener('change', () => {
+        // If we want it to ONLY update on button click, we should skip this if price is already fetched
+        if (hasFetchedPrice) return;
+
+        const resultsContainer = document.getElementById('cpm-price-results');
+        if (resultsContainer && resultsContainer.style.display !== 'none') {
+          // If we already have options data stored globally, use it
+          if (window.lastOptionsData) {
+            renderDynamicOptions(window.lastOptionsData);
+          }
+          updateFinalDisplay();
+        }
+      });
+    });
+
     // Set initial unit on load matching checked radio
     updateUnits();
 
@@ -682,8 +770,14 @@
 
     let selectedOptions = {};
     let basePrice = 0;
-    let motorPrice = parseFloat('{{ product.metafields.custom.motorPrice.value | default: 0 }}');
+    let motorPrice =
+      parseFloat(
+        '{{ product.metafields.custom.motorPrice.value | default: product.metafields.custom.motorPrice | default: product.metafields.custom.motor_price.value | default: product.metafields.custom.motor_price | default: product.metafields.custom.motorprice.value | default: product.metafields.custom.motorprice | default: 0 }}'
+      ) || 0;
     let isMotorized = false;
+    let installationPrice = 99;
+    let isTwistAndFit = false;
+    let hasFetchedPrice = false;
 
     // API Price Fetching
     const getPriceBtn = document.querySelector('.cpm-btn-primary');
@@ -695,17 +789,17 @@
     const ILLUMIN8S_BASE_URL = 'https://apigateway.illumin8global.com:4200';
     const ILLUMIN8S_FABRIC_PRICE_ENDPOINT = '/api/fabricprice';
     const ILLUMIN8S_OPTIONS_PRICE_ENDPOINT = '/api/optionprice';
-    ILLUMIN8S_RETAILER_ID = '4967';
-    ILLUMIN8S_RETAILER_MASTER_ID = '444';
-    ILLUMIN8S_MEASURE_ID = '83';
+    const ILLUMIN8S_RETAILER_ID = '4967';
+    const ILLUMIN8S_RETAILER_MASTER_ID = '444';
+    const ILLUMIN8S_MEASURE_ID = '83';
 
     // Metafields - Trying multiple common naming conventions
     const fabricId =
-      '{{ product.metafields.custom.fabricId.value | default: product.metafields.custom.fabricid.value | default: product.metafields.custom.fabric_id.value }}';
+      '{{ product.metafields.custom.fabricId.value | default: product.metafields.custom.fabricId | default: product.metafields.custom.fabricid.value | default: product.metafields.custom.fabricid | default: product.metafields.custom.fabric_id.value | default: product.metafields.custom.fabric_id }}';
     const blindTypeId =
-      '{{ product.metafields.custom.blindTypeId.value | default: product.metafields.custom.blindtypeid.value | default: product.metafields.custom.blind_type_id.value }}';
+      '{{ product.metafields.custom.blindTypeId.value | default: product.metafields.custom.blindTypeId | default: product.metafields.custom.blindtypeid.value | default: product.metafields.custom.blindtypeid | default: product.metafields.custom.blind_type_id.value | default: product.metafields.custom.blind_type_id }}';
     const categoryName =
-      '{{ product.metafields.custom.categoryName.value | default: product.metafields.custom.category_name.value }}';
+      '{{ product.metafields.custom.categoryName.value | default: product.metafields.custom.categoryName | default: product.metafields.custom.category_name.value | default: product.metafields.custom.category_name | default: product.type | default: "" }}';
 
     function getMeasurementInMM(val, unit) {
       let numeric = parseFloat(val);
@@ -739,8 +833,18 @@
       if (isMotorized) {
         total += motorPrice;
       }
+      if (isTwistAndFit) {
+        total += installationPrice;
+      }
 
-      finalPriceVal.textContent = `${total.toFixed(2)}`;
+      const totalStr = total.toFixed(2);
+      finalPriceVal.textContent = totalStr;
+
+      // Update Installments
+      const installmentAmt = (total / 4).toFixed(2);
+      document.querySelectorAll('.cpm-installment-val, .cpm-installment-text-val').forEach((el) => {
+        el.textContent = installmentAmt;
+      });
     }
 
     const HeadrailType = [
@@ -818,11 +922,47 @@
       },
     ];
 
+    const Operation_Type = [
+      {
+        title: 'Manual – no extra cost',
+        image: "{{ 'detail-page/manual.png' | asset_url }}",
+        content: [
+          "is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
+        ],
+      },
+      {
+        title: 'Motorised (with remote)',
+        image: "{{ 'detail-page/automotorised.png' | asset_url }}",
+        content: [
+          "is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
+        ],
+      },
+    ];
+
+    const Installation_Type = [
+      {
+        title: 'Standard Brackets',
+        image: "{{ 'icon/drill.png' | asset_url }}",
+        content: [
+          'Standard brackets are the traditional way to install your blinds, requiring a drill to secure the brackets into your window frame or wall. They are sturdy, reliable, and suitable for all types of installations.',
+        ],
+      },
+      {
+        title: 'No Drill - Twist&Fit',
+        image: "{{ 'icon/noDrill.png' | asset_url }}",
+        content: [
+          'Twist&Fit is our revolutionary no-drill installation system. It uses a clever tension mechanism to secure the blind firmly inside the window recess without the need for tools or drilling. Perfect for tiles, uPVC frames, or rental properties where you want to avoid permanent marks.',
+        ],
+      },
+    ];
+
     const MODAL_CONTENTS = {
       'Headrail Type / Colour': HeadrailType,
       'Stacking Style': Stacking_Style,
       'Lining Type': Lining_Type,
       'Chain Side': ControlChain,
+      'Operation Type': Operation_Type,
+      'Installation Type': Installation_Type,
     };
 
     const MODAL_TITLES = {
@@ -830,6 +970,8 @@
       'Stacking Style': 'Stacking Style',
       'Lining Type': 'Lining Type',
       'Chain Side': 'Control Chain Side',
+      'Operation Type': 'Operation Type',
+      'Installation Type': 'Installation Type',
     };
 
     window.openHelpModal = function (sectionTitle) {
@@ -881,7 +1023,115 @@
       if (!container) return;
       container.innerHTML = '';
 
-      const config = CATEGORY_OPTION_CONFIG[categoryName];
+      // Store globally for re-rendering on fitting type change
+      window.lastOptionsData = optionsData;
+
+      const trimmedCat = (categoryName || '').trim();
+      const normalizedCategory = trimmedCat.toLowerCase();
+      const fittingTypeEl = document.querySelector('input[name="fitting_type"]:checked');
+      const fittingType = fittingTypeEl ? fittingTypeEl.value.trim() : '';
+
+      console.log('--- DEBUG INSTALLATION TYPE ---');
+      console.log('Category Name:', trimmedCat);
+      console.log('Normalized Category:', normalizedCategory);
+      console.log('Fitting Type:', fittingType);
+
+      // Find the config key that matches (case-insensitive)
+      const configKey = Object.keys(CATEGORY_OPTION_CONFIG).find(
+        (key) => key.trim().toLowerCase() === normalizedCategory
+      );
+      const config = CATEGORY_OPTION_CONFIG[configKey || trimmedCat];
+
+      // 1. Installation Type (NEW)
+      // Only for Roller, Vertical, Zebra, Roman, and only for Inside Recess
+      const isEligible =
+        normalizedCategory.includes('roller') ||
+        normalizedCategory.includes('vertical') ||
+        normalizedCategory.includes('roman') ||
+        normalizedCategory.includes('zebra') ||
+        normalizedCategory.includes('vision');
+
+      console.log('Is Eligible for Installation Type:', isEligible);
+      console.log('Is Inside Recess:', fittingType === 'Inside Recess');
+
+      if (isEligible && fittingType === 'Inside Recess') {
+        const installDiv = document.createElement('div');
+        installDiv.className = 'space-y-3 mb-6';
+        installDiv.innerHTML = `
+          <div class="flex items-center gap-2">
+            <h3 class="font-semibold text-lg">Installation Type</h3>
+            <button type="button" class="flex items-center gap-1 text-primary cursor-pointer text-sm" onclick="openHelpModal('Installation Type')">
+              help <span class="border border-primary rounded-full w-4 h-4 flex items-center justify-center text-[10px]">?</span>
+            </button>
+          </div>
+          <div class="grid! grid-cols-1! sm:grid-cols-2! gap-x-2 gap-y-1.5 items-stretch">
+            <!-- Standard Card -->
+            <div class="cpm-opt-card border ${
+              !isTwistAndFit ? 'border-primary bg-primary/5' : 'border-gray-200'
+            } rounded-lg p-2 cursor-pointer flex items-center gap-2 transition-all h-full min-h-[60px] relative" id="cpm-install-standard">
+              ${
+                !isTwistAndFit
+                  ? `
+                <div class="absolute -top-2 -left-2 w-5 h-5 rounded-full bg-primary border-2 border-white shadow-sm flex items-center justify-center z-10">
+                  <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                </div>
+              `
+                  : ''
+              }
+              <div class="w-7 h-7 flex-shrink-0">
+                <img src="{{ 'icon/drill.png' | asset_url }}" class="w-full h-full object-contain" alt="Standard">
+              </div>
+              <div class="flex-1">
+                <div class="text-[16px]! leading-tight font-normal!">Standard Brackets</div>
+              </div>
+            </div>
+            
+            <!-- No Drill Card -->
+            <div class="cpm-opt-card border ${
+              isTwistAndFit ? 'border-primary bg-primary/5' : 'border-gray-200'
+            } rounded-lg p-2 cursor-pointer flex items-center gap-2 transition-all h-full min-h-[60px] relative" id="cpm-install-twist">
+              ${
+                isTwistAndFit
+                  ? `
+                <div class="absolute -top-2 -left-2 w-5 h-5 rounded-full bg-primary border-2 border-white shadow-sm flex items-center justify-center z-10">
+                  <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                </div>
+              `
+                  : ''
+              }
+              <div class="w-7 h-7 flex-shrink-0">
+                <img src="{{ 'icon/noDrill.png' | asset_url }}" class="w-full h-full object-contain" alt="No Drill">
+              </div>
+              <div class="flex-1 flex flex-col justify-center">
+                <div class="text-[16px]! leading-tight font-normal!">No Drill - Twist&Fit</div>
+                <div class="text-[15px]! font-normal! flex items-center gap-1 mt-0.5"><span class="w-[17px] h-auto flex items-center">${ICON_DIRHAM}</span> +${installationPrice.toFixed(
+          0
+        )}</div>
+              </div>
+            </div>
+
+            <!-- Helper Text Row -->
+            <div class="hidden sm:block"></div> <!-- Spacer -->
+            <div class="text-[13px]! leading-tight text-black!">
+              No drilling required to install 
+              <span class="text-primary cursor-pointer hover:underline font-medium" onclick="openCpmModal('installationVideoModal')">Learn More</span>
+            </div>
+          </div>
+        `;
+        container.appendChild(installDiv);
+
+        installDiv.querySelector('#cpm-install-standard').addEventListener('click', () => {
+          isTwistAndFit = false;
+          renderDynamicOptions(optionsData);
+          updateFinalDisplay();
+        });
+        installDiv.querySelector('#cpm-install-twist').addEventListener('click', () => {
+          isTwistAndFit = true;
+          renderDynamicOptions(optionsData);
+          updateFinalDisplay();
+        });
+      }
+
       if (!config) return;
 
       // Filter and render configured sections
@@ -913,7 +1163,7 @@
         `;
 
         const optionsGrid = document.createElement('div');
-        optionsGrid.className = 'grid! grid-cols-2! gap-2';
+        optionsGrid.className = 'grid! grid-cols-1! sm:grid-cols-2! gap-2';
 
         sectionOptions.forEach((opt) => {
           const optLabel = getOptionLabel(sectionTitle, {
@@ -969,74 +1219,105 @@
         container.appendChild(sectionDiv);
       });
 
-      // Handle Motorized Option (if category is not vertical-blinds and motorPrice > 0)
-      if (categoryName !== 'Vertical Blinds' && motorPrice > 0) {
-        const motorDiv = document.createElement('div');
-        motorDiv.className = 'space-y-3 pt-4 border-t border-gray-100';
-        motorDiv.innerHTML = `
-          <div class="flex items-center justify-between p-4 border ${
-            isMotorized ? 'border-primary bg-primary/5' : 'border-gray-200'
-          } rounded-lg cursor-pointer" id="cpm-motor-toggle">
-            <div class="flex items-center gap-3">
-              <div class="w-10 h-10 bg-yellow-100 rounded flex items-center justify-center">
-                <svg class="w-6 h-6 text-yellow-600" fill="currentColor" viewBox="0 0 24 24"><path d="M7 2v11h3v9l7-12h-4l4-8z"></path></svg>
+      // 2. Operation Type (Manual / Motorised) - Now at the end
+      if (normalizedCategory !== 'vertical blinds' && motorPrice > 0) {
+        const opDiv = document.createElement('div');
+        opDiv.className = 'space-y-3 mt-6 pt-4 border-t border-gray-100';
+        opDiv.innerHTML = `
+          <div class="flex items-center gap-2">
+            <h3 class="font-semibold text-lg">Operation Type</h3>
+            <button type="button" class="flex items-center gap-1 text-primary cursor-pointer text-sm" onclick="openHelpModal('Operation Type')">
+              help <span class="border border-primary rounded-full w-4 h-4 flex items-center justify-center text-[10px]">?</span>
+            </button>
+          </div>
+          <div class="grid! grid-cols-1! sm:grid-cols-2! gap-2 items-stretch">
+            <!-- Manual Card -->
+            <div class="cpm-opt-card border ${
+              !isMotorized ? 'border-primary bg-primary/5' : 'border-gray-200'
+            } rounded-lg p-2 cursor-pointer flex items-center gap-2 transition-all h-full min-h-[60px] relative" id="cpm-op-manual">
+              ${
+                !isMotorized
+                  ? `
+                <div class="absolute -top-2 -left-2 w-5 h-5 rounded-full bg-primary border-2 border-white shadow-sm flex items-center justify-center z-10">
+                  <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                </div>
+              `
+                  : ''
+              }
+              <div class="w-7 h-7 flex-shrink-0">
+                <img src="{{ 'icon/noMotor.png' | asset_url }}" class="w-full h-full object-contain" alt="Manual">
               </div>
-              <div>
-                <div class="text-[16px]! font-normal!">Motorised, (with remote)</div>
-                <div class="text-[12px]! text-gray-500!">Includes remote control and motor</div>
+              <div class="flex-1">
+                <div class="text-[16px]! leading-tight font-normal!">Manual – no extra cost</div>
               </div>
             </div>
-            <div class="text-right">
-              <div class="text-[16px]! font-normal!">+ ${motorPrice.toFixed(2)}</div>
-              <div class="w-6 h-6 rounded border-2 ${
+            <!-- Motorised Card -->
+            <div class="cpm-opt-card border ${
+              isMotorized ? 'border-primary bg-primary/5' : 'border-gray-200'
+            } rounded-lg p-2 cursor-pointer flex items-center gap-2 transition-all h-full min-h-[60px] relative" id="cpm-op-motor">
+              ${
                 isMotorized
-                  ? 'border-primary bg-primary flex items-center justify-center'
-                  : 'border-gray-300'
-              }">
-                ${
-                  isMotorized
-                    ? '<svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>'
-                    : ''
-                }
+                  ? `
+                <div class="absolute -top-2 -left-2 w-5 h-5 rounded-full bg-primary border-2 border-white shadow-sm flex items-center justify-center z-10">
+                  <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                </div>
+              `
+                  : ''
+              }
+              <div class="w-7 h-7 flex-shrink-0">
+                <img src="{{ 'icon/Motor.png' | asset_url }}" class="w-full h-full object-contain" alt="Motorised">
+              </div>
+              <div class="flex-1 flex flex-col justify-center">
+                <div class="text-[16px]! leading-tight font-normal!">Motorised, (with remote)</div>
+                <div class="text-[15px]! font-normal! flex items-center gap-1 mt-0.5"><span class="w-[17px] h-auto flex items-center">${ICON_DIRHAM}</span> +${motorPrice.toFixed(
+          0
+        )}</div>
               </div>
             </div>
           </div>
         `;
-        motorDiv.querySelector('#cpm-motor-toggle').addEventListener('click', () => {
-          isMotorized = !isMotorized;
+        container.appendChild(opDiv);
+
+        opDiv.querySelector('#cpm-op-manual').addEventListener('click', () => {
+          isMotorized = false;
           renderDynamicOptions(optionsData);
           updateFinalDisplay();
         });
-        container.appendChild(motorDiv);
+        opDiv.querySelector('#cpm-op-motor').addEventListener('click', () => {
+          isMotorized = true;
+          renderDynamicOptions(optionsData);
+          updateFinalDisplay();
+        });
       }
     }
 
     if (getPriceBtn) {
       getPriceBtn.addEventListener('click', async function () {
-        if (!validateInput(widthInput) || !validateInput(heightInput)) {
-          alert('Please enter valid width and height measurements.');
-          return;
-        }
-
-        if (!widthInput.value || !heightInput.value) {
-          alert('Please enter both width and height.');
-          return;
-        }
-
-        if (!fabricId || !blindTypeId) {
-          console.error('Missing fabricId or blindTypeId in product metafields.');
-          alert('Configuration error: Missing fabric or blind type IDs.');
-          return;
-        }
-
-        const unit = document.querySelector('input[name="measurement_unit"]:checked').value;
-        const widthMM = getMeasurementInMM(widthInput.value, unit);
-        const dropMM = getMeasurementInMM(heightInput.value, unit);
-
-        getPriceBtn.textContent = 'Calculating...';
-        getPriceBtn.disabled = true;
-
+        console.log('Get Price Clicked');
         try {
+          if (!validateInput(widthInput) || !validateInput(heightInput)) {
+            alert('Please enter valid width and height measurements.');
+            return;
+          }
+
+          if (!widthInput.value || !heightInput.value) {
+            alert('Please enter both width and height.');
+            return;
+          }
+
+          if (!fabricId || !blindTypeId) {
+            console.error('Missing fabricId or blindTypeId in product metafields.');
+            alert('Configuration error: Missing fabric or blind type IDs.');
+            return;
+          }
+
+          const unit = document.querySelector('input[name="measurement_unit"]:checked').value;
+          const widthMM = getMeasurementInMM(widthInput.value, unit);
+          const dropMM = getMeasurementInMM(heightInput.value, unit);
+
+          getPriceBtn.textContent = 'Calculating...';
+          getPriceBtn.disabled = true;
+
           const originalUrl = `${ILLUMIN8S_BASE_URL}${ILLUMIN8S_FABRIC_PRICE_ENDPOINT}?key=${ILLUMIN8S_API_KEY}&userid=${ILLUMIN8S_RETAILER_ID}&blindtypeid=${fabricId}&fabricid=${blindTypeId}&width=${widthMM}&drop=${dropMM}&retailermasterid=${ILLUMIN8S_RETAILER_MASTER_ID}&measureid=${ILLUMIN8S_MEASURE_ID}`;
 
           console.log('Fetching price from:', originalUrl);
@@ -1083,8 +1364,11 @@
               // Render options
               renderDynamicOptions(optionsData);
 
-              // Initial update of final display
+              // initial update of final display
               updateFinalDisplay();
+
+              hasFetchedPrice = true;
+              getPriceBtn.textContent = 'Update Price';
 
               // Show the results section
               resultsContainer.style.display = 'block';
@@ -1100,7 +1384,11 @@
           console.error('Error fetching price:', error);
           alert('An error occurred while calculating the price. Please try again.');
         } finally {
-          getPriceBtn.textContent = 'Get Price';
+          if (!hasFetchedPrice) {
+            getPriceBtn.textContent = 'Get Price';
+          } else {
+            getPriceBtn.textContent = 'Update Price';
+          }
           getPriceBtn.disabled = false;
         }
       });
