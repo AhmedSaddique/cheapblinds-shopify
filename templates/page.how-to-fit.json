@@ -29,7 +29,7 @@
         "top_tab_rLUdf8": {
           "type": "top_tab",
           "settings": {
-            "title": "Roller Blinds",
+            "title": "Roman Blinds",
             "subtitle": "Fitting Instructions",
             "heading_black": "Day and Night Blind Fitting Instructions Classic Headrail",
             "heading_yellow": "",
@@ -41,7 +41,7 @@
         "sub_tab_ibLGiA": {
           "type": "sub_tab",
           "settings": {
-            "title": "Roman Blinds Classic"
+            "title": "Roman Blinds Cassette"
           }
         },
         "parts_grid_A4irpa": {
@@ -115,7 +115,176 @@
             "image": "shopify://shop_images/image_680_2.png"
           }
         },
+        "parts_grid_iPPcki": {
+          "type": "parts_grid",
+          "settings": {
+            "title_left": "Cleaning Instructions",
+            "image_left": "shopify://shop_images/Frame_1707486786.png",
+            "title_right": "Parts Identified",
+            "part_1_name": "Screws",
+            "part_1_image": "shopify://shop_images/Background.png",
+            "part_2_name": "Brackets",
+            "part_2_image": "shopify://shop_images/Background.png",
+            "part_3_name": "",
+            "part_4_name": ""
+          }
+        },
+        "sub_tab_dLNaKh": {
+          "type": "sub_tab",
+          "settings": {
+            "title": "Roman Blinds Classic"
+          }
+        },
+        "parts_grid_yeKXm3": {
+          "type": "parts_grid",
+          "settings": {
+            "title_left": "Cleaning Instructions",
+            "image_left": "shopify://shop_images/Frame_1707486786.png",
+            "title_right": "Parts Identified",
+            "part_1_name": "Screws",
+            "part_1_image": "shopify://shop_images/Background.png",
+            "part_2_name": "Brackets",
+            "part_2_image": "shopify://shop_images/Background.png",
+            "part_3_name": "",
+            "part_4_name": ""
+          }
+        },
+        "tools_grid_8bgy3a": {
+          "type": "tools_grid",
+          "settings": {
+            "title": "Tools Required",
+            "tool_1_name": "Pencil",
+            "tool_1_icon": "shopify://shop_images/Group_1707485887.png",
+            "tool_2_name": "Screwdriver",
+            "tool_3_name": "Drill",
+            "tool_4_name": "Tape Measure",
+            "tool_5_name": "",
+            "tool_6_name": "",
+            "tool_7_name": "",
+            "tool_8_name": ""
+          }
+        },
+        "step_card_U4yBnR": {
+          "type": "step_card",
+          "settings": {
+            "reverse_layout": false,
+            "step_number": "1",
+            "title": "Step 1 - Measure",
+            "description": "",
+            "toggles": "",
+            "image": "shopify://shop_images/image_680.png"
+          }
+        },
+        "child_safety_9kFCew": {
+          "type": "child_safety",
+          "settings": {
+            "main_title": "Child Safety",
+            "heading": "Tensioning Device",
+            "description": "To ensure your blind is child safe, ensure chains and cords are taut as you fit the safety clip to the wall.",
+            "alert_title": "BLINDS CHILD SAFETY AWARENESS",
+            "alert_description": "Keep all cords and chains out of the reach of children. Loose cords or chains should never be tied together.",
+            "image": "shopify://shop_images/image_685.png"
+          }
+        },
         "bottom_warnings_VYAU7P": {
+          "type": "bottom_warnings",
+          "settings": {
+            "main_title": "Cleaning Instructions",
+            "warning_text_left": "Use a dry lint free cloth to wipe over the fabric of the blind.",
+            "warning_title_right": "WARNING",
+            "warning_text_right": "*Before you start fitting your blind make sure the screws are suitable for the surface you are fitting into."
+          }
+        },
+        "removing_blind_FMgrRi": {
+          "type": "removing_blind",
+          "settings": {
+            "title": "Removing the Blind",
+            "step_title": "Unclip from Brackets",
+            "description": "<p>Press the release tab on all brackets. Tilt cassette backwards and ease out of brackets.</p>",
+            "image": "shopify://shop_images/image_680_2.png"
+          }
+        },
+        "bottom_warnings_EiFNAt": {
+          "type": "bottom_warnings",
+          "settings": {
+            "main_title": "Cleaning Instructions",
+            "warning_text_left": "Use a dry lint free cloth to wipe over the fabric of the blind.",
+            "warning_title_right": "WARNING",
+            "warning_text_right": "*Before you start fitting your blind make sure the screws are suitable for the surface you are fitting into."
+          }
+        },
+        "top_tab_9HHV9w": {
+          "type": "top_tab",
+          "settings": {
+            "title": "Roller Blinds",
+            "subtitle": "Fitting Instructions",
+            "heading_black": "Day and Night Blind Fitting Instructions Classic Headrail",
+            "heading_yellow": "",
+            "description": "",
+            "pdf_url": "/",
+            "video": "shopify://files/videos/Automated_Blinds.mp4"
+          }
+        },
+        "sub_tab_4Y9jrE": {
+          "type": "sub_tab",
+          "settings": {
+            "title": "RollerBlinds Classic"
+          }
+        },
+        "parts_grid_DTAgpf": {
+          "type": "parts_grid",
+          "settings": {
+            "title_left": "Cleaning Instructions",
+            "title_right": "Parts Identified",
+            "part_1_name": "Screws",
+            "part_2_name": "Brackets",
+            "part_3_name": "",
+            "part_4_name": ""
+          }
+        },
+        "tools_grid_XJC66J": {
+          "type": "tools_grid",
+          "settings": {
+            "title": "Tools Required",
+            "tool_1_name": "Pencil",
+            "tool_2_name": "Screwdriver",
+            "tool_3_name": "Drill",
+            "tool_4_name": "Tape Measure",
+            "tool_5_name": "",
+            "tool_6_name": "",
+            "tool_7_name": "",
+            "tool_8_name": ""
+          }
+        },
+        "step_card_9bddVb": {
+          "type": "step_card",
+          "settings": {
+            "reverse_layout": false,
+            "step_number": "1",
+            "title": "Step 1 - Measure",
+            "description": "",
+            "toggles": ""
+          }
+        },
+        "child_safety_UJTic3": {
+          "type": "child_safety",
+          "settings": {
+            "main_title": "Child Safety",
+            "heading": "Tensioning Device",
+            "description": "To ensure your blind is child safe, ensure chains and cords are taut as you fit the safety clip to the wall.",
+            "alert_title": "BLINDS CHILD SAFETY AWARENESS",
+            "alert_description": "Keep all cords and chains out of the reach of children. Loose cords or chains should never be tied together."
+          }
+        },
+        "removing_blind_8anm7L": {
+          "type": "removing_blind",
+          "settings": {
+            "title": "Removing the Blind",
+            "step_title": "Unclip from Brackets",
+            "description": ""
+          }
+        },
+        "bottom_warnings_kTVmGH": {
           "type": "bottom_warnings",
           "settings": {
             "main_title": "Cleaning Instructions",
@@ -134,7 +303,23 @@
         "step_card_gYc69z",
         "child_safety_Lx6ecw",
         "removing_blind_d9mwgC",
-        "bottom_warnings_VYAU7P"
+        "parts_grid_iPPcki",
+        "sub_tab_dLNaKh",
+        "parts_grid_yeKXm3",
+        "tools_grid_8bgy3a",
+        "step_card_U4yBnR",
+        "child_safety_9kFCew",
+        "bottom_warnings_VYAU7P",
+        "removing_blind_FMgrRi",
+        "bottom_warnings_EiFNAt",
+        "top_tab_9HHV9w",
+        "sub_tab_4Y9jrE",
+        "parts_grid_DTAgpf",
+        "tools_grid_XJC66J",
+        "step_card_9bddVb",
+        "child_safety_UJTic3",
+        "removing_blind_8anm7L",
+        "bottom_warnings_kTVmGH"
       ],
       "settings": {}
     },
