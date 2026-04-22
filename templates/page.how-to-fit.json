@@ -135,6 +135,20 @@
             "title": "Roman Blinds Classic"
           }
         },
+        "parts_grid_yeKXm3": {
+          "type": "parts_grid",
+          "settings": {
+            "title_left": "Cleaning Instructions",
+            "image_left": "shopify://shop_images/Frame_1707486786.png",
+            "title_right": "Parts Identified",
+            "part_1_name": "Screws",
+            "part_1_image": "shopify://shop_images/Background.png",
+            "part_2_name": "Brackets",
+            "part_2_image": "shopify://shop_images/Background.png",
+            "part_3_name": "",
+            "part_4_name": ""
+          }
+        },
         "tools_grid_8bgy3a": {
           "type": "tools_grid",
           "settings": {
@@ -211,6 +225,7 @@
         "removing_blind_d9mwgC",
         "parts_grid_iPPcki",
         "sub_tab_dLNaKh",
+        "parts_grid_yeKXm3",
         "tools_grid_8bgy3a",
         "step_card_U4yBnR",
         "child_safety_9kFCew",
