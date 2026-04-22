@@ -71,7 +71,11 @@
 {% endschema %}
 
 <!-- Swiper dependencies -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" as="style">
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+  as="style"
+>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script>
 
 <style>
@@ -407,7 +411,8 @@
                       <span style="font-family: Arial, sans-serif; margin-right: 2px;">AED</span>
                       {{- prod.price_min | money_without_currency }}
                     {% else %}
-                      <span style="font-family: Arial, sans-serif; margin-right: 2px;">AED</span> 299.25
+                      <span style="font-family: Arial, sans-serif; margin-right: 2px;">AED</span>
+                      299.25
                     {% endif %}
                   </span>
                 </div>
@@ -426,7 +431,9 @@
 
                 <div class="ccb-buttons">
                   <a href="{{ prod.url | default: '#' }}" class="ccb-btn ccb-btn-view">View</a>
-                  <a href="{{ prod.url | default: '#' }}" class="ccb-btn ccb-btn-sample">Free Sample</a>
+                  <a href="{{ prod.url | default: '#' }}" class="ccb-btn ccb-btn-sample"
+                    >Free Sample</a
+                  >
                 </div>
               </div>
             </div>

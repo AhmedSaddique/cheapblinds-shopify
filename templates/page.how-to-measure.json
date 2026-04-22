@@ -1,0 +1,316 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "breadcrumb": {
+      "type": "cb-breadcrumb",
+      "settings": {
+        "home_label": "Home",
+        "color_scheme": "",
+        "background_color": "rgba(0,0,0,0)",
+        "link_color": "#888888",
+        "link_hover_color": "#333333",
+        "current_color": "#333333",
+        "separator_color": "#000000",
+        "padding_top": 16,
+        "padding_bottom": 16
+      }
+    },
+    "main_how_to_measure": {
+      "type": "main-how-to-measure",
+      "blocks": {
+        "tab_1": {
+          "type": "tab",
+          "settings": {
+            "title": "Roller Blinds",
+            "subtitle": "Measuring Guide",
+            "heading_black": "How to Measure",
+            "heading_yellow": "Roller Blinds",
+            "description": "<p>Accurate measurements are essential for a perfect fit. Follow our step-by-step guide to measure your windows with confidence.</p>",
+            "pdf_url": "",
+            "image": "shopify://shop_images/20d0a703f33f31dece3561e3680d1630d946f055.png",
+            "video_url": ""
+          }
+        },
+        "tab_FpYw6P": {
+          "type": "tab",
+          "settings": {
+            "title": "Roman Blinds",
+            "subtitle": "Measuring Guide",
+            "heading_black": "How to Measure",
+            "heading_yellow": "Roman Blinds",
+            "description": "<p>Accurate measurements are essential for a perfect fit. Follow our step-by-step guide to measure your windows with confidence.</p>",
+            "pdf_url": "",
+            "video_url": ""
+          }
+        },
+        "tab_2": {
+          "type": "tab",
+          "settings": {
+            "title": "Wooden Blinds",
+            "subtitle": "Measuring Guide",
+            "heading_black": "How to Measure",
+            "heading_yellow": "Wooden Blinds",
+            "description": "<p>Accurate measurements are essential for a perfect fit. Follow our step-by-step guide to measure your windows with confidence.</p>",
+            "pdf_url": "",
+            "video_url": ""
+          }
+        },
+        "tab_3": {
+          "type": "tab",
+          "settings": {
+            "title": "Vertical Blinds",
+            "subtitle": "Measuring Guide",
+            "heading_black": "How to Measure",
+            "heading_yellow": "Vertical Blinds",
+            "description": "<p>Accurate measurements are essential for a perfect fit. Follow our step-by-step guide to measure your windows with confidence.</p>",
+            "pdf_url": "",
+            "video_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "tab_1",
+        "tab_FpYw6P",
+        "tab_2",
+        "tab_3"
+      ],
+      "settings": {}
+    },
+    "measuring_tools": {
+      "type": "measuring-tools",
+      "blocks": {
+        "tool_mJGJPt": {
+          "type": "tool",
+          "settings": {
+            "icon": "shopify://shop_images/Frame_1707486706.png",
+            "title": "Metal Tape Only",
+            "text": "<p>Always use a metal measuring tape and record your measurements in mm, cm, and ft.</p>"
+          }
+        },
+        "tool_G4zi9k": {
+          "type": "tool",
+          "settings": {
+            "title": "Metal Tape Only",
+            "text": "<p>Always use a metal measuring tape and record your measurements in mm, cm, and ft.</p>"
+          }
+        },
+        "tool_1": {
+          "type": "tool",
+          "settings": {
+            "title": "Metal Tape Only",
+            "text": "<p>Always use a metal measuring tape and record your measurements in mm, cm, and ft.</p>"
+          }
+        },
+        "tool_2": {
+          "type": "tool",
+          "settings": {
+            "title": "Accuracy Counts",
+            "text": "<p>Precise measurements are essential for a perfect fit. We'll make the necessary allowances.</p>"
+          }
+        },
+        "tool_3": {
+          "type": "tool",
+          "settings": {
+            "title": "Fitting Style",
+            "text": "<p>Select Inside Recess for fitting within the frame, or Outside Recess Exact Size for outside mounting.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "tool_mJGJPt",
+        "tool_G4zi9k",
+        "tool_1",
+        "tool_2",
+        "tool_3"
+      ],
+      "settings": {
+        "title": "What You'll Need",
+        "subtitle": "Just two simple tools to get started with measuring your windows."
+      }
+    },
+    "fitting_guide": {
+      "type": "fitting-guide",
+      "blocks": {
+        "fitting_1": {
+          "type": "fitting",
+          "settings": {
+            "title": "Inside Recess",
+            "description": "<p>For blinds fitted within the window frame. Measure at the positions shown — horizontally and vertically — and record the <strong>smallest dimension</strong> as your recess size.</p>",
+            "checklist": "Measure width at top, middle, and bottom of the recess | Measure drop at left, middle, and right | Use the smallest measurement — we'll make allowances for a perfect fit",
+            "diagram_fallback": "inside.jpeg"
+          }
+        },
+        "fitting_2": {
+          "type": "fitting",
+          "settings": {
+            "title": "Outside Recess",
+            "description": "<p>For blinds fitted outside the window frame for better coverage. Take your inside recess measurement and add <strong>100mm overlap</strong> on each side.</p>",
+            "checklist": "Add 100mm (10cm) to both width and drop measurements | Select \"Outside Recess\" as your fitting type when ordering | Ensures full window coverage with no light gaps",
+            "diagram_fallback": "outside.jpeg"
+          }
+        }
+      },
+      "block_order": [
+        "fitting_1",
+        "fitting_2"
+      ],
+      "settings": {
+        "title": "How to Measure",
+        "subtitle": "Choose your fitting type and follow the guide below."
+      }
+    },
+    "child_safety": {
+      "type": "child-safety",
+      "blocks": {
+        "guideline_fXkGQV": {
+          "type": "guideline",
+          "settings": {
+            "title": "Keep Out of Reach",
+            "description": "Keep all cords and chains out of the reach of children at all times."
+          }
+        },
+        "guide_1": {
+          "type": "guideline",
+          "settings": {
+            "title": "Keep Out of Reach",
+            "description": "Keep all cords and chains out of the reach of children at all times."
+          }
+        },
+        "guide_2": {
+          "type": "guideline",
+          "settings": {
+            "title": "Use Safety Devices",
+            "description": "Use the provided safety hook to secure loose cords and chains safely."
+          }
+        },
+        "warning_1": {
+          "type": "warning",
+          "settings": {
+            "warning_title": "Warning",
+            "warning_points": "Young children can be strangled by loops in pull cords, chains, tapes, and inner cords that operate the product. | To avoid strangulation and entanglement, keep cords out of the reach of young children. | Cords may become wrapped around a child's neck. Move beds, cots, and furniture away from window covering cords. | Do not tie cords together. Make sure cords do not twist and create a loop."
+          }
+        }
+      },
+      "block_order": [
+        "guideline_fXkGQV",
+        "guide_1",
+        "guide_2",
+        "warning_1"
+      ],
+      "settings": {
+        "title": "Child Safety & Control Guidelines",
+        "subtitle": "Safety is our top priority. Please follow these guidelines."
+      }
+    },
+    "google_reviews": {
+      "type": "google-reviews",
+      "blocks": {
+        "review_PTh9rh": {
+          "type": "review",
+          "settings": {
+            "user_name": "Customer Name",
+            "date": "Jan 24, 2026",
+            "review_text": "I love this product because the support is great."
+          }
+        },
+        "review_ba3QHa": {
+          "type": "review",
+          "settings": {
+            "user_name": "Customer Name",
+            "date": "Jan 24, 2026",
+            "review_text": "I love this product because the support is great."
+          }
+        },
+        "review_1": {
+          "type": "review",
+          "settings": {
+            "user_name": "Customer Name",
+            "date": "Jan 24, 2026",
+            "review_text": "Excellent guides and easy to follow!"
+          }
+        },
+        "review_2": {
+          "type": "review",
+          "settings": {
+            "user_name": "Customer Name",
+            "date": "Mar 05, 2026",
+            "review_text": "Highly recommend their measuring tips."
+          }
+        }
+      },
+      "block_order": [
+        "review_PTh9rh",
+        "review_ba3QHa",
+        "review_1",
+        "review_2"
+      ],
+      "settings": {
+        "title": "Google Reviews from Our Customers",
+        "review_count": "84,290",
+        "write_link": "",
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    },
+    "brand_trust_slider": {
+      "type": "brand-trust-slider",
+      "blocks": {
+        "logo_1": {
+          "type": "logo",
+          "settings": {}
+        },
+        "logo_2": {
+          "type": "logo",
+          "settings": {}
+        },
+        "logo_3": {
+          "type": "logo",
+          "settings": {}
+        },
+        "logo_4": {
+          "type": "logo",
+          "settings": {}
+        },
+        "logo_5": {
+          "type": "logo",
+          "settings": {}
+        },
+        "logo_6": {
+          "type": "logo",
+          "settings": {}
+        }
+      },
+      "block_order": [
+        "logo_1",
+        "logo_2",
+        "logo_3",
+        "logo_4",
+        "logo_5",
+        "logo_6"
+      ],
+      "settings": {
+        "title": "TRUSTED BY MANY INTERNATIONAL BRANDS",
+        "bg_color": "#fff6e0",
+        "margin_top": 80,
+        "margin_bottom": 60
+      }
+    }
+  },
+  "order": [
+    "breadcrumb",
+    "main_how_to_measure",
+    "measuring_tools",
+    "fitting_guide",
+    "child_safety",
+    "google_reviews",
+    "brand_trust_slider"
+  ]
+}

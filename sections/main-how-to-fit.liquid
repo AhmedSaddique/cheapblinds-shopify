@@ -177,7 +177,7 @@
 
           <!-- Parts Grid -->
       {% elsif block.type == 'parts_grid' %}
-        <div class="htf-2col-grid htf-card" {{ block.shopify_attributes }}>
+        <div class="htf-2col-grid htf-card" {{ block.shopify_attributes }} style="border: none;">
           <div class="htf-parts-left">
             <h3 class="htf-block-title">{{ block.settings.title_left }}</h3>
             <div class="htf-parts-wrapper">
@@ -424,7 +424,7 @@
           </h2>
         </div>
         <div class="htf-2col-grid" {{ block.shopify_attributes }}>
-          <div class="htf-light-card" style="border-radius: 32px;">
+          <div class="htf-light-card" style="border-radius: 20px;">
             <div class="htf-tool-icon-wrapper" style="background:#fff9e6">
               {% if block.settings.icon_left %}
                 {{

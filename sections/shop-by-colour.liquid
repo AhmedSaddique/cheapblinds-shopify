@@ -5,8 +5,14 @@
     background-color: {{ section.settings.bg_color }};
     padding: 6px 28px;
     width: 100%;
-    margin-top: 36px;
-    margin-bottom: 36px;
+    margin-top: 10px;
+    margin-bottom: 40px;
+  }
+
+  @media (max-width: 768px) {
+  .shop-by-colour {
+    margin-bottom: 20px;
+  }
   }
 
   .shop-by-colour__title {
@@ -99,7 +105,11 @@
 
     <div class="shop-by-colour__grid">
       {% for block in section.blocks %}
-        <a href="{{ block.settings.link | default: '#' }}" class="shop-by-colour__card" {{ block.shopify_attributes }}>
+        <a
+          href="{{ block.settings.link | default: '#' }}"
+          class="shop-by-colour__card"
+          {{ block.shopify_attributes }}
+        >
           <div class="shop-by-colour__image-wrapper">
             {% if block.settings.image != blank %}
               {{
